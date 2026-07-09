@@ -87,34 +87,8 @@ class ThemePreviewFragment : Fragment() {
                     imageView?.visibility = View.VISIBLE
                     ivPreviewCustom?.visibility = View.GONE
 
-                    val assetManager = context.assets
-                    val baseAssetPath = "theme_decorates/${themeItem.path}"
-                    val possiblePaths = listOf(
-                        "$baseAssetPath/keyboard_background.png",
-                        "$baseAssetPath/key/preview.png",
-                        "$baseAssetPath/popup_background.png"
-                    )
-
-                    var loaded = false
-                    for (path in possiblePaths) {
-                        try {
-                            assetManager.open(path).use {
-                                Glide.with(context)
-                                    .load("file:///android_asset/$path")
-                                    .centerCrop()
-                                    .into(imageView)
-                                loaded = true
-                            }
-                        } catch (e: Exception) {}
-                        if (loaded) break
-                    }
-
-                    if (!loaded) {
-                        val color = themeItem.tintColor(context)
-                        imageView?.setImageDrawable(GradientDrawable().apply {
-                            setColor(color)
-                        })
-                    }
+                    val localDrawable = themeItem.generateLocalThemePreview(context)
+                    imageView?.setImageDrawable(localDrawable)
                 }
 
                 llDownload?.setOnClickListener {

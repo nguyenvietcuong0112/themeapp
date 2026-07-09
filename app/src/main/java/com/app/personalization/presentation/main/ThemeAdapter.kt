@@ -85,42 +85,8 @@ class ThemeAdapter(
                 ivPreview.visibility = View.VISIBLE
                 ivPreviewCustom.visibility = View.GONE
 
-                // Fallback-safe asset loading
-                val assetManager = context.assets
-                val baseAssetPath = "theme_decorates/${theme.path}"
-                
-                // Construct fallback path list
-                val possiblePaths = listOf(
-                    "$baseAssetPath/key/preview.png",
-                    "$baseAssetPath/keyboard_background.png",
-                    "$baseAssetPath/popup_background.png",
-                    "$baseAssetPath/key/space.png",
-                    "$baseAssetPath/key/key.png"
-                )
-
-                var loaded = false
-                for (path in possiblePaths) {
-                    try {
-                        assetManager.open(path).use { 
-                            Glide.with(context)
-                                .load("file:///android_asset/$path")
-                                .centerCrop()
-                                .into(ivPreview)
-                            loaded = true
-                        }
-                    } catch (e: Exception) {
-                        // Suppress asset not found to try next fallback
-                    }
-                    if (loaded) break
-                }
-
-                if (!loaded) {
-                    // Final fallback: Use solid tint color from configuration
-                    val color = theme.tintColor(context)
-                    ivPreview.setImageDrawable(GradientDrawable().apply {
-                        setColor(color)
-                    })
-                }
+                val localDrawable = theme.generateLocalThemePreview(context)
+                ivPreview.setImageDrawable(localDrawable)
             }
 
             cardView.setOnClickListener {

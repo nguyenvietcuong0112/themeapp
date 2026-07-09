@@ -1,0 +1,53 @@
+[
+  {
+    "name" : "none",
+    "title" : "None",
+    "isNone" : true,
+    "isPremium" : false
+  },
+  {
+    "name" : "dog",
+    "title" : "Dog",
+    "isPremium" : true
+  },
+  {
+    "name" : "heart",
+    "title" : "Heart",
+    "isPremium" : true
+  },
+  {
+    "name" : "light",
+    "title" : "Light",
+    "isPremium" : true
+  },
+  {
+    "name" : "lips",
+    "title" : "Lips",
+    "isPremium" : true
+  },
+  {
+    "name" : "mars",
+    "title" : "Mars",
+    "isPremium" : true
+  },
+  {
+    "name" : "shootingstar",
+    "title" : "Shooting Star",
+    "isPremium" : true
+  },
+  {
+    "name" : "xmas",
+    "title" : "X-mas",
+    "isPremium" : true
+  },
+  {
+    "name" : "twinkle",
+    "title" : "Twinkle",
+    "isPremium" : true
+  },
+  {
+    "name" : "splash",
+    "title" : "Splash",
+    "isPremium" : true
+  }
+]

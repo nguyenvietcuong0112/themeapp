@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_show_popup_keys_keyboard_at_touched_point">true</bool>
+</resources>

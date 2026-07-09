@@ -1,0 +1,24 @@
+{
+  "key": {
+    "customKey": ""
+  },
+  "font": {
+    "fontColor": "#000000",
+    "fontFamily": "Jacques-Francois-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#000000"
+  },
+  "tintColor": "#000000",
+  "primaryColor": "#000000",
+  "decorateKeys": ["space", "shift", "return", "emoji", "backspace"]
+}

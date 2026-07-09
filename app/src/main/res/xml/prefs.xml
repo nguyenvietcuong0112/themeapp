@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/ime_settings">
+    <PreferenceScreen
+        android:icon="@drawable/ic_settings_languages"
+        android:title="@string/language_and_layouts_title"
+        android:key="screen_languages"
+        android:fragment="com.android.inputmethod.latin.settings.LanguageSettingsFragment"/>
+</PreferenceScreen>

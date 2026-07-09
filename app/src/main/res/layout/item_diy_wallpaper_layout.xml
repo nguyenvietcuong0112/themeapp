@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"  android:gravity="center_vertical" android:background="@drawable/bg_diy_wallpaper" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="@dimen/dp_28" android:foreground="?android:attr/selectableItemBackground" android:fontFamily="@font/helvetica_medium" android:paddingStart="@dimen/dp_8" android:paddingEnd="@dimen/dp_6" android:clipToOutline="true">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:src="@drawable/ic_home_action_wallpaper"/>
+    <TextView
+        android:textSize="@dimen/sp_10"
+        android:textColor="#2f9be8"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="DIY"
+        android:lines="1"
+        android:layout_weight="1"
+        android:fontFamily="@font/inter_medium"
+        android:layout_marginHorizontal="@dimen/dp_8"/>
+    <TextView
+        android:textSize="@dimen/sp_10"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/bg_corner_18"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_20"
+        android:text="@string/go"
+        android:lines="1"
+        android:fontFamily="@font/inter_medium"
+        android:backgroundTint="#2f9be8"
+        android:paddingHorizontal="@dimen/dp_12"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,20 @@
+{
+    "key": {
+        "customKey": "default"
+    },
+    "font": {
+        "fontColor": "#EF5DA8",
+        "fontFamily": "Jost-Regular"
+    },
+    "effect": "",
+    "len": {
+        "lenName": "",
+        "blurry": ""
+    },
+    "popup": {
+        "useImage": false,
+        "textColor": "#EF5DA8"
+    },
+    "tintColor": "#EF5DA8",
+    "primaryColor": "#FFFFFF"
+}

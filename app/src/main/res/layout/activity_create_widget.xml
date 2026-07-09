@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#12121A"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/toolbar_create_widget"/>
+        
+    <!-- Preview Widget Container -->
+    <FrameLayout
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_margin="16dp"
+        android:background="#1E1E2E"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/tvWidgetId"
+            android:text="Widget ID: unknown"
+            android:textColor="#888899"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+        
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/guideline"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_percent="0.35"/>
+        
+    <!-- Scrollable Customizer Form inside lower half -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:background="@drawable/bg_corner_24_top"
+        android:backgroundTint="#1E1E2E"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/actionView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <TextView
+                    android:text="Background Style"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+                <TextView
+                    android:text="Background Type"
+                    android:textColor="#888899"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp" />
+                <Spinner
+                    android:id="@+id/spinnerBgType"
+                    android:backgroundTint="#00E5FF"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="12dp" />
+                    
+                <!-- Solid Color Section -->
+                <LinearLayout
+                    android:id="@+id/layoutSolidColor"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+                    <TextView
+                        android:text="Solid Color (Hex)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp" />
+                    <EditText
+                        android:id="@+id/etBgColor"
+                        android:text="#1E1E2E"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#00E5FF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" />
+                </LinearLayout>
+                
+                <!-- Gradient Section -->
+                <LinearLayout
+                    android:id="@+id/layoutGradientColor"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Gradient Start Color (Hex)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp" />
+                    <EditText
+                        android:id="@+id/etGradientStartColor"
+                        android:text="#00E5FF"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#00E5FF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" />
+                    <TextView
+                        android:text="Gradient End Color (Hex)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp" />
+                    <EditText
+                        android:id="@+id/etGradientEndColor"
+                        android:text="#7C4DFF"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#00E5FF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" />
+                </LinearLayout>
+                
+                <!-- Image Section -->
+                <LinearLayout
+                    android:id="@+id/layoutImageBg"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btnSelectBgImage"
+                        android:text="Choose Custom Background Image"
+                        android:backgroundTint="#2E2E3E"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" />
+                    <TextView
+                        android:id="@+id/tvImageUri"
+                        android:textColor="#888899"
+                        android:textSize="12sp"
+                        android:maxLines="2"
+                        android:text="No image selected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" />
+                </LinearLayout>
+                
+                <View
+                    android:background="#33FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"/>
+                    
+                <TextView
+                    android:text="Widget Custom Typography"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+                <TextView
+                    android:text="Text Color (Hex)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp" />
+                <EditText
+                    android:id="@+id/etTextColor"
+                    android:text="#FFFFFF"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#00E5FF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" />
+                <TextView
+                    android:text="Font Style"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp" />
+                <Spinner
+                    android:id="@+id/spinnerFont"
+                    android:backgroundTint="#00E5FF"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    
+    <include
+        android:id="@+id/actionView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/action_create_widget"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

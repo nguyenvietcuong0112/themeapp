@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"  android:orientation="horizontal" android:id="@+id/searchBar" android:layout_width="match_parent" android:layout_height="@dimen/dp_40" android:paddingHorizontal="4dp">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/ivSearch"
+        android:padding="@dimen/dp_6"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:src="@drawable/ic_search"
+        android:tint="?attr/placeHolderColor"
+        android:layout_marginEnd="4dp"/>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:textSize="@dimen/sp_16"
+        android:textColor="?attr/titleTextColor"
+        android:textColorHint="?attr/placeHolderColor"
+        android:gravity="center_vertical"
+        android:id="@+id/tvSearch"
+        android:background="@android:color/transparent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:hint="@string/search_the_app"
+        android:singleLine="true"
+        android:layout_weight="1"
+        android:imeOptions="actionSearch"
+        android:layout_marginVertical="8dp"
+        android:paddingHorizontal="8dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/ivClose"
+        android:padding="@dimen/dp_4"
+        android:visibility="gone"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_close"
+        android:tint="?attr/detailTextColor"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

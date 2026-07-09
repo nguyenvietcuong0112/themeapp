@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="40dp"
+    android:width="40dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    <group>
+        <clip-path android:pathData="M0,0h20v20h-20z"/>
+        <path
+            android:fillColor="@drawable/_ic_add_gem__0_res_0x7f080038"
+            android:pathData="M10,20.017C15.523,20.017 20,15.54 20,10.017C20,4.494 15.523,0.017 10,0.017C4.477,0.017 0,4.494 0,10.017C0,15.54 4.477,20.017 10,20.017Z"/>
+        <path
+            android:fillColor="#842c7e"
+            android:pathData="M10,0V10H20C20,7.348 18.946,4.804 17.071,2.929C15.196,1.054 12.652,0 10,0Z"
+            android:strokeAlpha="0.49"
+            android:fillAlpha="0.49"/>
+        <path
+            android:fillColor="#842c7e"
+            android:pathData="M20,10H10V20C12.652,20 15.196,18.946 17.071,17.071C18.946,15.196 20,12.652 20,10Z"
+            android:strokeAlpha="0.49"
+            android:fillAlpha="0.49"/>
+        <path
+            android:fillColor="#842c7e"
+            android:pathData="M10,20V10H0C0,12.652 1.054,15.196 2.929,17.071C4.804,18.946 7.348,20 10,20Z"
+            android:strokeAlpha="0.49"
+            android:fillAlpha="0.49"/>
+        <path
+            android:fillColor="#842c7e"
+            android:pathData="M0,10H10V0C7.348,0 4.804,1.054 2.929,2.929C1.054,4.804 0,7.348 0,10Z"
+            android:strokeAlpha="0.49"
+            android:fillAlpha="0.49"/>
+        <path
+            android:fillColor="@drawable/_ic_add_gem__1_res_0x7f080039"
+            android:pathData="M10,19.167C15.063,19.167 19.167,15.063 19.167,10C19.167,4.937 15.063,0.833 10,0.833C4.937,0.833 0.833,4.937 0.833,10C0.833,15.063 4.937,19.167 10,19.167Z"/>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M6.711,8.551H8.545V6.717C8.545,6.482 8.638,6.258 8.804,6.092C8.97,5.926 9.195,5.833 9.43,5.833H10.562C10.796,5.833 11.021,5.926 11.187,6.092C11.353,6.258 11.446,6.482 11.446,6.717V8.551H13.282C13.399,8.551 13.514,8.574 13.621,8.618C13.728,8.663 13.825,8.728 13.908,8.81C13.99,8.892 14.055,8.989 14.099,9.096C14.144,9.203 14.167,9.318 14.167,9.434V10.563C14.167,10.798 14.073,11.023 13.908,11.189C13.742,11.355 13.517,11.448 13.282,11.449H11.455V13.281C11.455,13.516 11.361,13.74 11.196,13.906C11.03,14.072 10.805,14.166 10.57,14.167H9.438C9.203,14.166 8.978,14.072 8.813,13.906C8.647,13.74 8.554,13.516 8.554,13.281V11.449H6.72C6.485,11.449 6.259,11.356 6.093,11.189C5.927,11.023 5.833,10.798 5.833,10.563V9.434C5.834,9.201 5.926,8.978 6.091,8.813C6.255,8.647 6.478,8.553 6.711,8.551Z"/>
+    </group>
+</vector>

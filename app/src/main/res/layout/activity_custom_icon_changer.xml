@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#12121A"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Icon &amp; App Changer"
+        android:textColor="#00E5FF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Current custom creation panel -->
+    <LinearLayout
+        android:id="@+id/layoutCustomizationPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1E1E2E"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configure Custom Shortcut"
+            android:textColor="#00E5FF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Selected App Original Preview -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:id="@+id/ivSelectedAppIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvSelectedAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSelectedAppPackage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#888899"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- New Label Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom Display Name:"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etCustomName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Custom Label"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#555566"
+            android:backgroundTint="#00E5FF"
+            android:layout_marginBottom="12dp" />
+
+        <!-- New Icon Preview & Select -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/ivCustomIconPreview"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="#2E2E3E"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="16dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnSelectCustomIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Custom Icon"
+                    android:backgroundTint="#2E2E3E"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="6dp" />
+
+                <Button
+                    android:id="@+id/btnCreateShortcut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Pin Shortcut"
+                    android:backgroundTint="#00E5FF"
+                    android:textColor="#12121A" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select App to Customize:"
+        android:textColor="#888899"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvApps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

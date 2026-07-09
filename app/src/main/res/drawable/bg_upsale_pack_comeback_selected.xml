@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="274dp"
+    android:width="136dp"
+    android:viewportWidth="136"
+    android:viewportHeight="274">
+    <path
+        android:fillColor="@drawable/_bg_upsale_pack_comeback_selected__0_res_0x7f080030"
+        android:pathData="M20,0.5L116,0.5A19.5,19.5 0,0 1,135.5 20L135.5,254A19.5,19.5 0,0 1,116 273.5L20,273.5A19.5,19.5 0,0 1,0.5 254L0.5,20A19.5,19.5 0,0 1,20 0.5z"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M20,0.5L116,0.5A19.5,19.5 0,0 1,135.5 20L135.5,254A19.5,19.5 0,0 1,116 273.5L20,273.5A19.5,19.5 0,0 1,0.5 254L0.5,20A19.5,19.5 0,0 1,20 0.5z"
+        android:strokeColor="#ffffff"
+        android:strokeWidth="1"/>
+</vector>

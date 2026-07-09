@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:background="@drawable/bg_rounded_edit_text" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/edtHex"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_36"
+        android:minWidth="@dimen/dp_56"
+        android:inputType="textVisiblePassword"
+        android:imeOptions="actionDone"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:paddingVertical="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ContentTextView.Primary"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hash_sign"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ContentTextView.Primary"/>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/colorView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/dp_6"
+        app:riv_mutate_background="true"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

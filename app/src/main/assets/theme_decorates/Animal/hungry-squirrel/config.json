@@ -1,0 +1,26 @@
+{
+  "font": {
+    "fontColor": "#754342",
+    "fontFamily": "GloriaHallelujah-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_c37",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#91524B",
+  "primaryColor": "#FFFFFF",
+  "decorateKeyColor": "#FFFFFF",
+  "decorateKeys": [
+    "space",
+    "shift",
+    "return",
+    "emoji",
+    "modeChange",
+    "backspace",
+    "mic"
+  ]
+}

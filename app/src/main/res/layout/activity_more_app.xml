@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:background="?attr/primaryBackgroundColor" android:layout_width="match_parent" android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_more_app"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/previewRecyclerView"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+    <me.relex.circleindicator.CircleIndicator2
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_12"
+        app:ci_drawable="@drawable/ic_circle_indicator"
+        app:ci_gravity="center"
+        app:ci_orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/previewRecyclerView"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicator"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

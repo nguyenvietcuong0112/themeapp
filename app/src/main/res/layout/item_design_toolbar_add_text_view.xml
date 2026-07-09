@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/dp_44">
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="?attr/titleTextColor"
+        android:gravity="center"
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/tap_anywhere_to_add_text"
+        android:fontFamily="?attr/fontMedium"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:paddingHorizontal="@dimen/dp_12"/>
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="?attr/secondaryBackgroundColor"
+        android:gravity="center"
+        android:id="@+id/tvCancel"
+        android:background="@drawable/bg_theme_category_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_32"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="@string/cancel"
+        android:fontFamily="?attr/fontMedium"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:paddingHorizontal="@dimen/dp_12"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

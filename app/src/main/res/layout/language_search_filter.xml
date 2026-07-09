@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/search_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="6dp">
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@drawable/sym_keyboard_search_lxx"
+            android:contentDescription="@string/label_search_key"
+            app:tint="@color/foreground"/>
+        <EditText
+            android:id="@+id/search_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:layout_marginHorizontal="6dp"
+            android:autofillHints="language"/>
+    </LinearLayout>
+    <TextView
+        android:textColor="?attr/primaryColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/active_input_methods"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="6dp"
+        style="@style/PreferenceSubtitleText"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/language_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

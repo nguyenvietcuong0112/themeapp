@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="horizontal" android:id="@+id/ctContainer" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="@dimen/dp_32" android:foreground="?android:attr/selectableItemBackground">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:background="@drawable/bg_corner_16"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/colorFFD9E3Alpha50"
+        android:layout_marginVertical="@dimen/dp_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivGem"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_gem"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvGem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/colorFF819F"
+        android:gravity="center"
+        android:id="@+id/tvGem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/dp_24"
+        android:text="0"
+        android:lines="1"
+        android:fontFamily="@font/helvetica_bold"
+        android:layout_marginHorizontal="@dimen/dp_6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivGem"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,21 @@
+{
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Emilys-Candy-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#EF5DA8",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": []
+}

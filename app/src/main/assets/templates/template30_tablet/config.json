@@ -1,0 +1,50 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#ffffff",
+          "bgImage": "template30_tablet/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_30_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 177.73047,
+                "top": 485.9253
+              },
+              "rotation": -0.18963538,
+              "sampleImageUrl": "template30_tablet/ic_image_sample_1.png",
+              "size": "774.66125, 770.5077",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template30_tablet/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 177.73047,
+                "top": 485.9264
+              },
+              "size": "774.6612, 770.5077",
+              "type": "sticker"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_width="match_parent" android:layout_height="match_parent" android:elevation="?attr/elevation">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <include
+        android:id="@+id/exportHorizontal"
+        layout="@layout/layout_design_export_double_paper_horizontal"/>
+    <include
+        android:id="@+id/exportVertical"
+        layout="@layout/layout_design_export_double_paper_vertical"/>
+    <include
+        android:id="@+id/exportTwoPagerHorizontal"
+        layout="@layout/layout_design_export_two_double_paper_horizontal"/>
+    <include
+        android:id="@+id/exportTwoPaperVertical"
+        layout="@layout/layout_design_export_two_double_paper_vertical"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

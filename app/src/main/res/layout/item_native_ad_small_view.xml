@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
+    <com.starnest.ads.natives.TemplateView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:gnt_template_type="@layout/gnt_small_template_view"/>
+    <com.starnest.ads.base.applovin.AppLovinTemplateView
+        android:id="@+id/appLovinAdView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:gnt_template_type="@layout/gnt_app_lovin_small_template_view"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,16 @@
+{
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily" : "harrington"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": false
+  },
+  "tintColor": "#EF5DA8",
+  "primaryColor": "#EF5DA8",
+  "decorateKeys": []
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="772dp"
+    android:width="503dp"
+    android:viewportWidth="503"
+    android:viewportHeight="772">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M494.46,32.05L494.46,739.21A23.76,23.76 0,0 1,470.69 762.98L32.05,762.98A23.76,23.76 0,0 1,8.29 739.21L8.29,32.05A23.76,23.76 0,0 1,32.05 8.29L470.69,8.29A23.76,23.76 0,0 1,494.46 32.05z"
+        android:strokeColor="@drawable/_bg_tablet_device__0_res_0x7f080026"
+        android:strokeWidth="16.5764"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M491.79,34.06L491.79,737.21A23.1,23.1 0,0 1,468.69 760.31L34.06,760.31A23.1,23.1 0,0 1,10.96 737.21L10.96,34.06A23.1,23.1 0,0 1,34.06 10.96L468.69,10.96A23.1,23.1 0,0 1,491.79 34.06z"
+        android:strokeColor="#ffffff"
+        android:strokeWidth="16.5764"/>
+    <path
+        android:fillColor="#1a1d22"
+        android:pathData="M251.45,5.29a5.3,5.31 90,1 0,-0 10.61a5.3,5.31 90,1 0,-0 -10.61z"
+        android:fillAlpha="0.5"/>
+    <path
+        android:fillColor="@drawable/_bg_tablet_device__1_res_0x7f080027"
+        android:pathData="M251.24,7.41a3.39,3.4 90,1 0,-0 6.79a3.39,3.4 90,1 0,-0 -6.79z"/>
+    <path
+        android:fillColor="@drawable/_bg_tablet_device__2_res_0x7f080028"
+        android:pathData="M251.24,7.41a3.39,3.4 90,1 0,-0 6.79a3.39,3.4 90,1 0,-0 -6.79z"/>
+</vector>

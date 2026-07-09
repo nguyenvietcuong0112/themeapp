@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_emoji_keyboard_max_recents_key_count">39</integer>
+    <integer name="config_max_more_suggestions_row">6</integer>
+    <integer name="config_screen_metrics">2</integer>
+</resources>

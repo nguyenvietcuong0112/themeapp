@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="200"
+    android:startOffset="1200"
+    android:valueFrom="255"
+    android:valueTo="128"
+    android:valueType="intType"
+    android:propertyName="languageOnSpacebarAnimAlpha"/>

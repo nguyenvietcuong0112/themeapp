@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_clipboard_keyboard_col_count">3</integer>
+    <integer name="config_emoji_keyboard_max_recents_key_count">32</integer>
+    <integer name="config_max_more_suggestions_row">2</integer>
+    <integer name="mtrl_calendar_header_orientation">0</integer>
+    <integer name="mtrl_calendar_selection_text_lines">6</integer>
+    <integer name="premiumItemPriceWeight">4</integer>
+    <integer name="premiumItemTitleWeight">6</integer>
+</resources>

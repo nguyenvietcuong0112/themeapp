@@ -1,0 +1,17 @@
+{
+  "font": {
+    "fontColor": "#F05252",
+    "fontFamily": "Galindo-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#F05252"
+  },
+  "tintColor": "#F05252",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": ["space", "shift", "return", "emoji", "backspace", "mic"]
+}

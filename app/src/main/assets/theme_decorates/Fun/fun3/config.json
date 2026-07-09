@@ -1,0 +1,21 @@
+{
+  "font": {
+    "fontColor": "#FF6728",
+    "fontFamily": "Bangers-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#FF6728"
+  },
+  "tintColor": "#FF6728",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": []
+}

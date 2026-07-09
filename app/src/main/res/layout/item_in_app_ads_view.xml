@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <me.relex.circleindicator.CircleIndicator2
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_16"
+        app:ci_drawable="@color/white"
+        app:ci_drawable_unselected="@color/gray999999"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

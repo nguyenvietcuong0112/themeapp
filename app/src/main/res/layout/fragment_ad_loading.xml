@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:gravity="center" android:orientation="vertical" android:id="@+id/llLoadingAd" android:background="#99000000" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:foreground="?android:attr/selectableItemBackground" android:clipToOutline="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLoading"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:src="@drawable/ic_cupertino_indicator"
+        android:adjustViewBounds="true"/>
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:fontFamily="@font/inter_medium"
+        android:layout_marginHorizontal="@dimen/dp_16"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

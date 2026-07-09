@@ -1,0 +1,32 @@
+[
+  {
+    "id" : "1",
+    "name" : "All",
+    "rawType": "All"
+  },
+  {
+    "id" : "2",
+    "name" : "Hot",
+    "rawType": "Hot"
+  },
+  {
+    "id" : "3",
+    "name" : "Christmas",
+    "rawType": "Normal"
+  },
+  {
+    "id" : "4",
+    "name" : "Anime",
+    "rawType": "Normal"
+  },
+  {
+    "id" : "5",
+    "name" : "Cool",
+    "rawType": "Normal"
+  },
+  {
+    "id" : "6",
+    "name" : "Holiday",
+    "rawType": "Normal"
+  }
+]

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:background="@color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <com.app.personalization.presentation.editor.DIYWallpaperCanvasView
+            android:id="@+id/wallpaperCanvas"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+            
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/adContainer"
+                android:background="?attr/primaryBackgroundColor"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_64"
+                android:paddingVertical="@dimen/dp_4"/>
+            <FrameLayout
+                android:id="@+id/llHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    layout="@layout/toolbar_create_wallpaper"/>
+                <FrameLayout
+                    android:id="@+id/viewCrop"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"/>
+                <FrameLayout
+                    android:id="@+id/viewAddText"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"/>
+            </FrameLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <FrameLayout
+            android:id="@+id/textFormatView"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/llMenuView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:id="@+id/llMenuView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/dp_16"
+            app:layout_constraintBottom_toTopOf="@+id/bottomView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pageOptionView">
+            
+            <!-- Quick controls row for adding components -->
+            <LinearLayout
+                android:id="@+id/quickControlsRow"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="12dp"
+                android:background="#1E1E2E"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                
+                <Button
+                    android:id="@+id/btnAddText"
+                    android:text="+ Text"
+                    android:backgroundTint="#2E2E3E"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp" />
+                
+                <Button
+                    android:id="@+id/btnAddSticker"
+                    android:text="+ Sticker"
+                    android:backgroundTint="#2E2E3E"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="6dp" />
+                
+                <Button
+                    android:id="@+id/btnChangeBase"
+                    android:text="Base Layer"
+                    android:backgroundTint="#2E2E3E"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <!-- Contextual Controls for custom fonts -->
+        <LinearLayout
+            android:id="@+id/layoutTextControls"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#1E1E2E"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/llMenuView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:text="Customize Layer Font"
+                android:textColor="#888899"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp" />
+            <Spinner
+                android:id="@+id/spinnerFont"
+                android:backgroundTint="#00E5FF"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+        </LinearLayout>
+        
+        <FrameLayout
+            android:id="@+id/pageOptionView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bottomView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <View
+            android:id="@+id/bottomView"
+            android:background="#f2f2f2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

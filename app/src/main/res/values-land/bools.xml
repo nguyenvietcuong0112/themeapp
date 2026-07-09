@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_fullscreen_mode_allowed">true</bool>
+    <bool name="isLandscape">true</bool>
+    <bool name="isTablet">true</bool>
+</resources>

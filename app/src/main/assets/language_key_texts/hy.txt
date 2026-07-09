@@ -1,0 +1,8 @@
+[popup_keys]
+punctuation !autoColumnOrder!8 \, ՞ ՜ ․ … ' = / ՝ ՛ ֊ » « ― ) (
+? ՞ ¿
+! ՜ ¡
+
+[labels]
+alphabet: ԱԲԳ
+period: ։

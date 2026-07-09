@@ -1,0 +1,23 @@
+{
+  "key": {
+    "customKey": "skeleton"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Lobster-Regular"
+  },
+  "swipe": {
+    "customSwipe": "swipe_d14"
+  },
+  "effect": "effect_d14",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#74B9FF"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF"
+}

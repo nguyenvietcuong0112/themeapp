@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"  android:gravity="center" android:id="@+id/llContainer" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:foreground="?android:attr/selectableItemBackground" android:clipToOutline="true">
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:id="@+id/tvName"
+        android:tag="binding_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/dp_44"
+        android:lines="1"
+        android:fontFamily="?attr/fontMedium"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_6"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

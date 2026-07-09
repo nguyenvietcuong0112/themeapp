@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:icon="@drawable/ic_add_background"
+        android:enabled="true"
+        android:shortcutId="shortcut_custom_widget"
+        android:shortcutShortLabel="@string/customize_widget"
+        android:shortcutLongLabel="@string/customize_widget"
+        android:shortcutDisabledMessage="@string/customize_widget">
+        <intent
+            android:targetPackage="com.themes.wallpapers.widgets.starnest"
+            android:action="android.intent.action.VIEW"
+            android:data="shortcut_custom_widget"
+            android:targetClass="com.starnest.widget.ui.main.activity.ComeBackActivity"/>
+    </shortcut>
+    <shortcut
+        android:icon="@drawable/ic_theme_home"
+        android:enabled="true"
+        android:shortcutId="shortcut_my_collection"
+        android:shortcutShortLabel="@string/my_collection"
+        android:shortcutLongLabel="@string/my_collection"
+        android:shortcutDisabledMessage="@string/my_collection">
+        <intent
+            android:targetPackage="com.themes.wallpapers.widgets.starnest"
+            android:action="android.intent.action.VIEW"
+            android:data="shortcut_my_collection"
+            android:targetClass="com.starnest.widget.ui.main.activity.ComeBackActivity"/>
+    </shortcut>
+</shortcuts>

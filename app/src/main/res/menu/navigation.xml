@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_theme_selector"
+        android:id="@+id/theme"
+        android:title="@string/themes"/>
+    <item
+        android:icon="@drawable/ic_wallpaper_selector"
+        android:id="@+id/wallpaper"
+        android:title="@string/wallpapers"/>
+    <item
+        android:icon="@drawable/ic_icon_selector"
+        android:id="@+id/icon"
+        android:title="@string/icons"/>
+    <item
+        android:icon="@drawable/ic_theme_shop"
+        android:id="@+id/shop"
+        android:title="@string/discover"/>
+    <item
+        android:icon="@drawable/ic_setting_selector"
+        android:id="@+id/sett_ng_res_0x7f0b0498"
+        android:title="@string/setting"/>
+</menu>

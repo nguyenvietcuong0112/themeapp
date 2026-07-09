@@ -1,0 +1,21 @@
+{
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "KeaniaOne-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_c68",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#082804"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": []
+}

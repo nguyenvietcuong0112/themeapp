@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:background="?attr/primaryBackgroundColor" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48">
+        <TextView
+            android:textSize="@dimen/sp_16"
+            android:textColor="?attr/titleTextColor"
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginStart="@dimen/dp_16"/>
+        <TextView
+            android:textSize="@dimen/sp_16"
+            android:textColor="?attr/titleTextColor"
+            android:gravity="center"
+            android:id="@+id/tvTitle"
+            android:tag="binding_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:textSize="@dimen/sp_16"
+            android:textColor="?attr/primaryColor"
+            android:id="@+id/tvDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:fontFamily="@font/helvetica_regular"
+            android:layout_marginEnd="@dimen/dp_16"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"/>
+</LinearLayout>

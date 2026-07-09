@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="config_default_keyboard_height">270.3984dp</dimen>
+    <dimen name="config_gesture_floating_preview_horizontal_padding">32dp</dimen>
+    <dimen name="config_gesture_floating_preview_text_offset">100dp</dimen>
+    <dimen name="config_gesture_floating_preview_text_size">32dp</dimen>
+    <dimen name="config_gesture_floating_preview_vertical_padding">21dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_height">81.9dp</dimen>
+</resources>

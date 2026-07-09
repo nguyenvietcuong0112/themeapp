@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:id="@+id/ctContainer" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="@dimen/dp_6">
+    <com.starnest.widget.ui.main.widget.RemoteImageView
+        android:id="@+id/ivPreview"
+        android:background="@drawable/bg_corner_16"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_12"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:elevation="@dimen/dp_8"
+        android:backgroundTint="@color/transparent"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.starnest.widget.ui.widget.widget.PreviewWidgetView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

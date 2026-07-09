@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFavorite"
+        android:background="@drawable/bg_circle"
+        android:padding="@dimen/dp_4"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginTop="@dimen/dp_4"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/bg_favorite"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:layout_alignParentEnd="true"
+        android:elevation="@dimen/dp_24"
+        android:backgroundTint="@color/whiteAlpha40"
+        android:clipToOutline="true"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/dp_4"
+        android:layout_marginVertical="@dimen/dp_4"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:cardElevation="@dimen/dp_0">
+        <com.starnest.widget.ui.main.widget.RemoteImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

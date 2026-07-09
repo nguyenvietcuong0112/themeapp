@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_circle"
+    android:padding="@dimen/dp_4"
+    android:layout_width="@dimen/dp_28"
+    android:layout_height="@dimen/dp_28"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:src="@drawable/ic_emoji_category_objects"
+    android:scaleType="centerInside"
+    android:adjustViewBounds="true"
+    android:tint="@color/white"
+    android:backgroundTint="?attr/primaryColor"
+    android:layout_marginHorizontal="@dimen/dp_4"
+    android:clipToOutline="true"/>

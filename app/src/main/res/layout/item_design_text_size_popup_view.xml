@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:background="@color/transparent" android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/numberPicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="?attr/primaryColor"
+        app:np_dividerDistance="@dimen/dp_34"
+        app:np_dividerThickness="@dimen/dp_1"
+        app:np_fadingEdgeEnabled="true"
+        app:np_fadingEdgeStrength="0.3"
+        app:np_itemSpacing="@dimen/dp_4"
+        app:np_max="500"
+        app:np_min="1"
+        app:np_selectedTextColor="?attr/titleTextColor"
+        app:np_selectedTextSize="@dimen/sp_16"
+        app:np_textColor="#b7b7b6"
+        app:np_textSize="@dimen/sp_14"
+        app:np_wheelItemCount="7"
+        app:np_wrapSelectorWheel="false"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

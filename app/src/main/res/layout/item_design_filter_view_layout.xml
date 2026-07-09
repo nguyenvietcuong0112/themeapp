@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:id="@+id/flContainer" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="match_parent" android:foreground="?android:attr/selectableItemBackground">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_10">
+        <FrameLayout
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/flBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_gravity="center"
+                android:id="@+id/ivFilter"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_56"
+                android:layout_margin="@dimen/dp_1"
+                app:shapeAppearanceOverlay="@style/rounded_corner_dp_8"/>
+        </FrameLayout>
+        <TextView
+            android:textSize="@dimen/sp_12"
+            android:textColor="?attr/titleTextColor"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tvName"
+            android:tag="binding_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:maxLines="1"
+            android:fontFamily="?attr/fontRegular"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

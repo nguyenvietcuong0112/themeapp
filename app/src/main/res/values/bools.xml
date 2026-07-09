@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="abc_action_bar_embed_tabs">true</bool>
+    <bool name="abc_config_actionMenuItemAllCaps">true</bool>
+    <bool name="config_block_potentially_offensive">false</bool>
+    <bool name="config_default_key_preview_popup">true</bool>
+    <bool name="config_default_next_word_prediction">true</bool>
+    <bool name="config_default_sound_enabled">false</bool>
+    <bool name="config_default_vibration_enabled">false</bool>
+    <bool name="config_enable_show_key_preview_popup_option">true</bool>
+    <bool name="config_fullscreen_mode_allowed">false</bool>
+    <bool name="config_key_selection_by_dragging_finger">true</bool>
+    <bool name="config_materialPreferenceIconSpaceReserved">false</bool>
+    <bool name="config_show_popup_keys_keyboard_at_touched_point">false</bool>
+    <bool name="current_language_has_spaces">true</bool>
+    <bool name="day_night_default">false</bool>
+    <bool name="enable_system_alarm_service_default">false</bool>
+    <bool name="enable_system_foreground_service_default">true</bool>
+    <bool name="enable_system_job_service_default">true</bool>
+    <bool name="im_is_default">false</bool>
+    <bool name="isLandscape">false</bool>
+    <bool name="isTablet">false</bool>
+    <bool name="mtrl_btn_textappearance_all_caps">true</bool>
+    <bool name="workmanager_test_configuration">false</bool>
+</resources>

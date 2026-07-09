@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/_80_percent"
+        android:title="@string/extra_short"
+        android:iconTint="@color/primary"/>
+    <item
+        android:id="@+id/_90_percent"
+        android:title="@string/short_title"
+        android:iconTint="@color/primary"/>
+    <item
+        android:id="@+id/_100_percent"
+        android:title="@string/normal"
+        android:iconTint="@color/primary"/>
+    <item
+        android:id="@+id/_120_percent"
+        android:title="@string/tall"
+        android:iconTint="@color/primary"/>
+    <item
+        android:id="@+id/_140_percent"
+        android:title="@string/extra_tall"
+        android:iconTint="@color/primary"/>
+</menu>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#12121A">
+
+    <!-- Top Toolbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#1E1E2E"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="DIY Wallpaper Editor"
+            android:textColor="#00E5FF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnApplyWallpaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Save &amp; Apply"
+            android:backgroundTint="#00E5FF"
+            android:textColor="#12121A" />
+    </RelativeLayout>
+
+    <!-- Canvas Preview Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="24dp"
+        android:background="#0F0F15">
+
+        <!-- Frame simulating phone screen aspect ratio -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#000000"
+            android:elevation="4dp">
+
+            <com.app.personalization.presentation.editor.DIYWallpaperCanvasView
+                android:id="@+id/wallpaperCanvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Editor Controls Panel -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1E1E2E"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Layers &amp; Stickers"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Control Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/btnAddText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+ Text"
+                android:backgroundTint="#2E2E3E"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp" />
+
+            <Button
+                android:id="@+id/btnAddSticker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+ Sticker"
+                android:backgroundTint="#2E2E3E"
+                android:textColor="#FFFFFF"
+                android:layout_marginHorizontal="6dp" />
+
+            <Button
+                android:id="@+id/btnChangeBase"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Base Layer"
+                android:backgroundTint="#2E2E3E"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <!-- Contextual Controls (Spinner, edit text sizes, etc.) -->
+        <LinearLayout
+            android:id="@+id/layoutTextControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customize Layer Font"
+                android:textColor="#888899"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerFont"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#00E5FF" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

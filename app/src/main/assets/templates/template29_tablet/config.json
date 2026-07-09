@@ -1,0 +1,35 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#ffffff",
+          "bgImage": "template29_tablet/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_29_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 310.42578,
+                "top": 821.2715
+              },
+              "sampleImageUrl": "template29_tablet/ic_image_sample_1.png",
+              "size": "639.4974, 637.20526",
+              "type": "image_template"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "font": {
+    "fontColor": "#FFE112",
+    "fontFamily" : "Eater-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#540C39"
+  },
+  "tintColor": "#FFE112",
+  "primaryColor": "#FFE112",
+  "decorateKeys": []
+}

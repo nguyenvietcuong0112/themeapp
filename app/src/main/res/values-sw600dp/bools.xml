@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_default_key_preview_popup">false</bool>
+    <bool name="config_enable_show_key_preview_popup_option">false</bool>
+    <bool name="config_key_selection_by_dragging_finger">false</bool>
+    <bool name="isLandscape">false</bool>
+    <bool name="isTablet">true</bool>
+</resources>

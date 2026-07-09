@@ -1,0 +1,21 @@
+{
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": ""
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_c64",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": []
+}

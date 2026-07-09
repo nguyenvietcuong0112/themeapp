@@ -1,0 +1,47 @@
+[
+  {
+    "appName": "journal",
+    "name": "Journal: Notes, Planner, PDFs",
+    "description": "Take notes with notepad & notebook, keep diary journal",
+    "rate": "4.8",
+    "download": "1M",
+    "packageName": "journal.notes.planner.starnest",
+    "adBgColor": "#D2A27C"
+  },
+  {
+    "appName": "keyboard",
+    "name": "AI Keyboard: Writer, Fonts",
+    "description": "Continue Writing, Tone Change, Grammar Check, Auto Reply, Powered by Chat GPT API",
+    "rate": "4.3",
+    "download": "500K",
+    "packageName": "starnest.aitype.aikeyboard.chatbot.chatgpt",
+    "adBgColor": "#609BFF"
+  },
+  {
+    "appName": "invitation",
+    "name": "Invitation Maker - Card Maker",
+    "description": "Explore the perfect invitation card design for weddings, birthdays and paties",
+    "rate": null,
+    "download": null,
+    "packageName": "com.invitationmaker.starnest",
+    "adBgColor": "#D2A27C"
+  },
+  {
+    "appName": "calendar",
+    "name": "Cute Calendar Schedule Planner",
+    "description": "Schedule planner agenda 2024, monthly weekly yearly planner digital widget",
+    "rate": "4.8",
+    "download": "1M",
+    "packageName": "com.calendar.cute",
+    "adBgColor": "#36C355"
+  },
+  {
+    "appName": "email",
+    "name": "Email: All In One Mail",
+    "description": "Support for multiple email accounts, write emails faster & smarter with AI power",
+    "rate": null,
+    "download": null,
+    "packageName": "com.starnest.mail",
+    "adBgColor": "#0084F4"
+  }
+]

@@ -1,0 +1,75 @@
+[
+  {
+    "name" : "none",
+    "isNone" : true,
+    "isPremium" : true
+  },
+  {
+    "name" : "piano",
+    "isPremium" : true
+  },
+  {
+    "name" : "drum",
+    "isPremium" : true
+  },
+  {
+    "name" : "guitar",
+    "isPremium" : true
+  },
+  {
+    "name" : "camera",
+    "isPremium" : true
+  },
+  {
+    "name" : "bird",
+    "isPremium" : true
+  },
+  {
+    "name" : "cat",
+    "isPremium" : true
+  },
+  {
+    "name" : "dog",
+    "isPremium" : true
+  },
+  {
+    "name" : "chick",
+    "isPremium" : true
+  },
+  {
+    "name" : "duck",
+    "isPremium" : true
+  },
+  {
+    "name" : "water-drop",
+    "isPremium" : true
+  },
+  {
+    "name" : "car-horn",
+    "isPremium" : true
+  },
+  {
+    "name" : "cricket",
+    "isPremium" : true
+  },
+  {
+    "name" : "keyboard",
+    "isPremium" : true
+  },
+  {
+    "name" : "mouse",
+    "isPremium" : true
+  },
+  {
+    "name" : "trumpet",
+    "isPremium" : true
+  },
+  {
+    "name" : "wind",
+    "isPremium" : true
+  },
+  {
+    "name" : "waves",
+    "isPremium" : true
+  }
+]

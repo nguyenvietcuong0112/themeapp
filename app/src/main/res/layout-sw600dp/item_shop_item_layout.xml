@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout-sw600dp/item_shop_item_layout_0"
+    android:background="@color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp_16"
+    app:cardElevation="@dimen/dp_0">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/bgImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bg_shop_diy_wallpaper"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="399:120"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.starnest.widget.ui.main.widget.OutlineTextView
+            android:textSize="@dimen/sp_20"
+            android:textColor="@color/white"
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="123223"
+            android:fontFamily="@font/fredoka_bold"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

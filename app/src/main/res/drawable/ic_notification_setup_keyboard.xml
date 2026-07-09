@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="60.6316dp"
+    android:width="64dp"
+    android:viewportWidth="57"
+    android:viewportHeight="54">
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__0_res_0x7f080102"
+        android:pathData="M22.535,44.586C24.835,45.519 27.455,44.41 28.387,42.11C29.319,39.81 28.21,37.19 25.91,36.258C23.611,35.326 20.99,36.435 20.058,38.735C19.126,41.034 20.235,43.654 22.535,44.586Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__1_res_0x7f080103"
+        android:pathData="M25.91,36.258C23.741,35.379 21.288,36.316 20.234,38.355L22.93,44.725C25.127,45.388 27.507,44.279 28.387,42.11C29.319,39.81 28.21,37.19 25.91,36.258Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__2_res_0x7f080104"
+        android:pathData="M40.812,38.687L13.52,27.626C11.656,26.87 9.533,27.769 8.778,29.633C8.022,31.497 8.921,33.62 10.785,34.375L38.076,45.437C39.94,46.192 42.063,45.293 42.819,43.429C43.574,41.565 42.675,39.442 40.812,38.687Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__3_res_0x7f080105"
+        android:pathData="M39.89,35.346L42.632,28.581C44.849,23.11 42.952,16.995 38.394,13.662C38.883,13.287 39.284,12.781 39.532,12.169C40.274,10.337 39.391,8.251 37.56,7.508C35.729,6.766 33.642,7.649 32.9,9.481C32.652,10.093 32.586,10.735 32.676,11.345C27.084,10.563 21.466,13.632 19.249,19.104L16.507,25.869C15.913,27.333 14.245,28.04 12.78,27.446L41.466,39.072C40.001,38.479 39.296,36.811 39.89,35.346ZM35.679,12.15C34.946,11.853 34.592,11.019 34.889,10.287C35.187,9.554 36.021,9.201 36.753,9.498C37.486,9.795 37.839,10.629 37.542,11.362C37.245,12.094 36.411,12.447 35.679,12.15Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__4_res_0x7f080106"
+        android:pathData="M8.548,30.32C8.149,32.035 9.045,33.833 10.79,34.363L38.081,45.424C39.702,46.258 41.597,45.591 42.505,44.083L8.548,30.32Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__5_res_0x7f080107"
+        android:pathData="M41.853,30.501L40.273,34.401L37.185,27.104L37.205,27.111C37.478,27.204 37.704,27.394 37.857,27.639C38.553,28.754 39.595,29.668 40.907,30.199C41.22,30.326 41.535,30.426 41.853,30.501Z"/>
+    <path
+        android:fillColor="@drawable/_ic_notification_setup_keyboard__6_res_0x7f080108"
+        android:pathData="M40.801,30.462C44.251,31.86 48.181,30.197 49.579,26.747C50.978,23.298 49.314,19.367 45.865,17.969C42.415,16.571 38.485,18.234 37.086,21.684C35.688,25.134 37.351,29.064 40.801,30.462Z"/>
+</vector>

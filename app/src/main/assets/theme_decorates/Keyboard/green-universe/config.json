@@ -1,0 +1,29 @@
+{
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Bangers-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_c87",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#006C7D"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": [
+    "space",
+    "shift",
+    "return",
+    "emoji",
+    "modeChange",
+    "backspace",
+    "mic"
+  ]
+}

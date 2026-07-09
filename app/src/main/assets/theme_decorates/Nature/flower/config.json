@@ -1,0 +1,24 @@
+{
+  "key": {
+    "customKey": "flower"
+  },
+  "font": {
+    "fontColor": "#A77822",
+    "fontFamily": "Itim-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_d1",
+  "len": {
+    "lenName": "",
+    "blurry": "0.5"
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#A77822",
+  "decorateKeyColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF"
+}

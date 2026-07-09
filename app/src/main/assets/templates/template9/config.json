@@ -1,0 +1,80 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#fee3c8",
+          "bgImage": "template9/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template9/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": -322,
+                "top": 511
+              },
+              "size": "1146, 1092",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_9_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": -102.90039,
+                "top": 683.57666
+              },
+              "rotation": -0.29862586,
+              "sampleImageUrl": "template9/ic_image_sample_1.png",
+              "size": "746.20996, 746.20996",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template9/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 313,
+                "top": 830.0
+              },
+              "size": "1110.0, 1018.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_9_2.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 529.5996,
+                "top": 994.824
+              },
+              "rotation": 0.21293016,
+              "sampleImageUrl": "template9/ic_image_sample_2.png",
+              "size": "709.6691, 709.6691",
+              "type": "image_template"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

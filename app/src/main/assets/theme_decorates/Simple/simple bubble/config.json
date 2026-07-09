@@ -1,0 +1,18 @@
+{
+  "font": {
+    "fontColor": "#8588B7",
+    "fontFamily": "Delius-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#8588B7",
+  "primaryColor": "#8588B7",
+  "decorateKeyColor": "#FFFFFF",
+  "decorateKeys": []
+}

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="assume_strong_biometrics_models">
+        <item>Pixel 4</item>
+        <item>Pixel 4 XL</item>
+    </array>
+    <array name="auto_correction_threshold_mode_indexes">
+        <item>@string/auto_correction_threshold_mode_index_modest</item>
+        <item>@string/auto_correction_threshold_mode_index_aggressive</item>
+        <item>@string/auto_correction_threshold_mode_index_very_aggressive</item>
+    </array>
+    <array name="auto_correction_threshold_modes">
+        <item>@string/auto_correction_threshold_mode_modest</item>
+        <item>@string/auto_correction_threshold_mode_aggressive</item>
+        <item>@string/auto_correction_threshold_mode_very_aggressive</item>
+    </array>
+    <array name="auto_correction_threshold_values">
+        <item>0.185</item>
+        <item>0.067</item>
+        <item>floatNegativeInfinity</item>
+    </array>
+    <array name="colors">
+        <item>#ff1a00</item>
+        <item>#fef602</item>
+        <item>#00ff00</item>
+        <item>#05fcfc</item>
+        <item>#0102fa</item>
+        <item>#fe03fe</item>
+        <item>#ff1a00</item>
+    </array>
+    <array name="crypto_fingerprint_fallback_prefixes">
+    </array>
+    <array name="crypto_fingerprint_fallback_vendors">
+        <item>samsung</item>
+    </array>
+    <array name="delay_showing_prompt_models">
+        <item>Pixel 4</item>
+        <item>Pixel 4 XL</item>
+    </array>
+    <array name="exo_controls_playback_speeds">
+        <item>0.25x</item>
+        <item>0.5x</item>
+        <item>0.75x</item>
+        <item>Normal</item>
+        <item>1.25x</item>
+        <item>1.5x</item>
+        <item>2x</item>
+    </array>
+    <array name="hide_fingerprint_instantly_prefixes">
+        <item>SM-A50</item>
+        <item>SM-G973</item>
+        <item>SM-G975</item>
+        <item>SM-G977</item>
+        <item>SM-G770</item>
+        <item>SM-N970</item>
+        <item>SM-N971</item>
+        <item>SM-N975</item>
+        <item>SM-N976</item>
+        <item>SM-N770</item>
+        <item>SC-03L</item>
+        <item>SC-04L</item>
+        <item>SC-05L</item>
+        <item>SC-01M</item>
+        <item>SCV41</item>
+        <item>SCV42</item>
+        <item>SCV45</item>
+    </array>
+    <array name="keyboard_switcher_emoji">
+        <item>57,16</item>
+    </array>
+    <array name="keyboard_switcher_symbols_shifted">
+        <item>58,32</item>
+    </array>
+    <array name="keyguard_biometric_and_credential_exclude_vendors">
+    </array>
+    <array name="keypress_vibration_durations">
+        <item>MODEL=Nexus S:BRAND=google,5</item>
+        <item>MODEL=Galaxy Nexus:BRAND=google,5</item>
+        <item>MODEL=Nexus 4:BRAND=google,8</item>
+        <item>MODEL=Nexus 10:BRAND=google,16</item>
+        <item>MODEL=GT-I(9100[GMPT]?|9108|9210T?):MANUFACTURER=samsung,8</item>
+        <item>MODEL=SGH-(I9[27]7R?|I927|T989D?):MANUFACTURER=samsung,8</item>
+        <item>MODEL=SHW-M250[KLS]?|SPH-D710|SCH-R760:MANUFACTURER=samsung,8</item>
+        <item>MODEL=ISW11SC|SC-02C:MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?GT-I(930[05][NT]?|9308):MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?SGH-(T999[V]?|I747[M]?|N064|N035):MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?SCH-(J021|R530|I535|I939):MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?(SCL21|SC-06D|SC-03E):MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?(SHV-210[KLS]?|SPH-L710):MANUFACTURER=samsung,8</item>
+        <item>MODEL=(SAMSUNG-)?GT-I(950[0258][G]?):MANUFACTURER=samsung,7</item>
+        <item>MODEL=(SAMSUNG-)?SGH-(I337|M919|N045):MANUFACTURER=samsung,7</item>
+        <item>MODEL=(SAMSUNG-)?SCH-(I545|I959|R970):MANUFACTURER=samsung,7</item>
+        <item>MODEL=(SAMSUNG-)?SPH-(L720):MANUFACTURER=samsung,7</item>
+        <item>MODEL=(SAMSUNG-)?(SC-04E):MANUFACTURER=samsung,7</item>
+        <item>MODEL=(SAMSUNG-)?(SHV-E300[KLS]?):MANUFACTURER=samsung,7</item>
+        <item>MODEL=LG-E97[013]|LS970|L-01E:MANUFACTURER=LGE,15</item>
+        <item>MODEL=HTC One X:MANUFACTURER=HTC,20</item>
+        <item>MODEL=HTC One:MANUFACTURER=HTC,15</item>
+        <item>MODEL=HTL22:MANUFACTURER=HTC,15</item>
+        <item>MODEL=XT907:MANUFACTURER=motorola,30</item>
+        <item>MODEL=XT1035:MANUFACTURER=motorola,18</item>
+        <item>MODEL=C6603|C6806:MANUFACTURER=Sony,35</item>
+    </array>
+    <array name="keypress_volumes">
+        <item>HARDWARE=herring,0.5f</item>
+        <item>HARDWARE=tuna,0.5f</item>
+        <item>HARDWARE=stingray,0.4f</item>
+        <item>HARDWARE=grouper,0.3f</item>
+        <item>HARDWARE=mako,0.3f</item>
+        <item>HARDWARE=manta,0.2f</item>
+    </array>
+    <array name="language_switch_key_entries">
+        <item>@string/auto_correction_threshold_mode_off</item>
+        <item>@string/language_switch_key_switch_subtype</item>
+        <item>@string/language_switch_key_switch_input_method</item>
+        <item>@string/language_switch_key_switch_both</item>
+    </array>
+    <array name="language_switch_key_values">
+        <item>off</item>
+        <item>internal</item>
+        <item>input_method</item>
+        <item>both</item>
+    </array>
+    <array name="phantom_sudden_move_event_device_list">
+        <item>HARDWARE=stingray,true</item>
+    </array>
+    <array name="predefined_layout_display_names">
+        <item>QWERTY</item>
+        <item>QWERTZ</item>
+        <item>AZERTY</item>
+        <item>Dvorak</item>
+        <item>Halmak</item>
+        <item>Colemak</item>
+        <item>Colemak Mod-DH</item>
+        <item>Workman</item>
+        <item>Bépo</item>
+        <item>PC</item>
+    </array>
+    <array name="predefined_layouts">
+        <item>qwerty</item>
+        <item>qwertz</item>
+        <item>azerty</item>
+        <item>dvorak</item>
+        <item>halmak</item>
+        <item>colemak</item>
+        <item>colemak_dh</item>
+        <item>workman</item>
+        <item>bepo</item>
+        <item>pcqwerty</item>
+    </array>
+    <array name="predefined_subtypes">
+        <item>de:qwerty:AsciiCapable</item>
+        <item>fr:qwertz:AsciiCapable</item>
+        <item>hu:qwerty:AsciiCapable</item>
+    </array>
+    <array name="rte_toolbar_fontcolors_values">
+        <item>000000</item>
+        <item>FF0000</item>
+        <item>00FF00</item>
+        <item>0000FF</item>
+        <item>00FFFF</item>
+        <item>FFBF00</item>
+        <item>FF00FF</item>
+        <item>A4A4A4</item>
+    </array>
+    <array name="rte_toolbar_fontsizes_entries">
+        <item>@string/rte_toolbar_fontsize_10</item>
+        <item>@string/rte_toolbar_fontsize_12</item>
+        <item>@string/rte_toolbar_fontsize_14</item>
+        <item>@string/rte_toolbar_fontsize_16</item>
+        <item>@string/rte_toolbar_fontsize_18</item>
+        <item>@string/rte_toolbar_fontsize_20</item>
+        <item>@string/rte_toolbar_fontsize_24</item>
+        <item>@string/rte_toolbar_fontsize_28</item>
+        <item>@string/rte_toolbar_fontsize_32</item>
+        <item>@string/rte_toolbar_fontsize_36</item>
+    </array>
+    <array name="rte_toolbar_fontsizes_values">
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>24</item>
+        <item>28</item>
+        <item>32</item>
+        <item>36</item>
+    </array>
+    <array name="show_popup_keys_entries">
+        <item>@string/show_popup_keys_normal</item>
+        <item>@string/show_popup_keys_more</item>
+        <item>@string/show_popup_keys_all</item>
+    </array>
+    <array name="show_popup_keys_values">
+        <item>normal</item>
+        <item>more</item>
+        <item>all</item>
+    </array>
+    <array name="subtype_locale_displayed_in_root_locale">
+        <item>hi-Latn</item>
+        <item>sr-Latn</item>
+    </array>
+    <array name="subtype_locale_exception_keys">
+        <item>en-US</item>
+        <item>en-GB</item>
+        <item>es-US</item>
+        <item>hi-Latn</item>
+        <item>sr-Latn</item>
+    </array>
+    <array name="touch_position_correction_data_default">
+    </array>
+    <array name="touch_position_correction_data_holo">
+        <item>0.0038756</item>
+        <item>-0.0005677</item>
+        <item>0.1577026</item>
+        <item>-0.0236678</item>
+        <item>0.0381731</item>
+        <item>0.1529972</item>
+        <item>-0.0086827</item>
+        <item>0.0880847</item>
+        <item>0.1522819</item>
+    </array>
+</resources>

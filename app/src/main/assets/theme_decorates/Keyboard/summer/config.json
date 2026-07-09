@@ -1,0 +1,27 @@
+{
+  "key": {
+    "customKey": "summer"
+  },
+  "font": {
+    "fontColor": "#0D565B",
+    "fontFamily": "Emilys-Candy-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_d11",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "sound": {
+    "soundName": "guitar",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#0D565B",
+  "primaryColor": "#FFFFFF"
+}

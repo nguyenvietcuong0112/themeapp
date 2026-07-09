@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="horizontal" android:id="@+id/ctContainer" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="@dimen/dp_32" android:foreground="?android:attr/selectableItemBackground">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_corner_16"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/colorFFD9E3Alpha50"
+        android:layout_marginVertical="@dimen/dp_2"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivGem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_gem"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"/>
+        <TextView
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/colorFF819F"
+            android:gravity="center"
+            android:id="@+id/tvGem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/dp_24"
+            android:text="0"
+            android:lines="1"
+            android:fontFamily="@font/helvetica_bold"
+            android:layout_marginHorizontal="@dimen/dp_4"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_gem"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

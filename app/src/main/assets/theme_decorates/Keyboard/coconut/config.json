@@ -1,0 +1,23 @@
+{
+  "key": {
+    "customKey": ""
+  },
+  "font": {
+    "fontColor": "#443025",
+    "fontFamily": "Iciel-Cadena"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#7EC706",
+  "primaryColor": "#FFFFFF"
+}

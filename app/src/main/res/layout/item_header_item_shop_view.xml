@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/llTitleView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/dp_16" android:layout_marginEnd="@dimen/dp_8">
+    <TextView
+        android:textSize="@dimen/sp_16"
+        android:textColor="?attr/titleTextColor"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica_medium"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/llSeeAll"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
+        <TextView
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/primary"
+            android:id="@+id/tvSeeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_all"
+            android:fontFamily="@font/helvetica_regular"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSeeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_see_all"
+            android:tint="@color/primary"/>
+    </LinearLayout>
+</LinearLayout>

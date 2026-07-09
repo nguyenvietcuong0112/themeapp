@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  android:id="@+id/clipHolder" android:background="@drawable/bg_clipboard_item" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/small_margin" android:foreground="?android:attr/selectableItemBackground" android:clipToOutline="true">
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="?attr/titleTextColor"
+        android:gravity="center"
+        android:id="@+id/tvClip"
+        android:padding="@dimen/medium_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:fontFamily="@font/inter_medium"/>
+</RelativeLayout>

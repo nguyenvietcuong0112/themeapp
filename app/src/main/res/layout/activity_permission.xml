@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#12121A"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- Header Section -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textColor="#00E5FF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvSubHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable permissions to unlock DIY features"
+        android:textColor="#888899"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Scrollable Permission list -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubHeader"
+        app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Card 1: Storage -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#1E1E2E"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Storage Access"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="Required to load custom wallpapers &amp; icons from your device."
+                        android:textColor="#888899"
+                        android:textSize="12sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnGrantStorage"
+                    android:text="Grant"
+                    android:backgroundTint="#00E5FF"
+                    android:textColor="#12121A"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Card 2: Location -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#1E1E2E"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Location Access"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="Required to display local weather updates on weather widgets."
+                        android:textColor="#888899"
+                        android:textSize="12sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnGrantLocation"
+                    android:text="Grant"
+                    android:backgroundTint="#00E5FF"
+                    android:textColor="#12121A"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Card 3: Notification -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#1E1E2E"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Notifications"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="Allows the app to post status alerts for keyboard theme configuration."
+                        android:textColor="#888899"
+                        android:textSize="12sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnGrantNotifications"
+                    android:text="Grant"
+                    android:backgroundTint="#00E5FF"
+                    android:textColor="#12121A"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Continue Button -->
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:text="Get Started"
+        android:backgroundTint="#00E5FF"
+        android:textColor="#12121A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,97 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#f6dde0",
+          "bgImage": "template23_tablet/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template23_tablet/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 184.57422,
+                "top": 1010.81836
+              },
+              "size": "577.51324, 451.5447",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_23_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 205.2002,
+                "top": 1029.1543
+              },
+              "sampleImageUrl": "template23_tablet/ic_image_sample_1.png",
+              "size": "540.84576, 414.87103",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template23_tablet/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 324.36816,
+                "top": 453.83688
+              },
+              "size": "621.0559, 469.8816",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_23_2_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 342.70117,
+                "top": 472.17383
+              },
+              "sampleImageUrl": "template23_tablet/ic_image_sample_2.png",
+              "size": "584.3884, 430.91577",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#bc8700",
+                "font": "Patrick Hand Regular",
+                "size": 38.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 184.60547,
+                "top": 1499.037
+              },
+              "text": "💕☀️ Love is in the air! Enjoy every moment! ☀️💕",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

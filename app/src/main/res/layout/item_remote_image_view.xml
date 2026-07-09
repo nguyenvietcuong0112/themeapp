@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_gravity="center"
+        android:id="@+id/ivLoading"
+        android:visibility="visible"
+        android:layout_width="@dimen/dp_84"
+        android:layout_height="@dimen/dp_84"
+        android:src="@drawable/ic_cupertino_indicator"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <TextView
+        android:textSize="@dimen/sp_10"
+        android:textColor="?attr/detailTextColor"
+        android:layout_gravity="center"
+        android:id="@+id/tvProgress"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica_regular"/>
+</FrameLayout>

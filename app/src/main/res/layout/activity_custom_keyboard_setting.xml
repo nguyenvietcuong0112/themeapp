@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#12121A"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keyboard Settings &amp; DIY Themes"
+            android:textColor="#00E5FF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Setup Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1E1E2E"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="System Setup"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnEnableKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable in System Settings"
+                android:backgroundTint="#00E5FF"
+                android:textColor="#12121A"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/btnSelectKeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch Active Keyboard"
+                android:backgroundTint="#2E2E3E"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Configuration Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1E1E2E"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keyboard Configuration"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Layout:"
+                android:textColor="#888899"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Language (Popups):"
+                android:textColor="#888899"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#00E5FF" />
+        </LinearLayout>
+
+        <!-- DIY Theme Builder Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1E1E2E"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIY Keyboard Theme Creator"
+                android:textColor="#00E5FF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Theme Name"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etThemeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="My Neon Theme"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#555566"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Colors -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Background Solid Color (Hex)"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etBgColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#12121A"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Background Color (Hex)"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etKeyBgColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#1E1E2E"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Text Color (Hex)"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etKeyTextColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#00E5FF"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Outline/Shadow Color (Hex)"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etKeyShadowColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#3300E5FF"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Sizers -->
+            <TextView
+                android:id="@+id/tvRadiusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Border Radius: 12dp"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <SeekBar
+                android:id="@+id/sbBorderRadius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="30"
+                android:progress="12"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active Font"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerFont"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#00E5FF"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:id="@+id/btnSaveTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save &amp; Apply Theme"
+                android:backgroundTint="#00E5FF"
+                android:textColor="#12121A" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

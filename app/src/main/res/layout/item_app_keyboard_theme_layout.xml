@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:id="@+id/ctContainer" android:padding="1.5dp" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:foreground="?android:attr/selectableItemBackground" android:layout_marginHorizontal="@dimen/dp_4" android:layout_marginVertical="@dimen/dp_4">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/dp_1"
+        app:cardCornerRadius="@dimen/dp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,768:512"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.starnest.widget.ui.main.widget.RemoteImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/freeImageView"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_32"
+        android:src="@drawable/ic_watch_to_free"
+        android:adjustViewBounds="true"
+        android:translationZ="@dimen/dp_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

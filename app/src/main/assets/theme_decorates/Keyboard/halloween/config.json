@@ -1,0 +1,27 @@
+{
+  "key": {
+    "customKey": "halloween"
+  },
+  "font": {
+    "fontColor": "#FFEBD0",
+    "fontFamily": "Creepster-Regular"
+  },
+  "swipe": {
+    "customSwipe": "swipe_d12"
+  },
+  "effect": "effect_d12",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "sound": {
+    "soundName": "drum",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFEBD0"
+  },
+  "tintColor": "#FFEBD0",
+  "primaryColor": "#FFFFFF"
+}

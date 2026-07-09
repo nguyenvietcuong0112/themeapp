@@ -1,0 +1,22 @@
+{
+  "font": {
+    "fontColor": "#000000",
+    "fontFamily": ""
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#0D9900",
+  "primaryColor": "#FFFFFF",
+  "decorateKeyColor": "#0D9900",
+  "decorateKeys": ["space", "shift", "return", "emoji", "backspace", "mic"]
+}

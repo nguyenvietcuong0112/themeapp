@@ -8,14 +8,17 @@ import androidx.room.TypeConverters
 import com.app.personalization.data.database.converter.ThemeConfigConverter
 import com.app.personalization.data.database.dao.KeyboardThemeDao
 import com.app.personalization.data.database.dao.WidgetConfigDao
+import com.app.personalization.data.database.dao.WidgetThemeWallpaperDao
 import com.app.personalization.data.database.entity.KeyboardTheme
 import com.app.personalization.data.database.entity.WidgetConfig
+import com.app.personalization.data.database.entity.WidgetThemeWallpaper
 
-@Database(entities = [KeyboardTheme::class, WidgetConfig::class], version = 1, exportSchema = false)
+@Database(entities = [KeyboardTheme::class, WidgetConfig::class, WidgetThemeWallpaper::class], version = 2, exportSchema = false)
 @TypeConverters(ThemeConfigConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun themeDao(): KeyboardThemeDao
     abstract fun widgetConfigDao(): WidgetConfigDao
+    abstract fun wallpaperDao(): WidgetThemeWallpaperDao
 
     companion object {
         @Volatile

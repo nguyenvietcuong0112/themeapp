@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/llAction"
             layout="@layout/item_get_gift_layout2"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.starnest.widget.ads.nativead.NativeAdLargeWrapperView2
+    <FrameLayout
         android:id="@+id/adView"
         android:visibility="gone"
         android:layout_width="0dp"

@@ -43,21 +43,7 @@ class KeyboardView @JvmOverloads constructor(
         this.removeAllViews()
         keyViews.clear()
 
-        if (activeTheme != null) {
-            val bgPath = "theme_decorates/${activeTheme.path}/keyboard_background.png"
-            val bgDrawable = try {
-                context.assets.open(bgPath).use { Drawable.createFromStream(it, null) }
-            } catch (e: Exception) {
-                null
-            }
-            if (bgDrawable != null) {
-                background = bgDrawable
-            } else {
-                setBackgroundColor(activeTheme.tintColor(context))
-            }
-        } else {
-            setBackgroundColor(0xFF121212.toInt())
-        }
+        com.app.personalization.data.DefaultColors.setBackground(this, activeTheme)
 
         for (row in rows) {
             val rowLayout = LinearLayout(context).apply {
@@ -123,11 +109,7 @@ class KeyboardView @JvmOverloads constructor(
             }
 
             val keyBg = if (theme != null) {
-                if (theme!!.rawType == "default") {
-                    theme!!.getKeyBackground(context, code)
-                } else {
-                    theme!!.themeConfig?.getKeyShapeDrawable()
-                }
+                theme!!.getKeyBackground(context, code)
             } else {
                 null
             }

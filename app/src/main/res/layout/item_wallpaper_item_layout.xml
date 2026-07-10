@@ -30,7 +30,7 @@
         android:layout_marginVertical="@dimen/dp_4"
         app:cardCornerRadius="@dimen/dp_16"
         app:cardElevation="@dimen/dp_0">
-        <com.starnest.widget.ui.main.widget.RemoteImageView
+        <com.app.personalization.presentation.widget.RemoteImageView
             android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

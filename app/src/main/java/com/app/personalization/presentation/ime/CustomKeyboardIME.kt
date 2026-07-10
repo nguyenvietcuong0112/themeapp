@@ -58,7 +58,7 @@ class CustomKeyboardIME : InputMethodService() {
     private val themeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == "com.app.personalization.ACTION_THEME_CHANGED") {
-                reloadActiveTheme()
+                KeyboardSwitcher.getInstance().updateKeyboardTheme(this@CustomKeyboardIME, this@CustomKeyboardIME)
             }
         }
     }
@@ -89,6 +89,7 @@ class CustomKeyboardIME : InputMethodService() {
 
     override fun onCreateInputView(): View {
         loadActiveTheme()
+        com.app.personalization.data.DefaultColors.loadBackgroundKey(this, activeTheme)
         loadKeyboardLayout()
 
         rootKeyboardLayout = LinearLayout(this).apply {
@@ -144,6 +145,7 @@ class CustomKeyboardIME : InputMethodService() {
         suggestionBarView.loadDictionaryAsync(locale)
 
         loadActiveTheme()
+        com.app.personalization.data.DefaultColors.loadBackgroundKey(this, activeTheme)
 
         isEmojiMode = false
         showNormalKeyboard()
@@ -178,6 +180,7 @@ class CustomKeyboardIME : InputMethodService() {
 
     fun reloadActiveTheme() {
         loadActiveTheme()
+        com.app.personalization.data.DefaultColors.loadBackgroundKey(this, activeTheme)
         keyboardView?.let { kView ->
             kView.initKeyboard(parsedRows, activeTheme)
         }

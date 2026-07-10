@@ -10,7 +10,7 @@
         android:layout_margin="@dimen/dp_6"
         android:foreground="?android:attr/selectableItemBackground"
         android:clipToOutline="true">
-        <com.starnest.widget.ui.main.widget.RemoteImageView
+        <com.app.personalization.presentation.widget.RemoteImageView
             android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -13,7 +13,7 @@
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="@dimen/dp_12"
             app:cardElevation="0dp">
-            <com.starnest.widget.ui.main.widget.RemoteImageView
+            <com.app.personalization.presentation.widget.RemoteImageView
                 android:id="@+id/ivPreview1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -47,7 +47,7 @@
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="@dimen/dp_12"
                 app:cardElevation="0dp">
-                <com.starnest.widget.ui.main.widget.RemoteImageView
+                <com.app.personalization.presentation.widget.RemoteImageView
                     android:id="@+id/ivPreview3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -75,7 +75,7 @@
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="@dimen/dp_12"
                 app:cardElevation="0dp">
-                <com.starnest.widget.ui.main.widget.RemoteImageView
+                <com.app.personalization.presentation.widget.RemoteImageView
                     android:id="@+id/ivPreview4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -110,7 +110,7 @@
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="@dimen/dp_12"
             app:cardElevation="0dp">
-            <com.starnest.widget.ui.main.widget.RemoteImageView
+            <com.app.personalization.presentation.widget.RemoteImageView
                 android:id="@+id/ivPreview2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -139,7 +139,7 @@
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="@dimen/dp_12"
             app:cardElevation="0dp">
-            <com.starnest.widget.ui.main.widget.RemoteImageView
+            <com.app.personalization.presentation.widget.RemoteImageView
                 android:id="@+id/ivPreview5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

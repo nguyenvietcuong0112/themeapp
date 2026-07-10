@@ -14,13 +14,14 @@ import androidx.fragment.app.Fragment
 import com.app.personalization.R
 import com.app.personalization.data.database.entity.KeyboardTheme
 import com.app.personalization.di.ServiceLocator
-import com.starnest.widget.ui.theme.widget.DownloadThemeButtonView
+import com.app.personalization.presentation.widget.DownloadThemeButtonView
 import com.bumptech.glide.Glide
 import java.io.File
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
 
 class ThemePreviewFragment : Fragment() {
 
@@ -110,7 +111,9 @@ class ThemePreviewFragment : Fragment() {
 
     private fun applyTheme(context: Context, theme: KeyboardTheme) {
         val prefs = context.getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE)
+        val jsonTheme = kotlinx.serialization.json.Json.encodeToString(theme)
         prefs.edit().apply {
+            putString("KEYBOARD_THEME", jsonTheme)
             putString("selected_theme_id", theme.id)
             putString("current_theme_path", theme.path)
             putString("current_theme_type", theme.rawType)
@@ -123,6 +126,15 @@ class ThemePreviewFragment : Fragment() {
         context.sendBroadcast(intent)
 
         Toast.makeText(context, "Theme applied successfully!", Toast.LENGTH_SHORT).show()
+
+        val downloadIntent = Intent(context, DownloadThemeActivity::class.java).apply {
+            putExtra("theme_id", theme.id)
+            putExtra("theme_name", theme.name)
+            putExtra("theme_path", theme.path)
+            putExtra("theme_type", theme.rawType)
+        }
+        context.startActivity(downloadIntent)
+
         activity?.finish()
     }
 

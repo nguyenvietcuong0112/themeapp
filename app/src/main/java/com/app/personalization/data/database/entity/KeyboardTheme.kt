@@ -13,10 +13,14 @@ import android.graphics.drawable.Drawable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.app.personalization.data.ThemeConfig
+import com.app.personalization.data.ResourceConfig
 import kotlinx.serialization.json.Json
 import java.io.IOException
 import java.util.UUID
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 @Entity(tableName = "keyboard_themes")
 data class KeyboardTheme(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
@@ -29,10 +33,20 @@ data class KeyboardTheme(
     val popupKeyBackgroundPath: String? = null,
     val previewPath: String? = null,
     val isPremium: Boolean = false
-) {
+) : java.io.Serializable {
 
     fun getPrefix(): String {
         return "theme_decorates/$path"
+    }
+
+    fun getBackground(): String? {
+        if (rawType == "diy" || path.isEmpty()) {
+            return null
+        }
+        if (backgroundPath != null && backgroundPath.startsWith("custom_image_")) {
+            return null
+        }
+        return ResourceConfig.getKeyboardBackgroundUrl(path)
     }
 
     private fun loadJsonFromAsset(context: Context, path: String): String {
@@ -58,6 +72,10 @@ data class KeyboardTheme(
     }
 
     fun getKeyBackground(context: Context, keyCode: Int): Drawable? {
+        if (rawType == "diy") {
+            val config = getConfig(context) ?: themeConfig
+            return config?.getKeyShapeDrawable()
+        }
         val specialKeyName = when (keyCode) {
             10, 66 -> "return"
             12289 -> "emoji"

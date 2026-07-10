@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <com.starnest.widget.ui.theme.widget.shimmer.ShimmerView
+    <com.app.personalization.presentation.widget.ShimmerView
         android:id="@+id/shimmerView"
         android:visibility="gone"
         android:layout_width="0dp"

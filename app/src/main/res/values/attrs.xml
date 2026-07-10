@@ -1237,20 +1237,7 @@
     </attr>
     <attr name="fastforward_icon" format="reference">
     </attr>
-    <attr name="finishPrimaryWithPlaceholder">
-        <enum name="always" value="1" />
-        <enum name="adjacent" value="2" />
-    </attr>
-    <attr name="finishPrimaryWithSecondary">
-        <enum name="never" value="0" />
-        <enum name="always" value="1" />
-        <enum name="adjacent" value="2" />
-    </attr>
-    <attr name="finishSecondaryWithPrimary">
-        <enum name="never" value="0" />
-        <enum name="always" value="1" />
-        <enum name="adjacent" value="2" />
-    </attr>
+
     <attr name="firstBaselineToTopHeight" format="dimension">
     </attr>
     <attr name="flingEnabled" format="boolean">

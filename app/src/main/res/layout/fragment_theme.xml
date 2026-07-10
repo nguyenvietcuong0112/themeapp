@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_16">
-            <com.starnest.widget.ui.theme.widget.HomeActionView
+            <com.app.personalization.presentation.widget.HomeActionView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/actionView"
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
         android:layout_marginEnd="@dimen/dp_16"
         app:layout_constraintBottom_toTopOf="@+id/tvAdd"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <com.starnest.widget.ui.main.widget.PremiumBannerView
+    <com.app.personalization.presentation.widget.PremiumBannerView
         android:id="@+id/premiumView"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <com.starnest.widget.ui.main.widget.GiftView
+    <com.app.personalization.presentation.widget.GiftView
         android:id="@+id/giftView"
         android:focusable="true"
         android:visibility="gone"
@@ -125,7 +125,7 @@
         android:elevation="@dimen/dp_12"
         app:layout_constraintBottom_toTopOf="@+id/premiumView"
         app:layout_constraintStart_toStartOf="parent"/>
-    <com.starnest.upsale.ui.giftbox.UpsaleGiftView
+    <com.app.personalization.presentation.widget.UpsaleGiftView
         android:id="@+id/upsaleGiftView"
         android:focusable="true"
         android:clickable="true"

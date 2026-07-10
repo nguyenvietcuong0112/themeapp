@@ -5,6 +5,8 @@ import com.app.personalization.data.database.AppDatabase
 import com.app.personalization.data.database.dao.KeyboardThemeDao
 import com.app.personalization.data.database.dao.WidgetConfigDao
 
+import com.app.personalization.data.database.dao.WidgetThemeWallpaperDao
+
 object ServiceLocator {
     @Volatile
     private var database: AppDatabase? = null
@@ -23,5 +25,9 @@ object ServiceLocator {
 
     fun getWidgetConfigDao(context: Context): WidgetConfigDao {
         return getDatabase(context).widgetConfigDao()
+    }
+
+    fun getWallpaperDao(context: Context): WidgetThemeWallpaperDao {
+        return getDatabase(context).wallpaperDao()
     }
 }

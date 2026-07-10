@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"  android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content">
-    <com.starnest.widget.ads.bannered.BannerAdWrapperView
+    <FrameLayout
         android:id="@+id/adContainer"
         android:visibility="gone"
         android:layout_width="match_parent"

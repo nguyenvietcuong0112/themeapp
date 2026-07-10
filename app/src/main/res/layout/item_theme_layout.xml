@@ -59,7 +59,7 @@
             android:clipToOutline="true"
             app:cardCornerRadius="@dimen/dp_8"
             app:cardElevation="@dimen/dp_0">
-            <com.starnest.widget.ui.main.widget.RemoteImageView
+            <com.app.personalization.presentation.widget.RemoteImageView
                 android:id="@+id/ivPreview"
                 android:tag="binding_2"
                 android:layout_width="match_parent"

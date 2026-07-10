@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottomsheet_dialog"
+    android:padding="24dp">
+
+    <TextView
+        android:textSize="18sp"
+        android:textColor="?attr/titleTextColor"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply Wallpaper"
+        android:fontFamily="@font/helvetica_medium"
+        android:layout_marginBottom="24dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnHomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Home Screen"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_corner_8"
+        android:backgroundTint="?attr/primaryColor"
+        android:fontFamily="@font/helvetica_medium"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLockScreen"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Lock Screen"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_corner_8"
+        android:backgroundTint="#2E2E3E"
+        android:fontFamily="@font/helvetica_medium"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnBoth"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Both Screens"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_corner_8"
+        android:backgroundTint="#2E2E3E"
+        android:fontFamily="@font/helvetica_medium"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

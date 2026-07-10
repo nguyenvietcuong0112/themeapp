@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="@dimen/dp_48">
-    <com.starnest.widget.ui.main.widget.GemView
+    <com.app.personalization.presentation.widget.GemView
         android:id="@+id/gemViewHidden"
         android:visibility="invisible"
         android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/gemView"
         app:layout_constraintStart_toEndOf="@+id/gemViewHidden"
         app:layout_constraintTop_toTopOf="parent"/>
-    <com.starnest.widget.ui.main.widget.GemView
+    <com.app.personalization.presentation.widget.GemView
         android:id="@+id/gemView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

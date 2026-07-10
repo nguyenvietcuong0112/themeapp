@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <com.starnest.widget.ui.main.widget.RemoteImageView
+        <com.app.personalization.presentation.widget.RemoteImageView
             android:id="@+id/ivPreview"
             android:focusable="true"
             android:clickable="true"

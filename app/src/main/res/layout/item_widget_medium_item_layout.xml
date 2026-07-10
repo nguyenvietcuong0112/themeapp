@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:id="@+id/ctContainer" android:background="@drawable/bg_corner_16" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/dp_8" android:backgroundTint="@color/transparent">
-    <com.starnest.widget.ads.nativead.NativeOrBannerAdLargeWrapperView
+    <FrameLayout
         android:id="@+id/nativeAdView"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nativeAdView">
-        <com.starnest.widget.ui.main.widget.RemoteImageView
+        <com.app.personalization.presentation.widget.RemoteImageView
             android:id="@+id/ivPreview"
             android:focusable="true"
             android:clickable="true"

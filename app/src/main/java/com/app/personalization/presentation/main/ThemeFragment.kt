@@ -24,8 +24,8 @@ import com.app.personalization.presentation.theme.PremiumActivity
 import com.app.personalization.presentation.theme.ThemeBuilderActivity
 import com.app.personalization.presentation.theme.ThemePreviewActivity
 import com.app.personalization.presentation.widget.WidgetConfigActivity
-import com.starnest.widget.ui.main.widget.GemView
-import com.starnest.widget.ui.theme.widget.HomeActionView
+import com.app.personalization.presentation.widget.GemView
+import com.app.personalization.presentation.widget.HomeActionView
 
 class ThemeFragment : Fragment() {
 

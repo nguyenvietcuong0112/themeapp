@@ -2,26 +2,25 @@ package com.app.personalization.presentation.theme
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.app.personalization.R
+import com.app.personalization.data.ResourceConfig
 import com.app.personalization.data.database.entity.KeyboardTheme
 import com.app.personalization.di.ServiceLocator
-import com.app.personalization.presentation.widget.DownloadThemeButtonView
+import com.app.personalization.presentation.customviews.DownloadThemeButtonView
+import com.app.personalization.presentation.widget.DownloadThemeActivity
 import com.bumptech.glide.Glide
-import java.io.File
-import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
 
 class ThemePreviewFragment : Fragment() {
 
@@ -34,8 +33,7 @@ class ThemePreviewFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_preview_theme, container, false)
@@ -46,12 +44,22 @@ class ThemePreviewFragment : Fragment() {
 
         val context = context ?: return
 
+        val thumbnailImageView = view.findViewById<ImageView>(R.id.thumbnailImageView)
         val imageView = view.findViewById<ImageView>(R.id.imageView)
         val ivPreviewCustom = view.findViewById<ImageView>(R.id.ivPreviewCustom)
         val llDownload = view.findViewById<DownloadThemeButtonView>(R.id.llDownload)
 
+        // Apply native blur filter to background image on Android 12+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            thumbnailImageView?.setRenderEffect(
+                android.graphics.RenderEffect.createBlurEffect(
+                    25f, 25f, android.graphics.Shader.TileMode.CLAMP
+                )
+            )
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
-            val activeTheme = withContext(Dispatchers.IO) {
+            val themeItem = withContext(Dispatchers.IO) {
                 if (themeId.startsWith("default_")) {
                     val path = themeId.substringAfter("default_")
                     val cat = path.substringBefore("/")
@@ -62,80 +70,43 @@ class ThemePreviewFragment : Fragment() {
                 }
             }
 
-            theme = activeTheme
+            theme = themeItem
 
-            // Hide the activity's loading progress bar
-            activity?.findViewById<View>(R.id.pbLoading)?.visibility = View.GONE
-
-            activeTheme?.let { themeItem ->
+            themeItem?.let { item ->
                 llDownload?.setText("Apply")
 
-                if (themeItem.rawType == "diy") {
-                    imageView?.visibility = View.GONE
-                    ivPreviewCustom?.visibility = View.VISIBLE
+                val previewUrl = ResourceConfig.getWidgetPreviewUrl(context, item.path)
 
-                    if (!themeItem.backgroundPath.isNullOrEmpty()) {
-                        val file = File(themeItem.backgroundPath)
-                        if (file.exists()) {
-                            Glide.with(context).load(file).centerCrop().into(ivPreviewCustom)
-                        } else {
-                            setDefaultDiyBackground(themeItem, ivPreviewCustom)
-                        }
-                    } else {
-                        setDefaultDiyBackground(themeItem, ivPreviewCustom)
-                    }
-                } else {
-                    imageView?.visibility = View.VISIBLE
-                    ivPreviewCustom?.visibility = View.GONE
+                // Load blurred background
+                if (thumbnailImageView != null) {
+                    Glide.with(context)
+                        .load(previewUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.bg_default_placeholder)
+                        .into(thumbnailImageView)
+                }
 
-                    val localDrawable = themeItem.generateLocalThemePreview(context)
-                    imageView?.setImageDrawable(localDrawable)
+                // Load mockup preview
+                if (imageView != null) {
+                    Glide.with(context)
+                        .load(previewUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.bg_default_placeholder)
+                        .into(imageView)
                 }
 
                 llDownload?.setOnClickListener {
-                    applyTheme(context, themeItem)
+                    val intent = Intent(context, DownloadThemeActivity::class.java).apply {
+                        putExtra("theme_id", item.id)
+                        putExtra("theme_name", item.name)
+                        putExtra("theme_path", item.path)
+                        putExtra("theme_type", item.rawType)
+                    }
+                    startActivity(intent)
+                    activity?.finish()
                 }
             }
         }
-    }
-
-    private fun setDefaultDiyBackground(theme: KeyboardTheme, iv: ImageView) {
-        val config = theme.themeConfig
-        val colorStr = config?.key?.customStyle?.backgroundColor ?: "#1E1E2E"
-        val color = try { Color.parseColor(colorStr) } catch (e: Exception) { 0xFF1E1E2E.toInt() }
-        iv.setImageDrawable(GradientDrawable().apply {
-            setColor(color)
-            cornerRadius = 16f
-        })
-    }
-
-    private fun applyTheme(context: Context, theme: KeyboardTheme) {
-        val prefs = context.getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE)
-        val jsonTheme = kotlinx.serialization.json.Json.encodeToString(theme)
-        prefs.edit().apply {
-            putString("KEYBOARD_THEME", jsonTheme)
-            putString("selected_theme_id", theme.id)
-            putString("current_theme_path", theme.path)
-            putString("current_theme_type", theme.rawType)
-            apply()
-        }
-
-        val intent = Intent("com.app.personalization.ACTION_THEME_CHANGED").apply {
-            setPackage(context.packageName)
-        }
-        context.sendBroadcast(intent)
-
-        Toast.makeText(context, "Theme applied successfully!", Toast.LENGTH_SHORT).show()
-
-        val downloadIntent = Intent(context, DownloadThemeActivity::class.java).apply {
-            putExtra("theme_id", theme.id)
-            putExtra("theme_name", theme.name)
-            putExtra("theme_path", theme.path)
-            putExtra("theme_type", theme.rawType)
-        }
-        context.startActivity(downloadIntent)
-
-        activity?.finish()
     }
 
     companion object {

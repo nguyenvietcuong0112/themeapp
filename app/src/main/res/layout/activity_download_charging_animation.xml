@@ -112,7 +112,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-    <com.starnest.widget.ui.main.widget.UnlockView
+    <com.app.personalization.cscthemeapp.widget.ui.main.widget.UnlockView
         android:id="@+id/unlockView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

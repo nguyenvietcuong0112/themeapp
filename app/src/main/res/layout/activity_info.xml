@@ -25,19 +25,19 @@
                     android:elevation="?attr/elevation"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siFQA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/faq"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siGetIcon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/how_to_get_icon"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siGetWidget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

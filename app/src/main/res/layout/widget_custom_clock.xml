@@ -23,7 +23,7 @@
                 android:adjustViewBounds="true"
                 android:clipToOutline="true"/>
         </androidx.cardview.widget.CardView>
-        <com.starnest.widget.ui.widget.widget.AnalogClockView
+        <com.app.personalization.cscthemeapp.widget.ui.widget.widget.AnalogClockView
             android:layout_gravity="center"
             android:id="@+id/clockView"
             android:layout_width="match_parent"

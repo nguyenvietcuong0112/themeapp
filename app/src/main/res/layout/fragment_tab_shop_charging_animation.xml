@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoriesRecyclerview">
-        <com.starnest.widget.ui.setting.widget.SettingItemView
+        <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
             android:id="@+id/siStartCharging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

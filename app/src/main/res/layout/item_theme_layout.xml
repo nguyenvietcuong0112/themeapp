@@ -1,80 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivFavorite"
-            android:background="@drawable/bg_circle"
-            android:padding="@dimen/dp_4"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="@dimen/dp_28"
-            android:layout_height="@dimen/dp_28"
-            android:layout_marginTop="@dimen/dp_4"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/bg_favorite"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="@dimen/dp_4"
-            android:layout_alignParentEnd="true"
-            android:elevation="@dimen/dp_24"
-            android:backgroundTint="@color/whiteAlpha40"
-            android:clipToOutline="true"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivDelete"
-            android:tag="binding_1"
-            android:background="@drawable/bg_circle"
-            android:padding="@dimen/dp_4"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="@dimen/dp_28"
-            android:layout_height="@dimen/dp_28"
-            android:layout_marginBottom="@dimen/dp_4"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_delete"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="@dimen/dp_4"
-            android:layout_alignParentEnd="true"
-            android:elevation="@dimen/dp_24"
-            android:backgroundTint="@color/whiteAlpha40"
-            android:clipToOutline="true"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"/>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:focusable="true"
-            android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginHorizontal="@dimen/dp_4"
+        android:layout_marginVertical="@dimen/dp_4"
+        android:clipToOutline="true"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_0"
+        app:layout_constraintDimensionRatio="H,9:16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.app.personalization.presentation.customviews.RemoteImageView
+            android:id="@+id/ivPreview"
+            android:tag="binding_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginHorizontal="@dimen/dp_4"
-            android:layout_marginVertical="@dimen/dp_4"
-            android:clipToOutline="true"
-            app:cardCornerRadius="@dimen/dp_8"
-            app:cardElevation="@dimen/dp_0">
-            <com.app.personalization.presentation.widget.RemoteImageView
-                android:id="@+id/ivPreview"
-                android:tag="binding_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivPreviewCustom"
-                android:tag="binding_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"/>
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPreviewCustom"
+            android:tag="binding_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFavorite"
+        android:background="@drawable/bg_circle"
+        android:padding="@dimen/dp_4"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/bg_favorite"
+        android:elevation="@dimen/dp_24"
+        android:backgroundTint="@color/whiteAlpha40"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDelete"
+        android:tag="binding_1"
+        android:background="@drawable/bg_circle"
+        android:padding="@dimen/dp_4"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_delete"
+        android:elevation="@dimen/dp_24"
+        android:backgroundTint="@color/whiteAlpha40"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"/>
     <TextView
         android:textSize="@dimen/sp_16"
         android:textColor="?attr/titleTextColor"
@@ -84,11 +76,9 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_36"
-        android:layout_alignParentBottom="true"
         android:fontFamily="@font/helvetica_regular"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"/>
-</androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

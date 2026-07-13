@@ -40,8 +40,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_4">
-                    <com.app.personalization.presentation.widget.RemoteImageView
+                    <com.app.personalization.presentation.customviews.RemoteImageView
                         android:id="@+id/imageView"
+                        android:scaleType="centerCrop"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                     <androidx.appcompat.widget.AppCompatImageView
@@ -63,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-            <com.app.personalization.presentation.widget.DownloadThemeButtonView
+            <com.app.personalization.presentation.customviews.DownloadThemeButtonView
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:id="@+id/llDownload"

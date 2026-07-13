@@ -11,7 +11,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.starnest.upsale.ui.banner.UpsaleBannerView
+            <com.app.personalization.cscthemeapp.upsale.ui.banner.UpsaleBannerView
                 android:id="@+id/bannerUpsale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,26 +27,26 @@
                 android:elevation="?attr/elevation"
                 android:backgroundTint="?attr/secondaryBackgroundColor"
                 android:layout_marginHorizontal="@dimen/dp_16">
-                <com.starnest.widget.ui.setting.widget.SettingItemView
+                <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                     android:id="@+id/siAddTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:setting_arrowEnabled="false"
                     app:setting_title="@string/customize_themes"/>
-                <com.starnest.widget.ui.setting.widget.SettingItemView
+                <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                     android:id="@+id/siAddWidget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:setting_arrowEnabled="false"
                     app:setting_title="@string/customize_widget"/>
-                <com.starnest.widget.ui.setting.widget.SettingItemView
+                <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                     android:id="@+id/siStartCharging"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:setting_arrowEnabled="false"
                     app:setting_title="@string/start_charging_animation"
                     app:setting_toggleEnabled="true"/>
-                <com.starnest.widget.ui.setting.widget.SettingItemView
+                <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                     android:id="@+id/siTemperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,19 +76,19 @@
                     android:elevation="?attr/elevation"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siFQA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/faq"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siGetIcon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/how_to_get_icon"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siGetWidget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -120,13 +120,13 @@
                     android:elevation="?attr/elevation"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siKeyboardSetting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/keyboard_setting"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siHowToSwitchKeyboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -159,25 +159,25 @@
                     android:elevation="?attr/elevation"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siLanguage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/language"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siFeedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/feedback"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siRate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/rate_us"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siMoreApp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -185,19 +185,19 @@
                         app:setting_isAds="false"
                         app:setting_showLine="true"
                         app:setting_title="@string/more_apps"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siTerm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/term_of_use"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siShare"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:setting_arrowEnabled="true"
                         app:setting_title="@string/share_friends"/>
-                    <com.starnest.widget.ui.setting.widget.SettingItemView
+                    <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                         android:id="@+id/siPrivacy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

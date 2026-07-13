@@ -55,14 +55,7 @@
                     android:layout_marginBottom="@dimen/dp_8"
                     android:layout_marginHorizontal="@dimen/dp_8"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
-            <com.starnest.ads.natives.TemplateView
-                android:id="@+id/adView"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                app:gnt_template_type="@layout/gnt_small_template_view"/>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:orientation="vertical"
                 android:tag="binding_7"
@@ -95,14 +88,7 @@
                     android:layout_marginBottom="@dimen/dp_8"
                     android:layout_marginHorizontal="@dimen/dp_8"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
-            <com.starnest.ads.natives.TemplateView
-                android:id="@+id/adView1"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                app:gnt_template_type="@layout/gnt_small_template_view"/>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:orientation="vertical"
                 android:tag="binding_11"

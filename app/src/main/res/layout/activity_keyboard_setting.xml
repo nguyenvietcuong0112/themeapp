@@ -25,7 +25,7 @@
             android:backgroundTint="?attr/secondaryBackgroundColor"
             android:layout_marginHorizontal="@dimen/dp_16"
             android:clipToOutline="true">
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siLanguageAndLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 app:setting_icon="@drawable/ic_setting_language"
                 app:setting_title="@string/language_and_layouts_title"
                 app:setting_toggleEnabled="false"/>
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siCapitalization"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 app:setting_icon="@drawable/ic_setting_keyboard_1"
                 app:setting_title="@string/auto_capitalization"
                 app:setting_toggleEnabled="true"/>
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siShowNumberRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 app:setting_icon="@drawable/ic_setting_keyboard_3"
                 app:setting_title="@string/show_numbers_row"
                 app:setting_toggleEnabled="true"/>
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siShowKeyBorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 app:setting_icon="@drawable/ic_setting_keyboard_4"
                 app:setting_title="@string/show_key_borders"
                 app:setting_toggleEnabled="true"/>
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siKeyboardSound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 app:setting_icon="@drawable/ic_setting_keyboard_2"
                 app:setting_title="@string/keyboard_sounds"
                 app:setting_toggleEnabled="true"/>
-            <com.starnest.widget.ui.setting.widget.SettingItemView
+            <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
                 android:id="@+id/siSuggestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.starnest.upsale.ui.banner.UpsaleBannerView
+            <com.app.personalization.cscthemeapp.upsale.ui.banner.UpsaleBannerView
                 android:id="@+id/bannerUpsale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                     android:layout_marginBottom="@dimen/dp_8"
                     android:layout_marginHorizontal="@dimen/dp_8"
                     layout="@layout/item_get_gift_layout"/>
-                <com.starnest.widget.ui.main.widget.RewardView
+                <com.app.personalization.cscthemeapp.widget.ui.main.widget.RewardView
                     android:id="@+id/rewardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

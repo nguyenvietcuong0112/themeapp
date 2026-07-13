@@ -78,7 +78,7 @@
             android:background="?attr/lineColor"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"/>
-        <com.starnest.upsale.ui.view.UpsalePopupExitView
+        <com.app.personalization.cscthemeapp.upsale.ui.view.UpsalePopupExitView
             android:id="@+id/upsaleExitView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

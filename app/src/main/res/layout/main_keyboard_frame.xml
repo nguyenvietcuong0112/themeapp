@@ -7,12 +7,12 @@
     <include
         android:id="@+id/strip_container"
         layout="@layout/strip_container"/>
-    <com.android.inputmethod.latin.KeyboardWrapperView
+    <com.app.personalization.inputmethod.latin.KeyboardWrapperView
         android:id="@+id/keyboard_view_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="ltr">
-        <com.android.inputmethod.keyboard.MainKeyboardView
+        <com.app.personalization.inputmethod.keyboard.MainKeyboardView
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,5 +38,5 @@
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
             style="?attr/suggestionWordStyle"/>
-    </com.android.inputmethod.latin.KeyboardWrapperView>
+    </com.app.personalization.inputmethod.latin.KeyboardWrapperView>
 </LinearLayout>

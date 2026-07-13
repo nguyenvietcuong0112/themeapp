@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:background="@drawable/bg_bottomsheet_dialog" android:layout_width="match_parent" android:layout_height="wrap_content">
-    <com.starnest.widget.ui.theme.widget.searchview.SearchView
+    <com.app.personalization.cscthemeapp.widget.ui.theme.widget.searchview.SearchView
         android:id="@+id/searchView"
         android:background="@drawable/bg_corner_8"
         android:layout_width="match_parent"

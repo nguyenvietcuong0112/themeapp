@@ -8,10 +8,10 @@
         android:shortcutLongLabel="@string/customize_widget"
         android:shortcutDisabledMessage="@string/customize_widget">
         <intent
-            android:targetPackage="com.themes.wallpapers.widgets.starnest"
+            android:targetPackage="com.app.personalization"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_custom_widget"
-            android:targetClass="com.starnest.widget.ui.main.activity.ComeBackActivity"/>
+            android:targetClass="com.app.personalization.cscthemeapp.widget.ui.main.activity.ComeBackActivity"/>
     </shortcut>
     <shortcut
         android:icon="@drawable/ic_theme_home"
@@ -21,9 +21,9 @@
         android:shortcutLongLabel="@string/my_collection"
         android:shortcutDisabledMessage="@string/my_collection">
         <intent
-            android:targetPackage="com.themes.wallpapers.widgets.starnest"
+            android:targetPackage="com.app.personalization"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_my_collection"
-            android:targetClass="com.starnest.widget.ui.main.activity.ComeBackActivity"/>
+            android:targetClass="com.app.personalization.cscthemeapp.widget.ui.main.activity.ComeBackActivity"/>
     </shortcut>
 </shortcuts>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:id="@+id/llContainer" android:background="@drawable/bg_corner_8" android:layout_width="match_parent" android:layout_height="wrap_content" android:foreground="?android:attr/selectableItemBackground" android:backgroundTint="@color/white">
-    <com.starnest.design.ui.widget.RemoteImageView
+    <com.app.personalization.cscthemeapp.design.ui.widget.RemoteImageView
         android:id="@+id/ivSticker"
         android:tag="binding_1"
         android:padding="@dimen/dp_8"

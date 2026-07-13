@@ -3,7 +3,7 @@
     android:id="@+id/suggestion_strip_view_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/config_suggestions_strip_height">
-    <com.android.inputmethod.latin.suggestions.SuggestionStripView
+    <com.app.personalization.inputmethod.latin.suggestions.SuggestionStripView
         android:gravity="center_vertical"
         android:id="@+id/suggestion_strip_view"
         android:layout_width="match_parent"

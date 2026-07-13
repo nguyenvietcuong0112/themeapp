@@ -13,6 +13,7 @@
         app:cardElevation="0dp">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivNewIcon"
+            android:scaleType="fitCenter"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"/>
     </androidx.cardview.widget.CardView>
@@ -35,6 +36,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivOldIcon"
             android:tag="binding_2"
+            android:scaleType="fitCenter"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"/>
         <androidx.appcompat.widget.AppCompatImageView
@@ -54,6 +56,18 @@
             android:src="@drawable/ic_edit"
             android:tint="?attr/detailTextColor"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etAppName"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        android:textColor="?attr/titleTextColor"
+        android:background="@null"
+        android:inputType="text"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginStart="@dimen/dp_8"
+        android:hint="App Name"/>
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"

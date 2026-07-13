@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.android.inputmethod.latin.InputView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
+<com.app.personalization.inputmethod.latin.InputView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_gravity="bottom"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.starnest.keyboard.view.widget.KeyboardDiscountView
+        <com.app.personalization.cscthemeapp.keyboard.view.widget.KeyboardDiscountView
             android:id="@+id/keyboardDiscount"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"/>
-        <com.starnest.keyboard.view.font.FontView
+        <com.app.personalization.cscthemeapp.keyboard.view.font.FontView
             android:id="@+id/fontView"
             android:background="?attr/primaryBackgroundColor"
             android:visibility="gone"
@@ -21,7 +21,7 @@
             android:background="?attr/primaryBackgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.starnest.keyboard.view.base.KeyboardRemoteImageView
+            <com.app.personalization.cscthemeapp.keyboard.view.base.KeyboardRemoteImageView
                 android:id="@+id/bgImageView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -39,7 +39,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-                <com.starnest.keyboard.view.widget.KeyboardToolbarView
+                <com.app.personalization.cscthemeapp.keyboard.view.widget.KeyboardToolbarView
                     android:id="@+id/toolbar_holder"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
@@ -55,7 +55,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     layout="@layout/main_keyboard_frame"/>
-                <com.starnest.keyboard.view.emoji.EmojiHolderView
+                <com.app.personalization.cscthemeapp.keyboard.view.emoji.EmojiHolderView
                     android:id="@+id/emoji_palette_holder"
                     android:focusable="true"
                     android:visibility="gone"
@@ -66,7 +66,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/toolbar_holder"/>
-                <com.starnest.keyboard.view.settings.SettingHolderView
+                <com.app.personalization.cscthemeapp.keyboard.view.settings.SettingHolderView
                     android:id="@+id/setting_holder"
                     android:visibility="gone"
                     android:clickable="true"
@@ -76,7 +76,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
-                <com.starnest.keyboard.view.clipboards.ClipBoardHolderView
+                <com.app.personalization.cscthemeapp.keyboard.view.clipboards.ClipBoardHolderView
                     android:id="@+id/clipboard_holder"
                     android:visibility="gone"
                     android:clickable="true"
@@ -96,7 +96,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
-                <com.starnest.keyboard.view.theme.ThemeHolderView
+                <com.app.personalization.cscthemeapp.keyboard.view.theme.ThemeHolderView
                     android:id="@+id/theme_holder"
                     android:visibility="gone"
                     android:clickable="true"
@@ -128,4 +128,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
-</com.android.inputmethod.latin.InputView>
+</com.app.personalization.inputmethod.latin.InputView>

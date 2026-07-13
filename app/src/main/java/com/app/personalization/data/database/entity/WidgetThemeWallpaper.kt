@@ -50,12 +50,16 @@ data class WidgetThemeWallpaper(
         return Uri.parse("file:///android_asset/theme_decorates/$folder/$imageBg/popup_background.png")
     }
 
-    fun getOnlinePreviewUri(): Uri {
-        return Uri.parse(ResourceConfig.getWallpaperThumbnailUrl(folder, imageBg))
+    fun getOnlinePreviewUri(context: Context): Uri {
+        val themePath = if (folder.startsWith("theme_")) folder else "$folder/$imageBg"
+        val themeFolder = ResourceConfig.getThemeFolderByPath(context, themePath)
+        return Uri.parse(ResourceConfig.getWallpaperThumbnailUrl(themeFolder, "bg_wallpaper"))
     }
 
-    fun getOnlineImageUri(): Uri {
-        return Uri.parse(ResourceConfig.getWallpaperFullUrl(folder, imageBg))
+    fun getOnlineImageUri(context: Context): Uri {
+        val themePath = if (folder.startsWith("theme_")) folder else "$folder/$imageBg"
+        val themeFolder = ResourceConfig.getThemeFolderByPath(context, themePath)
+        return Uri.parse(ResourceConfig.getWallpaperFullUrl(themeFolder, "bg_wallpaper"))
     }
 
     private fun getLocalTintColor(context: Context): Int {

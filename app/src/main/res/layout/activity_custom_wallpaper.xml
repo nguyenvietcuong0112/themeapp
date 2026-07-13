@@ -48,7 +48,7 @@
             android:background="#000000"
             android:elevation="4dp">
 
-            <com.app.personalization.presentation.editor.DIYWallpaperCanvasView
+            <com.app.personalization.presentation.wallpaper.DIYWallpaperCanvasView
                 android:id="@+id/wallpaperCanvas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

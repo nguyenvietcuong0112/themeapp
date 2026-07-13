@@ -35,6 +35,12 @@ android {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    doFirst {
+        classpath += files(layout.buildDirectory.dir("tmp/kotlin-classes/debug"))
+    }
+}
+
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = '17'

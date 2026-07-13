@@ -16,7 +16,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-        <com.starnest.widget.ui.main.widget.OutlineTextView
+        <com.app.personalization.cscthemeapp.widget.ui.main.widget.OutlineTextView
             android:textSize="@dimen/sp_20"
             android:textColor="@color/white"
             android:id="@+id/tvTitle"

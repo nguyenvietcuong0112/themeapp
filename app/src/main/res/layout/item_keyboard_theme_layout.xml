@@ -21,7 +21,7 @@
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="@dimen/dp_32"
             app:cardElevation="@dimen/dp_0">
-            <com.starnest.keyboard.view.base.KeyboardRemoteImageView
+            <com.app.personalization.cscthemeapp.keyboard.view.base.KeyboardRemoteImageView
                 android:id="@+id/iconImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

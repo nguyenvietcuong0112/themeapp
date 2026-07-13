@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 1. Background Wallpaper Preview -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- Dark gradient overlay for better readability -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000"/>
+
+    <!-- Header Toolbar -->
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:padding="@dimen/dp_8"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="#80000000"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            android:fontFamily="@font/helvetica_regular"
+            android:textStyle="bold"
+            android:text="Theme Detail"/>
+    </RelativeLayout>
+
+    <!-- 2. Widget Preview Card (upper-middle) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardWidget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_40"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:cardBackgroundColor="#80000000"
+        app:cardElevation="@dimen/dp_0"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivWidgetBg"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,4:2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvWidgetPlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:text="Select to customize widget"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 3. Icon Pack Preview List (lower-middle) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIcons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp_24"
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/dp_16"
+        app:layout_constraintBottom_toTopOf="@id/llButtons"
+        app:layout_constraintTop_toBottomOf="@id/cardWidget"/>
+
+    <!-- 4. Floating bottom buttons -->
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_24"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:text="Apply Wallpaper"
+            android:textAllCaps="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnIcons"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:background="@drawable/bg_button_get_theme"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:text="Install Icons"
+            android:textAllCaps="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnWidget"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:background="@drawable/bg_button_get_theme"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:text="Add Widget"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

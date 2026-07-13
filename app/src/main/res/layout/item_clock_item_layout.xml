@@ -7,7 +7,7 @@
         app:cardBackgroundColor="@color/grayF2F2F2"
         app:cardCornerRadius="@dimen/dp_8"
         app:cardElevation="@dimen/dp_0">
-        <com.starnest.widget.ui.widget.widget.AnalogClockView
+        <com.app.personalization.cscthemeapp.widget.ui.widget.widget.AnalogClockView
             android:layout_gravity="center"
             android:id="@+id/clockView"
             android:layout_width="match_parent"

@@ -23,7 +23,7 @@
             android:text="@string/abc"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/medium_margin"/>
-        <com.starnest.keyboard.view.emoji.BottomMenuView
+        <com.app.personalization.cscthemeapp.keyboard.view.emoji.BottomMenuView
             android:gravity="center"
             android:layout_gravity="center"
             android:orientation="horizontal"

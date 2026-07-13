@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -10,15 +10,19 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/primaryBackgroundColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?attr/primaryBackgroundColor</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         
         <!-- Custom personalization theme attributes -->
-        <item name="primaryBackgroundColor">#12121A</item>
-        <item name="secondaryBackgroundColor">#1E1E2E</item>
-        <item name="titleTextColor">#FFFFFF</item>
-        <item name="detailTextColor">#888899</item>
-        <item name="lineColor">#33FFFFFF</item>
-        <item name="primaryColor">#00E5FF</item>
-        <item name="tabBackgroundColor">#2E2E3E</item>
+        <item name="primaryBackgroundColor">#FFFFFF</item>
+        <item name="secondaryBackgroundColor">#F3F4F6</item>
+        <item name="titleTextColor">#111827</item>
+        <item name="detailTextColor">#6B7280</item>
+        <item name="lineColor">#E5E7EB</item>
+        <item name="primaryColor">#4F46E5</item>
+        <item name="tabBackgroundColor">#E5E7EB</item>
+        <item name="android:windowBackground">?attr/primaryBackgroundColor</item>
     </style>
 </resources>

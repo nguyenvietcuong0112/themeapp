@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivClose"/>
         
     <!-- Live KeyboardView Preview -->
-    <com.app.personalization.presentation.ime.KeyboardView
+    <com.app.personalization.presentation.theme.KeyboardView
         android:id="@+id/themeView"
         android:layout_width="0dp"
         android:layout_height="220dp"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto"  
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_4">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clipToOutline="true"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:cardElevation="@dimen/dp_0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="H,9:16">
+
+        <com.app.personalization.presentation.customviews.RemoteImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:textSize="@dimen/sp_14"
+        android:textColor="?attr/titleTextColor"
+        android:gravity="center"
+        android:fontFamily="@font/helvetica_regular"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

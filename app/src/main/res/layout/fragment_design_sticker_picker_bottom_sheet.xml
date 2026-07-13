@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
-        <com.starnest.design.ui.widget.searchview.SearchView
+        <com.app.personalization.cscthemeapp.design.ui.widget.searchview.SearchView
             android:id="@+id/searchView"
             android:background="@drawable/bg_design_corner_20"
             android:layout_width="0dp"

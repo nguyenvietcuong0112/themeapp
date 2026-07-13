@@ -43,7 +43,7 @@
         app:cardBackgroundColor="@color/transparent"
         app:cardCornerRadius="@dimen/dp_8"
         app:cardElevation="@dimen/dp_0">
-        <com.app.personalization.presentation.widget.RemoteImageView
+        <com.app.personalization.presentation.customviews.RemoteImageView
             android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

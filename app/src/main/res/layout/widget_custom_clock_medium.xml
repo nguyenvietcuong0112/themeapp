@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.starnest.widget.ui.widget.widget.AnalogClockView
+            <com.app.personalization.cscthemeapp.widget.ui.widget.widget.AnalogClockView
                 android:id="@+id/clockView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

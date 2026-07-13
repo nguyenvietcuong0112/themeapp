@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         
-        <com.app.personalization.presentation.editor.DIYWallpaperCanvasView
+        <com.app.personalization.presentation.wallpaper.DIYWallpaperCanvasView
             android:id="@+id/wallpaperCanvas"
             android:layout_width="0dp"
             android:layout_height="0dp"

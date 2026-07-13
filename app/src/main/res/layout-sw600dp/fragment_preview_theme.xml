@@ -44,7 +44,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <com.app.personalization.presentation.widget.RemoteImageView
+                    <com.app.personalization.presentation.customviews.RemoteImageView
                         android:id="@+id/imageView"
                         android:background="@drawable/bg_button"
                         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-            <com.app.personalization.presentation.widget.DownloadThemeButtonView
+            <com.app.personalization.presentation.customviews.DownloadThemeButtonView
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:id="@+id/llDownload"

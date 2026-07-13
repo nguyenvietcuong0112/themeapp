@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     layout="@layout/toolbar_create_wallpaper"/>
-                <com.starnest.design.ui.widget.cropview.CropOptionView
+                <com.app.personalization.cscthemeapp.design.ui.widget.cropview.CropOptionView
                     android:id="@+id/viewCrop"
                     android:tag="binding_2"
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
-                <com.starnest.design.ui.widget.ToolbarAddTextView
+                <com.app.personalization.cscthemeapp.design.ui.widget.ToolbarAddTextView
                     android:id="@+id/viewAddText"
                     android:tag="binding_3"
                     android:background="@color/white"
@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
             </FrameLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <com.starnest.design.ui.widget.pageoptionview.PageOptionView
+        <com.app.personalization.cscthemeapp.design.ui.widget.pageoptionview.PageOptionView
             android:id="@+id/pageOptionView"
             android:tag="binding_4"
             android:layout_width="0dp"
@@ -75,7 +75,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
-        <com.starnest.design.ui.widget.forrmattextview.view.TextFormatMenuView
+        <com.app.personalization.cscthemeapp.design.ui.widget.forrmattextview.view.TextFormatMenuView
             android:id="@+id/textFormatView"
             android:tag="binding_5"
             android:layout_width="0dp"
@@ -94,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/pageOptionView">
-            <com.starnest.design.ui.widget.menuview.MenuPickerView
+            <com.app.personalization.cscthemeapp.design.ui.widget.menuview.MenuPickerView
                 android:id="@+id/menuView"
                 android:tag="binding_7"
                 android:background="@color/white"

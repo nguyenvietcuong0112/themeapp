@@ -10,7 +10,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent">
-        <com.starnest.design.ui.widget.FrameImageView
+        <com.app.personalization.cscthemeapp.design.ui.widget.FrameImageView
             android:id="@+id/ivFrame"
             android:padding="@dimen/dp_12"
             android:layout_width="match_parent"

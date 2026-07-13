@@ -49,6 +49,16 @@ data class KeyboardTheme(
         return ResourceConfig.getKeyboardBackgroundUrl(path)
     }
 
+    fun getPreviewUrl(): String {
+        if (path.isEmpty()) return ""
+        return ResourceConfig.getKeyboardPreviewUrl(path)
+    }
+
+    fun getBackgroundUrl(): String {
+        if (path.isEmpty()) return ""
+        return ResourceConfig.getKeyboardBackgroundUrl(path)
+    }
+
     private fun loadJsonFromAsset(context: Context, path: String): String {
         return context.assets.open(path).bufferedReader().use { it.readText() }
     }

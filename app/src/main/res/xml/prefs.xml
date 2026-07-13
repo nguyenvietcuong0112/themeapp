@@ -4,5 +4,5 @@
         android:icon="@drawable/ic_settings_languages"
         android:title="@string/language_and_layouts_title"
         android:key="screen_languages"
-        android:fragment="com.android.inputmethod.latin.settings.LanguageSettingsFragment"/>
+        android:fragment="com.app.personalization.inputmethod.latin.settings.LanguageSettingsFragment"/>
 </PreferenceScreen>

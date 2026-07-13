@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
 import com.app.personalization.di.ServiceLocator
-import com.app.personalization.presentation.main.ThemeAdapter
+import com.app.personalization.presentation.theme.ThemeAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +40,12 @@ class MyThemeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvThemes = view.findViewById(R.id.recyclerView)
-        rvThemes.layoutManager = GridLayoutManager(context, 2)
+        val context = requireContext()
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        // Keyboard grid: Target ~160dp width per item
+        val columns = (screenWidthDp / 160).toInt().coerceAtLeast(2)
+        rvThemes.layoutManager = GridLayoutManager(context, columns)
 
         adapter = ThemeAdapter(
             onThemeClick = { theme ->

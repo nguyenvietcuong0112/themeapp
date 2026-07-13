@@ -79,6 +79,7 @@
     <uses-permission android:name="android.permission.ACCESS_ADSERVICES_CUSTOM_AUDIENCE"/>
 
     <application
+        android:name="com.app.personalization.ThemeApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -90,7 +91,7 @@
 
         <!-- Launcher Onboarding Permission Activity -->
         <activity
-            android:name="com.app.personalization.presentation.editor.PermissionActivity"
+            android:name="com.app.personalization.presentation.main.PermissionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,7 +101,7 @@
 
         <!-- Main Dashboard Activity -->
         <activity
-            android:name="com.app.personalization.presentation.editor.MainActivity"
+            android:name="com.app.personalization.presentation.main.MainActivity"
             android:exported="true" />
 
         <!-- Keyboard Settings Activity -->
@@ -110,12 +111,12 @@
 
         <!-- Wallpaper DIY Activity -->
         <activity
-            android:name="com.app.personalization.presentation.editor.DIYWallpaperActivity"
+            android:name="com.app.personalization.presentation.wallpaper.DIYWallpaperActivity"
             android:exported="true" />
 
         <!-- Icon Changer Activity -->
         <activity
-            android:name="com.app.personalization.presentation.editor.IconChangerActivity"
+            android:name="com.app.personalization.presentation.icon.IconChangerActivity"
             android:exported="true" />
 
         <!-- Theme Preview Activity -->
@@ -130,7 +131,7 @@
 
         <!-- Premium Screen Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.PremiumActivity"
+            android:name="com.app.personalization.presentation.customviews.PremiumActivity"
             android:exported="true" />
 
         <!-- Widget Configuration Activity -->
@@ -144,17 +145,44 @@
 
         <!-- Download & Apply Wallpaper Activity -->
         <activity
-            android:name="com.app.personalization.presentation.editor.DownloadWallpaperActivity"
+            android:name="com.app.personalization.presentation.wallpaper.DownloadWallpaperActivity"
             android:exported="true" />
+ 
+        <!-- Charging Animation Screen -->
+        <activity
+            android:name="com.app.personalization.presentation.charging.ChargingActivity"
+            android:exported="true"
+            android:showOnLockScreen="true"
+            android:screenOrientation="sensor" />
 
         <activity
-            android:name="com.app.personalization.presentation.theme.DownloadThemeActivity"
+            android:name="com.app.personalization.presentation.widget.DownloadThemeActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 
+        <!-- Widget Theme Detail Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.widget.WidgetThemeDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <!-- Info Guide Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.setting.InfoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <!-- Shortcut Proxy Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.widget.ChangeIconActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+
+
         <!-- Live Wallpaper Service -->
         <service
-            android:name="com.app.personalization.presentation.editor.DiyWallpaperService"
+            android:name="com.app.personalization.presentation.wallpaper.DiyWallpaperService"
             android:label="Interactive Particles Live Wallpaper"
             android:permission="android.permission.BIND_WALLPAPER"
             android:exported="true">
@@ -169,7 +197,7 @@
 
         <!-- Custom Keyboard IME Service -->
         <service
-            android:name="com.app.personalization.presentation.ime.CustomKeyboardIME"
+            android:name="com.app.personalization.presentation.theme.CustomKeyboardIME"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
@@ -218,6 +246,17 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_large" />
+        </receiver>
+
+
+
+        <!-- Widget Pinning Callback Receiver -->
+        <receiver
+            android:name="com.app.personalization.presentation.widget.WidgetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.app.personalization.WIDGET_PINNED" />
+            </intent-filter>
         </receiver>
 
     </application>

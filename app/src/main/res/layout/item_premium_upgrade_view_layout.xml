@@ -21,7 +21,7 @@
             android:lines="1"
             android:layout_weight="1"
             android:fontFamily="?attr/fontMedium"/>
-        <com.starnest.core.ui.widget.AppSwitch
+        <com.app.personalization.cscthemeapp.core.ui.widget.AppSwitch
             android:theme="@style/Theme.SwitchTheme"
             android:id="@+id/scTrial"
             android:background="@null"

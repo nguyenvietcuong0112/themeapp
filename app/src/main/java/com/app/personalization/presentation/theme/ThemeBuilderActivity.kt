@@ -31,7 +31,7 @@ import com.app.personalization.data.ThemeConfig
 import com.app.personalization.data.FontConfig
 import com.app.personalization.data.PopupConfig
 import com.app.personalization.domain.model.KeyDef
-import com.app.personalization.presentation.ime.KeyboardView
+import com.app.personalization.presentation.theme.KeyboardView
 
 class ThemeBuilderActivity : AppCompatActivity() {
 

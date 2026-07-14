@@ -75,10 +75,12 @@ object CdnPathResolver {
 
     /**
      * Lấy URL ảnh xem trước của Widget.
-     * Cấu trúc: [CDN_DOMAIN]/templates/[template_folder]/preview.png
+     * Cấu trúc: [CDN_DOMAIN]/previews/widgets/{theme_folder}/{widget_size}.png
      */
-    fun getWidgetPreviewUrl(templateFolder: String): String {
-        return "${cdnDomain.removeSuffix("/")}/templates/${templateFolder.removePrefix("/")}/preview.png"
+    fun getWidgetPreviewUrl(themeFolder: String, widgetSize: String = "medium"): String {
+        val cleanFolder = themeFolder.removePrefix("/")
+        val cleanSize = widgetSize.lowercase().removeSuffix(".png")
+        return "${cdnDomain.removeSuffix("/")}/previews/widgets/$cleanFolder/$cleanSize.png"
     }
 
     /**

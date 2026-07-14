@@ -81,7 +81,7 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
                 binding.pbCreate.visibility = View.GONE
                 binding.recyclerView.adapter = WidgetGridAdapter(widgets) { selectedWidget ->
                     // Get widget preview image URL using CdnPathResolver
-                    val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(selectedWidget.templatePath)
+                    val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(selectedWidget.templatePath, selectedWidget.size)
                     sharedViewModel.selectWidget(widgetUrl)
                     dismiss()
                 }
@@ -130,7 +130,7 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
                 tvName.text = "Widget ${item.type}"
 
                 // Load widget preview via CdnPathResolver
-                val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(item.templatePath)
+                val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(item.templatePath, item.size)
                 Glide.with(itemView.context)
                     .load(widgetUrl)
                     .centerInside()

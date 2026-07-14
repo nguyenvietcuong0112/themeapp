@@ -29,6 +29,7 @@ class CreateThemeView @JvmOverloads constructor(
     init {
         // Setup initial recycler settings
         binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
+        binding.recyclerView.adapter = CreateThemeIconAdapter(emptyList())
     }
 
     fun setWallpaper(url: String) {

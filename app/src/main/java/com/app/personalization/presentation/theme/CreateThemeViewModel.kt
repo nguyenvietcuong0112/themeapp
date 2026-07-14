@@ -15,18 +15,18 @@ class CreateThemeViewModel : ViewModel() {
     private val _iconPackState = MutableLiveData<List<String>>()
     val iconPackState: LiveData<List<String>> = _iconPackState
 
-    // Default presets using theme_1 (Aesthetic Blue Sky theme on Cloudflare CDN)
-    private val defaultWallpaper = "https://csc-themeapp-widget.pages.dev/theme_1/wallpapers/bg_wallpaper.png"
-    private val defaultWidget = "https://csc-themeapp-widget.pages.dev/theme_1/bg_preview.png"
+    // Default presets using CdnPathResolver
+    private val defaultWallpaper = com.app.personalization.data.CdnPathResolver.getWallpaperFullUrl("theme_1", "bg_wallpaper.png")
+    private val defaultWidget = com.app.personalization.data.CdnPathResolver.getThemePreviewUrl("theme_1")
     private val defaultIcons = listOf(
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_facebook.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_instagram.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_messenger.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_tiktok.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_chrome.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_gmail.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_camera.png",
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_settings.png"
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "facebook"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "instagram"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "messenger"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "tiktok"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "chrome"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "gmail"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "camera"),
+        com.app.personalization.data.CdnPathResolver.getSingleIconUrl("theme_1", "settings")
     )
 
     init {

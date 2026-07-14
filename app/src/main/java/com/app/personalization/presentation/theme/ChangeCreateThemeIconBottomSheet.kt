@@ -11,14 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
-import com.app.personalization.data.database.entity.WidgetThemeIcon
+import com.app.personalization.data.database.entity.ThemeIconPack
 import com.app.personalization.databinding.FragmentChangeCreateThemeIconBinding
-import com.app.personalization.di.ServiceLocator
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class ChangeCreateThemeIconBottomSheet : BottomSheetDialogFragment() {
 
@@ -60,18 +60,18 @@ class ChangeCreateThemeIconBottomSheet : BottomSheetDialogFragment() {
 
     private fun loadIconPacks() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val dbList = ServiceLocator.getIconPackDao(requireContext()).getAllIcons()
+            val dbList = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).iconDao().getAllIconPacks()
             
             val iconPacks = if (dbList.isNotEmpty()) {
                 dbList
             } else {
                 // Fallback list of 10 default packs if DB is empty
                 (1..10).map {
-                    WidgetThemeIcon(
-                        id = "default_$it",
+                    ThemeIconPack(
+                        id = UUID.randomUUID(),
                         name = "Aesthetic Theme $it",
                         folder = "theme_$it",
-                        category = "Aesthetic"
+                        themeId = UUID.randomUUID()
                     )
                 }
             }
@@ -81,10 +81,10 @@ class ChangeCreateThemeIconBottomSheet : BottomSheetDialogFragment() {
                 binding.recyclerView.adapter = IconPackAdapter(iconPacks) { selectedPack ->
                     // Build list of 8 icon urls
                     val iconsList = listOf(
-                        "ic_facebook.png", "ic_instagram.png", "ic_messenger.png", "ic_tiktok.png",
-                        "ic_chrome.png", "ic_gmail.png", "ic_camera.png", "ic_settings.png"
+                        "facebook", "instagram", "messenger", "tiktok",
+                        "chrome", "gmail", "camera", "settings"
                     )
-                    val urls = iconsList.map { "https://csc-themeapp-widget.pages.dev/${selectedPack.folder}/icons/$it" }
+                    val urls = iconsList.map { com.app.personalization.data.CdnPathResolver.getSingleIconUrl(selectedPack.folder, it) }
                     sharedViewModel.selectIconPack(urls)
                     dismiss()
                 }
@@ -99,8 +99,8 @@ class ChangeCreateThemeIconBottomSheet : BottomSheetDialogFragment() {
 
     // Inner Adapter
     private class IconPackAdapter(
-        private val list: List<WidgetThemeIcon>,
-        private val onSelected: (WidgetThemeIcon) -> Unit
+        private val list: List<ThemeIconPack>,
+        private val onSelected: (ThemeIconPack) -> Unit
     ) : RecyclerView.Adapter<IconPackAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -124,12 +124,12 @@ class ChangeCreateThemeIconBottomSheet : BottomSheetDialogFragment() {
             private val tvName: TextView = view.findViewById(R.id.tvName)
             private val tvInstall: TextView = view.findViewById(R.id.tvInstall)
 
-            fun bind(item: WidgetThemeIcon, onSelected: (WidgetThemeIcon) -> Unit) {
+            fun bind(item: ThemeIconPack, onSelected: (ThemeIconPack) -> Unit) {
                 tvName.text = item.name
                 tvInstall.text = "Select"
 
-                // Load preview icon of the pack (Facebook)
-                val previewUrl = "https://csc-themeapp-widget.pages.dev/${item.folder}/icons/ic_facebook.png"
+                // Load preview icon of the pack (Facebook) using CdnPathResolver
+                val previewUrl = com.app.personalization.data.CdnPathResolver.getSingleIconUrl(item.folder, "facebook")
                 Glide.with(itemView.context)
                     .load(previewUrl)
                     .centerInside()

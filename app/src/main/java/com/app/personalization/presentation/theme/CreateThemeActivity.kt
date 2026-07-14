@@ -116,7 +116,7 @@ class CreateThemeActivity : AppCompatActivity() {
                 out.flush()
                 out.close()
 
-                // Insert into Database
+                // Insert into original AppDatabase
                 val customTheme = KeyboardTheme(
                     id = themeId,
                     name = "My Custom Theme ${themeId.take(4)}",
@@ -126,6 +126,16 @@ class CreateThemeActivity : AppCompatActivity() {
                     previewPath = file.absolutePath
                 )
                 ServiceLocator.getThemeDao(this@CreateThemeActivity).insertTheme(customTheme)
+
+                // Insert into new ThemeDatabase
+                val newWidgetTheme = com.app.personalization.data.database.entity.WidgetTheme(
+                    id = UUID.fromString(themeId),
+                    name = "My Custom Theme ${themeId.take(4)}",
+                    folder = file.absolutePath,
+                    order = 999,
+                    isCustom = true
+                )
+                com.app.personalization.data.database.ThemeDatabase.getDatabase(this@CreateThemeActivity).themeDao().insertTheme(newWidgetTheme)
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@CreateThemeActivity, "Theme saved successfully!", Toast.LENGTH_SHORT).show()

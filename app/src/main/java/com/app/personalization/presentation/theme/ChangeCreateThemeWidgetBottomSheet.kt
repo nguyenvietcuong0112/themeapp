@@ -11,14 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
-import com.app.personalization.data.database.entity.WidgetThemeWidget
+import com.app.personalization.data.database.entity.ThemeWidget
 import com.app.personalization.databinding.FragmentChangeCreateThemeWidgetBinding
-import com.app.personalization.di.ServiceLocator
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
 
@@ -60,18 +60,19 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
 
     private fun loadWidgets() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val dbList = ServiceLocator.getWidgetThemeDao(requireContext()).getAllWidgetThemes()
+            val dbList = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).widgetDao().getAllWidgets()
             
             val widgets = if (dbList.isNotEmpty()) {
                 dbList
             } else {
                 // Fallback list of 10 default widgets if DB is empty
                 (1..10).map {
-                    WidgetThemeWidget(
-                        id = "default_$it",
-                        name = "Classic Widget $it",
-                        folder = "theme_$it",
-                        category = "Classic"
+                    ThemeWidget(
+                        id = UUID.randomUUID(),
+                        themeId = UUID.randomUUID(),
+                        templatePath = "theme_$it",
+                        size = "MEDIUM",
+                        type = "CLOCK"
                     )
                 }
             }
@@ -79,8 +80,8 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
             withContext(Dispatchers.Main) {
                 binding.pbCreate.visibility = View.GONE
                 binding.recyclerView.adapter = WidgetGridAdapter(widgets) { selectedWidget ->
-                    // Get widget preview image URL (typically bg_preview.png inside the theme folder)
-                    val widgetUrl = "https://csc-themeapp-widget.pages.dev/${selectedWidget.folder}/bg_preview.png"
+                    // Get widget preview image URL using CdnPathResolver
+                    val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(selectedWidget.templatePath)
                     sharedViewModel.selectWidget(widgetUrl)
                     dismiss()
                 }
@@ -95,8 +96,8 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
 
     // Inner Adapter
     private class WidgetGridAdapter(
-        private val list: List<WidgetThemeWidget>,
-        private val onSelected: (WidgetThemeWidget) -> Unit
+        private val list: List<ThemeWidget>,
+        private val onSelected: (ThemeWidget) -> Unit
     ) : RecyclerView.Adapter<WidgetGridAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -125,11 +126,11 @@ class ChangeCreateThemeWidgetBottomSheet : BottomSheetDialogFragment() {
             private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
             private val tvName: TextView = view.findViewById(R.id.tvName)
 
-            fun bind(item: WidgetThemeWidget, onSelected: (WidgetThemeWidget) -> Unit) {
-                tvName.text = item.name
+            fun bind(item: ThemeWidget, onSelected: (ThemeWidget) -> Unit) {
+                tvName.text = "Widget ${item.type}"
 
-                // Load widget preview
-                val widgetUrl = "https://csc-themeapp-widget.pages.dev/${item.folder}/bg_preview.png"
+                // Load widget preview via CdnPathResolver
+                val widgetUrl = com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(item.templatePath)
                 Glide.with(itemView.context)
                     .load(widgetUrl)
                     .centerInside()

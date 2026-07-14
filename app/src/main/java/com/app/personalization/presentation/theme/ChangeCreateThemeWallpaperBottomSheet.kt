@@ -60,13 +60,13 @@ class ChangeCreateThemeWallpaperBottomSheet : BottomSheetDialogFragment() {
 
     private fun loadWallpapers() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val dbList = ServiceLocator.getWallpaperDao(requireContext()).getAllWallpapers()
+            val dbList = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).wallpaperDao().getAllWallpapers()
             
             // Fallback list of 15 default wallpapers if DB is empty
             val wallpaperUrls = if (dbList.isNotEmpty()) {
-                dbList.map { it.getOnlineImageUri(requireContext()).toString() }
+                dbList.map { com.app.personalization.data.CdnPathResolver.getWallpaperFullUrl(it.folder, it.imageName) }
             } else {
-                (1..15).map { "https://csc-themeapp-widget.pages.dev/theme_$it/wallpapers/bg_wallpaper.png" }
+                (1..15).map { com.app.personalization.data.CdnPathResolver.getWallpaperFullUrl("theme_$it", "bg_wallpaper") }
             }
 
             withContext(Dispatchers.Main) {

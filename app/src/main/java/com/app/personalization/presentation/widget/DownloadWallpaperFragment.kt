@@ -114,10 +114,7 @@ class DownloadWallpaperFragment : Fragment() {
             )
             .into(binding.ivPreview)
 
-        // Hide ads and unlock layouts completely
-        binding.llPlayVideo.visibility = View.GONE
-        binding.actionView.llAction.visibility = View.GONE
-        binding.actionView.llPlayVideo.root.visibility = View.GONE
+
 
         // Always show install button
         binding.actionView.clInstall.visibility = View.VISIBLE

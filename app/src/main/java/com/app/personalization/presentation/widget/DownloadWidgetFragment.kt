@@ -118,9 +118,7 @@ class DownloadWidgetFragment : Fragment() {
     }
 
     private fun setupActions() {
-        // Hide ads and unlock layouts completely
-        binding.actionView.llAction.visibility = View.GONE
-        binding.actionView.llPlayVideo.root.visibility = View.GONE
+
 
         // Always show install button
         binding.actionView.clInstall.visibility = View.VISIBLE

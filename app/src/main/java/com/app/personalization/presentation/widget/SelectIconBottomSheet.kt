@@ -93,20 +93,33 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         binding.recyclerView.adapter = SelectedIconsPreviewAdapter(selectedIcons, theme.path)
 
         binding.tvDone.setOnClickListener {
-            binding.tvDone.isEnabled = false
             startInstallation()
         }
     }
 
+    private var totalToInstall = 0
+
     private fun startInstallation() {
         installQueue.clear()
         installQueue.addAll(selectedIcons)
+        totalToInstall = selectedIcons.size
+
+        binding.tvDone.visibility = View.GONE
+        binding.tvCancel.visibility = View.GONE
+        binding.progressBar.max = totalToInstall
+        binding.progressBar.progress = 0
+        binding.progressBar.visibility = View.VISIBLE
+
         processNextShortcut()
     }
 
     private fun processNextShortcut() {
         fallbackJob?.cancel()
         if (installQueue.isNotEmpty()) {
+            val installedCount = totalToInstall - installQueue.size
+            binding.progressBar.progress = installedCount
+            binding.tvTitle.text = "Adding icons... ($installedCount/$totalToInstall)"
+
             val nextItem = installQueue.removeAt(0)
             lifecycleScope.launch(Dispatchers.IO) {
                 val bitmap = loadThemeIconBitmap(nextItem)

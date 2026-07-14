@@ -16,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
 import com.app.personalization.presentation.wallpaper.DIYWallpaperActivity
 import com.app.personalization.presentation.theme.MyThemeActivity
-import com.app.personalization.presentation.customviews.PremiumActivity
 import com.app.personalization.presentation.theme.ThemePreviewActivity
-import com.app.personalization.presentation.customviews.GemView
 import com.app.personalization.presentation.wallpaper.DownloadWallpaperActivity
 
 class WallpaperFragment : Fragment() {
@@ -28,7 +26,6 @@ class WallpaperFragment : Fragment() {
     private lateinit var itemAdapter: WallpaperItemAdapter
     
     private lateinit var pbCreate: ProgressBar
-    private var gemView: GemView? = null
 
     // Scroll listener for pagination / endless scroll
     private val scrollListener = object : RecyclerView.OnScrollListener() {
@@ -68,25 +65,13 @@ class WallpaperFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadCoins()
         viewModel.loadWallpapers(false)
     }
 
     private fun setupToolbar(view: View) {
         val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        
-        // Hide shuffle refresh, show title
-        toolbar.findViewById<View>(R.id.ivRefresh)?.visibility = View.GONE
-        
         val titleText = toolbar.findViewById<android.widget.TextView>(R.id.titleTextView)
         titleText?.text = "Wallpapers"
-
-        val llUpgrade = toolbar.findViewById<View>(R.id.llUpgrade)
-        llUpgrade?.setOnClickListener {
-            startActivity(Intent(context, PremiumActivity::class.java))
-        }
-
-        gemView = toolbar.findViewById(R.id.gemView)
     }
 
     private fun setupCategories(view: View) {
@@ -109,20 +94,19 @@ class WallpaperFragment : Fragment() {
         val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
         // Wallpaper grid: Target ~120dp width per item
         val columns = (screenWidthDp / 120).toInt().coerceAtLeast(3)
-        val gridLayoutManager = GridLayoutManager(context, columns)
-        rvWallpapers.layoutManager = gridLayoutManager
+        rvWallpapers.layoutManager = GridLayoutManager(context, columns)
 
-        // Calculate final width for adapter dynamic sizing
+        // Calculate available width for adapter dynamic sizing
         val margin = context.resources.getDimensionPixelSize(R.dimen.dp_8) * 2
-        val displayWidth = context.resources.displayMetrics.widthPixels
+        val displayWidth = displayMetrics.widthPixels
         val availableWidth = displayWidth - margin
 
         itemAdapter = WallpaperItemAdapter(
             screenWidth = availableWidth,
             columns = columns,
-            onItemClick = { wallpaper ->
+            onItemClick = { wp ->
                 val intent = Intent(context, DownloadWallpaperActivity::class.java).apply {
-                    putExtra("wallpaper_item", wallpaper)
+                    putExtra("wallpaper_item", wp)
                 }
                 startActivity(intent)
             },
@@ -131,7 +115,6 @@ class WallpaperFragment : Fragment() {
                 Toast.makeText(context, "Favorite updated!", Toast.LENGTH_SHORT).show()
             }
         )
-
         rvWallpapers.adapter = itemAdapter
         rvWallpapers.addOnScrollListener(scrollListener)
     }
@@ -163,10 +146,6 @@ class WallpaperFragment : Fragment() {
         viewModel.wallpapers.observe(viewLifecycleOwner) { list ->
             pbCreate.visibility = View.GONE
             itemAdapter.submitList(list)
-        }
-
-        viewModel.coins.observe(viewLifecycleOwner) { amount ->
-            gemView?.setCoins(amount)
         }
     }
 

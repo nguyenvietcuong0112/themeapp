@@ -1,82 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="@dimen/dp_48">
-    <com.app.personalization.presentation.customviews.GemView
-        android:id="@+id/gemViewHidden"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_16"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/titleTextView"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:gravity="center"
-            android:id="@+id/llUpgrade"
-            android:background="@drawable/ic_upgrade"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_30"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:paddingHorizontal="@dimen/dp_6"
-            android:clipToOutline="true"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ivRefresh"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_max="@dimen/dp_90">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/dp_14"
-                android:layout_height="@dimen/dp_14"
-                android:src="@drawable/ic_upgrade_star"/>
-            <TextView
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/white"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/tvUpgrade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_1"
-                android:text="Pro"
-                android:lines="1"
-                android:fontFamily="@font/helvetica_medium"
-                android:layout_marginStart="@dimen/dp_1"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="@dimen/sp_12"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivRefresh"
-            android:padding="@dimen/dp_2"
-            android:focusable="true"
-            android:visibility="gone"
-            android:clickable="true"
-            android:layout_width="@dimen/dp_32"
-            android:layout_height="@dimen/dp_32"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_refresh"
-            android:translationZ="@dimen/dp_10"
-            android:clipToOutline="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/llUpgrade"
-            app:layout_constraintTop_toTopOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:textSize="@dimen/sp_22"
         android:textColor="?attr/titleTextColor"
@@ -86,19 +9,8 @@
         android:text="@string/themes"
         android:fontFamily="@font/pacifico_regular"
         android:textAlignment="center"
-        android:layout_marginStart="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/gemView"
-        app:layout_constraintStart_toEndOf="@+id/gemViewHidden"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_min="@dimen/dp_120"/>
-    <com.app.personalization.presentation.customviews.GemView
-        android:id="@+id/gemView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

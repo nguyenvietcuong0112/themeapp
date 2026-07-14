@@ -50,15 +50,6 @@ class DownloadIconFragment : Fragment() {
     private lateinit var adapter: DownloadIconItemAdapter
     
     private var isAllSelected = true
-    private val installQueue = ArrayList<ThemeIconItem>()
-
-    private val shortcutReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == "com.app.personalization.SHORTCUT_INSTALLED") {
-                EventBus.getDefault().post(ShortcutEvent())
-            }
-        }
-    }
 
     companion object {
         fun newInstance(theme: KeyboardTheme): DownloadIconFragment {
@@ -106,42 +97,7 @@ class DownloadIconFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-        val filter = IntentFilter("com.app.personalization.SHORTCUT_INSTALLED")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().registerReceiver(shortcutReceiver, filter, Context.RECEIVER_EXPORTED)
-        } else {
-            requireContext().registerReceiver(shortcutReceiver, filter)
-        }
-    }
 
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-        requireContext().unregisterReceiver(shortcutReceiver)
-    }
-
-    @Subscribe
-    fun onShortcutInstalled(event: ShortcutEvent) {
-        if (installQueue.isNotEmpty()) {
-            val nextItem = installQueue.removeAt(0)
-            lifecycleScope.launch(Dispatchers.IO) {
-                val bitmap = loadThemeIconBitmap(nextItem)
-                withContext(Dispatchers.Main) {
-                    if (bitmap != null) {
-                        addShortcut(requireContext(), nextItem, bitmap)
-                    } else {
-                        onShortcutInstalled(ShortcutEvent())
-                    }
-                }
-            }
-        } else {
-            binding.pbCreate.visibility = View.GONE
-            SetupSucceedDialogFragment().show(childFragmentManager, "success")
-        }
-    }
 
     private fun initPresetIcons() {
         val pm = requireContext().packageManager
@@ -231,8 +187,6 @@ class DownloadIconFragment : Fragment() {
 
     private fun setupActions() {
         // Hide unlock actions
-        binding.actionView.llAction.visibility = View.GONE
-        binding.actionView.llPlayVideo.root.visibility = View.GONE
 
         // Make install button always visible and active
         binding.actionView.clInstall.visibility = View.VISIBLE
@@ -299,116 +253,7 @@ class DownloadIconFragment : Fragment() {
         sheet.show(childFragmentManager, "select_icons")
     }
 
-    private fun addShortcut(context: Context, item: ThemeIconItem, bmp: Bitmap) {
-        val targetPkg = item.targetPackageName ?: return
-        val launchIntent = context.packageManager.getLaunchIntentForPackage(targetPkg) ?: return
-        
-        // Wrap intent to point to ChangeIconActivity proxy activity
-        val proxyIntent = Intent(context, ChangeIconActivity::class.java).apply {
-            action = Intent.ACTION_MAIN
-            putExtra("target_package", targetPkg)
-        }
 
-        val roundedBmp = roundBitmap(bmp, 16f)
-
-        val receiverIntent = Intent("com.app.personalization.SHORTCUT_INSTALLED").apply {
-            setPackage(context.packageName)
-        }
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
-        val successCallback = PendingIntent.getBroadcast(
-            context,
-            item.hashCode(),
-            receiverIntent,
-            flags
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val shortcutManager = context.getSystemService(android.content.pm.ShortcutManager::class.java)
-            if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported) {
-                val shortcutInfo = android.content.pm.ShortcutInfo.Builder(context, targetPkg)
-                    .setShortLabel(item.targetAppName ?: item.iconName)
-                    .setIcon(android.graphics.drawable.Icon.createWithBitmap(roundedBmp))
-                    .setIntent(proxyIntent)
-                    .setActivity(android.content.ComponentName(context, ChangeIconActivity::class.java))
-                    .build()
-
-                shortcutManager.requestPinShortcut(shortcutInfo, successCallback.intentSender)
-            } else {
-                Toast.makeText(context, "Pinning shortcut not supported", Toast.LENGTH_SHORT).show()
-                EventBus.getDefault().post(ShortcutEvent())
-            }
-        } else {
-            val installIntent = Intent("com.android.launcher.action.INSTALL_SHORTCUT").apply {
-                putExtra(Intent.EXTRA_SHORTCUT_INTENT, proxyIntent)
-                putExtra(Intent.EXTRA_SHORTCUT_NAME, item.targetAppName ?: item.iconName)
-                putExtra(Intent.EXTRA_SHORTCUT_ICON, roundedBmp)
-            }
-            context.sendBroadcast(installIntent)
-            EventBus.getDefault().post(ShortcutEvent())
-        }
-    }
-
-    private fun loadThemeIconBitmap(item: ThemeIconItem): Bitmap? {
-        val context = requireContext()
-        val themePath = if (item.assetPath.contains("theme_decorates/")) {
-            item.assetPath.substringAfter("theme_decorates/").substringBefore("/key/")
-        } else {
-            item.assetPath.substringBefore("/key/")
-        }
-        val cdnUrl = com.app.personalization.data.ResourceConfig.getLauncherIconUrl(context, themePath, item.iconName)
-
-        return try {
-            if (theme.rawType == "widget_theme" || themePath.startsWith("theme_")) {
-                Glide.with(context)
-                    .asBitmap()
-                    .load(cdnUrl)
-                    .submit()
-                    .get()
-            } else {
-                val inputStream: InputStream = context.assets.open(item.assetPath)
-                BitmapFactory.decodeStream(inputStream)
-            }
-        } catch (e: Exception) {
-            android.util.Log.w("DownloadIcon", "Asset open failed, trying CDN: $cdnUrl")
-            try {
-                Glide.with(context)
-                    .asBitmap()
-                    .load(cdnUrl)
-                    .submit()
-                    .get()
-            } catch (e2: Exception) {
-                android.util.Log.w("DownloadIcon", "CDN load failed: $cdnUrl. Generating custom icon fallback.")
-                val size = 96
-                val fallback = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-                val canvas = Canvas(fallback)
-                val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = Color.parseColor("#4F46E5")
-                    style = Paint.Style.FILL
-                }
-                canvas.drawRoundRect(0f, 0f, size.toFloat(), size.toFloat(), 16f, 16f, paint)
-                fallback
-            }
-        }
-    }
-
-    private fun roundBitmap(bitmap: Bitmap, cornerRadiusDp: Float): Bitmap {
-        val density = resources.displayMetrics.density
-        val pixels = (cornerRadiusDp * density).toInt()
-        
-        val output = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(output)
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        val rectF = RectF(rect)
-        canvas.drawRoundRect(rectF, pixels.toFloat(), pixels.toFloat(), paint)
-        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(bitmap, rect, rect, paint)
-        return output
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

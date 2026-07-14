@@ -1,207 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#12121A"
+    android:background="?attr/primaryBackgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center"
-        android:id="@+id/adContainer"
-        android:background="@drawable/bg_ad_container"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/dp_64"
-        android:paddingVertical="@dimen/dp_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivClose"
-        android:padding="@dimen/dp_4"
+        android:padding="@dimen/dp_8"
         android:focusable="true"
         android:clickable="true"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
-        android:layout_marginTop="@dimen/dp_6"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
         android:src="@drawable/ic_close"
-        android:tint="#FFFFFF"
-        android:layout_marginEnd="@dimen/dp_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adContainer"
-        app:layout_goneMarginTop="@dimen/dp_16"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivInfo"
-        android:padding="@dimen/dp_4"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_info"
-        android:tint="#FFFFFF"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:clipToOutline="true"
-        app:layout_constraintEnd_toStartOf="@+id/ivClose"
-        app:layout_constraintTop_toTopOf="@+id/ivClose"/>
-        
-    <!-- Live KeyboardView Preview -->
-    <com.app.personalization.presentation.theme.KeyboardView
-        android:id="@+id/themeView"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="@dimen/dp_4"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivClose"/>
-
-    <!-- Scrollable Customizer Form inside lower half -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/themeView"
-        app:layout_constraintBottom_toBottomOf="parent">
-        
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <TextView
-                android:text="Theme Name"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <EditText
-                android:id="@+id/etThemeName"
-                android:hint="Cyberpunk DIY"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#555566"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
-                
-            <TextView
-                android:text="Keyboard Background Color (Hex)"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <EditText
-                android:id="@+id/etBgColor"
-                android:text="#12121A"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
-                
-            <TextView
-                android:text="Key Background Color (Hex)"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <EditText
-                android:id="@+id/etKeyBgColor"
-                android:text="#1E1E2E"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
-                
-            <TextView
-                android:text="Key Text Color (Hex)"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <EditText
-                android:id="@+id/etKeyTextColor"
-                android:text="#00E5FF"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
-                
-            <TextView
-                android:text="Key Outline/Stroke Color (Hex)"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <EditText
-                android:id="@+id/etKeyShadowColor"
-                android:text="#3300E5FF"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
-                
-            <TextView
-                android:id="@+id/tvRadiusLabel"
-                android:text="Key Corner Rounding: 12dp"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <SeekBar
-                android:id="@+id/sbBorderRadius"
-                android:max="30"
-                android:progress="12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
-                
-            <TextView
-                android:text="Font Style"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp" />
-            <Spinner
-                android:id="@+id/spinnerFont"
-                android:backgroundTint="#00E5FF"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="24dp" />
-                
-            <Button
-                android:id="@+id/btnSaveTheme"
-                android:text="Save &amp; Apply Theme"
-                android:backgroundTint="#00E5FF"
-                android:textColor="#12121A"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp" />
-        </LinearLayout>
-    </ScrollView>
-    
-    <ProgressBar
-        android:layout_gravity="center"
-        android:id="@+id/pbCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/primary"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:tint="?attr/titleTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivInfo"
+        android:padding="@dimen/dp_8"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:src="@drawable/ic_info"
+        android:tint="?attr/titleTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.app.personalization.presentation.theme.CreateThemeView
+        android:id="@+id/themeView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/dp_24"
+        android:layout_marginHorizontal="@dimen/dp_32"
+        app:layout_constraintTop_toBottomOf="@+id/ivClose"
+        app:layout_constraintBottom_toTopOf="@+id/actionView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include
+        android:id="@+id/actionView"
+        layout="@layout/action_create_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

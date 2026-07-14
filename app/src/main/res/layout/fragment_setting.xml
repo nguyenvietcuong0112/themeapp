@@ -11,12 +11,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.app.personalization.cscthemeapp.upsale.ui.banner.UpsaleBannerView
-                android:id="@+id/bannerUpsale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_12"
-                android:layout_marginHorizontal="@dimen/dp_16"/>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:orientation="vertical"
                 android:background="@drawable/bg_corner_14"

@@ -104,9 +104,9 @@
             android:name="com.app.personalization.presentation.main.MainActivity"
             android:exported="true" />
 
-        <!-- Keyboard Settings Activity -->
+        <!-- Theme Builder Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.ThemeBuilderActivity"
+            android:name="com.app.personalization.presentation.theme.CreateThemeActivity"
             android:exported="true" />
 
         <!-- Wallpaper DIY Activity -->

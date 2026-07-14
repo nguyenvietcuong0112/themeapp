@@ -58,8 +58,7 @@ class DownloadThemeActivity : AppCompatActivity() {
         val toolbarBinding = binding.toolbar
         toolbarBinding.titleTextView.text = theme.name
         
-        // Hide gemView and adContainer completely as requested
-        toolbarBinding.gemView.visibility = View.GONE
+        // Hide adContainer completely as requested
         binding.adContainer.visibility = View.GONE
 
         toolbarBinding.ivBack.setOnClickListener {

@@ -48,7 +48,7 @@ class MyThemeActivity : AppCompatActivity() {
         })
 
         findViewById<View>(R.id.tvCreate)?.setOnClickListener {
-            startActivity(Intent(this, ThemeBuilderActivity::class.java))
+            startActivity(Intent(this, CreateThemeActivity::class.java))
         }
     }
 

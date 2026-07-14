@@ -33,18 +33,10 @@ class SettingFragment : Fragment() {
     private fun setupToolbar(view: View) {
         val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
         
-        // Hide bannerUpsale if present
-        view.findViewById<View>(R.id.bannerUpsale)?.visibility = View.GONE
 
-        // Hide refresh, set title to Settings
-        toolbar.findViewById<View>(R.id.ivRefresh)?.visibility = View.GONE
-        
+
         val titleText = toolbar.findViewById<android.widget.TextView>(R.id.titleTextView)
         titleText?.text = "Settings"
-
-        // Hide upgrade button in Settings tab to avoid duplicate promo
-        toolbar.findViewById<View>(R.id.llUpgrade)?.visibility = View.GONE
-        toolbar.findViewById<View>(R.id.gemView)?.visibility = View.GONE
     }
 
     private fun setupClickListeners(view: View) {

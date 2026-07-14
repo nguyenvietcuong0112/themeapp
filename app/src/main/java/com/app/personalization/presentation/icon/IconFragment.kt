@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
 import com.app.personalization.presentation.widget.DownloadThemeActivity
 import com.app.personalization.presentation.icon.IconChangerActivity
-import com.app.personalization.presentation.customviews.GemView
+import com.app.personalization.databinding.FragmentIconBinding
 
 class IconFragment : Fragment() {
 
@@ -25,7 +25,6 @@ class IconFragment : Fragment() {
     private lateinit var categoryAdapter: ThemeCategoryAdapter
     private lateinit var iconPackAdapter: IconPackAdapter
     private lateinit var pbCreate: ProgressBar
-    private var gemView: GemView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,25 +49,12 @@ class IconFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadCoins()
     }
 
     private fun setupToolbar(view: View) {
         val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        
-        // Hide refresh button, set title to Icons
-        toolbar.findViewById<View>(R.id.ivRefresh)?.visibility = View.GONE
-        
         val titleText = toolbar.findViewById<android.widget.TextView>(R.id.titleTextView)
         titleText?.text = "Icons"
-
-        val llUpgrade = toolbar.findViewById<View>(R.id.llUpgrade)
-        llUpgrade?.setOnClickListener {
-            val intent = Intent(context, com.app.personalization.presentation.customviews.PremiumActivity::class.java)
-            startActivity(intent)
-        }
-
-        gemView = toolbar.findViewById(R.id.gemView)
     }
 
     private fun setupCategories(view: View) {
@@ -129,10 +115,6 @@ class IconFragment : Fragment() {
         viewModel.icons.observe(viewLifecycleOwner) { icons ->
             pbCreate.visibility = View.GONE
             iconPackAdapter.submitList(icons)
-        }
-
-        viewModel.coins.observe(viewLifecycleOwner) { coins ->
-            gemView?.setCoins(coins)
         }
     }
 

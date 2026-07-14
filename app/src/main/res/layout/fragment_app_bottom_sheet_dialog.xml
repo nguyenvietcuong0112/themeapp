@@ -32,6 +32,16 @@
             android:fontFamily="@font/helvetica_regular"
             android:layout_marginEnd="@dimen/dp_16"/>
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:progressTint="?attr/primaryColor"
+        android:indeterminate="false"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:tag="binding_2"

@@ -74,7 +74,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_theme_home"
         android:layout_marginEnd="@dimen/dp_16"
-        app:layout_constraintBottom_toTopOf="@+id/premiumView"
+        app:layout_constraintBottom_toTopOf="@+id/viewBottom"
         app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.appcompat.widget.AppCompatImageView
         android:gravity="center"
@@ -91,16 +91,6 @@
         android:layout_marginEnd="@dimen/dp_16"
         app:layout_constraintBottom_toTopOf="@+id/tvAdd"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <com.app.personalization.presentation.customviews.PremiumBannerView
-        android:id="@+id/premiumView"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:layout_marginHorizontal="@dimen/dp_16"
-        app:layout_constraintBottom_toBottomOf="@+id/viewBottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
     <ProgressBar
         android:layout_gravity="center"
         android:id="@+id/pbCreate"
@@ -112,31 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <com.app.personalization.presentation.customviews.GiftView
-        android:id="@+id/giftView"
-        android:focusable="true"
-        android:visibility="gone"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_marginStart="@dimen/dp_12"
-        android:elevation="@dimen/dp_12"
-        app:layout_constraintBottom_toTopOf="@+id/premiumView"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <com.app.personalization.presentation.customviews.UpsaleGiftView
-        android:id="@+id/upsaleGiftView"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_marginStart="@dimen/dp_12"
-        android:elevation="@dimen/dp_12"
-        app:layout_constraintBottom_toTopOf="@+id/premiumView"
-        app:layout_constraintStart_toStartOf="parent"/>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/viewBottom"
         android:layout_width="match_parent"

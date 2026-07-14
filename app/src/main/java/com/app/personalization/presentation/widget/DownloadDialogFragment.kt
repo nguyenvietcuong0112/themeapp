@@ -34,11 +34,11 @@ class DownloadDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = layoutInflater.inflate(R.layout.fragment_download_dialog, null)
-        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        val progressBar = view.findViewById<ProgressBar>(R.id.pbLoading)
         val tvProgress = view.findViewById<TextView>(R.id.tvProgress)
 
-        progressBar.isIndeterminate = false
-        progressBar.max = 100
+        progressBar?.isIndeterminate = false
+        progressBar?.max = 100
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -62,8 +62,8 @@ class DownloadDialogFragment : DialogFragment() {
                     if (fileLength > 0) {
                         val progress = (total * 100 / fileLength).toInt()
                         withContext(Dispatchers.Main) {
-                            progressBar.progress = progress
-                            tvProgress.text = "$progress%"
+                            progressBar?.progress = progress
+                            tvProgress?.text = "$progress%"
                         }
                     }
                     output.write(data, 0, count)

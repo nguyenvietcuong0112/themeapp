@@ -20,11 +20,9 @@ import com.app.personalization.R
 import com.app.personalization.presentation.wallpaper.DIYWallpaperActivity
 import com.app.personalization.presentation.main.MainActivity
 import com.app.personalization.presentation.theme.MyThemeActivity
-import com.app.personalization.presentation.customviews.PremiumActivity
-import com.app.personalization.presentation.theme.ThemeBuilderActivity
+import com.app.personalization.presentation.theme.CreateThemeActivity
 import com.app.personalization.presentation.theme.ThemePreviewActivity
 import com.app.personalization.presentation.widget.WidgetConfigActivity
-import com.app.personalization.presentation.customviews.GemView
 import com.app.personalization.presentation.customviews.HomeActionView
 
 class ThemeFragment : Fragment() {
@@ -33,8 +31,6 @@ class ThemeFragment : Fragment() {
     private lateinit var categoryAdapter: ThemeCategoryAdapter
     private lateinit var themeAdapter: ThemeAdapter
     private lateinit var pbCreate: ProgressBar
-    
-    private var gemView: GemView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,28 +56,11 @@ class ThemeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadCoins()
         // Reload categories and themes to capture any new DIY themes
         viewModel.selectCategory("all")
     }
 
     private fun setupToolbar(view: View) {
-        val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        
-        val ivRefresh = toolbar.findViewById<View>(R.id.ivRefresh)
-        ivRefresh?.visibility = View.VISIBLE
-        ivRefresh?.setOnClickListener {
-            viewModel.loadRandomThemes()
-            Toast.makeText(context, "Themes shuffled", Toast.LENGTH_SHORT).show()
-        }
-
-        val llUpgrade = toolbar.findViewById<View>(R.id.llUpgrade)
-        llUpgrade?.setOnClickListener {
-            val intent = Intent(context, PremiumActivity::class.java)
-            startActivity(intent)
-        }
-
-        gemView = toolbar.findViewById(R.id.gemView)
     }
 
     private fun setupQuickActions(view: View) {
@@ -93,7 +72,7 @@ class ThemeFragment : Fragment() {
                         startActivity(Intent(context, DIYWallpaperActivity::class.java))
                     }
                     HomeActionView.HomeActionType.THEME -> {
-                        startActivity(Intent(context, ThemeBuilderActivity::class.java))
+                        startActivity(Intent(context, CreateThemeActivity::class.java))
                     }
                     HomeActionView.HomeActionType.WIDGET -> {
                         startActivity(Intent(context, WidgetConfigActivity::class.java))
@@ -181,7 +160,7 @@ class ThemeFragment : Fragment() {
         }
 
         view.findViewById<View>(R.id.tvCreate)?.setOnClickListener {
-            startActivity(Intent(context, ThemeBuilderActivity::class.java))
+            startActivity(Intent(context, CreateThemeActivity::class.java))
         }
     }
 
@@ -193,10 +172,6 @@ class ThemeFragment : Fragment() {
         viewModel.themes.observe(viewLifecycleOwner) { themes ->
             pbCreate.visibility = View.GONE
             themeAdapter.submitList(themes)
-        }
-
-        viewModel.coins.observe(viewLifecycleOwner) { coins ->
-            gemView?.setCoins(coins)
         }
     }
 

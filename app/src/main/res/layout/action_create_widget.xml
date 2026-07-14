@@ -7,62 +7,6 @@
     android:paddingBottom="@dimen/dp_4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llAction"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginHorizontal="@dimen/dp_16">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:gravity="center"
-            android:id="@+id/llGetAll"
-            android:background="@drawable/bg_corner_8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:backgroundTint="@color/colorFF9D0A">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/dp_28"
-                android:layout_height="@dimen/dp_28"
-                android:src="@drawable/ic_premium"
-                android:layout_marginEnd="@dimen/dp_8"/>
-            <TextView
-                android:textSize="@dimen/sp_16"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Get All"
-                android:fontFamily="@font/helvetica_medium"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:gravity="center"
-            android:id="@+id/llSaveWithAds"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/dp_16"
-            android:paddingHorizontal="@dimen/dp_8">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivIcon"
-                android:layout_width="@dimen/dp_28"
-                android:layout_height="@dimen/dp_28"
-                android:src="@drawable/ic_play_video_ads"
-                android:layout_marginEnd="@dimen/dp_8"/>
-            <TextView
-                android:textSize="@dimen/sp_16"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:id="@+id/tvCoin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Save with Ads"
-                android:fontFamily="@font/helvetica_medium"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="@dimen/sp_8"
-                android:autoSizeMaxTextSize="@dimen/sp_16"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clInstall"
         android:focusable="true"
@@ -86,7 +30,7 @@
                 android:layout_marginEnd="@dimen/dp_8"/>
             <TextView
                 android:textSize="@dimen/sp_16"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:id="@+id/tvInstall"
@@ -102,6 +46,7 @@
         android:gravity="center"
         android:id="@+id/adContainer"
         android:background="@drawable/bg_ad_container"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"

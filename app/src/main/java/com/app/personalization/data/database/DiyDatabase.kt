@@ -19,9 +19,10 @@ import java.util.concurrent.Executors
 @Database(
     entities = [
         DiyBackground::class,
-        DiySticker::class
+        DiySticker::class,
+        com.app.personalization.data.database.entity.Design::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -41,6 +42,7 @@ abstract class DiyDatabase : RoomDatabase() {
                     "diy_resources_database"
                 )
                 .addCallback(DatabaseCallback(context))
+                .fallbackToDestructiveMigration()
                 .build()
                 INSTANCE = instance
                 instance

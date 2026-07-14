@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionDiyTools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="#1E1E2E">
+
+    <Button
+        android:id="@+id/btnBackground"
+        android:text="Màu nền"
+        android:textSize="12sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#00E5FF"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="4dp" />
+
+    <Button
+        android:id="@+id/btnSticker"
+        android:text="Sticker"
+        android:textSize="12sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#00E5FF"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="4dp" />
+
+    <Button
+        android:id="@+id/btnText"
+        android:text="Chữ nghệ thuật"
+        android:textSize="12sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#00E5FF"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="4dp" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:text="Lưu bản vẽ"
+        android:textSize="12sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF819F"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="4dp" />
+
+</LinearLayout>

@@ -27,4 +27,16 @@ interface DiyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStickers(stickers: List<DiySticker>)
+
+    @Query("SELECT * FROM diy_designs")
+    fun getAllDesigns(): List<com.app.personalization.data.database.entity.Design>
+
+    @Query("SELECT * FROM diy_designs WHERE id = :id LIMIT 1")
+    fun getDesignById(id: java.util.UUID): com.app.personalization.data.database.entity.Design?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDesign(design: com.app.personalization.data.database.entity.Design)
+
+    @Delete
+    fun deleteDesign(design: com.app.personalization.data.database.entity.Design)
 }

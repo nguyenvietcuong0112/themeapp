@@ -114,6 +114,11 @@
             android:name="com.app.personalization.presentation.wallpaper.DIYWallpaperActivity"
             android:exported="true" />
 
+        <!-- Wallpaper Creator/Editor Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.wallpaper.CreateWallpaperActivity"
+            android:exported="true" />
+
         <!-- Icon Changer Activity -->
         <activity
             android:name="com.app.personalization.presentation.icon.IconChangerActivity"

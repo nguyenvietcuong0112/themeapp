@@ -95,7 +95,23 @@ class DownloadWallpaperActivity : AppCompatActivity() {
     private fun loadWallpaperImage() {
         pbLoading.visibility = View.VISIBLE
         lifecycleScope.launch {
-            val bitmap = wallpaper.getImageBg(this@DownloadWallpaperActivity)
+            val onlineUrl = wallpaper.getOnlineImageUri(this@DownloadWallpaperActivity).toString()
+            android.util.Log.d("WallpaperFetch", "Loading high-res wallpaper from CDN: $onlineUrl")
+
+            val bitmap = withContext(Dispatchers.IO) {
+                try {
+                    com.bumptech.glide.Glide.with(this@DownloadWallpaperActivity)
+                        .asBitmap()
+                        .load(onlineUrl)
+                        .submit()
+                        .get()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    // Fallback to local generator
+                    wallpaper.getImageBg(this@DownloadWallpaperActivity)
+                }
+            }
+
             pbLoading.visibility = View.GONE
             if (bitmap != null) {
                 loadedBitmap = bitmap

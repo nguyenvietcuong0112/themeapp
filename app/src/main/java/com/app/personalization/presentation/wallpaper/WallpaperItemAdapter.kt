@@ -53,7 +53,16 @@ class WallpaperItemAdapter(
             onFavClick: (WidgetThemeWallpaper) -> Unit
         ) {
             val localDrawable = wallpaper.generateLocalThemePreview(itemView.context)
-            ivPreview.setImageDrawable(localDrawable)
+            val onlineUrl = wallpaper.getOnlinePreviewUri(itemView.context).toString()
+            
+            // Log URL to Logcat for verify/debugging
+            android.util.Log.d("WallpaperFetch", "Loading wallpaper preview from CDN URL: $onlineUrl")
+
+            Glide.with(itemView.context)
+                .load(onlineUrl)
+                .placeholder(localDrawable)
+                .error(localDrawable)
+                .into(ivPreview)
 
             // Setup favorite icon state
             if (wallpaper.isFavorite) {

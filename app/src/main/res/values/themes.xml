@@ -23,6 +23,7 @@
         <item name="lineColor">#E5E7EB</item>
         <item name="primaryColor">#4F46E5</item>
         <item name="tabBackgroundColor">#E5E7EB</item>
+        <item name="elevation">4dp</item>
         <item name="android:windowBackground">?attr/primaryBackgroundColor</item>
     </style>
 </resources>

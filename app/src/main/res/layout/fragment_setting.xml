@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:elevation="?attr/elevation"
+                android:elevation="4dp"
                 android:backgroundTint="?attr/secondaryBackgroundColor"
                 android:layout_marginHorizontal="@dimen/dp_16">
                 <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginBottom="@dimen/dp_20"
-                    android:elevation="?attr/elevation"
+                    android:elevation="4dp"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
                     <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginBottom="@dimen/dp_20"
-                    android:elevation="?attr/elevation"
+                    android:elevation="4dp"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
                     <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginBottom="@dimen/dp_20"
-                    android:elevation="?attr/elevation"
+                    android:elevation="4dp"
                     android:backgroundTint="?attr/secondaryBackgroundColor"
                     android:layout_marginHorizontal="@dimen/dp_16">
                     <com.app.personalization.cscthemeapp.widget.ui.setting.widget.SettingItemView

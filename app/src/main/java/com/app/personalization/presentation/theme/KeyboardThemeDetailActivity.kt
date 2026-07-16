@@ -90,9 +90,12 @@ class KeyboardThemeDetailActivity : AppCompatActivity() {
             progress.dismiss()
 
             if (success) {
-                // Apply the theme configuration
                 val prefs = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE)
-                prefs.edit().putString("selected_theme_id", theme.id).apply()
+                val jsonTheme = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.encodeToString(KeyboardTheme.serializer(), theme)
+                prefs.edit()
+                    .putString("selected_theme_id", theme.id)
+                    .putString("KEYBOARD_THEME", jsonTheme)
+                    .apply()
 
                 // Notify IME service of the update
                 sendBroadcast(Intent("com.app.personalization.ACTION_THEME_CHANGED"))
@@ -116,7 +119,7 @@ class KeyboardThemeDetailActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
         val list = imm.enabledInputMethodList ?: return false
         for (info in list) {
-            if (info.id.contains(packageName) && info.id.contains("CustomKeyboardIME")) {
+            if (info.packageName == packageName) {
                 return true
             }
         }

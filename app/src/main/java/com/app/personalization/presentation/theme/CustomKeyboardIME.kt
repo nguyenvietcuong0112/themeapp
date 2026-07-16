@@ -152,6 +152,17 @@ class CustomKeyboardIME : InputMethodService() {
     }
 
     private fun loadActiveTheme() {
+        val jsonTheme = prefs.getString("KEYBOARD_THEME", null)
+        if (jsonTheme != null) {
+            try {
+                val decoded = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<KeyboardTheme>(jsonTheme)
+                activeTheme = decoded
+                return
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         val selectedThemeId = try {
             prefs.getString("selected_theme_id", null)
         } catch (e: Exception) {

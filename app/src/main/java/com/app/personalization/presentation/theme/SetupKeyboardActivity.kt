@@ -86,7 +86,7 @@ class SetupKeyboardActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val list = imm.enabledInputMethodList ?: return false
         for (info in list) {
-            if (info.id.contains(packageName) && info.id.contains("CustomKeyboardIME")) {
+            if (info.packageName == packageName) {
                 return true
             }
         }

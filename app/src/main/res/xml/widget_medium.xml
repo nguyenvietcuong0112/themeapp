@@ -4,7 +4,7 @@
     android:minHeight="@dimen/dp_80"
     android:initialLayout="@layout/widget_layout_medium_empty"
     android:previewImage="@drawable/widget_preview_medium"
-    android:resizeMode="vertical"
+    android:resizeMode="horizontal|vertical"
     android:minResizeWidth="@dimen/dp_320"
     android:minResizeHeight="@dimen/dp_80"
     android:widgetCategory="home_screen"/>

@@ -28,11 +28,23 @@ class DownloadThemeActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(DownloadThemeViewModel::class.java)
 
-        val themeId = intent.getStringExtra("theme_id") ?: ""
-        val themeName = intent.getStringExtra("theme_name") ?: "Default Theme"
-        val themePath = intent.getStringExtra("theme_path") ?: ""
-        val themeType = intent.getStringExtra("theme_type") ?: "default"
-        theme = KeyboardTheme(id = themeId, name = themeName, path = themePath, rawType = themeType)
+        val widgetTheme = intent.getSerializableExtra(com.app.personalization.cscthemeapp.widget.model.model.Constants.Intents.WIDGET_THEME) as? com.app.personalization.data.database.entity.WidgetTheme
+        val isCustom = intent.getBooleanExtra(com.app.personalization.cscthemeapp.widget.model.model.Constants.Intents.IS_CUSTOM, false)
+        
+        if (widgetTheme != null) {
+            theme = KeyboardTheme(
+                id = widgetTheme.id.toString(),
+                name = widgetTheme.name,
+                path = widgetTheme.folder,
+                rawType = if (widgetTheme.isCustom) "diy" else "widget_theme"
+            )
+        } else {
+            val themeId = intent.getStringExtra("theme_id") ?: ""
+            val themeName = intent.getStringExtra("theme_name") ?: "Default Theme"
+            val themePath = intent.getStringExtra("theme_path") ?: ""
+            val themeType = intent.getStringExtra("theme_type") ?: "default"
+            theme = KeyboardTheme(id = themeId, name = themeName, path = themePath, rawType = themeType)
+        }
 
         // Set Tab background color dynamically using ?attr/secondaryBackgroundColor
         binding.llTab.setBackgroundColor(getAttrColor(R.attr.secondaryBackgroundColor))

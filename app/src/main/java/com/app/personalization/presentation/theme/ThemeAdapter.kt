@@ -86,8 +86,8 @@ class ThemeAdapter(
                 ivPreviewCustom.visibility = View.GONE
 
                 val localDrawable = theme.generateLocalThemePreview(context)
-                val previewUrl = ResourceConfig.getWidgetPreviewUrl(context, theme.path)
                 val themeFolder = ResourceConfig.getThemeFolderByPath(context, theme.path)
+                val previewUrl = com.app.personalization.data.CdnPathResolver.getThemePreviewUrl(themeFolder)
                 val localAssetPath = "theme_decorates/$themeFolder/bg_preview.png"
 
                 val assetExists = try {

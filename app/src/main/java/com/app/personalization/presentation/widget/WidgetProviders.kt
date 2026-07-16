@@ -14,6 +14,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.widget.RemoteViews
+import android.view.View
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -21,6 +22,8 @@ import com.bumptech.glide.Glide
 import com.app.personalization.R
 import com.app.personalization.di.ServiceLocator
 import com.app.personalization.data.database.entity.WidgetConfig
+import com.app.personalization.data.database.entity.WidgetItem
+import com.app.personalization.data.database.entity.WidgetSize
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -116,196 +119,99 @@ open class BaseWidgetProvider : AppWidgetProvider() {
 
 class Widget2x2Provider : BaseWidgetProvider() {
     override fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
-        val views = RemoteViews(context.packageName, R.layout.widget_layout_2x2)
-        val config = ServiceLocator.getWidgetConfigDao(context).getConfigForWidget(widgetId)
+        val prefs = context.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
+        val widgetType = prefs.getString("widget_type_$widgetId", "clock") ?: "clock"
+        val themeFolder = prefs.getString("theme_folder_$widgetId", "theme_1") ?: "theme_1"
+        val themeId = prefs.getString("theme_id_$widgetId", "1") ?: "1"
 
-        applyWidgetConfig(context, views, config, 0xFF1E1E2E.toInt(), widgetId)
+        val widgetItem = WidgetItem(
+            id = themeId,
+            themeFolder = themeFolder,
+            name = "Widget",
+            widgetType = widgetType,
+            size = "2x2",
+            isFree = true,
+            isFavorite = false
+        )
 
-        val size = 512
-        val bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bmp)
+        val bitmap = WidgetRenderHelper.getSnapshotImage(
+            context = context,
+            layoutId = R.layout.widget_layout_2x2,
+            widgetSize = WidgetSize.SMALL,
+            widgetItem = widgetItem,
+            widgetId = widgetId
+        )
 
-        val styleId = (widgetId % 29).let { if (it < 0) -it else it } + 1
-        val dialResId = context.resources.getIdentifier("widget_clock_${styleId}_dial", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_dial else it }
-        val hourResId = context.resources.getIdentifier("widget_clock_${styleId}_hours", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_hours else it }
-        val minResId = context.resources.getIdentifier("widget_clock_${styleId}_minutes", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_minutes else it }
-        val secResId = context.resources.getIdentifier("widget_clock_${styleId}_seconds", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_seconds else it }
-
-        val dialBmp = BitmapFactory.decodeResource(context.resources, dialResId)
-        val hourBmp = BitmapFactory.decodeResource(context.resources, hourResId)
-        val minBmp = BitmapFactory.decodeResource(context.resources, minResId)
-        val secBmp = BitmapFactory.decodeResource(context.resources, secResId)
-
-        val destRect = android.graphics.Rect(0, 0, size, size)
-
-        if (dialBmp != null) {
-            canvas.drawBitmap(dialBmp, null, destRect, null)
-        } else {
-            val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = config?.textColor ?: Color.WHITE
-                style = Paint.Style.STROKE
-                strokeWidth = 8f
-            }
-            canvas.drawCircle(size / 2f, size / 2f, size / 2f - 16f, paint)
+        val views = RemoteViews(context.packageName, R.layout.widget_container)
+        if (bitmap != null) {
+            views.setImageViewBitmap(R.id.ivWidget, bitmap)
         }
-
-        val cal = Calendar.getInstance()
-        val hour = cal.get(Calendar.HOUR)
-        val minute = cal.get(Calendar.MINUTE)
-        val second = cal.get(Calendar.SECOND)
-
-        val hrAngle = (hour % 12) * 30f + minute * 0.5f
-        val minAngle = minute * 6f + second * 0.1f
-        val secAngle = second * 6f
-
-        drawRotatedHand(canvas, hourBmp, hrAngle, size)
-        drawRotatedHand(canvas, minBmp, minAngle, size)
-        drawRotatedHand(canvas, secBmp, secAngle, size)
-
-        views.setImageViewBitmap(R.id.ivClock, bmp)
         appWidgetManager.updateAppWidget(widgetId, views)
-    }
-
-    private fun drawRotatedHand(canvas: Canvas, handBmp: Bitmap?, angle: Float, size: Int) {
-        if (handBmp == null) return
-        val matrix = Matrix()
-        val scale = size.toFloat() / handBmp.width.toFloat()
-        matrix.postScale(scale, scale)
-        matrix.postRotate(angle, size / 2f, size / 2f)
-        canvas.drawBitmap(handBmp, matrix, null)
     }
 }
 
 class Widget4x2Provider : BaseWidgetProvider() {
     override fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
-        val views = RemoteViews(context.packageName, R.layout.widget_layout_4x2)
-        val config = ServiceLocator.getWidgetConfigDao(context).getConfigForWidget(widgetId)
-
-        applyWidgetConfig(context, views, config, 0xFF1A1A24.toInt(), widgetId)
-        scheduleWeatherWork(context)
-
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("EEE, MMM d", Locale.getDefault())
-        val now = Date()
-
-        views.setTextViewText(R.id.tvTime, timeFormat.format(now))
-        views.setTextViewText(R.id.tvDate, dateFormat.format(now))
-
-        val textColor = config?.textColor ?: Color.WHITE
-        views.setTextColor(R.id.tvTime, textColor)
-        views.setTextColor(R.id.tvDate, textColor)
-
         val prefs = context.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
-        val weatherText = prefs.getString("weather_temp", "26°C Sunny") ?: "26°C Sunny"
-        
-        val iconCode = when {
-            weatherText.contains("sunny", ignoreCase = true) -> "sunny"
-            weatherText.contains("cloud", ignoreCase = true) -> "cloudy"
-            weatherText.contains("rain", ignoreCase = true) -> "rainy"
-            else -> "sunny"
-        }
-        val weatherIconId = context.resources.getIdentifier("ic_weather_${iconCode}", "drawable", context.packageName).let { if (it == 0) R.drawable.ic_style_weather else it }
-        views.setImageViewResource(R.id.ivWeatherIcon, weatherIconId)
-        views.setTextViewText(R.id.tvWeatherTemp, weatherText)
-        views.setTextColor(R.id.tvWeatherTemp, textColor)
+        val widgetType = prefs.getString("widget_type_$widgetId", "weather") ?: "weather"
+        val themeFolder = prefs.getString("theme_folder_$widgetId", "theme_1") ?: "theme_1"
+        val themeId = prefs.getString("theme_id_$widgetId", "1") ?: "1"
 
+        val widgetItem = WidgetItem(
+            id = themeId,
+            themeFolder = themeFolder,
+            name = "Widget",
+            widgetType = widgetType,
+            size = "4x2",
+            isFree = true,
+            isFavorite = false
+        )
+
+        val bitmap = WidgetRenderHelper.getSnapshotImage(
+            context = context,
+            layoutId = R.layout.widget_layout_4x2,
+            widgetSize = WidgetSize.MEDIUM,
+            widgetItem = widgetItem,
+            widgetId = widgetId
+        )
+
+        val views = RemoteViews(context.packageName, R.layout.widget_container)
+        if (bitmap != null) {
+            views.setImageViewBitmap(R.id.ivWidget, bitmap)
+        }
         appWidgetManager.updateAppWidget(widgetId, views)
-    }
-
-    private fun scheduleWeatherWork(context: Context) {
-        try {
-            val weatherWorkRequest = PeriodicWorkRequestBuilder<WeatherUpdateWorker>(15, TimeUnit.MINUTES).build()
-            WorkManager.getInstance(context.applicationContext).enqueueUniquePeriodicWork(
-                "WeatherUpdateWork",
-                ExistingPeriodicWorkPolicy.KEEP,
-                weatherWorkRequest
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 }
 
 class Widget4x4Provider : BaseWidgetProvider() {
     override fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
-        val views = RemoteViews(context.packageName, R.layout.widget_layout_4x4)
-        val config = ServiceLocator.getWidgetConfigDao(context).getConfigForWidget(widgetId)
+        val prefs = context.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
+        val widgetType = prefs.getString("widget_type_$widgetId", "calendar") ?: "calendar"
+        val themeFolder = prefs.getString("theme_folder_$widgetId", "theme_1") ?: "theme_1"
+        val themeId = prefs.getString("theme_id_$widgetId", "1") ?: "1"
 
-        applyWidgetConfig(context, views, config, 0xFF12121A.toInt(), widgetId)
+        val widgetItem = WidgetItem(
+            id = themeId,
+            themeFolder = themeFolder,
+            name = "Widget",
+            widgetType = widgetType,
+            size = "4x4",
+            isFree = true,
+            isFavorite = false
+        )
 
-        val size = 512
-        val bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bmp)
+        val bitmap = WidgetRenderHelper.getSnapshotImage(
+            context = context,
+            layoutId = R.layout.widget_layout_4x4,
+            widgetSize = WidgetSize.LARGE,
+            widgetItem = widgetItem,
+            widgetId = widgetId
+        )
 
-        val textColor = config?.textColor ?: Color.WHITE
-        val accentColor = 0xFF00E5FF.toInt()
-        val font = getTypeface(context, config?.fontStyle)
-
-        val headerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = textColor
-            textSize = 36f
-            textAlign = Paint.Align.CENTER
-            typeface = font
+        val views = RemoteViews(context.packageName, R.layout.widget_container)
+        if (bitmap != null) {
+            views.setImageViewBitmap(R.id.ivWidget, bitmap)
         }
-        val cal = Calendar.getInstance()
-        val monthName = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
-        val year = cal.get(Calendar.YEAR)
-        canvas.drawText("$monthName $year", size / 2f, 50f, headerPaint)
-
-        val weekdays = listOf("S", "M", "T", "W", "T", "F", "S")
-        val weekdayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = textColor
-            alpha = 180
-            textSize = 24f
-            textAlign = Paint.Align.CENTER
-            typeface = font
-        }
-        val colWidth = size / 7f
-        for (i in 0 until 7) {
-            canvas.drawText(weekdays[i], colWidth * i + colWidth / 2f, 110f, weekdayPaint)
-        }
-
-        val today = cal.get(Calendar.DAY_OF_MONTH)
-        cal.set(Calendar.DAY_OF_MONTH, 1)
-        val firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1
-        val maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        val dayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = textColor
-            textSize = 24f
-            textAlign = Paint.Align.CENTER
-            typeface = font
-        }
-
-        val highlightPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = accentColor
-            style = Paint.Style.STROKE
-            strokeWidth = 4f
-        }
-
-        var row = 0
-        for (day in 1..maxDay) {
-            val col = (firstDayOfWeek + day - 1) % 7
-            val x = colWidth * col + colWidth / 2f
-            val y = 180f + row * 60f
-
-            if (day == today) {
-                canvas.drawCircle(x, y - 8f, 26f, highlightPaint)
-                dayPaint.color = accentColor
-                dayPaint.isFakeBoldText = true
-            } else {
-                dayPaint.color = textColor
-                dayPaint.isFakeBoldText = false
-            }
-
-            canvas.drawText(day.toString(), x, y, dayPaint)
-
-            if (col == 6) {
-                row++
-            }
-        }
-
-        views.setImageViewBitmap(R.id.ivCalendar, bmp)
         appWidgetManager.updateAppWidget(widgetId, views)
     }
 }

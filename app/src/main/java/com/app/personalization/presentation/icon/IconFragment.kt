@@ -73,11 +73,8 @@ class IconFragment : Fragment() {
         pbCreate.visibility = View.VISIBLE
 
         val context = requireContext()
-        val displayMetrics = context.resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        // Icon grid: Target ~120dp width per item
-        val columns = (screenWidthDp / 120).toInt().coerceAtLeast(3)
-        rvIcons.layoutManager = GridLayoutManager(context, columns)
+        val columns = 1
+        rvIcons.layoutManager = LinearLayoutManager(context)
 
         val margin = context.resources.getDimensionPixelSize(R.dimen.dp_8) * 2
         val displayWidth = context.resources.displayMetrics.widthPixels
@@ -87,12 +84,11 @@ class IconFragment : Fragment() {
             parentWidth = availableWidth,
             columns = columns,
             onItemClick = { iconPack ->
-                val intent = Intent(context, DownloadThemeActivity::class.java).apply {
+                val intent = Intent(context, DownloadIconActivity::class.java).apply {
                     putExtra("theme_id", iconPack.id)
                     putExtra("theme_name", iconPack.name)
                     putExtra("theme_path", iconPack.folder)
                     putExtra("theme_type", "widget_theme")
-                    putExtra("start_tab", 1) // Open the Icons Tab directly (position 1)
                 }
                 startActivity(intent)
             }

@@ -56,7 +56,7 @@ class WidgetThemeAdapter(
 
             tvName.text = item.name
             
-            val previewUrl = "${ResourceConfig.S3_URL}/${item.folder}/bg_preview.png"
+            val previewUrl = com.app.personalization.data.CdnPathResolver.getThemePreviewUrl(item.folder)
 
             Glide.with(context)
                 .load(previewUrl)

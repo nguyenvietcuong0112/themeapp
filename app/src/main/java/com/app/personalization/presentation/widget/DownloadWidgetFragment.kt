@@ -1,13 +1,16 @@
 package com.app.personalization.presentation.widget
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
@@ -17,6 +20,9 @@ import com.app.personalization.databinding.FragmentDownloadWidgetBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DownloadWidgetFragment : Fragment() {
 
@@ -60,54 +66,108 @@ class DownloadWidgetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.pbCreate.visibility = View.VISIBLE
 
-        initWidgetItems()
-        setupRecyclerView()
-        setupActions()
+        lifecycleScope.launch {
+            val mappedFolder = withContext(Dispatchers.IO) {
+                try {
+                    val uuid = java.util.UUID.fromString(theme.id)
+                    val diyWidget = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).widgetDao().getWidgetsByTheme(uuid)
+                    if (diyWidget.isNotEmpty()) {
+                        diyWidget[0].templatePath
+                    } else {
+                        ResourceConfig.getThemeFolderByPath(requireContext(), theme.path)
+                    }
+                } catch (e: Exception) {
+                    ResourceConfig.getThemeFolderByPath(requireContext(), theme.path)
+                }
+            }
+
+            initWidgetItems(mappedFolder)
+            setupRecyclerView(mappedFolder)
+            setupActions()
+        }
     }
 
-    private fun initWidgetItems() {
+    private fun initWidgetItems(mappedFolder: String) {
         widgetItems.clear()
+
+        // 1. Calendar Widget 2x2 (today)
         widgetItems.add(
             ThemeWidgetItem(
-                id = "${theme.id}_widget_2x2",
-                name = "Clock Widget 2x2",
+                id = "${theme.id}_widget_today_2x2",
+                name = "Calendar Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
-                previewUrl = ResourceConfig.getWidgetPreviewUrl(requireContext(), theme.path),
+                previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/themes/$mappedFolder/widgets/today/bg_preview_medium.png",
                 isSelected = true
             )
         )
+
+        // 2. Clock Widget 2x2 (clocks)
         widgetItems.add(
             ThemeWidgetItem(
-                id = "${theme.id}_widget_4x2",
-                name = "Weather Widget 4x2",
-                size = "4x2",
-                providerClass = Widget4x2Provider::class.java,
-                previewUrl = ResourceConfig.getWidgetPreviewUrl(requireContext(), theme.path),
+                id = "${theme.id}_widget_clocks_2x2",
+                name = "Clock Widget 2x2",
+                size = "2x2",
+                providerClass = Widget2x2Provider::class.java,
+                previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/themes/$mappedFolder/widgets/clocks/bg_preview_medium.png",
                 isSelected = false
             )
         )
+
+        // 3. Weather Widget 4x2 (weather)
         widgetItems.add(
             ThemeWidgetItem(
-                id = "${theme.id}_widget_4x4",
-                name = "Calendar Widget 4x4",
-                size = "4x4",
-                providerClass = Widget4x4Provider::class.java,
-                previewUrl = ResourceConfig.getWidgetPreviewUrl(requireContext(), theme.path),
+                id = "${theme.id}_widget_weather_4x2",
+                name = "Weather Widget 4x2",
+                size = "4x2",
+                providerClass = Widget4x2Provider::class.java,
+                previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/themes/$mappedFolder/widgets/weather/bg_preview_medium.png",
+                isSelected = false
+            )
+        )
+
+        // 4. Today Widget 2x2 (today)
+        widgetItems.add(
+            ThemeWidgetItem(
+                id = "${theme.id}_widget_today2_2x2",
+                name = "Today Widget 2x2",
+                size = "2x2",
+                providerClass = Widget2x2Provider::class.java,
+                previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/themes/$mappedFolder/widgets/today/bg_preview_medium.png",
+                isSelected = false
+            )
+        )
+
+        // 5. Image Widget 2x2 (image)
+        widgetItems.add(
+            ThemeWidgetItem(
+                id = "${theme.id}_widget_image_2x2",
+                name = "Image Widget 2x2",
+                size = "2x2",
+                providerClass = Widget2x2Provider::class.java,
+                previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/themes/$mappedFolder/widgets/image/bg_preview_medium.png",
                 isSelected = false
             )
         )
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(mappedFolder: String) {
         binding.pbCreate.visibility = View.GONE
         val context = requireContext()
-        val displayMetrics = context.resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        val columns = (screenWidthDp / 180).toInt().coerceAtLeast(2)
-        binding.recyclerView.layoutManager = GridLayoutManager(context, columns)
         
-        adapter = DownloadWidgetItemAdapter(widgetItems) { index ->
+        // 2-column grid layout matching the screenshot design
+        val layoutManager = GridLayoutManager(context, 2)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val item = widgetItems.getOrNull(position)
+                // 4x2 widgets take full width (2 spans), others take 1 span
+                return if (item?.size == "4x2") 2 else 1
+            }
+        }
+        
+        binding.recyclerView.layoutManager = layoutManager
+        
+        adapter = DownloadWidgetItemAdapter(widgetItems, mappedFolder) { index ->
             selectedIndex = index
             for (i in widgetItems.indices) {
                 widgetItems[i].isSelected = (i == index)
@@ -118,9 +178,6 @@ class DownloadWidgetFragment : Fragment() {
     }
 
     private fun setupActions() {
-
-
-        // Always show install button
         binding.actionView.clInstall.visibility = View.VISIBLE
         binding.actionView.tvInstall.text = "Add Widget"
 
@@ -131,19 +188,22 @@ class DownloadWidgetFragment : Fragment() {
 
     private fun installSelectedWidget() {
         val selectedItem = widgetItems.getOrNull(selectedIndex) ?: return
-        val widgetType = when (selectedIndex) {
-            0 -> "clock"
-            1 -> "weather"
-            2 -> "calendar"
+        val typeId = selectedItem.id.substringAfter("_widget_").substringBefore("_2x2").substringBefore("_4x2")
+        val widgetType = when (typeId) {
+            "today", "today2" -> "calendar"
+            "clocks" -> "clock"
+            "weather" -> "weather"
+            "image" -> "image"
             else -> "clock"
         }
         val sheet = SelectWidgetBottomSheet()
-        sheet.setParams(theme, widgetType, selectedItem.size)
+        sheet.setParams(theme, widgetType, selectedItem.size, selectedItem.previewUrl)
         sheet.show(childFragmentManager, "select_widget")
     }
 
     private inner class DownloadWidgetItemAdapter(
         private val list: List<ThemeWidgetItem>,
+        private val mappedFolder: String,
         private val onItemClick: (Int) -> Unit
     ) : RecyclerView.Adapter<DownloadWidgetItemAdapter.ViewHolder>() {
 
@@ -153,14 +213,6 @@ class DownloadWidgetFragment : Fragment() {
             val binding = com.app.personalization.databinding.ItemDownloadWidgetLayoutBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
-            
-            // Adjust card height based on screen configuration dynamically
-            val displayMetrics = parent.context.resources.displayMetrics
-            val itemWidth = displayMetrics.widthPixels / 2 - 24
-            binding.root.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                (itemWidth * 1.2).toInt()
-            )
             return ViewHolder(binding)
         }
 
@@ -169,17 +221,50 @@ class DownloadWidgetFragment : Fragment() {
             val context = holder.itemView.context
             val binding = holder.binding
 
-            // Load widget preview (fallback to local asset preview if theme is preset)
-            val cdnUrl = com.app.personalization.data.ResourceConfig.getWidgetPreviewUrl(context, theme.path)
-            val localFallbackPath = "file:///android_asset/theme_decorates/${theme.path}/popup_background.png"
+            // Set layout params dynamically based on size to fit the image perfectly
+            val displayMetrics = context.resources.displayMetrics
+            val screenWidth = displayMetrics.widthPixels
+            val density = displayMetrics.density
+            val horizontalPadding = (32 * density).toInt()
+
+            val margin = (8 * density).toInt()
+            val lp = holder.itemView.layoutParams as? ViewGroup.MarginLayoutParams ?: RecyclerView.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
+            // Set margins
+            lp.setMargins(margin, margin, margin, margin)
+
+            if (item.size == "4x2") {
+                // Wide: full width minus paddings and margins
+                val itemWidth = screenWidth - horizontalPadding - (margin * 2)
+                val itemHeight = (itemWidth * 9) / 16
+                lp.width = ViewGroup.LayoutParams.MATCH_PARENT
+                lp.height = itemHeight
+            } else {
+                // Square: half width minus paddings and margins
+                val itemWidth = (screenWidth - horizontalPadding - (margin * 4)) / 2
+                val itemHeight = itemWidth
+                lp.width = itemWidth
+                lp.height = itemHeight
+            }
+            holder.itemView.layoutParams = lp
+
+            // Load widget preview
+            val cdnUrl = item.previewUrl
+
+            binding.ivPreview.scaleType = ImageView.ScaleType.CENTER_CROP
+
             Glide.with(context)
                 .load(cdnUrl)
                 .placeholder(R.drawable.bg_default_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(
+                    // Reverted back to original simple format fallback
                     Glide.with(context)
-                        .load(localFallbackPath)
+                        .load(com.app.personalization.data.CdnPathResolver.getWidgetPreviewUrl(mappedFolder, item.size))
                         .placeholder(R.drawable.bg_default_placeholder)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

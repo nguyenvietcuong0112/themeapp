@@ -101,6 +101,14 @@ class DownloadIconFragment : Fragment() {
 
     private fun initPresetIcons() {
         val pm = requireContext().packageManager
+        val iconFolder = try {
+            val uuid = java.util.UUID.fromString(theme.id)
+            val diyIcon = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).iconDao().getIconPackByTheme(uuid)
+            diyIcon?.folder ?: theme.path
+        } catch (e: Exception) {
+            theme.path
+        }
+
         for (app in com.app.personalization.data.AppItemData.APPS) {
             val name = app.id
             var targetPkg = app.packageName
@@ -129,7 +137,7 @@ class DownloadIconFragment : Fragment() {
                 ThemeIconItem(
                     id = "${theme.id}_$name",
                     iconName = name,
-                    assetPath = "theme_decorates/${theme.path}/key/preview.png",
+                    assetPath = "theme_decorates/$iconFolder/key/preview.png",
                     targetPackageName = targetPkg,
                     targetAppName = targetAppName ?: app.name,
                     targetAppIcon = targetIcon,

@@ -28,7 +28,7 @@ class IconPackAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_theme_layout,
+            R.layout.item_icon_pack_layout,
             parent,
             false
         )

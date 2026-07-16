@@ -57,7 +57,7 @@ class ThemeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // Reload categories and themes to capture any new DIY themes
-        viewModel.selectCategory("all")
+        viewModel.selectCategory(viewModel.selectedCategoryId)
     }
 
     private fun setupToolbar(view: View) {
@@ -78,44 +78,11 @@ class ThemeFragment : Fragment() {
                         startActivity(Intent(context, WidgetConfigActivity::class.java))
                     }
                     HomeActionView.HomeActionType.KEYBOARD -> {
-                        showKeyboardSetupDialog()
+                        startActivity(Intent(context, AllKeyboardActivity::class.java))
                     }
                 }
             }
         })
-    }
-
-    private fun showKeyboardSetupDialog() {
-        val context = context ?: return
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle("Keyboard IME Setup")
-        builder.setMessage("Configure 'Custom Keyboard IME' as your default system keyboard:")
-        
-        builder.setPositiveButton("1. Enable in Settings") { dialog, _ ->
-            try {
-                val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
-                startActivity(intent)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Failed to open settings", Toast.LENGTH_SHORT).show()
-            }
-            dialog.dismiss()
-        }
-        
-        builder.setNegativeButton("2. Select as Default") { dialog, _ ->
-            try {
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showInputMethodPicker()
-            } catch (e: Exception) {
-                Toast.makeText(context, "Failed to open input method picker", Toast.LENGTH_SHORT).show()
-            }
-            dialog.dismiss()
-        }
-        
-        builder.setNeutralButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-        
-        builder.show()
     }
 
     private fun setupCategoryList(view: View) {

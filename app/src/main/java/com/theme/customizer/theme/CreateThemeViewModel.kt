@@ -19,10 +19,10 @@ class CreateThemeViewModel : ViewModel() {
     val iconPackState: LiveData<List<String>> = _iconPackState
 
     // Preset URL mẫu cấu hình từ CDN của bạn
-    private val defaultWallpaper = "https://csc-themeapp-widget.pages.dev/theme_1/wallpapers/bg_wallpaper.png"
-    private val defaultWidget = "https://csc-themeapp-widget.pages.dev/theme_1/bg_preview.png"
+    private val defaultWallpaper = "https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/wallpapers/bg_wallpaper.png"
+    private val defaultWidget = "https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/bg_preview.png"
     private val defaultIcons = (1..24).map {
-        "https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_facebook.png"
+        "https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/icons/ic_facebook.png"
     }
 
     init {

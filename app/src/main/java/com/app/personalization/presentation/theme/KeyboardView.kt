@@ -142,6 +142,13 @@ class KeyboardView @JvmOverloads constructor(
         return keyView
     }
 
+    var onKeyClickListener: ((KeyDef) -> Unit)? = null
+    var isShiftedState = false
+        set(value) {
+            field = value
+            toggleShift(value)
+        }
+
     private fun handleTouch(view: TextView, key: KeyDef, event: MotionEvent) {
         val ime = context as? CustomKeyboardIME
         when (event.action) {
@@ -156,6 +163,7 @@ class KeyboardView @JvmOverloads constructor(
             MotionEvent.ACTION_UP -> {
                 view.isPressed = false
                 dismissPreview()
+                onKeyClickListener?.invoke(key)
                 ime?.handleKeyPress(key)
             }
             MotionEvent.ACTION_CANCEL -> {
@@ -184,14 +192,28 @@ class KeyboardView @JvmOverloads constructor(
                 }
                 setTextColor(pTextColor)
 
-                val popupBgDrawable = if (theme != null && theme!!.rawType == "default") {
-                    try {
-                        context.assets.open("${theme!!.getPrefix()}/popup_background.png").use {
-                            android.graphics.drawable.Drawable.createFromStream(it, null)
+                val popupBgDrawable = if (theme != null) {
+                    var drawable: Drawable? = null
+                    if (theme!!.path.isNotEmpty()) {
+                        val localPopupFile = java.io.File(context.filesDir, "keyboard_themes/${theme!!.path}/popup_background.png")
+                        if (localPopupFile.exists()) {
+                            try {
+                                drawable = Drawable.createFromPath(localPopupFile.absolutePath)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
                         }
-                    } catch (e: Exception) {
-                        null
                     }
+                    if (drawable == null && theme!!.rawType == "default") {
+                        try {
+                            context.assets.open("${theme!!.getPrefix()}/popup_background.png").use {
+                                drawable = Drawable.createFromStream(it, null)
+                            }
+                        } catch (e: Exception) {
+                            null
+                        }
+                    }
+                    drawable
                 } else {
                     null
                 }
@@ -225,7 +247,7 @@ class KeyboardView @JvmOverloads constructor(
     private fun getDisplayLabel(key: KeyDef): String {
         val label = key.label
         val ime = context as? CustomKeyboardIME
-        val isShifted = ime?.isShifted == true
+        val isShifted = if (ime != null) ime.isShifted else isShiftedState
         return if (isShifted && label.length == 1 && label[0].isLetter()) {
             label.uppercase()
         } else {
@@ -234,6 +256,7 @@ class KeyboardView @JvmOverloads constructor(
     }
 
     fun toggleShift(shifted: Boolean) {
+        isShiftedState = shifted
         for (i in 0 until keyViews.size) {
             val keyView = keyViews[i]
             val tag = keyView.tag as? KeyDef ?: continue

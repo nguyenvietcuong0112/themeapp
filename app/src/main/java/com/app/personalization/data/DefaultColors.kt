@@ -68,16 +68,21 @@ object DefaultColors {
             return
         }
 
-        val bgUrl = theme.getBackground()
-        if (bgUrl != null) {
+        val localBgFile = if (theme.path.isNotEmpty()) {
+            java.io.File(view.context.filesDir, "keyboard_themes/${theme.path}/keyboard_background.png")
+        } else {
+            null
+        }
+
+        if (localBgFile != null && localBgFile.exists()) {
             view.background = ColorDrawable(Color.TRANSPARENT)
             if (view is ImageView) {
                 Glide.with(view.context)
-                    .load(bgUrl)
+                    .load(localBgFile)
                     .into(view)
             } else {
                 Glide.with(view.context)
-                    .load(bgUrl)
+                    .load(localBgFile)
                     .into(object : com.bumptech.glide.request.target.CustomViewTarget<View, Drawable>(view) {
                         override fun onLoadFailed(errorDrawable: Drawable?) {
                             view.setBackgroundColor(Color.parseColor("#12121A"))
@@ -91,21 +96,45 @@ object DefaultColors {
                     })
             }
         } else {
-            // DIY custom background
-            val customBgFile = File(view.context.filesDir, "custom_background_image")
-            if (customBgFile.exists()) {
-                try {
-                    val bitmap = android.graphics.BitmapFactory.decodeFile(customBgFile.absolutePath)
-                    if (bitmap != null) {
-                        view.background = BitmapDrawable(view.resources, bitmap)
-                    } else {
-                        view.setBackgroundColor(Color.parseColor("#12121A"))
-                    }
-                } catch (e: Exception) {
-                    view.setBackgroundColor(Color.parseColor("#12121A"))
+            val bgUrl = theme.getBackground()
+            if (bgUrl != null) {
+                view.background = ColorDrawable(Color.TRANSPARENT)
+                if (view is ImageView) {
+                    Glide.with(view.context)
+                        .load(bgUrl)
+                        .into(view)
+                } else {
+                    Glide.with(view.context)
+                        .load(bgUrl)
+                        .into(object : com.bumptech.glide.request.target.CustomViewTarget<View, Drawable>(view) {
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                view.setBackgroundColor(Color.parseColor("#12121A"))
+                            }
+                            override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
+                                view.background = resource
+                            }
+                            override fun onResourceCleared(placeholder: Drawable?) {
+                                view.background = null
+                            }
+                        })
                 }
             } else {
-                view.setBackgroundColor(Color.parseColor("#12121A"))
+                // DIY custom background
+                val customBgFile = File(view.context.filesDir, "custom_background_image")
+                if (customBgFile.exists()) {
+                    try {
+                        val bitmap = android.graphics.BitmapFactory.decodeFile(customBgFile.absolutePath)
+                        if (bitmap != null) {
+                            view.background = BitmapDrawable(view.resources, bitmap)
+                        } else {
+                            view.setBackgroundColor(Color.parseColor("#12121A"))
+                        }
+                    } catch (e: Exception) {
+                        view.setBackgroundColor(Color.parseColor("#12121A"))
+                    }
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#12121A"))
+                }
             }
         }
     }

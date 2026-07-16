@@ -84,7 +84,7 @@ class CreateWallpaperActivity : AppCompatActivity() {
 
     private fun showBackgroundOptions() {
         val colors = listOf("Aesthetic Blue", "Rose Pink", "Sunset Orange", "Mint Green", "Default Theme")
-        val hexColors = listOf("#BBDEFB", "#F8BBD0", "#FFE0B2", "#C8E6C9", "https://csc-themeapp-widget.pages.dev/theme_1/wallpapers/bg_wallpaper.png")
+        val hexColors = listOf("#BBDEFB", "#F8BBD0", "#FFE0B2", "#C8E6C9", "https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/wallpapers/bg_wallpaper.png")
 
         AlertDialog.Builder(this)
             .setTitle("Chọn màu nền")

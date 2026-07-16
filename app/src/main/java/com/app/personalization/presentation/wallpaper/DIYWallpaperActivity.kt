@@ -10,54 +10,128 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.app.personalization.R
+import com.app.personalization.data.database.entity.Template
+import com.app.personalization.di.ServiceLocator
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.app.personalization.R
+import java.io.InputStream
 
 class DIYWallpaperActivity : AppCompatActivity() {
 
     private lateinit var wallpaperCanvas: DIYWallpaperCanvasView
     private lateinit var btnApplyWallpaper: View
-    private lateinit var btnAddText: Button
-    private lateinit var btnAddSticker: Button
-    private lateinit var btnChangeBase: Button
+    private lateinit var btnAddText: View
+    private lateinit var btnAddSticker: View
+    private lateinit var btnChangeBase: View
+    private lateinit var btnFrame: View
     private lateinit var layoutTextControls: LinearLayout
     private lateinit var spinnerFont: Spinner
+    private lateinit var rvTemplates: RecyclerView
 
     companion object {
         private const val REQUEST_PICK_BASE_IMAGE = 5001
         private const val REQUEST_PICK_STICKER_IMAGE = 5002
+        private const val REQUEST_PICK_USER_IMAGE = 5003
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_wallpaper)
 
+        // Clear Glide disk cache to purge any corrupted HTML fallbacks cached as PNGs
+        Thread {
+            try {
+                Glide.get(applicationContext).clearDiskCache()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
+
         wallpaperCanvas = findViewById(R.id.wallpaperCanvas)
         btnApplyWallpaper = findViewById(R.id.tvSave)
-        btnAddText = findViewById(R.id.btnAddText)
-        btnAddSticker = findViewById(R.id.btnAddSticker)
-        btnChangeBase = findViewById(R.id.btnChangeBase)
+        btnAddText = findViewById(R.id.tabText)
+        btnAddSticker = findViewById(R.id.tabSticker)
+        btnChangeBase = findViewById(R.id.tabBackground)
+        btnFrame = findViewById(R.id.tabFrame)
         layoutTextControls = findViewById(R.id.layoutTextControls)
         spinnerFont = findViewById(R.id.spinnerFont)
+        rvTemplates = findViewById(R.id.rvTemplates)
 
         findViewById<View>(R.id.ivBack)?.setOnClickListener { finish() }
 
+        findViewById<View>(R.id.ivUndo)?.setOnClickListener {
+            wallpaperCanvas.undo()
+        }
+        findViewById<View>(R.id.ivRedo)?.setOnClickListener {
+            wallpaperCanvas.redo()
+        }
+        findViewById<View>(R.id.ivDownload)?.setOnClickListener {
+            downloadWallpaper()
+        }
+
         setupFontSpinner()
         setupButtons()
+        setupTemplatesSelector()
+    }
+
+    private fun setupTemplatesSelector() {
+        rvTemplates.layoutManager = GridLayoutManager(this, 3)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val templateDao = ServiceLocator.getTemplateDao(this@DIYWallpaperActivity)
+            var list = templateDao.getAllTemplates()
+
+            // Filter out default non-collage templates, check if we need to pre-populate templates
+            val diyList = list.filter { 
+                it.templateFolder.startsWith("template") && 
+                !it.templateFolder.contains("clock") && 
+                !it.templateFolder.contains("hud") && 
+                !it.templateFolder.contains("particle") 
+            }
+
+            val finalList = if (diyList.isEmpty()) {
+                val newList = (1..33).map {
+                    Template(
+                        id = "tmpl_diy_$it",
+                        name = "Template $it",
+                        templateFolder = "template$it",
+                        isLive = false,
+                        isFree = true
+                    )
+                }
+                templateDao.insertTemplates(newList)
+                newList
+            } else {
+                diyList
+            }
+
+            withContext(Dispatchers.Main) {
+                rvTemplates.adapter = TemplateAdapter(finalList) { selectedTemplate ->
+                    rvTemplates.visibility = View.GONE
+                    wallpaperCanvas.loadTemplate(selectedTemplate.templateFolder)
+                }
+            }
+        }
+
+        // Setup image templates click listener inside Canvas to load user selected photos
+        wallpaperCanvas.onFrameClickListener = { clickedLayer ->
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+                type = "image/*"
+            }
+            startActivityForResult(intent, REQUEST_PICK_USER_IMAGE)
+        }
     }
 
     private fun setupFontSpinner() {
@@ -144,6 +218,10 @@ class DIYWallpaperActivity : AppCompatActivity() {
         btnChangeBase.setOnClickListener {
             showBaseLayerDialog()
         }
+
+        btnFrame.setOnClickListener {
+            rvTemplates.visibility = View.VISIBLE
+        }
     }
 
     private fun showAddTextDialog() {
@@ -205,7 +283,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
     private fun showStickerPickerDialog() {
         lifecycleScope.launch(Dispatchers.IO) {
             val dbStickers = try {
-                com.app.personalization.di.ServiceLocator.getStickerDao(this@DIYWallpaperActivity).getAllStickers()
+                ServiceLocator.getStickerDao(this@DIYWallpaperActivity).getAllStickers()
             } catch (e: Exception) {
                 emptyList()
             }
@@ -239,7 +317,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
                             
                             lifecycleScope.launch(Dispatchers.IO) {
                                 try {
-                                    val bmp = com.bumptech.glide.Glide.with(this@DIYWallpaperActivity)
+                                    val bmp = Glide.with(this@DIYWallpaperActivity)
                                         .asBitmap()
                                         .load(cdnUrl)
                                         .submit()
@@ -290,7 +368,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
     private fun showCDNBackgroundPickDialog() {
         lifecycleScope.launch(Dispatchers.IO) {
             val dbBackgrounds = try {
-                com.app.personalization.di.ServiceLocator.getBackgroundDao(this@DIYWallpaperActivity).getAllBackgrounds()
+                ServiceLocator.getBackgroundDao(this@DIYWallpaperActivity).getAllBackgrounds()
             } catch (e: Exception) {
                 emptyList()
             }
@@ -310,7 +388,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
 
                         lifecycleScope.launch(Dispatchers.IO) {
                             try {
-                                val bmp = com.bumptech.glide.Glide.with(this@DIYWallpaperActivity)
+                                val bmp = Glide.with(this@DIYWallpaperActivity)
                                     .asBitmap()
                                     .load(cdnUrl)
                                     .submit()
@@ -383,10 +461,6 @@ class DIYWallpaperActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
             data.data?.let { uri ->
-                contentResolver.takePersistableUriPermission(
-                    uri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
                 try {
                     val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r")
                     val fileDescriptor = parcelFileDescriptor?.fileDescriptor
@@ -394,10 +468,16 @@ class DIYWallpaperActivity : AppCompatActivity() {
                     parcelFileDescriptor?.close()
 
                     if (bitmap != null) {
-                        if (requestCode == REQUEST_PICK_BASE_IMAGE) {
-                            wallpaperCanvas.setBackgroundImage(bitmap)
-                        } else if (requestCode == REQUEST_PICK_STICKER_IMAGE) {
-                            wallpaperCanvas.addStickerLayer(bitmap)
+                        when (requestCode) {
+                            REQUEST_PICK_BASE_IMAGE -> {
+                                wallpaperCanvas.setBackgroundImage(bitmap)
+                            }
+                            REQUEST_PICK_STICKER_IMAGE -> {
+                                wallpaperCanvas.addStickerLayer(bitmap)
+                            }
+                            REQUEST_PICK_USER_IMAGE -> {
+                                wallpaperCanvas.setUserImageForActiveFrame(uri, bitmap)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -418,14 +498,89 @@ class DIYWallpaperActivity : AppCompatActivity() {
             val canvas = Canvas(bitmap)
             wallpaperCanvas.draw(canvas)
 
-            val wallpaperManager = WallpaperManager.getInstance(this)
-            wallpaperManager.setBitmap(bitmap)
-
-            Toast.makeText(this, "DIY Wallpaper applied successfully!", Toast.LENGTH_LONG).show()
-            finish()
+            val bottomSheet = SetWallpaperBottomSheet(bitmap) {
+                finish()
+            }
+            bottomSheet.show(supportFragmentManager, "SetWallpaperBottomSheet")
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Failed to apply wallpaper: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun downloadWallpaper() {
+        if (wallpaperCanvas.width == 0 || wallpaperCanvas.height == 0) {
+            Toast.makeText(this, "Canvas size not ready yet", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val bitmap = Bitmap.createBitmap(wallpaperCanvas.width, wallpaperCanvas.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            wallpaperCanvas.draw(canvas)
+
+            val filename = "DIY_Wallpaper_${System.currentTimeMillis()}.png"
+            val contentValues = android.content.ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_PICTURES)
+            }
+
+            val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            if (uri != null) {
+                contentResolver.openOutputStream(uri).use { outputStream ->
+                    if (outputStream != null) {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                        Toast.makeText(this, "Downloaded and saved to Gallery!", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this, "Failed to save wallpaper", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Failed to save wallpaper", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error saving wallpaper: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private class TemplateAdapter(
+        private val list: List<Template>,
+        private val onClick: (Template) -> Unit
+    ) : RecyclerView.Adapter<TemplateAdapter.ViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_template, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(list[position], onClick)
+        }
+
+        override fun getItemCount(): Int = list.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
+            private val tvName: TextView = view.findViewById(R.id.tvName)
+
+            fun bind(item: Template, onClick: (Template) -> Unit) {
+                tvName.text = item.name
+                
+                // CDN path for preview: https://csc-themeapp-widget.pages.dev/templates/[folder]/preview.png
+                val previewUrl = "${com.app.personalization.data.ResourceConfig.S3_URL}/templates/${item.templateFolder}/preview.png"
+                
+                Glide.with(itemView.context)
+                    .load(previewUrl)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .centerCrop()
+                    .into(ivPreview)
+
+                itemView.setOnClickListener {
+                    onClick(item)
+                }
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ class WidgetThemeDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         theme = intent.getSerializableExtra("widget_theme") as? WidgetTheme
-            ?: WidgetTheme("theme_1", "Theme 1", "theme_1")
+            ?: WidgetTheme("widget_theme_category_Aesthetic_theme_1", "Theme 1", "category/Aesthetic/theme_1")
 
         initViews()
     }
@@ -71,7 +71,7 @@ class WidgetThemeDetailActivity : AppCompatActivity() {
         }
 
         // 1. Load Background Theme Preview (Composite Mockup)
-        val previewUrl = "${ResourceConfig.S3_URL}/${theme.folder}/bg_preview.png"
+        val previewUrl = com.app.personalization.data.CdnPathResolver.getThemePreviewUrl(theme.folder)
         Glide.with(this)
             .load(previewUrl)
             .placeholder(R.drawable.bg_default_placeholder)
@@ -79,10 +79,10 @@ class WidgetThemeDetailActivity : AppCompatActivity() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.ivWallpaper)
 
-        val wallpaperUrl = "${ResourceConfig.S3_URL}/${theme.folder}/wallpapers/bg_wallpaper.png"
+        val wallpaperUrl = "${ResourceConfig.S3_URL}/themes/${theme.folder}/wallpapers/bg_wallpaper.png"
 
         // 2. Load Widget Preview Card
-        val widgetBgUrl = "${ResourceConfig.S3_URL}/${theme.folder}/widgets/dashboard/bg_medium.png"
+        val widgetBgUrl = "${ResourceConfig.S3_URL}/themes/${theme.folder}/widgets/bg_medium.png"
         Glide.with(this)
             .load(widgetBgUrl)
             .placeholder(R.drawable.bg_default_placeholder)
@@ -220,33 +220,43 @@ class WidgetThemeDetailActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Add Widget to Home Screen")
             .setItems(options) { _, which ->
-                addWidgetToHomeScreen(which)
+                val type = when (which) {
+                    0 -> "clock"
+                    1 -> "weather"
+                    else -> "calendar"
+                }
+                val size = when (which) {
+                    0 -> "2x2"
+                    1 -> "4x2"
+                    else -> "4x4"
+                }
+                
+                val typeFolder = when (type) {
+                    "clock" -> "clocks"
+                    "calendar" -> "today"
+                    "weather" -> "weather"
+                    else -> type
+                }
+                val isMedium = size == "4x2"
+                val previewFileName = if (isMedium) "bg_preview_medium.png" else "bg_preview_large.png"
+                val previewUrl = "${ResourceConfig.S3_URL}/themes/${theme.folder}/widgets/$typeFolder/$previewFileName"
+
+                val keyboardTheme = com.app.personalization.data.database.entity.KeyboardTheme(
+                    id = theme.id,
+                    name = theme.name,
+                    path = theme.folder
+                )
+
+                val sheet = SelectWidgetBottomSheet()
+                sheet.setParams(
+                    theme = keyboardTheme,
+                    widgetType = type,
+                    size = size,
+                    previewUrl = previewUrl
+                )
+                sheet.show(supportFragmentManager, "select_widget")
             }
             .show()
-    }
-
-    private fun addWidgetToHomeScreen(which: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val appWidgetManager = AppWidgetManager.getInstance(this)
-            val provider = when (which) {
-                0 -> ComponentName(this, Widget2x2Provider::class.java)
-                1 -> ComponentName(this, Widget4x2Provider::class.java)
-                else -> ComponentName(this, Widget4x4Provider::class.java)
-            }
-
-            if (appWidgetManager.isRequestPinAppWidgetSupported) {
-                val success = appWidgetManager.requestPinAppWidget(provider, null, null)
-                if (success) {
-                    Toast.makeText(this, "Requesting widget pin...", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Widget pinning not supported or cancelled", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                Toast.makeText(this, "Widget pinning is not supported on this launcher", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, "Widget pinning requires Android 8.0+", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun getAppMappings(): List<IconSelectionItem> {

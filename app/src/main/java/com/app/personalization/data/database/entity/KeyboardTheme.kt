@@ -46,17 +46,17 @@ data class KeyboardTheme(
         if (backgroundPath != null && backgroundPath.startsWith("custom_image_")) {
             return null
         }
-        return ResourceConfig.getKeyboardBackgroundUrl(path)
+        return ResourceConfig.getKeyboardBackgroundUrl(name, path)
     }
 
     fun getPreviewUrl(): String {
         if (path.isEmpty()) return ""
-        return ResourceConfig.getKeyboardPreviewUrl(path)
+        return ResourceConfig.getKeyboardPreviewUrl(name, path)
     }
 
     fun getBackgroundUrl(): String {
         if (path.isEmpty()) return ""
-        return ResourceConfig.getKeyboardBackgroundUrl(path)
+        return ResourceConfig.getKeyboardBackgroundUrl(name, path)
     }
 
     private fun loadJsonFromAsset(context: Context, path: String): String {
@@ -67,6 +67,19 @@ data class KeyboardTheme(
         val currentConfig = themeConfig
         if (currentConfig != null) {
             return currentConfig
+        }
+        if (path.isNotEmpty()) {
+            val localConfigFile = java.io.File(context.filesDir, "keyboard_themes/$path/config.json")
+            if (localConfigFile.exists()) {
+                try {
+                    val jsonStr = localConfigFile.readText()
+                    val decoded = Json { ignoreUnknownKeys = true }.decodeFromString<ThemeConfig>(jsonStr)
+                    themeConfig = decoded
+                    return decoded
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
         if (rawType == "default" && path.isNotEmpty()) {
             return try {
@@ -99,6 +112,16 @@ data class KeyboardTheme(
     }
 
     private fun icon(context: Context, name: String): Drawable? {
+        if (path.isNotEmpty()) {
+            val localKeyFile = java.io.File(context.filesDir, "keyboard_themes/$path/key/$name.png")
+            if (localKeyFile.exists()) {
+                try {
+                    return Drawable.createFromPath(localKeyFile.absolutePath)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
         val assetPath = "${getPrefix()}/key/$name.png"
         return try {
             context.assets.open(assetPath).use {

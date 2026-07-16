@@ -48,46 +48,57 @@ class WallpaperViewModel(application: Application) : AndroidViewModel(applicatio
         // Prepopulate wallpapers if empty
         viewModelScope.launch(Dispatchers.IO) {
             val existing = wallpaperDao.getAllWallpapers()
-            if (existing.isEmpty()) {
+            val needsUpdate = existing.any { !it.folder.startsWith("category/") }
+            if (existing.isEmpty() || needsUpdate) {
+                if (needsUpdate) {
+                    val presetsIds = listOf("wp_aes_1", "wp_aes_2", "wp_cute_1", "wp_cute_2", "wp_hot_1", "wp_hot_2", "wp_anime_1", "wp_anime_2")
+                    presetsIds.forEach { id ->
+                        try {
+                            wallpaperDao.getWallpaperById(id)?.let { wallpaperDao.deleteWallpaper(it) }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
                 val presets = listOf(
                     WidgetThemeWallpaper(
                         id = "wp_aes_1", themeId = "aesthetic", name = "Blue Sky",
-                        order = 1, folder = "Aesthetic", imageBg = "blue-sky",
+                        order = 1, folder = "category/Aesthetic/theme_1", imageBg = "bg_wallpaper",
                         category = "aesthetic"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_aes_2", themeId = "aesthetic", name = "Purple Galaxy",
-                        order = 2, folder = "Aesthetic", imageBg = "purple-galaxy",
+                        order = 2, folder = "category/Aesthetic/theme_12", imageBg = "bg_wallpaper",
                         category = "aesthetic"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_cute_1", themeId = "cute", name = "Pink Rose",
-                        order = 3, folder = "Romantic", imageBg = "pink-rose",
+                        order = 3, folder = "category/Aesthetic/theme_7", imageBg = "bg_wallpaper",
                         category = "cute"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_cute_2", themeId = "cute", name = "Love Letters",
-                        order = 4, folder = "Romantic", imageBg = "love and letters",
+                        order = 4, folder = "category/Aesthetic/theme_3", imageBg = "bg_wallpaper",
                         category = "cute"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_hot_1", themeId = "hot", name = "Butterflies",
-                        order = 5, folder = "Trending", imageBg = "butterflies",
+                        order = 5, folder = "category/Animal/theme_6", imageBg = "bg_wallpaper",
                         category = "hot"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_hot_2", themeId = "hot", name = "Neon Galaxy",
-                        order = 6, folder = "Trending", imageBg = "galaxy",
+                        order = 6, folder = "category/Aesthetic/theme_15", imageBg = "bg_wallpaper",
                         category = "hot"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_anime_1", themeId = "anime", name = "Go Green",
-                        order = 7, folder = "Simple", imageBg = "go-green",
+                        order = 7, folder = "category/Simple/theme_7", imageBg = "bg_wallpaper",
                         category = "anime"
                     ),
                     WidgetThemeWallpaper(
                         id = "wp_anime_2", themeId = "anime", name = "Bubble Soap",
-                        order = 8, folder = "Simple", imageBg = "bubble-soap",
+                        order = 8, folder = "category/Simple/theme_2", imageBg = "bg_wallpaper",
                         category = "anime"
                     )
                 )

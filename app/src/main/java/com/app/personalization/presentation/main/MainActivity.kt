@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                     0 -> R.id.theme
                     1 -> R.id.wallpaper
                     2 -> R.id.icon
-                    3 -> R.id.shop
                     else -> R.id.sett_ng_res_0x7f0b0498
                 }
                 if (binding.bottomNavigationView.selectedItemId != itemId) {
@@ -64,8 +63,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.theme -> 0
                 R.id.wallpaper -> 1
                 R.id.icon -> 2
-                R.id.shop -> 3
-                R.id.sett_ng_res_0x7f0b0498 -> 4
+                R.id.sett_ng_res_0x7f0b0498 -> 3
                 else -> 0
             }
             if (binding.viewpager.currentItem != position) {

@@ -135,6 +135,24 @@
             android:name="com.app.personalization.presentation.theme.MyThemeActivity"
             android:exported="true" />
 
+        <!-- All Keyboards Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.theme.AllKeyboardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <!-- Keyboard Theme Detail Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.theme.KeyboardThemeDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <!-- Setup Keyboard IME Wizard Activity -->
+        <activity
+            android:name="com.app.personalization.presentation.theme.SetupKeyboardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
         <!-- Premium Screen Activity -->
         <activity
             android:name="com.app.personalization.presentation.customviews.PremiumActivity"
@@ -163,6 +181,11 @@
 
         <activity
             android:name="com.app.personalization.presentation.widget.DownloadThemeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.app.personalization.presentation.icon.DownloadIconActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 

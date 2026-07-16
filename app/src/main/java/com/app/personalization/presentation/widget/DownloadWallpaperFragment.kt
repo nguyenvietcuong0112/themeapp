@@ -64,12 +64,39 @@ class DownloadWallpaperFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val matched = withContext(Dispatchers.IO) {
-                    val dao = ServiceLocator.getWallpaperDao(requireContext())
-                    val wallpapers = dao.getAllWallpapers()
-                    val themeFolder = theme.path.substringBefore("/")
-                    wallpapers.firstOrNull { 
-                        it.folder.equals(themeFolder, ignoreCase = true) 
-                    } ?: wallpapers.firstOrNull()
+                    try {
+                        val uuid = java.util.UUID.fromString(theme.id)
+                        val diyList = com.app.personalization.data.database.ThemeDatabase.getDatabase(requireContext()).wallpaperDao().getWallpapersByTheme(uuid)
+                        if (diyList.isNotEmpty()) {
+                            val diyWp = diyList[0]
+                            WidgetThemeWallpaper(
+                                id = diyWp.id.toString(),
+                                themeId = diyWp.themeId.toString(),
+                                name = diyWp.imageName,
+                                order = 1,
+                                folder = diyWp.folder,
+                                imageBg = diyWp.imageName
+                            )
+                        } else {
+                            WidgetThemeWallpaper(
+                                id = "wp_${theme.id}",
+                                themeId = theme.id,
+                                name = theme.name,
+                                order = 1,
+                                folder = theme.path,
+                                imageBg = "bg_wallpaper"
+                            )
+                        }
+                    } catch (e: Exception) {
+                        WidgetThemeWallpaper(
+                            id = "wp_${theme.id}",
+                            themeId = theme.id,
+                            name = theme.name,
+                            order = 1,
+                            folder = theme.path,
+                            imageBg = "bg_wallpaper"
+                        )
+                    }
                 }
                 wallpaper = matched
                 setupUI()

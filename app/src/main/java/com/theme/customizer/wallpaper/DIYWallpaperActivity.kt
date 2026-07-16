@@ -66,7 +66,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
                 setMargins(8, 8, 8, 8)
             }
             setOnClickListener {
-                pageWrapperView.setWallpaper("https://csc-themeapp-widget.pages.dev/theme_1/wallpapers/bg_wallpaper.png")
+                pageWrapperView.setWallpaper("https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/wallpapers/bg_wallpaper.png")
             }
         }
 
@@ -78,7 +78,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
                 setMargins(8, 8, 8, 8)
             }
             setOnClickListener {
-                pageWrapperView.addSticker("https://csc-themeapp-widget.pages.dev/theme_1/icons/ic_facebook.png")
+                pageWrapperView.addSticker("https://csc-themeapp-widget.pages.dev/themes/category/Aesthetic/theme_1/icons/ic_facebook.png")
             }
         }
 

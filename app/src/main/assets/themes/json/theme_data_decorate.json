@@ -1,113 +1,35 @@
 [
   {
-    "category": "Aesthetic",
-    "name": "Aesthetic",
-    "themes": [
-      {
-        "themeName": "Blue Sky",
-        "themePath": "Aesthetic/blue-sky",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 0
-      },
-      {
-        "themeName": "Buffter Violet",
-        "themePath": "Aesthetic/buffter-violet",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 48
-      },
-      {
-        "themeName": "Purple Galaxy",
-        "themePath": "Aesthetic/purple-galaxy",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 47
-      },
-      {
-        "themeName": "Purple Vortex",
-        "themePath": "Aesthetic/purple-vortex",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 77
-      },
-      {
-        "themeName": "Sparkle Horse",
-        "themePath": "Aesthetic/sparkle-horse",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 25
-      },
-      {
-        "themeName": "Tropical Town",
-        "themePath": "Aesthetic/tropical-town",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 76
-      },
-      {
-        "themeName": "Universe Fun",
-        "themePath": "Aesthetic/universe fun",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 75
-      }
-    ]
-  },
-  {
     "category": "Animal",
     "name": "Animal",
     "themes": [
       {
-        "themeName": "Autumn",
-        "themePath": "Animal/autumn",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 78
-      },
-      {
-        "themeName": "Butterflies",
-        "themePath": "Animal/butterflies",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 27
-      },
-      {
         "themeName": "Cat & Drops",
-        "themePath": "Animal/cat-&-drops",
+        "themePath": "category/Animal/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 2
       },
       {
-        "themeName": "Cat Family",
-        "themePath": "Animal/cat-family",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 9
-      },
-      {
         "themeName": "Crystal Bubbles",
-        "themePath": "Animal/crystal-bubbles",
+        "themePath": "category/Animal/theme_2",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 4
       },
       {
+        "themeName": "Cat Family",
+        "themePath": "category/Animal/theme_3",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 9
+      },
+      {
         "themeName": "Fancy Horse",
-        "themePath": "Animal/fancy-horse",
+        "themePath": "category/Animal/theme_4",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -115,15 +37,31 @@
       },
       {
         "themeName": "Hungry Squirrel",
-        "themePath": "Animal/hungry-squirrel",
+        "themePath": "category/Animal/theme_5",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 13
       },
       {
+        "themeName": "Butterflies",
+        "themePath": "category/Animal/theme_6",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 27
+      },
+      {
+        "themeName": "Autumn",
+        "themePath": "category/Animal/theme_7",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 78
+      },
+      {
         "themeName": "Lion King",
-        "themePath": "Animal/lion-king",
+        "themePath": "category/Animal/theme_8",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
@@ -136,8 +74,80 @@
     "name": "Christmas",
     "themes": [
       {
+        "themeName": "Wedding Day",
+        "themePath": "category/Christmas/theme_1",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 8
+      },
+      {
+        "themeName": "Summer",
+        "themePath": "category/Christmas/theme_2",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 37
+      },
+      {
+        "themeName": "Summer of Love",
+        "themePath": "category/Christmas/theme_3",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 38
+      },
+      {
+        "themeName": "Blossoms",
+        "themePath": "category/Christmas/theme_4",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 39
+      },
+      {
+        "themeName": "Santa Claus",
+        "themePath": "category/Christmas/theme_5",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 45
+      },
+      {
+        "themeName": "Merry Christmas",
+        "themePath": "category/Christmas/theme_6",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 46
+      },
+      {
+        "themeName": "Winter Bubble",
+        "themePath": "category/Christmas/theme_7",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 68
+      },
+      {
+        "themeName": "Love",
+        "themePath": "category/Christmas/theme_8",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 69
+      },
+      {
+        "themeName": "Halloween",
+        "themePath": "category/Christmas/theme_9",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 70
+      },
+      {
         "themeName": "Christmas Season",
-        "themePath": "Christmas/Christmas season",
+        "themePath": "category/Christmas/theme_10",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -145,31 +155,15 @@
       },
       {
         "themeName": "Cold Day",
-        "themePath": "Christmas/cold-day",
+        "themePath": "category/Christmas/theme_11",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 81
       },
       {
-        "themeName": "Merry Christmas",
-        "themePath": "Christmas/merry-christmas",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 46
-      },
-      {
-        "themeName": "Santa Claus",
-        "themePath": "Christmas/santa-claus",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 45
-      },
-      {
         "themeName": "X-mas",
-        "themePath": "Christmas/x-mas",
+        "themePath": "category/Christmas/theme_12",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
@@ -182,48 +176,8 @@
     "name": "Fun",
     "themes": [
       {
-        "themeName": "Boom",
-        "themePath": "Fun/boom",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 83
-      },
-      {
-        "themeName": "Free Day",
-        "themePath": "Fun/free-day",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 84
-      },
-      {
-        "themeName": "Fun2",
-        "themePath": "Fun/fun2",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 49
-      },
-      {
-        "themeName": "Fun3",
-        "themePath": "Fun/fun3",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 85
-      },
-      {
-        "themeName": "Gaming",
-        "themePath": "Fun/gaming",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 86
-      },
-      {
         "themeName": "Night Mood",
-        "themePath": "Fun/night-mood",
+        "themePath": "category/Fun/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -231,31 +185,71 @@
       },
       {
         "themeName": "Orange Bubbles",
-        "themePath": "Fun/orange-bubbles",
+        "themePath": "category/Fun/theme_2",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 41
       },
       {
-        "themeName": "Presents",
-        "themePath": "Fun/presents",
+        "themeName": "Fun2",
+        "themePath": "category/Fun/theme_3",
         "themeType": "custom",
-        "isNew": true,
+        "isNew": false,
         "isPremium": true,
-        "order": 87
+        "order": 49
       },
       {
         "themeName": "Red Girl",
-        "themePath": "Fun/red-girl",
+        "themePath": "category/Fun/theme_4",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 50
       },
       {
+        "themeName": "Boom",
+        "themePath": "category/Fun/theme_5",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 83
+      },
+      {
+        "themeName": "Free Day",
+        "themePath": "category/Fun/theme_6",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 84
+      },
+      {
+        "themeName": "Fun3",
+        "themePath": "category/Fun/theme_7",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 85
+      },
+      {
+        "themeName": "Gaming",
+        "themePath": "category/Fun/theme_8",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 86
+      },
+      {
+        "themeName": "Presents",
+        "themePath": "category/Fun/theme_9",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 87
+      },
+      {
         "themeName": "Skeleton",
-        "themePath": "Fun/skeleton",
+        "themePath": "category/Fun/theme_10",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
@@ -263,7 +257,7 @@
       },
       {
         "themeName": "Treasure",
-        "themePath": "Fun/treasure",
+        "themePath": "category/Fun/theme_11",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
@@ -276,48 +270,16 @@
     "name": "Glitter",
     "themes": [
       {
-        "themeName": "Diamond",
-        "themePath": "Glitter/diamond",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 74
-      },
-      {
         "themeName": "Diamond Heart",
-        "themePath": "Glitter/diamond-heart",
+        "themePath": "category/Glitter/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 14
       },
       {
-        "themeName": "Fancy Lights",
-        "themePath": "Glitter/fancy-lights",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 90
-      },
-      {
-        "themeName": "Fire Heart",
-        "themePath": "Glitter/fire-heart",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 73
-      },
-      {
-        "themeName": "Loyalty",
-        "themePath": "Glitter/loyalty",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 72
-      },
-      {
         "themeName": "Modern Life",
-        "themePath": "Glitter/modern-life",
+        "themePath": "category/Glitter/theme_2",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -325,7 +287,7 @@
       },
       {
         "themeName": "Sparkling Bubbles",
-        "themePath": "Glitter/sparkling-bubbles",
+        "themePath": "category/Glitter/theme_3",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
@@ -333,73 +295,43 @@
       },
       {
         "themeName": "Sweet Beats",
-        "themePath": "Glitter/sweet-beats",
+        "themePath": "category/Glitter/theme_4",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 71
-      }
-    ]
-  },
-  {
-    "category": "Holiday",
-    "name": "Holiday",
-    "themes": [
+      },
       {
-        "themeName": "Blossoms",
-        "themePath": "Holiday/blossoms",
+        "themeName": "Loyalty",
+        "themePath": "category/Glitter/theme_5",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 39
+        "order": 72
       },
       {
-        "themeName": "Halloween",
-        "themePath": "Holiday/halloween",
+        "themeName": "Fire Heart",
+        "themePath": "category/Glitter/theme_6",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 70
+        "order": 73
       },
       {
-        "themeName": "Love",
-        "themePath": "Holiday/love",
+        "themeName": "Diamond",
+        "themePath": "category/Glitter/theme_7",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 69
+        "order": 74
       },
       {
-        "themeName": "Summer",
-        "themePath": "Holiday/summer",
+        "themeName": "Fancy Lights",
+        "themePath": "category/Glitter/theme_8",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 37
-      },
-      {
-        "themeName": "Summer of Love",
-        "themePath": "Holiday/summer-of-love",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 38
-      },
-      {
-        "themeName": "Wedding Day",
-        "themePath": "Holiday/wedding-day",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 8
-      },
-      {
-        "themeName": "Winter Bubble",
-        "themePath": "Holiday/winter bubble",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 68
+        "order": 90
       }
     ]
   },
@@ -409,59 +341,59 @@
     "themes": [
       {
         "themeName": "Astronaut",
-        "themePath": "Hot/astronaut",
+        "themePath": "category/Hot/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 12
       },
       {
-        "themeName": "Buffter",
-        "themePath": "Hot/Buffter",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 91
-      },
-      {
         "themeName": "Golden Season",
-        "themePath": "Hot/golden-season",
+        "themePath": "category/Hot/theme_2",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 51
       },
       {
-        "themeName": "Horse Full Color",
-        "themePath": "Hot/Horse Full Color",
+        "themeName": "TreasureNeon",
+        "themePath": "category/Hot/theme_3",
         "themeType": "custom",
-        "isNew": false,
+        "isNew": true,
         "isPremium": true,
-        "order": 92
-      },
-      {
-        "themeName": "Noel",
-        "themePath": "Hot/Noel",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 67
+        "order": 52
       },
       {
         "themeName": "Sakura",
-        "themePath": "Hot/Sakura",
+        "themePath": "category/Hot/theme_4",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 66
       },
       {
-        "themeName": "TreasureNeon",
-        "themePath": "Hot/TreasureNeon",
+        "themeName": "Noel",
+        "themePath": "category/Hot/theme_5",
         "themeType": "custom",
-        "isNew": true,
+        "isNew": false,
         "isPremium": true,
-        "order": 52
+        "order": 67
+      },
+      {
+        "themeName": "Buffter",
+        "themePath": "category/Hot/theme_6",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 91
+      },
+      {
+        "themeName": "Horse Full Color",
+        "themePath": "category/Hot/theme_7",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 92
       }
     ]
   },
@@ -471,137 +403,99 @@
     "themes": [
       {
         "themeName": "Cute Cats",
-        "themePath": "Kawaii/cute-cats",
+        "themePath": "category/Kawaii/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 0
       },
       {
-        "themeName": "Cute Lions",
-        "themePath": "Kawaii/cute-lions",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 6
-      },
-      {
         "themeName": "Cute Sheep",
-        "themePath": "Kawaii/cute-sheep",
+        "themePath": "category/Kawaii/theme_2",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 1
       },
       {
-        "themeName": "Dog Tracks",
-        "themePath": "Kawaii/dog-tracks",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 11
-      },
-      {
         "themeName": "Flying Pig",
-        "themePath": "Kawaii/flying-pig",
+        "themePath": "category/Kawaii/theme_3",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 3
       },
       {
-        "themeName": "Little Girl",
-        "themePath": "Kawaii/little-girl",
+        "themeName": "Cute Lions",
+        "themePath": "category/Kawaii/theme_4",
         "themeType": "custom",
-        "isNew": true,
+        "isNew": false,
         "isPremium": true,
-        "order": 26
-      },
-      {
-        "themeName": "Mars",
-        "themePath": "Kawaii/mars",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 65
-      },
-      {
-        "themeName": "Penguin Family",
-        "themePath": "Kawaii/penguin-family",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 19
+        "order": 6
       },
       {
         "themeName": "Pinky Bear",
-        "themePath": "Kawaii/pinky-bear",
+        "themePath": "category/Kawaii/theme_5",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 7
       },
       {
+        "themeName": "Dog Tracks",
+        "themePath": "category/Kawaii/theme_6",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 11
+      },
+      {
         "themeName": "Purple Dog",
-        "themePath": "Kawaii/purple-dog",
+        "themePath": "category/Kawaii/theme_7",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 15
       },
       {
+        "themeName": "Penguin Family",
+        "themePath": "category/Kawaii/theme_8",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 19
+      },
+      {
+        "themeName": "Little Girl",
+        "themePath": "category/Kawaii/theme_9",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 26
+      },
+      {
+        "themeName": "Under The Sea",
+        "themePath": "category/Kawaii/theme_10",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 63
+      },
+      {
         "themeName": "Sweets",
-        "themePath": "Kawaii/sweets",
+        "themePath": "category/Kawaii/theme_11",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
         "order": 64
       },
       {
-        "themeName": "Under The Sea",
-        "themePath": "Kawaii/under-the-sea",
+        "themeName": "Mars",
+        "themePath": "category/Kawaii/theme_12",
         "themeType": "custom",
         "isNew": true,
         "isPremium": true,
-        "order": 63
-      }
-    ]
-  },
-  {
-    "category": "Nature",
-    "name": "Nature",
-    "themes": [
-      {
-        "themeName": "Coconut",
-        "themePath": "Nature/coconut",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 35
-      },
-      {
-        "themeName": "Desert",
-        "themePath": "Nature/desert",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 62
-      },
-      {
-        "themeName": "Flower",
-        "themePath": "Nature/flower",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 36
-      },
-      {
-        "themeName": "Wood",
-        "themePath": "Nature/wood",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 22
+        "order": 65
       }
     ]
   },
@@ -611,7 +505,7 @@
     "themes": [
       {
         "themeName": "Glitter Feathers",
-        "themePath": "Neon/glitter-feathers",
+        "themePath": "category/Neon/theme_1",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -619,15 +513,31 @@
       },
       {
         "themeName": "Green Microchip",
-        "themePath": "Neon/green-microchip",
+        "themePath": "category/Neon/theme_2",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 34
       },
       {
+        "themeName": "Violet City",
+        "themePath": "category/Neon/theme_3",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 60
+      },
+      {
+        "themeName": "TreasureNeon",
+        "themePath": "category/Neon/theme_4",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 61
+      },
+      {
         "themeName": "Noel",
-        "themePath": "Neon/Noel",
+        "themePath": "category/Neon/theme_5",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -635,97 +545,11 @@
       },
       {
         "themeName": "Sakura",
-        "themePath": "Neon/Sakura",
+        "themePath": "category/Neon/theme_6",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 94
-      },
-      {
-        "themeName": "TreasureNeon",
-        "themePath": "Neon/TreasureNeon",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 61
-      },
-      {
-        "themeName": "Violet City",
-        "themePath": "Neon/violet-city",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 60
-      }
-    ]
-  },
-  {
-    "category": "Romantic",
-    "name": "Romantic",
-    "themes": [
-      {
-        "themeName": "Balloons",
-        "themePath": "Romantic/balloons",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 31
-      },
-      {
-        "themeName": "Crystal Heart",
-        "themePath": "Romantic/crystal-heart",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 32
-      },
-      {
-        "themeName": "Galaxy",
-        "themePath": "Romantic/galaxy",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 59
-      },
-      {
-        "themeName": "Glass Love",
-        "themePath": "Romantic/glass love",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 18
-      },
-      {
-        "themeName": "Glitter Keyboard",
-        "themePath": "Romantic/glitter-keyboard",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 58
-      },
-      {
-        "themeName": "Happy Valentine",
-        "themePath": "Romantic/happy-valentine",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 23
-      },
-      {
-        "themeName": "Love and Letters",
-        "themePath": "Romantic/love and letters",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 21
-      },
-      {
-        "themeName": "Pink Rose",
-        "themePath": "Romantic/pink-rose",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 30
       }
     ]
   },
@@ -734,16 +558,32 @@
     "name": "Simple",
     "themes": [
       {
+        "themeName": "Heart and Soul",
+        "themePath": "category/Simple/theme_1",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 5
+      },
+      {
         "themeName": "Bubble Soap",
-        "themePath": "Simple/bubble-soap",
+        "themePath": "category/Simple/theme_2",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 20
       },
       {
+        "themeName": "Simple Bubble",
+        "themePath": "category/Simple/theme_3",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 24
+      },
+      {
         "themeName": "Christmas Tree",
-        "themePath": "Simple/christmas-tree",
+        "themePath": "category/Simple/theme_4",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -751,75 +591,219 @@
       },
       {
         "themeName": "Crypto",
-        "themePath": "Simple/crypto",
+        "themePath": "category/Simple/theme_5",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 29
       },
       {
-        "themeName": "Cute Pet",
-        "themePath": "Simple/Cute pet",
+        "themeName": "Tech Keyboard",
+        "themePath": "category/Simple/theme_6",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 57
-      },
-      {
-        "themeName": "Fire Horse",
-        "themePath": "Simple/fire-horse",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 56
+        "order": 54
       },
       {
         "themeName": "Go Green",
-        "themePath": "Simple/go-green",
+        "themePath": "category/Simple/theme_7",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 55
       },
       {
-        "themeName": "Heart and Soul",
-        "themePath": "Simple/heart-and-soul",
+        "themeName": "Fire Horse",
+        "themePath": "category/Simple/theme_8",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 5
+        "order": 56
+      },
+      {
+        "themeName": "Cute Pet",
+        "themePath": "category/Simple/theme_9",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 57
       },
       {
         "themeName": "Ocean Eyes",
-        "themePath": "Simple/ocean-eyes",
+        "themePath": "category/Simple/theme_10",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 95
       },
       {
-        "themeName": "Simple Bubble",
-        "themePath": "Simple/simple bubble",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 24
-      },
-      {
         "themeName": "Smoke of Love",
-        "themePath": "Simple/smoke of love",
+        "themePath": "category/Simple/theme_11",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 96
       },
       {
-        "themeName": "Tech Keyboard",
-        "themePath": "Simple/tech-keyboard",
+        "themeName": "Classic Light",
+        "themePath": "category/Simple/theme_12",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
-        "order": 54
+        "order": 110
+      },
+      {
+        "themeName": "Edge Blue",
+        "themePath": "category/Simple/theme_13",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 111
+      },
+      {
+        "themeName": "Elegant Marble",
+        "themePath": "category/Simple/theme_14",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Glossy Glass",
+        "themePath": "category/Simple/theme_15",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Material Light",
+        "themePath": "category/Simple/theme_16",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Minimal Dark Pink",
+        "themePath": "category/Simple/theme_17",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Minimal Light Blue",
+        "themePath": "category/Simple/theme_18",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Minimal Light Red",
+        "themePath": "category/Simple/theme_19",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Neon",
+        "themePath": "category/Simple/theme_20",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Pitch",
+        "themePath": "category/Simple/theme_21",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Blur Glass",
+        "themePath": "category/Simple/theme_22",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Classic Dark",
+        "themePath": "category/Simple/theme_23",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Forest",
+        "themePath": "category/Simple/theme_24",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Glass Elegance",
+        "themePath": "category/Simple/theme_25",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Highlight Pink",
+        "themePath": "category/Simple/theme_26",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Minimal Dark",
+        "themePath": "category/Simple/theme_27",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Neptune Blue",
+        "themePath": "category/Simple/theme_28",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Snowy Sky",
+        "themePath": "category/Simple/theme_29",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Titanium Luster",
+        "themePath": "category/Simple/theme_30",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
+      },
+      {
+        "themeName": "Vivid Lime",
+        "themePath": "category/Simple/theme_31",
+        "themeType": "custom",
+        "isNew": true,
+        "isPremium": true,
+        "order": 112
       }
     ]
   },
@@ -828,8 +812,24 @@
     "name": "Trending",
     "themes": [
       {
+        "themeName": "Sparkle Horse",
+        "themePath": "category/Trending/theme_1",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 16
+      },
+      {
+        "themeName": "Secret Garden",
+        "themePath": "category/Trending/theme_2",
+        "themeType": "custom",
+        "isNew": false,
+        "isPremium": true,
+        "order": 53
+      },
+      {
         "themeName": "Fancy Lights",
-        "themePath": "Trending/fancy-lights",
+        "themePath": "category/Trending/theme_3",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -837,7 +837,7 @@
       },
       {
         "themeName": "Feel The Beats",
-        "themePath": "Trending/feel-the-beats",
+        "themePath": "category/Trending/theme_4",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -845,7 +845,7 @@
       },
       {
         "themeName": "Galaxy",
-        "themePath": "Trending/galaxy",
+        "themePath": "category/Trending/theme_5",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -853,7 +853,7 @@
       },
       {
         "themeName": "Little Girl",
-        "themePath": "Trending/little-girl",
+        "themePath": "category/Trending/theme_6",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -861,7 +861,7 @@
       },
       {
         "themeName": "Night Mood",
-        "themePath": "Trending/night-mood",
+        "themePath": "category/Trending/theme_7",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
@@ -869,209 +869,20 @@
       },
       {
         "themeName": "Planet",
-        "themePath": "Trending/planet",
+        "themePath": "category/Trending/theme_8",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 102
       },
       {
-        "themeName": "Secret Garden",
-        "themePath": "Trending/secret-garden",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 53
-      },
-      {
-        "themeName": "Sparkle Horse",
-        "themePath": "Trending/sparkle-horse",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 16
-      },
-      {
         "themeName": "Under The Sea",
-        "themePath": "Trending/under-the-sea",
+        "themePath": "category/Trending/theme_9",
         "themeType": "custom",
         "isNew": false,
         "isPremium": true,
         "order": 103
       }
     ]
-  },
-  {
-    "category": "Business",
-    "name": "Business",
-    "themes": [
-      {
-        "themeName": "Classic Light",
-        "themePath": "Business/Classic Light",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 110
-      },
-      {
-        "themeName": "Edge Blue",
-        "themePath": "Business/Edge Blue",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 111
-      },
-      {
-        "themeName": "Elegant Marble",
-        "themePath": "Business/Elegant Marble",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Glossy Glass",
-        "themePath": "Business/Glossy Glass",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Material Light",
-        "themePath": "Business/Material Light",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Minimal Dark Pink",
-        "themePath": "Business/Minimal Dark Pink",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Minimal Light Blue",
-        "themePath": "Business/Minimal Light Blue",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Minimal Light Red",
-        "themePath": "Business/Minimal Light Red",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Neon",
-        "themePath": "Business/Neon",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Pitch",
-        "themePath": "Business/Pitch",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      }
-    ]
-  },
-  {
-    "category": "Dark Mode",
-    "name": "Dark Mode",
-    "themes": [
-      {
-        "themeName": "Blur Glass",
-        "themePath": "Dark Mode/Blur Glass",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Classic Dark",
-        "themePath": "Dark Mode/Classic Dark",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Forest",
-        "themePath": "Dark Mode/Forest",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Glass Elegance",
-        "themePath": "Dark Mode/Glass Elegance",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Highlight Pink",
-        "themePath": "Dark Mode/Highlight Pink",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Minimal Dark",
-        "themePath": "Dark Mode/Minimal Dark",
-        "themeType": "custom",
-        "isNew": false,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Neptune Blue",
-        "themePath": "Dark Mode/Neptune Blue",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Snowy Sky",
-        "themePath": "Dark Mode/Snowy Sky",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Titanium Luster",
-        "themePath": "Dark Mode/Titanium Luster",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      },
-      {
-        "themeName": "Vivid Lime",
-        "themePath": "Dark Mode/Vivid Lime",
-        "themeType": "custom",
-        "isNew": true,
-        "isPremium": true,
-        "order": 112
-      }
-    ]
   }
 ]
-

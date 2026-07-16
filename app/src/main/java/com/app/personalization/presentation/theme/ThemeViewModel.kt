@@ -32,7 +32,7 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
     private val _coins = MutableLiveData<Int>()
     val coins: LiveData<Int> = _coins
 
-    private var selectedCategoryId: String = "all"
+    var selectedCategoryId: String = "trending"
     private var allLoadedThemes = listOf<KeyboardTheme>()
 
     init {
@@ -57,21 +57,32 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val context = getApplication<Application>()
             
-            // 1. Load & Parse Categories from json asset
+            // 1. Load & Parse Categories dynamically from S3 CDN or local assets fallback
             val decorateCategories = withContext(Dispatchers.IO) {
                 try {
-                    val jsonStr = FileUtils.loadJsonFromAsset(context, "themes/json/theme_data_decorate.json")
+                    val urlConnection = java.net.URL("${com.app.personalization.data.ResourceConfig.S3_URL}/themes/json/theme_data_decorate.json?t=${System.currentTimeMillis()}").openConnection()
+                    urlConnection.connectTimeout = 3000
+                    urlConnection.readTimeout = 3000
+                    val jsonStr = urlConnection.getInputStream().bufferedReader().use { it.readText() }
                     kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<DecorateCategory>>(jsonStr)
                 } catch (e: Exception) {
-                    e.printStackTrace()
-                    emptyList()
+                    try {
+                        val jsonStr = FileUtils.loadJsonFromAsset(context, "themes/json/theme_data_decorate.json")
+                        kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<DecorateCategory>>(jsonStr)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                        emptyList()
+                    }
                 }
             }
 
             val categoryTags = mutableListOf<CategoryTag>()
-            categoryTags.add(CategoryTag("all", "All", isSelected = (selectedCategoryId == "all")))
+            val sortedCategories = decorateCategories.sortedByDescending { it.category.equals("Trending", ignoreCase = true) }
+            if (selectedCategoryId.isEmpty() && sortedCategories.isNotEmpty()) {
+                selectedCategoryId = "trending"
+            }
             
-            for (decorCat in decorateCategories) {
+            for (decorCat in sortedCategories) {
                 categoryTags.add(
                     CategoryTag(
                         id = decorCat.category.lowercase(),
@@ -80,7 +91,6 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 )
             }
-            categoryTags.add(CategoryTag("diy", "My DIY", isSelected = (selectedCategoryId == "diy")))
             _categories.value = categoryTags
 
             // 2. Load Themes
@@ -141,11 +151,7 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun filterThemes() {
-        val filtered = when (selectedCategoryId) {
-            "all" -> allLoadedThemes
-            "diy" -> allLoadedThemes.filter { it.rawType == "diy" }
-            else -> allLoadedThemes.filter { it.categoryId == selectedCategoryId }
-        }
+        val filtered = allLoadedThemes.filter { it.categoryId == selectedCategoryId }
         _themes.value = filtered
     }
 }

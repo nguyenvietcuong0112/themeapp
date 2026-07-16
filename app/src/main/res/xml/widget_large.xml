@@ -4,7 +4,7 @@
     android:minHeight="220dp"
     android:initialLayout="@layout/widget_layout_large_empty"
     android:previewImage="@drawable/widget_preview_large"
-    android:resizeMode="vertical"
+    android:resizeMode="horizontal|vertical"
     android:minResizeWidth="320dp"
     android:minResizeHeight="220dp"
     android:widgetCategory="home_screen"/>

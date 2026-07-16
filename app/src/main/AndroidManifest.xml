@@ -227,7 +227,7 @@
         <!-- Custom Keyboard IME Service -->
         <service
             android:name="com.app.personalization.presentation.theme.CustomKeyboardIME"
-            android:label="@string/app_name"
+            android:label="Theme Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
             <intent-filter>

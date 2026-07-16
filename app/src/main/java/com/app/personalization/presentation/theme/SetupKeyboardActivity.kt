@@ -77,7 +77,8 @@ class SetupKeyboardActivity : AppCompatActivity() {
         if (hasFocus) {
             updateStepStates()
             if (isKeyboardEnabled() && isKeyboardDefault()) {
-                showSuccessDialog()
+                Toast.makeText(this, "Theme Keyboard is ready!", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
     }
@@ -109,48 +110,30 @@ class SetupKeyboardActivity : AppCompatActivity() {
         val inactiveBg = typedValue.data
 
         val enabled = isKeyboardEnabled()
+        val isDefault = isKeyboardDefault()
 
         if (!enabled) {
-            // Step 1 active, Step 2 inactive
-            binding.tvEnabledStep1.isEnabled = true
             binding.tvEnabledStep1.text = "Click to settings"
             binding.tvEnabledStep1.backgroundTintList = ColorStateList.valueOf(primaryColor)
-
-            binding.tvEnabledStep2.isEnabled = false
-            binding.tvEnabledStep2.text = "Click to settings"
-            binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(inactiveBg)
-            binding.tvEnabledStep2.setTextColor(Color.GRAY)
+            binding.tvEnabledStep1.setTextColor(Color.WHITE)
         } else {
-            // Step 1 finished, Step 2 active
-            binding.tvEnabledStep1.isEnabled = false
             binding.tvEnabledStep1.text = "Enabled"
             binding.tvEnabledStep1.backgroundTintList = ColorStateList.valueOf(inactiveBg)
             binding.tvEnabledStep1.setTextColor(Color.GRAY)
-
-            val isDefault = isKeyboardDefault()
-            if (!isDefault) {
-                binding.tvEnabledStep2.isEnabled = true
-                binding.tvEnabledStep2.text = "Click to settings"
-                binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(primaryColor)
-                binding.tvEnabledStep2.setTextColor(Color.WHITE)
-            } else {
-                binding.tvEnabledStep2.isEnabled = false
-                binding.tvEnabledStep2.text = "Default Keyboard"
-                binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(inactiveBg)
-                binding.tvEnabledStep2.setTextColor(Color.GRAY)
-            }
         }
-    }
 
-    private fun showSuccessDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Congratulations!")
-            .setMessage("Theme Keyboard has been successfully set up and is ready to use!")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-                finish()
-            }
-            .setCancelable(false)
-            .show()
+        if (!isDefault) {
+            binding.tvEnabledStep2.text = "Click to settings"
+            binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(primaryColor)
+            binding.tvEnabledStep2.setTextColor(Color.WHITE)
+        } else {
+            binding.tvEnabledStep2.text = "Default Keyboard"
+            binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(inactiveBg)
+            binding.tvEnabledStep2.setTextColor(Color.GRAY)
+        }
+
+        // Keep both buttons always clickable to prevent any lockouts
+        binding.tvEnabledStep1.isEnabled = true
+        binding.tvEnabledStep2.isEnabled = true
     }
 }

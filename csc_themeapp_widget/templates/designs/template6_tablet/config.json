@@ -1,0 +1,68 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#c1cfab",
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_6_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 305.96875,
+                "top": 270.45996
+              },
+              "sampleImageUrl": "template6_tablet/ic_image_sample_1.png",
+              "size": "520.5484, 734.1936",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_6_2_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 305.96875,
+                "top": 1138.6055
+              },
+              "sampleImageUrl": "template6_tablet/ic_image_sample_2.png",
+              "size": "520.5484, 330.64145",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Patrick Hand Regular",
+                "size": 53.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 328.50977,
+                "top": 1041.9575
+              },
+              "text": "Love is my happiness. 💕",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

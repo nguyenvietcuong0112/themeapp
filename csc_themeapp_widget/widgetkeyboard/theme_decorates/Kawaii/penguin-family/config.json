@@ -1,0 +1,25 @@
+{
+  "font": {
+    "fontColor": "#D90000",
+    "fontFamily": "Galindo-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#D90000",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": [
+    "space",
+    "shift",
+    "return",
+    "emoji",
+    "modeChange",
+    "backspace",
+    "mic"
+  ]
+}

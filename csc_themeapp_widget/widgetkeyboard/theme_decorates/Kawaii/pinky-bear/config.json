@@ -1,0 +1,17 @@
+{
+  "font": {
+    "fontColor": "#4F4C4C",
+    "fontFamily": "Baloo2-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#4F4C4C",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": ["space", "shift", "return", "emoji", "backspace", "mic"]
+}

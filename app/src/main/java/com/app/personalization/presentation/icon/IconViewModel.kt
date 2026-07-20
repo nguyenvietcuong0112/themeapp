@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.personalization.data.database.entity.WidgetThemeIcon
-import com.app.personalization.di.ServiceLocator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,28 +41,51 @@ class IconViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val context = getApplication<Application>()
 
-            // 1. Create categories list
-            val categoryTags = listOf(
-                CategoryTag("all", "All", isSelected = (selectedCategoryId == "all")),
-                CategoryTag("aesthetic", "Aesthetic", isSelected = (selectedCategoryId == "aesthetic")),
-                CategoryTag("cute", "Cute", isSelected = (selectedCategoryId == "cute")),
-                CategoryTag("hot", "Trending", isSelected = (selectedCategoryId == "hot")),
-                CategoryTag("anime", "Anime", isSelected = (selectedCategoryId == "anime")),
-                CategoryTag("simple", "Simple", isSelected = (selectedCategoryId == "simple"))
-            )
-            _categories.value = categoryTags
-
-            // 2. Load Icons from DB
-            val loadedIcons = withContext(Dispatchers.IO) {
+            val decorateCategories = withContext(Dispatchers.IO) {
                 try {
-                    ServiceLocator.getIconPackDao(context).getAllIcons()
+                    val urlConnection = java.net.URL("${com.app.personalization.data.ResourceConfig.S3_URL}/themes/json/theme_data_decorate.json?t=${System.currentTimeMillis()}").openConnection()
+                    urlConnection.connectTimeout = 3000
+                    urlConnection.readTimeout = 3000
+                    val jsonStr = urlConnection.getInputStream().bufferedReader().use { it.readText() }
+                    kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<com.app.personalization.data.DecorateCategory>>(jsonStr)
                 } catch (e: Exception) {
-                    e.printStackTrace()
-                    emptyList()
+                    try {
+                        val jsonStr = com.app.personalization.data.FileUtils.loadJsonFromAsset(context, "themes/json/theme_data_decorate.json")
+                        kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<com.app.personalization.data.DecorateCategory>>(jsonStr)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                        emptyList()
+                    }
                 }
             }
 
-            allLoadedIcons = loadedIcons
+            // Exclude Aesthetic category to match Theme tab layout, and sort Trending to top
+            val filteredCategories = decorateCategories.filter { !it.category.equals("Aesthetic", ignoreCase = true) }
+
+            val list = filteredCategories.flatMap { cat ->
+                cat.themes.map { t ->
+                    WidgetThemeIcon(
+                        id = "icon_${t.themePath.replace("/", "_")}",
+                        name = t.themeName,
+                        folder = t.themePath,
+                        category = cat.category.lowercase(),
+                        isFree = !t.isPremium
+                    )
+                }
+            }
+            allLoadedIcons = list
+
+            val cats = filteredCategories.map { cat ->
+                CategoryTag(
+                    id = cat.category.lowercase(),
+                    name = cat.name,
+                    isSelected = (selectedCategoryId == cat.category.lowercase())
+                )
+            }.sortedByDescending { it.id == "trending" }
+
+            val finalCats = listOf(CategoryTag("all", "All", isSelected = (selectedCategoryId == "all"))) + cats
+            _categories.value = finalCats
+
             filterIcons()
         }
     }

@@ -41,27 +41,26 @@ class ShopFragment : Fragment() {
         rvThemes.layoutManager = GridLayoutManager(context, columns)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val dbThemes = try {
-                ServiceLocator.getWidgetThemeDao(context).getAllWidgetThemes()
+            val themeList = try {
+                val urlConnection = java.net.URL("${com.app.personalization.data.ResourceConfig.S3_URL}/themes/json/theme_data_decorate.json?t=${System.currentTimeMillis()}").openConnection()
+                urlConnection.connectTimeout = 3000
+                urlConnection.readTimeout = 3000
+                val jsonStr = urlConnection.getInputStream().bufferedReader().use { it.readText() }
+                val categories = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<com.app.personalization.data.DecorateCategory>>(jsonStr)
+                categories.filter { !it.category.equals("Aesthetic", ignoreCase = true) }.flatMap { cat ->
+                    cat.themes.map { t ->
+                        WidgetTheme(
+                            id = "widget_theme_${t.themePath.replace("/", "_")}",
+                            name = t.themeName,
+                            folder = t.themePath
+                        )
+                    }
+                }
             } catch (e: Exception) {
-                e.printStackTrace()
-                emptyList()
-            }
-
-            val themeList = dbThemes.map { 
-                WidgetTheme(
-                    id = it.id,
-                    name = it.name,
-                    folder = it.folder
-                )
-            }.ifEmpty {
                 try {
-                    val urlConnection = java.net.URL("${com.app.personalization.data.ResourceConfig.S3_URL}/themes/json/theme_data_decorate.json?t=${System.currentTimeMillis()}").openConnection()
-                    urlConnection.connectTimeout = 3000
-                    urlConnection.readTimeout = 3000
-                    val jsonStr = urlConnection.getInputStream().bufferedReader().use { it.readText() }
+                    val jsonStr = com.app.personalization.data.FileUtils.loadJsonFromAsset(requireContext(), "themes/json/theme_data_decorate.json")
                     val categories = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<com.app.personalization.data.DecorateCategory>>(jsonStr)
-                    categories.flatMap { cat ->
+                    categories.filter { !it.category.equals("Aesthetic", ignoreCase = true) }.flatMap { cat ->
                         cat.themes.map { t ->
                             WidgetTheme(
                                 id = "widget_theme_${t.themePath.replace("/", "_")}",
@@ -70,23 +69,9 @@ class ShopFragment : Fragment() {
                             )
                         }
                     }
-                } catch (e: Exception) {
-                    try {
-                        val jsonStr = com.app.personalization.data.FileUtils.loadJsonFromAsset(requireContext(), "themes/json/theme_data_decorate.json")
-                        val categories = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString<List<com.app.personalization.data.DecorateCategory>>(jsonStr)
-                        categories.flatMap { cat ->
-                            cat.themes.map { t ->
-                                WidgetTheme(
-                                    id = "widget_theme_${t.themePath.replace("/", "_")}",
-                                    name = t.themeName,
-                                    folder = t.themePath
-                                )
-                            }
-                        }
-                    } catch (ex: Exception) {
-                        ex.printStackTrace()
-                        emptyList()
-                    }
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                    emptyList()
                 }
             }
 

@@ -66,7 +66,7 @@ class IconPackAdapter(
             ivDelete.visibility = View.GONE
             ivFavorite.visibility = View.GONE
 
-            val previewUrl = "${ResourceConfig.S3_URL}/previews/icons/${item.folder}/bg_icon.png"
+            val previewUrl = ResourceConfig.getIconCategoryPreviewUrl(item.folder)
 
             Glide.with(context)
                 .load(previewUrl)

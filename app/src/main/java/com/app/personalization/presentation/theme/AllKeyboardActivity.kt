@@ -69,7 +69,6 @@ class AllKeyboardActivity : AppCompatActivity() {
         }
 
         viewModel.themes.observe(this) { list ->
-            // Filter list to exclude DIY custom themes for this grid since this is cloud store
             val cloudThemes = list.filter { it.rawType != "diy" }
             keyboardAdapter.submitList(cloudThemes)
             binding.pbLoading.visibility = View.GONE
@@ -88,7 +87,7 @@ class AllKeyboardActivity : AppCompatActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = layoutInflater.inflate(R.layout.item_theme_layout, parent, false)
+            val view = layoutInflater.inflate(R.layout.item_keyboard_theme_grid, parent, false)
             return ViewHolder(view)
         }
 

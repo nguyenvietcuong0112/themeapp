@@ -35,7 +35,7 @@ class KeyboardView @JvmOverloads constructor(
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         val pad = dpToPx(6)
-        setPadding(pad, pad, pad, pad)
+        setPadding(pad, pad, pad, dpToPx(36))
     }
 
     fun initKeyboard(rows: List<List<KeyDef>>, activeTheme: KeyboardTheme?) {

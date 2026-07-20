@@ -24,7 +24,6 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.app.personalization.presentation.widget.event.WidgetEvent
 import com.app.personalization.presentation.widget.event.WidgetAddSucceedEvent
 import com.app.personalization.data.database.entity.WidgetItem
 import com.app.personalization.data.database.entity.WidgetSize

@@ -13,6 +13,10 @@
         android:id="@+id/icon"
         android:title="@string/icons"/>
     <item
+        android:icon="@drawable/ic_theme_shop"
+        android:id="@+id/shop"
+        android:title="@string/discover"/>
+    <item
         android:icon="@drawable/ic_setting_selector"
         android:id="@+id/sett_ng_res_0x7f0b0498"
         android:title="@string/setting"/>

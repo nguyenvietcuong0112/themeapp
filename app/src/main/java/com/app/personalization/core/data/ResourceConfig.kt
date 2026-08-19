@@ -4,6 +4,7 @@ import android.content.Context
 
 object ResourceConfig {
     const val ASSET_BASE_URL = "file:///android_asset"
+    const val CONTROL_CENTER = "assets_control_center"
 
 
     private var themePathToFolderMap: Map<String, String>? = null
@@ -174,6 +175,9 @@ object ResourceConfig {
      */
     fun getThemePreviewUrl(themeFolder: String): String {
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$clean/bg_preview.png"
+        }
         return "$ASSET_BASE_URL/assets_theme/$clean/bg_preview.png"
     }
 
@@ -184,17 +188,26 @@ object ResourceConfig {
             else -> ""
         }
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$clean/bg_preview$suffix.png"
+        }
         return "$ASSET_BASE_URL/assets_theme/$clean/bg_preview_original$suffix.png"
     }
 
     fun getWallpaperPreviewUrl(themeFolder: String): String {
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$clean"
+        }
         return "$ASSET_BASE_URL/assets_theme/previews/wallpapers/$clean/bg_wallpaper.png"
     }
 
     fun getWallpaperThumbnailUrl(themeFolder: String, imageName: String = ""): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$clean"
+        }
         if (clean.startsWith("theme_")) {
             return "$ASSET_BASE_URL/assets_theme/previews/wallpapers/$clean/bg_wallpaper.png"
         }
@@ -205,6 +218,12 @@ object ResourceConfig {
     fun getWallpaperFullUrl(themeFolder: String, imageName: String = "bg_wallpaper"): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/")) {
+            if (clean.endsWith(".png") || clean.endsWith(".jpg")) {
+                return "$ASSET_BASE_URL/$clean"
+            }
+            return "$ASSET_BASE_URL/$clean/wallpaper.png"
+        }
         val cleanImageName = if (imageName.endsWith(".png")) imageName else "$imageName.png"
         return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/$cleanImageName"
     }
@@ -285,6 +304,9 @@ object ResourceConfig {
         if (themeFolder.isEmpty() || iconId.isEmpty()) return ""
         val cleanFolder = themeFolder.removePrefix("/")
         val cleanIconId = iconId.removePrefix("ic_").removeSuffix(".png").lowercase()
+        if (cleanFolder.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$cleanFolder/ic_$cleanIconId.png"
+        }
         return "$ASSET_BASE_URL/assets_theme/$cleanFolder/icons/ic_$cleanIconId.png"
     }
 
@@ -296,6 +318,9 @@ object ResourceConfig {
     fun getWidgetPreviewUrl(themeFolder: String, widgetSize: String = "medium"): String {
         val cleanFolder = themeFolder.removePrefix("/")
         val cleanSize = widgetSize.lowercase().removeSuffix(".png")
+        if (cleanFolder.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$cleanFolder/bg_$cleanSize.png"
+        }
         return "$ASSET_BASE_URL/assets_theme/$cleanFolder/widgets/bg_$cleanSize.png"
     }
 

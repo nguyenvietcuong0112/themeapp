@@ -105,6 +105,11 @@
             android:name="com.app.personalization.feature_main.MainActivity"
             android:exported="true" />
 
+        <!-- Setting Activity -->
+        <activity
+            android:name="com.app.personalization.feature_setting.SettingActivity"
+            android:exported="true" />
+
         <!-- Theme Builder Activity -->
         <activity
             android:name="com.app.personalization.feature_theme.creator.CreateThemeActivity"
@@ -205,6 +210,12 @@
         <activity
             android:name="com.app.personalization.feature_widget.ChangeIconActivity"
             android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <!-- Collections Downloaded Activity -->
+        <activity
+            android:name="com.app.personalization.feature_collections.DownloadedActivity"
+            android:exported="false"
             android:screenOrientation="portrait"/>
 
 

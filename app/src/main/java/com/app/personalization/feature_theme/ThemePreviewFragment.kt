@@ -96,6 +96,24 @@ class ThemePreviewFragment : Fragment() {
                 }
 
                 llDownload?.setOnClickListener {
+                    val appContext = context.applicationContext
+                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                        val repo = com.app.personalization.feature_collections.data.CollectionRepository(appContext)
+                        val resolvedPreview = if (item.path.startsWith("category/")) {
+                            "file:///android_asset/assets_theme/${item.path}/bg_preview.png"
+                        } else {
+                            ResourceConfig.getThemePreviewUrl(item.path)
+                        }
+                        repo.markAsDownloaded(
+                            id = item.id,
+                            name = item.name,
+                            category = "Theme",
+                            targetPath = item.path,
+                            previewPath = resolvedPreview,
+                            rawType = item.rawType
+                        )
+                    }
+
                     val intent = Intent(context, DownloadThemeActivity::class.java).apply {
                         putExtra("theme_id", item.id)
                         putExtra("theme_name", item.name)

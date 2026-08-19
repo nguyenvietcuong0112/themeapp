@@ -138,6 +138,25 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         } else {
+            val currentContext = context?.applicationContext
+            if (currentContext != null) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val repo = com.app.personalization.feature_collections.data.CollectionRepository(currentContext)
+                    val previewUrl = if (theme.path.startsWith("category/")) {
+                        "file:///android_asset/assets_theme/${theme.path}/bg_preview.png"
+                    } else {
+                        com.app.personalization.core.data.ResourceConfig.getThemePreviewUrl(theme.path)
+                    }
+                    repo.markAsDownloaded(
+                        id = "icon_${theme.path.replace('/', '_')}",
+                        name = theme.name,
+                        category = "Icons",
+                        targetPath = theme.path,
+                        previewPath = previewUrl,
+                        rawType = "widget_theme"
+                    )
+                }
+            }
             dismissAllowingStateLoss()
             val activity = activity
             if (activity != null) {

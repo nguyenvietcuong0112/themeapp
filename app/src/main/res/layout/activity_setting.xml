@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/primaryBackgroundColor"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_my_theme" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- Card 1: Customizations -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:background="@drawable/bg_corner_14"
+                android:backgroundTint="?attr/secondaryBackgroundColor"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siAddTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_title="@string/customize_themes" />
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siAddWidget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_title="@string/customize_widget" />
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siStartCharging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_title="@string/start_charging_animation" />
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siTemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_showLine="false"
+                    app:setting_title="@string/temperature_unit" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- Section 2: Guides & Info -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:text="@string/how_to_use"
+                android:textColor="?attr/detailTextColor"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:background="@drawable/bg_corner_14"
+                android:backgroundTint="?attr/secondaryBackgroundColor"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siFQA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_title="FAQ" />
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siGetIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_title="How to install icons" />
+
+                <com.app.personalization.core.ui.SettingItemView
+                    android:id="@+id/siGetWidget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_arrowEnabled="true"
+                    app:setting_showLine="false"
+                    app:setting_title="How to add widgets" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- Section 3: App Info & Version -->
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:gravity="center"
+                android:text="Themes &amp; Widgets v1.0.0"
+                android:textColor="?attr/detailTextColor"
+                android:textSize="@dimen/sp_12" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

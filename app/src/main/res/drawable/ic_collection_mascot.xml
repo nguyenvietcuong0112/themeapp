@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="100dp"
+    android:viewportWidth="120"
+    android:viewportHeight="100">
+
+    <!-- Mascot cute body/cloud -->
+    <path
+        android:fillColor="#FFCDD2"
+        android:pathData="M70,40 C85,25 115,35 118,65 C120,85 105,98 85,98 C65,98 50,85 52,65 C54,48 60,42 70,40 Z" />
+
+    <!-- Cute Eyes -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M78,60 A2,2 0 1,1 78,56 A2,2 0 1,1 78,60 Z" />
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M94,60 A2,2 0 1,1 94,56 A2,2 0 1,1 94,60 Z" />
+
+    <!-- Cute Smile -->
+    <path
+        android:strokeColor="#37474F"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M83,67 Q86,72 89,67" />
+
+    <!-- Blush cheeks -->
+    <path
+        android:fillColor="#FF8A80"
+        android:pathData="M73,64 A3,2 0 1,1 73,60 A3,2 0 1,1 73,64 Z" />
+    <path
+        android:fillColor="#FF8A80"
+        android:pathData="M99,64 A3,2 0 1,1 99,60 A3,2 0 1,1 99,64 Z" />
+
+    <!-- Heart Bubble -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M65,15 C65,8 75,5 82,10 C89,5 99,8 99,15 C99,23 85,32 82,35 C79,32 65,23 65,15 Z" />
+    <path
+        android:fillColor="#FF4081"
+        android:pathData="M72,17 C72,12 78,10 82,14 C86,10 92,12 92,17 C92,23 84,28 82,30 C80,28 72,23 72,17 Z" />
+
+</vector>

@@ -318,7 +318,12 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 com.app.personalization.core.data.ResourceConfig.getThemeFolderByPath(activity, theme.path)
             }
 
-            val cdnUrl = "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$fileName"
+            val cdnUrl = if (folder.startsWith("assets_collection/")) {
+                val clean = folder.removePrefix("assets_collection/").removePrefix("widget/")
+                "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$fileName"
+            } else {
+                "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$fileName"
+            }
 
             withContext(Dispatchers.Main) {
                 val downloadDialog = DownloadDialogFragment()
@@ -351,6 +356,32 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 .edit()
                 .putString("bg_path_${theme.id}_${widgetType}_$size", fileName)
                 .apply()
+
+            val repo = com.app.personalization.feature_collections.data.CollectionRepository(context)
+            lifecycleScope.launch(Dispatchers.IO) {
+                val typeFolder = when (widgetType.lowercase()) {
+                    "clock" -> "clocks"
+                    "calendar", "date" -> "today"
+                    "weather" -> "weather"
+                    "image" -> "image"
+                    else -> widgetType.lowercase()
+                }
+                val previewFileName = if (size.lowercase() == "4x2") "bg_preview_medium.png" else "bg_preview_large.png"
+                val resolvedPreview = if (theme.path.startsWith("category/")) {
+                    "file:///android_asset/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
+                } else {
+                    "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
+                }
+                repo.markAsDownloaded(
+                    id = "widget_${theme.path.replace('/', '_')}_${widgetType}_$size",
+                    name = "${theme.name} ${widgetType.replaceFirstChar { it.uppercase() }}",
+                    category = "Widget",
+                    targetPath = theme.path,
+                    previewPath = resolvedPreview,
+                    rawType = widgetType,
+                    extra = size
+                )
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

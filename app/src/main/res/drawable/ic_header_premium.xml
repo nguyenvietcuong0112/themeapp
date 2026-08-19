@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Yellow Circle Background -->
+    <path
+        android:fillColor="#FBC02D"
+        android:pathData="M20,20m-18,0a18,18 0,1 1,36 0a18,18 0,1 1,-36 0" />
+    <!-- White Crown Icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11,26h18v2.5H11V26zm17.5,-12l-4.5,5 -4,-8 -4,8 -4.5,-5 2,10h13l2,-10z" />
+    <!-- Small dots on crown tips -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11,13m-1.2,0a1.2,1.2 0,1 1,2.4 0a1.2,1.2 0,1 1,-2.4 0 M20,10m-1.2,0a1.2,1.2 0,1 1,2.4 0a1.2,1.2 0,1 1,-2.4 0 M29,13m-1.2,0a1.2,1.2 0,1 1,2.4 0a1.2,1.2 0,1 1,-2.4 0" />
+</vector>

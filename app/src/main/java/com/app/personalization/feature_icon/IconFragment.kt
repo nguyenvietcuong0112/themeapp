@@ -52,8 +52,7 @@ class IconFragment : Fragment() {
 
     private fun setupToolbar(view: View) {
         val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        val titleText = toolbar.findViewById<android.widget.TextView>(R.id.titleTextView)
-        titleText?.text = "Icons"
+        toolbar.visibility = View.GONE
     }
 
     private fun setupCategories(view: View) {

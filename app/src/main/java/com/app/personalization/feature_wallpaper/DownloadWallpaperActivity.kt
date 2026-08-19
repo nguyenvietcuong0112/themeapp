@@ -60,7 +60,24 @@ class DownloadWallpaperActivity : AppCompatActivity() {
         btnApply.setOnClickListener {
             val bitmap = loadedBitmap
             if (bitmap != null) {
-                val sheet = SetWallpaperBottomSheet(bitmap)
+                val sheet = SetWallpaperBottomSheet(bitmap) {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val repo = com.app.personalization.feature_collections.data.CollectionRepository(this@DownloadWallpaperActivity)
+                        val previewUrl = if (wallpaper.folder.startsWith("category/")) {
+                            "file:///android_asset/assets_theme/${wallpaper.folder}/wallpapers/bg_wallpaper.png"
+                        } else {
+                            wallpaper.getOnlinePreviewUri(this@DownloadWallpaperActivity).toString()
+                        }
+                        repo.markAsDownloaded(
+                            id = wallpaper.id,
+                            name = wallpaper.name,
+                            category = "Wallpaper",
+                            targetPath = wallpaper.folder,
+                            previewPath = previewUrl,
+                            rawType = "wallpaper"
+                        )
+                    }
+                }
                 sheet.show(supportFragmentManager, "set_wallpaper_sheet")
             } else {
                 Toast.makeText(this, "Wallpaper is still downloading...", Toast.LENGTH_SHORT).show()

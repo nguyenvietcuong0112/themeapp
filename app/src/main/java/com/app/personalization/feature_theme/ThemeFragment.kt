@@ -61,6 +61,7 @@ class ThemeFragment : Fragment() {
     }
 
     private fun setupToolbar(view: View) {
+        view.findViewById<View>(R.id.toolbar)?.visibility = View.GONE
     }
 
     private fun setupQuickActions(view: View) {

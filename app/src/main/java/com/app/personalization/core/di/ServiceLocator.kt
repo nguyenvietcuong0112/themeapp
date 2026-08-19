@@ -59,6 +59,10 @@ object ServiceLocator {
         return getDatabase(context).templateDao()
     }
 
+    fun getDownloadedCollectionDao(context: Context): com.app.personalization.feature_collections.data.DownloadedCollectionDao {
+        return getDatabase(context).downloadedCollectionDao()
+    }
+
     @Volatile
     private var themeRepository: com.app.personalization.core.data.repository.ThemeRepository? = null
 

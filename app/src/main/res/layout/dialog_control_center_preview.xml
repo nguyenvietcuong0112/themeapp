@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottomsheet_dialog"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica_medium"
+        android:gravity="center"
+        android:textColor="#1F1F1F"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Control Center" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivPreview"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_collection_thumb_card"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="16dp"
+        app:riv_mutate_background="true" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnApply"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_corner_8"
+        android:backgroundTint="#FF4081"
+        android:fontFamily="@font/helvetica_medium"
+        android:text="Apply Control Center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

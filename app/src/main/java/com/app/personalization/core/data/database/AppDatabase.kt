@@ -26,8 +26,10 @@ import com.app.personalization.feature_widget.data.entity.WidgetItem
 import com.app.personalization.feature_wallpaper.data.entity.StickerItem
 import com.app.personalization.feature_wallpaper.data.entity.BackgroundItem
 import com.app.personalization.feature_wallpaper.data.entity.Template
+import com.app.personalization.feature_collections.data.DownloadedCollectionItem
+import com.app.personalization.feature_collections.data.DownloadedCollectionDao
 
-@Database(entities = [KeyboardTheme::class, WidgetConfig::class, WidgetThemeWallpaper::class, WidgetThemeIcon::class, ChargingAnimation::class, WidgetThemeWidget::class, WidgetItem::class, StickerItem::class, BackgroundItem::class, Template::class], version = 6, exportSchema = false)
+@Database(entities = [KeyboardTheme::class, WidgetConfig::class, WidgetThemeWallpaper::class, WidgetThemeIcon::class, ChargingAnimation::class, WidgetThemeWidget::class, WidgetItem::class, StickerItem::class, BackgroundItem::class, Template::class, DownloadedCollectionItem::class], version = 7, exportSchema = false)
 @TypeConverters(ThemeConfigConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun themeDao(): KeyboardThemeDao
@@ -40,6 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun stickerDao(): StickerItemDao
     abstract fun backgroundDao(): BackgroundItemDao
     abstract fun templateDao(): TemplateDao
+    abstract fun downloadedCollectionDao(): DownloadedCollectionDao
 
     companion object {
         const val DATABASE_NAME = "personalization_db"

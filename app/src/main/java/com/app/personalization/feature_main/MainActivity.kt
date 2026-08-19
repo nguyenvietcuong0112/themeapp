@@ -1,12 +1,14 @@
 package com.app.personalization.feature_main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.app.personalization.R
 import com.app.personalization.databinding.ActivityMainBinding
-import com.app.personalization.feature_main.MainPagerAdapter
+import com.app.personalization.feature_setting.InfoActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +33,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        setupHeader()
         setupViewPager()
         setupBottomNavigation()
+    }
+
+    private fun setupHeader() {
+        // Premium button click
+        binding.btnPremium.setOnClickListener {
+            Toast.makeText(this, "Premium Features", Toast.LENGTH_SHORT).show()
+        }
+
+        // Setting button click -> Setting screen
+        binding.btnSetting.setOnClickListener {
+            startActivity(Intent(this, com.app.personalization.feature_setting.SettingActivity::class.java))
+        }
+    }
+
+    private fun updateHeaderTitle(position: Int) {
+        val title = when (position) {
+            0 -> getString(R.string.tab_theme)
+            1 -> getString(R.string.tab_icons)
+            2 -> getString(R.string.tab_control)
+            3 -> getString(R.string.tab_widget)
+            else -> "Collection"
+        }
+        binding.tvHeaderTitle.text = title
     }
 
     private fun setupViewPager() {
@@ -43,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                updateHeaderTitle(position)
                 val itemId = when (position) {
                     0 -> R.id.nav_theme
                     1 -> R.id.nav_icons
@@ -71,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             if (binding.viewpager.currentItem != position) {
                 binding.viewpager.setCurrentItem(position, false)
             }
+            updateHeaderTitle(position)
             true
         }
     }

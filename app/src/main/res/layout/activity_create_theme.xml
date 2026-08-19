@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.app.personalization.presentation.theme.CreateThemeView
+    <com.app.personalization.feature_theme.creator.CreateThemeView
         android:id="@+id/themeView"
         android:layout_width="0dp"
         android:layout_height="0dp"

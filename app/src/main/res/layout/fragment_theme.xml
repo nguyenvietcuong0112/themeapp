@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_16">
-            <com.app.personalization.presentation.customviews.HomeActionView
+            <com.app.personalization.core.ui.HomeActionView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/actionView"
                 android:layout_width="wrap_content"
@@ -61,36 +61,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoryRecyclerView"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:gravity="center"
-        android:id="@+id/tvAdd"
-        android:background="@drawable/bg_fab"
-        android:padding="@dimen/dp_8"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_48"
-        android:layout_height="@dimen/dp_48"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_theme_home"
-        android:layout_marginEnd="@dimen/dp_16"
-        app:layout_constraintBottom_toTopOf="@+id/viewBottom"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:gravity="center"
-        android:id="@+id/tvCreate"
-        android:background="@drawable/bg_fab"
-        android:padding="@dimen/dp_8"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_48"
-        android:layout_height="@dimen/dp_48"
-        android:layout_marginBottom="@dimen/dp_12"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_add_background"
-        android:layout_marginEnd="@dimen/dp_16"
-        app:layout_constraintBottom_toTopOf="@+id/tvAdd"
-        app:layout_constraintEnd_toEndOf="parent"/>
     <ProgressBar
         android:layout_gravity="center"
         android:id="@+id/pbCreate"

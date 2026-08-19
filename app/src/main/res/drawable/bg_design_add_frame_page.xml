@@ -5,6 +5,23 @@
     android:viewportWidth="28"
     android:viewportHeight="28">
     <path
-        android:fillColor="@drawable/_bg_design_add_frame_page__0_res_0x7f080009"
-        android:pathData="M14,14m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"/>
+        
+        android:pathData="M14,14m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0">
+        <aapt:attr name="android:fillColor">
+            <gradient  
+    android:angle="0"
+    android:type="linear"
+    android:startX="0"
+    android:startY="0"
+    android:endX="28"
+    android:endY="28">
+    <item
+        android:color="#ffffce86"
+        android:offset="0"/>
+    <item
+        android:color="#ffffa843"
+        android:offset="1"/>
+</gradient>
+        </aapt:attr>
+    </path>
 </vector>

@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import com.app.personalization.presentation.charging.ChargingActivity
+import com.app.personalization.feature_charging.ChargingActivity
 
 class ThemeApp : Application() {
 

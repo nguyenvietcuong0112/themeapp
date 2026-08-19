@@ -37,41 +37,4 @@
             android:layout_weight="1"
             android:layout_marginHorizontal="@dimen/dp_8"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_gravity="end|bottom"
-        android:orientation="vertical"
-        android:id="@+id/viewBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:gravity="center"
-            android:layout_gravity="end|bottom"
-            android:id="@+id/tvCreate"
-            android:background="@drawable/bg_fab"
-            android:padding="@dimen/dp_8"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_add_background"/>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:gravity="center"
-            android:id="@+id/tvAdd"
-            android:background="@drawable/bg_fab"
-            android:padding="@dimen/dp_8"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
-            android:layout_marginBottom="@dimen/dp_12"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_theme_home"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
 </FrameLayout>

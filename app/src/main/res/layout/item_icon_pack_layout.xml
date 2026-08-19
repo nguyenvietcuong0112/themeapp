@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <com.app.personalization.presentation.customviews.RemoteImageView
+        <com.app.personalization.core.ui.RemoteImageView
             android:id="@+id/ivPreview"
             android:tag="binding_2"
             android:layout_width="match_parent"

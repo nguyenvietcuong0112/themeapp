@@ -11,7 +11,7 @@
             android:targetPackage="com.app.personalization"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_custom_widget"
-            android:targetClass="com.app.personalization.cscthemeapp.widget.ui.main.activity.ComeBackActivity"/>
+            android:targetClass="com.app.personalization.feature_main.MainActivity"/>
     </shortcut>
     <shortcut
         android:icon="@drawable/ic_theme_home"
@@ -24,6 +24,6 @@
             android:targetPackage="com.app.personalization"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_my_collection"
-            android:targetClass="com.app.personalization.cscthemeapp.widget.ui.main.activity.ComeBackActivity"/>
+            android:targetClass="com.app.personalization.feature_main.MainActivity"/>
     </shortcut>
 </shortcuts>

@@ -92,7 +92,7 @@
 
         <!-- Launcher Onboarding Permission Activity -->
         <activity
-            android:name="com.app.personalization.presentation.main.PermissionActivity"
+            android:name="com.app.personalization.feature_main.PermissionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -102,65 +102,65 @@
 
         <!-- Main Dashboard Activity -->
         <activity
-            android:name="com.app.personalization.presentation.main.MainActivity"
+            android:name="com.app.personalization.feature_main.MainActivity"
             android:exported="true" />
 
         <!-- Theme Builder Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.CreateThemeActivity"
+            android:name="com.app.personalization.feature_theme.creator.CreateThemeActivity"
             android:exported="true" />
 
         <!-- Wallpaper DIY Activity -->
         <activity
-            android:name="com.app.personalization.presentation.wallpaper.DIYWallpaperActivity"
+            android:name="com.app.personalization.feature_wallpaper.diy.DIYWallpaperActivity"
             android:exported="true" />
 
         <!-- Wallpaper Creator/Editor Activity -->
         <activity
-            android:name="com.app.personalization.presentation.wallpaper.CreateWallpaperActivity"
+            android:name="com.app.personalization.feature_wallpaper.diy.CreateWallpaperActivity"
             android:exported="true" />
 
         <!-- Icon Changer Activity -->
         <activity
-            android:name="com.app.personalization.presentation.icon.IconChangerActivity"
+            android:name="com.app.personalization.feature_icon.IconChangerActivity"
             android:exported="true" />
 
         <!-- Theme Preview Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.ThemePreviewActivity"
+            android:name="com.app.personalization.feature_theme.ThemePreviewActivity"
             android:exported="true" />
 
         <!-- My Themes List Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.MyThemeActivity"
+            android:name="com.app.personalization.feature_theme.my_theme.MyThemeActivity"
             android:exported="true" />
 
         <!-- All Keyboards Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.AllKeyboardActivity"
+            android:name="com.app.personalization.feature_keyboard.AllKeyboardActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <!-- Keyboard Theme Detail Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.KeyboardThemeDetailActivity"
+            android:name="com.app.personalization.feature_keyboard.KeyboardThemeDetailActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <!-- Setup Keyboard IME Wizard Activity -->
         <activity
-            android:name="com.app.personalization.presentation.theme.SetupKeyboardActivity"
+            android:name="com.app.personalization.feature_keyboard.SetupKeyboardActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <!-- Premium Screen Activity -->
         <activity
-            android:name="com.app.personalization.presentation.customviews.PremiumActivity"
+            android:name="com.app.personalization.feature_setting.PremiumActivity"
             android:exported="true" />
 
         <!-- Widget Configuration Activity -->
         <activity
-            android:name="com.app.personalization.presentation.widget.WidgetConfigActivity"
+            android:name="com.app.personalization.feature_widget.WidgetConfigActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -169,41 +169,41 @@
 
         <!-- Download & Apply Wallpaper Activity -->
         <activity
-            android:name="com.app.personalization.presentation.wallpaper.DownloadWallpaperActivity"
+            android:name="com.app.personalization.feature_wallpaper.DownloadWallpaperActivity"
             android:exported="true" />
  
         <!-- Charging Animation Screen -->
         <activity
-            android:name="com.app.personalization.presentation.charging.ChargingActivity"
+            android:name="com.app.personalization.feature_charging.ChargingActivity"
             android:exported="true"
             android:showOnLockScreen="true"
             android:screenOrientation="sensor" />
 
         <activity
-            android:name="com.app.personalization.presentation.widget.DownloadThemeActivity"
+            android:name="com.app.personalization.feature_widget.DownloadThemeActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.app.personalization.presentation.icon.DownloadIconActivity"
+            android:name="com.app.personalization.feature_icon.DownloadIconActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 
         <!-- Widget Theme Detail Activity -->
         <activity
-            android:name="com.app.personalization.presentation.widget.WidgetThemeDetailActivity"
+            android:name="com.app.personalization.feature_widget.WidgetThemeDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 
         <!-- Info Guide Activity -->
         <activity
-            android:name="com.app.personalization.presentation.setting.InfoActivity"
+            android:name="com.app.personalization.feature_setting.InfoActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 
         <!-- Shortcut Proxy Activity -->
         <activity
-            android:name="com.app.personalization.presentation.widget.ChangeIconActivity"
+            android:name="com.app.personalization.feature_widget.ChangeIconActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
 
@@ -211,7 +211,7 @@
 
         <!-- Live Wallpaper Service -->
         <service
-            android:name="com.app.personalization.presentation.wallpaper.DiyWallpaperService"
+            android:name="com.app.personalization.feature_wallpaper.DiyWallpaperService"
             android:label="Interactive Particles Live Wallpaper"
             android:permission="android.permission.BIND_WALLPAPER"
             android:exported="true">
@@ -226,7 +226,7 @@
 
         <!-- Custom Keyboard IME Service -->
         <service
-            android:name="com.app.personalization.presentation.theme.CustomKeyboardIME"
+            android:name="com.app.personalization.feature_keyboard.CustomKeyboardIME"
             android:label="Theme Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
@@ -240,7 +240,7 @@
 
         <!-- Widget 2x2 Provider (Small Widget) -->
         <receiver
-            android:name="com.app.personalization.presentation.widget.Widget2x2Provider"
+            android:name="com.app.personalization.feature_widget.Widget2x2Provider"
             android:label="2x2 Analog Clock"
             android:exported="true">
             <intent-filter>
@@ -253,7 +253,7 @@
 
         <!-- Widget 4x2 Provider (Medium Widget) -->
         <receiver
-            android:name="com.app.personalization.presentation.widget.Widget4x2Provider"
+            android:name="com.app.personalization.feature_widget.Widget4x2Provider"
             android:label="4x2 Dashboard"
             android:exported="true">
             <intent-filter>
@@ -266,7 +266,7 @@
 
         <!-- Widget 4x4 Provider (Large Widget) -->
         <receiver
-            android:name="com.app.personalization.presentation.widget.Widget4x4Provider"
+            android:name="com.app.personalization.feature_widget.Widget4x4Provider"
             android:label="4x4 Calendar Grid"
             android:exported="true">
             <intent-filter>
@@ -281,7 +281,7 @@
 
         <!-- Widget Pinning Callback Receiver -->
         <receiver
-            android:name="com.app.personalization.presentation.widget.WidgetReceiver"
+            android:name="com.app.personalization.feature_widget.WidgetReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.app.personalization.WIDGET_PINNED" />

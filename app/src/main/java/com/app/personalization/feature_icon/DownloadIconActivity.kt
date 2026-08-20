@@ -55,6 +55,8 @@ class DownloadIconActivity : AppCompatActivity() {
                 setupRecyclerView()
                 setupHeader()
                 setupActions()
+                binding.llHeader.visibility = View.VISIBLE
+                binding.actionView.root.visibility = View.VISIBLE
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this@DownloadIconActivity, "Error loading preset icons", Toast.LENGTH_SHORT).show()

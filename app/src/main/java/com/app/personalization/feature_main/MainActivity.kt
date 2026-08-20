@@ -52,13 +52,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateHeaderTitle(position: Int) {
         val title = when (position) {
-            0 -> getString(R.string.tab_theme)
-            1 -> getString(R.string.tab_icons)
-            2 -> getString(R.string.tab_control)
-            3 -> getString(R.string.tab_widget)
-            else -> "Collection"
+            0 -> "Theme App"
+            1 -> "Icons App"
+            2 -> "Control Center"
+            3 -> "Widgets"
+            else -> "Collections"
         }
         binding.tvHeaderTitle.text = title
+        binding.tvHeaderSubtitle.text = "Make your phone unique"
     }
 
     private fun setupViewPager() {

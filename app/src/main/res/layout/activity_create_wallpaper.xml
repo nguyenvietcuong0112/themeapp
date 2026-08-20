@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/adContainer"
-                android:background="?attr/primaryBackgroundColor"
+                android:background="@color/app_background"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

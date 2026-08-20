@@ -190,7 +190,7 @@ class IconChangerActivity : AppCompatActivity() {
                 .setIntent(launchIntent)
 
             ShortcutManagerCompat.requestPinShortcut(this, builder.build(), null)
-            Toast.makeText(this, "Shortcut pinned successfully! Check your home screen.", Toast.LENGTH_LONG).show()
+            com.app.personalization.feature_widget.SetupSucceedDialogFragment().show(supportFragmentManager, "success")
             layoutCustomizationPanel.visibility = View.GONE
         } else {
             Toast.makeText(this, "Launch intent not found for this package", Toast.LENGTH_SHORT).show()

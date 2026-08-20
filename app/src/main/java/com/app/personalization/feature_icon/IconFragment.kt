@@ -1,7 +1,6 @@
 package com.app.personalization.feature_icon
 
 import com.app.personalization.feature_theme.ThemeCategoryAdapter
-import com.app.personalization.feature_theme.CategoryTag
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +10,9 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
-import com.app.personalization.feature_widget.DownloadThemeActivity
-import com.app.personalization.feature_icon.IconChangerActivity
-import com.app.personalization.databinding.FragmentIconBinding
 
 class IconFragment : Fragment() {
 
@@ -39,7 +34,6 @@ class IconFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[IconViewModel::class.java]
 
-        setupToolbar(view)
         setupCategories(view)
         setupIconGrid(view)
 
@@ -48,11 +42,6 @@ class IconFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-    }
-
-    private fun setupToolbar(view: View) {
-        val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        toolbar.visibility = View.GONE
     }
 
     private fun setupCategories(view: View) {

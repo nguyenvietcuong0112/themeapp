@@ -98,13 +98,13 @@ class DownloadIconItemAdapter(
 
             // 3. Right Icon (Device Target App)
             etAppName.text = item.targetAppName ?: cleanName
+            ivOldIcon.visibility = View.VISIBLE
             if (item.targetAppIcon != null) {
-                ivOldIcon.visibility = View.VISIBLE
                 ivOldIcon.setImageDrawable(item.targetAppIcon)
                 ivAdd.visibility = View.GONE
             } else {
-                ivOldIcon.visibility = View.GONE
-                ivAdd.visibility = View.VISIBLE
+                ivOldIcon.setImageResource(R.drawable.bg_default_placeholder)
+                ivAdd.visibility = View.GONE
             }
 
             llOldIcon.setOnClickListener {

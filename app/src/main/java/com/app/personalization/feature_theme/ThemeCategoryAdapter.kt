@@ -46,17 +46,15 @@ class ThemeCategoryAdapter(
             val typedValue = android.util.TypedValue()
             
             if (item.isSelected) {
-                context.theme.resolveAttribute(R.attr.primaryColor, typedValue, true)
-                val primaryColor = typedValue.data
-                llContainer.backgroundTintList = android.content.res.ColorStateList.valueOf(primaryColor)
-                tvName.setTextColor(Color.WHITE)
+                llContainer.setBackgroundResource(R.drawable.bg_category_tab_selected)
+                llContainer.backgroundTintList = null
+                tvName.setTextColor(Color.parseColor("#FA5783"))
+                tvName.setTypeface(null, android.graphics.Typeface.BOLD)
             } else {
-                context.theme.resolveAttribute(R.attr.secondaryBackgroundColor, typedValue, true)
-                val secondaryBg = typedValue.data
-                context.theme.resolveAttribute(R.attr.titleTextColor, typedValue, true)
-                val textColor = typedValue.data
-                llContainer.backgroundTintList = android.content.res.ColorStateList.valueOf(secondaryBg)
-                tvName.setTextColor(textColor)
+                llContainer.setBackgroundResource(R.drawable.bg_category_tab_unselected)
+                llContainer.backgroundTintList = null
+                tvName.setTextColor(Color.parseColor("#1A1A1A"))
+                tvName.setTypeface(null, android.graphics.Typeface.NORMAL)
             }
 
             llContainer.setOnClickListener {

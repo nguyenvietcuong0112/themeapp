@@ -46,7 +46,6 @@ class ThemeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[ThemeViewModel::class.java]
 
-        setupToolbar(view)
         setupQuickActions(view)
         setupCategoryList(view)
         setupThemeGrid(view)
@@ -58,10 +57,6 @@ class ThemeFragment : Fragment() {
         super.onResume()
         // Reload categories and themes to capture any new DIY themes
         viewModel.selectCategory(viewModel.selectedCategoryId)
-    }
-
-    private fun setupToolbar(view: View) {
-        view.findViewById<View>(R.id.toolbar)?.visibility = View.GONE
     }
 
     private fun setupQuickActions(view: View) {
@@ -98,12 +93,7 @@ class ThemeFragment : Fragment() {
 
     private fun setupThemeGrid(view: View) {
         val rvThemes = view.findViewById<RecyclerView>(R.id.recyclerView) ?: return
-        val context = requireContext()
-        val displayMetrics = context.resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        // Keyboard grid: Target ~160dp width per item
-        val columns = (screenWidthDp / 160).toInt().coerceAtLeast(2)
-        rvThemes.layoutManager = GridLayoutManager(context, columns)
+        rvThemes.layoutManager = GridLayoutManager(context, 3)
         
         pbCreate = view.findViewById(R.id.pbCreate)
         pbCreate.visibility = View.VISIBLE

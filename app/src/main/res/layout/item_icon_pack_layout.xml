@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/dp_4"
-        android:layout_marginVertical="@dimen/dp_4"
-        android:clipToOutline="true"
-        app:cardCornerRadius="@dimen/dp_8"
-        app:cardElevation="@dimen/dp_0"
-        app:layout_constraintDimensionRatio="H,16:9"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tvName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.app.personalization.core.ui.RemoteImageView
-            android:id="@+id/ivPreview"
-            android:tag="binding_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivPreviewCustom"
-            android:tag="binding_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"/>
-    </androidx.cardview.widget.CardView>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivFavorite"
-        android:background="@drawable/bg_circle"
-        android:padding="@dimen/dp_4"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_28"
-        android:layout_height="@dimen/dp_28"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/bg_favorite"
-        android:elevation="@dimen/dp_24"
-        android:backgroundTint="@color/whiteAlpha40"
-        android:clipToOutline="true"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivDelete"
-        android:tag="binding_1"
-        android:background="@drawable/bg_circle"
-        android:padding="@dimen/dp_4"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_28"
-        android:layout_height="@dimen/dp_28"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_delete"
-        android:elevation="@dimen/dp_24"
-        android:backgroundTint="@color/whiteAlpha40"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"/>
-    <TextView
-        android:textSize="@dimen/sp_16"
-        android:textColor="?attr/titleTextColor"
-        android:gravity="center"
-        android:id="@+id/tvName"
-        android:tag="binding_4"
-        android:visibility="gone"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="14dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/nav_border_pink"
+    android:outlineAmbientShadowColor="@color/nav_shadow_pink"
+    android:outlineSpotShadowColor="@color/nav_shadow_pink">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_36"
-        android:fontFamily="@font/helvetica_regular"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <!-- Header: Category Name on Left, View all on Right -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/llViewAll"
+                android:layout_marginEnd="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Hello Kitty"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:fontFamily="@font/inter_bold"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llViewAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvViewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all"
+                    android:textColor="#FA5783"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/inter_medium" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="#FA5783" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Preview Image of the Icon Pack -->
+        <ImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

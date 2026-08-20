@@ -55,7 +55,6 @@ class WallpaperFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[WallpaperViewModel::class.java]
 
-        setupToolbar(view)
         setupCategories(view)
         setupWallpaperGrid(view)
 
@@ -65,12 +64,6 @@ class WallpaperFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadWallpapers(false)
-    }
-
-    private fun setupToolbar(view: View) {
-        val toolbar = view.findViewById<View>(R.id.toolbar) ?: return
-        val titleText = toolbar.findViewById<android.widget.TextView>(R.id.titleTextView)
-        titleText?.text = "Wallpapers"
     }
 
     private fun setupCategories(view: View) {

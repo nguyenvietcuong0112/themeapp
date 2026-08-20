@@ -1,10 +1,15 @@
 package com.app.personalization
 
+import android.app.Activity
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Bundle
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.app.personalization.feature_charging.ChargingActivity
 
 class ThemeApp : Application() {
@@ -24,5 +29,37 @@ class ThemeApp : Application() {
         super.onCreate()
         val filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
         registerReceiver(chargingReceiver, filter)
+
+        setupFullScreenLifecycle()
+    }
+
+    private fun setupFullScreenLifecycle() {
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                hideStatusBar(activity)
+            }
+
+            override fun onActivityStarted(activity: Activity) {}
+
+            override fun onActivityResumed(activity: Activity) {
+                hideStatusBar(activity)
+            }
+
+            override fun onActivityPaused(activity: Activity) {}
+
+            override fun onActivityStopped(activity: Activity) {}
+
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
+    }
+
+    private fun hideStatusBar(activity: Activity) {
+        val window = activity.window ?: return
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.hide(WindowInsetsCompat.Type.statusBars())
+        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
 }

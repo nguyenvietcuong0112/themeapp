@@ -2,7 +2,7 @@
 <resources>
     <!-- Brand Semantic Tokens -->
     <color name="brand_primary">#FA5783</color>
-    <color name="brand_primary_soft">#FFF0F4</color>
+    <color name="brand_primary_soft">#FFF1F4</color>
     <color name="brand_primary_variant">#FF819F</color>
     <color name="brand_secondary">#25D2BB</color>
     
@@ -13,7 +13,7 @@
     <color name="text_on_primary">#FFFFFF</color>
     
     <!-- Surface & Background Semantic Tokens -->
-    <color name="app_background">#F8F9FA</color>
+    <color name="app_background">#FEF9F3</color>
     <color name="card_surface">#FFFFFF</color>
     <color name="divider_line">#EAEAEA</color>
     <color name="ripple_light">#22FA4D75</color>

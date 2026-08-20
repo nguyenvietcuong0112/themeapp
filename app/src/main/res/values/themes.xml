@@ -9,8 +9,10 @@
         <item name="colorSecondary">@color/brand_secondary</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/primaryBackgroundColor</item>
+        <!-- Status bar color & Fullscreen. -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">?attr/primaryBackgroundColor</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>

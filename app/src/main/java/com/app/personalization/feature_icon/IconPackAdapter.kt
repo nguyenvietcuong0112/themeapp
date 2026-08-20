@@ -44,9 +44,8 @@ class IconPackAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
         private val tvName: TextView = view.findViewById(R.id.tvName)
-        private val ivFavorite: ImageView = view.findViewById(R.id.ivFavorite)
-        private val ivDelete: View = view.findViewById(R.id.ivDelete)
-        private val cardView: View = view.findViewById(R.id.cardView)
+        private val llViewAll: View? = view.findViewById(R.id.llViewAll)
+        private val cardContainer: View = view.findViewById(R.id.cardContainer)
 
         fun bind(
             item: WidgetThemeIcon,
@@ -55,16 +54,7 @@ class IconPackAdapter(
             onClick: (WidgetThemeIcon) -> Unit
         ) {
             val context = itemView.context
-            
-            // Adjust card size based on columns dynamically
-            val padding = context.resources.getDimensionPixelSize(R.dimen.dp_16)
-            val itemWidth = (parentWidth - (padding * (columns - 1))) / columns
-            itemView.layoutParams = ViewGroup.LayoutParams(itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
-
             tvName.text = item.name
-            tvName.visibility = View.VISIBLE
-            ivDelete.visibility = View.GONE
-            ivFavorite.visibility = View.GONE
 
             val previewUrl = ResourceConfig.getIconCategoryPreviewUrl(item.folder)
 
@@ -75,7 +65,10 @@ class IconPackAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivPreview)
 
-            cardView.setOnClickListener {
+            cardContainer.setOnClickListener {
+                onClick(item)
+            }
+            llViewAll?.setOnClickListener {
                 onClick(item)
             }
         }

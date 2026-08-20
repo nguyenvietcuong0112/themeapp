@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/transparent">
-    <include
-        android:id="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/toolbar_theme"/>
-    <RelativeLayout
-        android:id="@+id/showcaseContainer"
-        android:tag="binding_1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_28"
-        android:layout_marginTop="-8dp"
-        android:layout_marginStart="@dimen/dp_24"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:elevation="@dimen/dp_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/transparent">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,11 +8,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toTopOf="parent">
         <HorizontalScrollView
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/dp_16">
             <com.app.personalization.core.ui.HomeActionView
                 android:layout_gravity="center_horizontal"
@@ -42,7 +26,7 @@
             android:tag="binding_2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_32"
-            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="@dimen/dp_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/dp_6"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -126,12 +126,6 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     if (bitmap != null) {
                         addShortcut(requireContext(), nextItem, bitmap)
-                        
-                        // Fallback timeout of 2 seconds
-                        fallbackJob = lifecycleScope.launch {
-                            delay(2000)
-                            EventBus.getDefault().post(ShortcutEvent())
-                        }
                     } else {
                         processNextShortcut()
                     }
@@ -183,7 +177,9 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         val receiverIntent = Intent("com.app.personalization.SHORTCUT_INSTALLED").apply {
             setPackage(context.packageName)
         }
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT

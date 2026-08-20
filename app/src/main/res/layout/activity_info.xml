@@ -17,7 +17,7 @@
                 android:layout_height="match_parent">
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:orientation="vertical"
-                    android:background="@drawable/bg_corner_14"
+                    android:background="@drawable/bg_corner_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"

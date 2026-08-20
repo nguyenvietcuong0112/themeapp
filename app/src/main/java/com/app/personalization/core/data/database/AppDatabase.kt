@@ -29,7 +29,7 @@ import com.app.personalization.feature_wallpaper.data.entity.Template
 import com.app.personalization.feature_collections.data.DownloadedCollectionItem
 import com.app.personalization.feature_collections.data.DownloadedCollectionDao
 
-@Database(entities = [KeyboardTheme::class, WidgetConfig::class, WidgetThemeWallpaper::class, WidgetThemeIcon::class, ChargingAnimation::class, WidgetThemeWidget::class, WidgetItem::class, StickerItem::class, BackgroundItem::class, Template::class, DownloadedCollectionItem::class], version = 7, exportSchema = false)
+@Database(entities = [KeyboardTheme::class, WidgetConfig::class, WidgetThemeWallpaper::class, WidgetThemeIcon::class, ChargingAnimation::class, WidgetThemeWidget::class, WidgetItem::class, StickerItem::class, BackgroundItem::class, Template::class, DownloadedCollectionItem::class], version = 9, exportSchema = false)
 @TypeConverters(ThemeConfigConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun themeDao(): KeyboardThemeDao

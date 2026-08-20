@@ -40,6 +40,7 @@ class WidgetThemeAdapter(
         private val tvName: TextView = view.findViewById(R.id.tvName)
         private val ivFavorite: View? = view.findViewById(R.id.ivFavorite)
         private val ivDelete: View? = view.findViewById(R.id.ivDelete)
+        private val tvDownloads: TextView? = view.findViewById(R.id.tvDownloads)
         private val cardView: View = view.findViewById(R.id.cardView)
 
         fun bind(item: WidgetTheme, parentWidth: Int, column: Int, onClick: (WidgetTheme) -> Unit) {
@@ -55,6 +56,7 @@ class WidgetThemeAdapter(
             itemView.layoutParams = ViewGroup.LayoutParams(itemWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
 
             tvName.text = item.name
+            tvDownloads?.text = "7654321"
             
             val previewUrl = ResourceConfig.getThemePreviewUrl(item.folder)
 

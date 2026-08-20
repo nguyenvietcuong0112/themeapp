@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-    <androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="12dp">
+
+    <FrameLayout
         android:id="@+id/clInstall"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_12"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/dp_16"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_max="@dimen/dp_380">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_btn_install_pill"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/tvInstall"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_gravity="center"
-                android:id="@+id/ivIconInstall"
-                android:visibility="gone"
-                android:layout_width="@dimen/dp_28"
-                android:layout_height="@dimen/dp_28"
-                android:src="@drawable/ic_install_ab_test"
-                android:layout_marginEnd="@dimen/dp_8"/>
-            <TextView
-                android:textSize="@dimen/sp_16"
-                android:textColor="@color/black"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:id="@+id/tvInstall"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:text="@string/install_selected_icons"
-                android:maxLines="1"
-                android:fontFamily="@font/helvetica_medium"
-                android:clipToOutline="true"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+            android:gravity="center"
+            android:text="Take All"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+</LinearLayout>

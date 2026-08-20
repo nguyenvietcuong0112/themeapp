@@ -1,4 +1,4 @@
-﻿package com.app.personalization.feature_control_center
+package com.app.personalization.feature_control_center
 
 data class ControlTheme(
     val key: String,
@@ -11,7 +11,8 @@ data class ControlTheme(
     val previewPath: String,
     val isFree: Boolean = true,
     val isHot: Boolean = false,
-    val isNew: Boolean = false
+    val isNew: Boolean = false,
+    val downloads: Long = 7654321
 )
 
 data class ControlCategory(

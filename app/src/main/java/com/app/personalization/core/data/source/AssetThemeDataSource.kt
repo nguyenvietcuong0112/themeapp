@@ -55,7 +55,8 @@ class AssetThemeDataSource(
                 name = item.themeName,
                 path = item.themePath,
                 rawType = "default",
-                isPremium = item.isPremium
+                isPremium = item.isPremium,
+                downloads = item.downloads
             )
         }
     }
@@ -73,7 +74,8 @@ class AssetThemeDataSource(
                         name = item.themeName,
                         path = item.themePath,
                         rawType = "default",
-                        isPremium = item.isPremium
+                        isPremium = item.isPremium,
+                        downloads = item.downloads
                     )
                 )
             }

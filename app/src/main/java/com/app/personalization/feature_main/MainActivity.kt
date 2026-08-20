@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-        binding.bottomNavigationView.itemIconTintList = null
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val position = when (item.itemId) {
                 R.id.nav_theme -> 0

@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/brand_secondary</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -17,13 +17,26 @@
         
         <!-- Custom personalization theme attributes -->
         <item name="primaryBackgroundColor">#FFFFFF</item>
-        <item name="secondaryBackgroundColor">#F3F4F6</item>
-        <item name="titleTextColor">#111827</item>
-        <item name="detailTextColor">#6B7280</item>
-        <item name="lineColor">#E5E7EB</item>
-        <item name="primaryColor">#4F46E5</item>
-        <item name="tabBackgroundColor">#E5E7EB</item>
-        <item name="elevation">4dp</item>
+        <item name="secondaryBackgroundColor">#F8F9FA</item>
+        <item name="titleTextColor">@color/text_primary</item>
+        <item name="detailTextColor">@color/text_secondary</item>
+        <item name="lineColor">@color/divider_line</item>
+        <item name="primaryColor">@color/brand_primary</item>
+        <item name="tabBackgroundColor">#F0F0F0</item>
+        <item name="elevation">2dp</item>
         <item name="android:windowBackground">?attr/primaryBackgroundColor</item>
+    </style>
+
+    <style name="BottomNavTextActive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+
+    <style name="BottomNavTextInactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 </resources>

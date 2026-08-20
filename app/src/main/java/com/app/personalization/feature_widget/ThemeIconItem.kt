@@ -9,5 +9,6 @@ data class ThemeIconItem(
     var targetPackageName: String? = null,
     var targetAppName: String? = null,
     var targetAppIcon: Drawable? = null,
-    var isSelected: Boolean = true
+    var isSelected: Boolean = true,
+    var isUnlocked: Boolean = false
 )

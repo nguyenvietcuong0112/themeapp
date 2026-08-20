@@ -48,12 +48,9 @@ class KeyboardThemeDetailActivity : AppCompatActivity() {
             .error(R.drawable.bg_default_placeholder)
             .into(binding.imageView)
 
-        // Setup button background color and state
-        val typedValue = android.util.TypedValue()
-        getTheme().resolveAttribute(R.attr.primaryColor, typedValue, true)
-        val primaryColor = typedValue.data
-        binding.setKeyboardButton.setBackgroundResource(R.drawable.bg_corner_8)
-        binding.setKeyboardButton.backgroundTintList = android.content.res.ColorStateList.valueOf(primaryColor)
+        // Setup button background using unified token
+        binding.setKeyboardButton.setBackgroundResource(R.drawable.btn_action_full)
+        binding.setKeyboardButton.backgroundTintList = null
 
         binding.llAction.visibility = View.GONE
         binding.setKeyboardButton.visibility = View.VISIBLE

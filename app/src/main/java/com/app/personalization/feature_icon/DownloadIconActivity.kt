@@ -12,11 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.personalization.R
-import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
+import com.app.personalization.core.data.AppItemData
 import com.app.personalization.databinding.ActivityDownloadIconBinding
-import com.app.personalization.feature_widget.ThemeIconItem
-import com.app.personalization.feature_widget.SelectIconBottomSheet
+import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
 import com.app.personalization.feature_widget.DownloadIconItemAdapter
+import com.app.personalization.feature_widget.SelectIconBottomSheet
+import com.app.personalization.feature_widget.ThemeIconItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -64,7 +65,7 @@ class DownloadIconActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
-        binding.toolbar.titleTextView.text = theme.name
+        binding.toolbar.titleTextView.text = "Icon Setup"
         binding.toolbar.ivBack.setOnClickListener {
             finish()
         }
@@ -72,42 +73,215 @@ class DownloadIconActivity : AppCompatActivity() {
 
     private fun initPresetIcons() {
         val pm = packageManager
-        for (app in com.app.personalization.core.data.AppItemData.APPS) {
-            val name = app.id
-            var targetPkg = app.packageName
-            var targetAppName: String? = null
-            var targetIcon: android.graphics.drawable.Drawable? = null
+        iconItems.clear()
 
+        val themePath = theme.path
+            .removePrefix("file:///android_asset/")
+            .removePrefix("file://android_asset/")
+            .removePrefix("android_asset/")
+            .removePrefix("/")
+
+        val discoveredIconNames = mutableListOf<String>()
+
+        // Check asset directories for icons
+        val candidateDirs = listOf(
+            "assets_theme/$themePath/icons",
+            "assets_theme/category/$themePath/icons",
+            "assets_collection/theme/$themePath/icons",
+            "assets_collection/icons/$themePath",
+            "$themePath/icons",
+            themePath
+        )
+
+        var matchedDir: String? = null
+        for (dir in candidateDirs) {
             try {
-                val appInfo = pm.getApplicationInfo(targetPkg, 0)
-                targetAppName = pm.getApplicationLabel(appInfo).toString()
-                targetIcon = pm.getApplicationIcon(appInfo)
-            } catch (e: Exception) {
-                // App not installed
-            }
-
-            if (targetAppName == null && (name == "phone" || name == "camera")) {
-                val intent = Intent(if (name == "phone") Intent.ACTION_DIAL else android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
-                val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                if (resolveInfo != null) {
-                    targetAppName = resolveInfo.loadLabel(pm).toString()
-                    targetIcon = resolveInfo.loadIcon(pm)
-                    targetPkg = resolveInfo.activityInfo.packageName
+                val cleanDir = dir.removePrefix("file:///android_asset/").removePrefix("android_asset/").removePrefix("/")
+                val files = assets.list(cleanDir)
+                if (!files.isNullOrEmpty()) {
+                    for (file in files) {
+                        if (file.endsWith(".png") || file.endsWith(".webp")) {
+                            val iconName = file.substringBeforeLast(".")
+                            if (!discoveredIconNames.contains(iconName)) {
+                                discoveredIconNames.add(iconName)
+                            }
+                        }
+                    }
+                    if (discoveredIconNames.isNotEmpty()) {
+                        matchedDir = cleanDir
+                        break
+                    }
                 }
+            } catch (e: Exception) {
+                // Ignore
             }
+        }
 
-            iconItems.add(
-                ThemeIconItem(
-                    id = "${theme.id}_$name",
-                    iconName = name,
-                    assetPath = "assets_keyboard/themes/${theme.path}/key/preview.png",
-                    targetPackageName = targetPkg,
-                    targetAppName = targetAppName ?: app.name,
-                    targetAppIcon = targetIcon,
-                    isSelected = true
+        // Fallback default list if no asset folder found
+        if (discoveredIconNames.isEmpty()) {
+            discoveredIconNames.addAll(
+                listOf(
+                    "ic_calculator", "ic_calendar", "ic_camera", "ic_chrome",
+                    "ic_facebook", "ic_gallery", "ic_instagram", "ic_phone",
+                    "ic_phonebook", "ic_setting", "ic_tiktok", "ic_weather",
+                    "ic_youtube", "ic_gmail", "ic_maps", "ic_spotify",
+                    "ic_messenger", "ic_telegram", "ic_twitter", "ic_snapchat",
+                    "ic_healthy", "ic_record", "ic_binance", "ic_twitch"
                 )
             )
         }
+
+        val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+        }
+        val installedApps = pm.queryIntentActivities(mainIntent, 0)
+
+        for (rawIconName in discoveredIconNames) {
+            val normalizedName = rawIconName.removePrefix("ic_").lowercase()
+            var targetPkg: String? = null
+            var targetAppName: String? = null
+            var targetIcon: android.graphics.drawable.Drawable? = null
+
+            // 1. Match known package mappings from AppItemData
+            val defaultApp = AppItemData.APPS.find { it.id.equals(normalizedName, ignoreCase = true) }
+            if (defaultApp != null) {
+                try {
+                    val appInfo = pm.getApplicationInfo(defaultApp.packageName, 0)
+                    targetPkg = defaultApp.packageName
+                    targetAppName = pm.getApplicationLabel(appInfo).toString()
+                    targetIcon = pm.getApplicationIcon(appInfo)
+                } catch (e: Exception) {
+                    // App not installed with this package
+                }
+            }
+
+            // 2. Match standard system intents (Camera, Phone, Gallery, Settings, Calculator)
+            if (targetPkg == null) {
+                when (normalizedName) {
+                    "phone", "call", "dialer" -> {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "camera" -> {
+                        val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "gallery", "photo", "photos" -> {
+                        val intent = Intent(Intent.ACTION_VIEW).apply { type = "image/*" }
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "setting", "settings" -> {
+                        val intent = Intent(android.provider.Settings.ACTION_SETTINGS)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null) {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "calculator" -> {
+                        val calcPkgs = listOf(
+                            "com.google.android.calculator", "com.sec.android.app.popupcalculator",
+                            "com.miui.calculator", "com.android.calculator2", "com.coloros.calculator",
+                            "com.oneplus.calculator", "com.asus.calculator"
+                        )
+                        for (pkg in calcPkgs) {
+                            try {
+                                val appInfo = pm.getApplicationInfo(pkg, 0)
+                                targetPkg = pkg
+                                targetAppName = pm.getApplicationLabel(appInfo).toString()
+                                targetIcon = pm.getApplicationIcon(appInfo)
+                                break
+                            } catch (e: Exception) {
+                                // continue
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. Fuzzy match against installed launcher apps
+            if (targetPkg == null) {
+                val matched = installedApps.firstOrNull { app ->
+                    val label = app.loadLabel(pm).toString().lowercase()
+                    label.contains(normalizedName) || normalizedName.contains(label)
+                }
+                if (matched != null) {
+                    targetPkg = matched.activityInfo.packageName
+                    targetAppName = matched.loadLabel(pm).toString()
+                    targetIcon = matched.loadIcon(pm)
+                }
+            }
+
+            val cleanName = rawIconName.removePrefix("ic_")
+            val candidateFilePaths = mutableListOf<String>()
+            if (matchedDir != null) {
+                candidateFilePaths.add("$matchedDir/$rawIconName.png")
+                candidateFilePaths.add("$matchedDir/ic_$cleanName.png")
+                candidateFilePaths.add("$matchedDir/$cleanName.png")
+                candidateFilePaths.add("$matchedDir/bg_icon.png")
+            }
+            candidateFilePaths.add("assets_theme/category/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_theme/category/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_theme/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_theme/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_collection/icons/$themePath/bg_icon.png")
+            // Fallbacks
+            candidateFilePaths.add("assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_theme/category/Animal/theme_1/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/theme_1/icons/ic_$cleanName.png")
+
+            var resolvedAssetPath = "assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png"
+            for (candidate in candidateFilePaths) {
+                try {
+                    val stream = assets.open(candidate)
+                    stream.close()
+                    resolvedAssetPath = candidate
+                    break
+                } catch (e: Exception) {
+                    // Try next
+                }
+            }
+
+            val assetPath = "file:///android_asset/$resolvedAssetPath"
+            val displayName = targetAppName ?: normalizedName.replaceFirstChar { it.uppercase() }
+
+            iconItems.add(
+                ThemeIconItem(
+                    id = "${theme.id}_$normalizedName",
+                    iconName = rawIconName,
+                    assetPath = assetPath,
+                    targetPackageName = targetPkg,
+                    targetAppName = displayName,
+                    targetAppIcon = targetIcon,
+                    isSelected = true,
+                    isUnlocked = false
+                )
+            )
+        }
+
+        // Requirement: Sort icons that match installed device apps to the TOP of the list
+        iconItems.sortWith(
+            compareByDescending<ThemeIconItem> { it.targetAppIcon != null }
+                .thenBy { it.iconName }
+        )
     }
 
     private fun setupRecyclerView() {
@@ -145,7 +319,7 @@ class DownloadIconActivity : AppCompatActivity() {
     }
 
     private fun updateSelectAllUI() {
-        val allSelected = iconItems.all { it.isSelected }
+        val allSelected = iconItems.isNotEmpty() && iconItems.all { it.isSelected }
         isAllSelected = allSelected
         if (allSelected) {
             binding.ivSelectAll.setImageResource(R.drawable.ic_radio_checked)
@@ -158,7 +332,7 @@ class DownloadIconActivity : AppCompatActivity() {
 
     private fun setupActions() {
         binding.actionView.clInstall.visibility = View.VISIBLE
-        binding.actionView.tvInstall.text = "Install Icons"
+        binding.actionView.tvInstall.text = "Take All"
 
         binding.actionView.clInstall.setOnClickListener {
             installSelectedIcons()
@@ -200,9 +374,9 @@ class DownloadIconActivity : AppCompatActivity() {
     }
 
     private fun installSingleIcon(item: ThemeIconItem) {
-        val pkg = item.targetPackageName
-        if (pkg.isNullOrEmpty()) {
-            Toast.makeText(this, "Please bind a target app first!", Toast.LENGTH_SHORT).show()
+        if (item.targetPackageName.isNullOrEmpty()) {
+            Toast.makeText(this, "Please select an app to bind with this icon", Toast.LENGTH_SHORT).show()
+            showAppSelectionDialog(item)
             return
         }
         val sheet = SelectIconBottomSheet()

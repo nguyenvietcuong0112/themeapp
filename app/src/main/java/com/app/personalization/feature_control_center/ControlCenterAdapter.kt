@@ -1,4 +1,4 @@
-﻿package com.app.personalization.feature_control_center
+package com.app.personalization.feature_control_center
 
 import android.view.LayoutInflater
 import android.view.View
@@ -35,9 +35,11 @@ class ControlCenterAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.ivThumbnail)
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
+        private val tvDownloads: TextView? = itemView.findViewById(R.id.tvDownloads)
 
         fun bind(item: ControlTheme) {
             tvName.text = item.name
+            tvDownloads?.text = item.downloads.toString()
 
             Glide.with(itemView.context)
                 .load(item.thumbPath)

@@ -222,33 +222,20 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
 
     private fun loadThemeIconBitmap(item: ThemeIconItem): Bitmap? {
         val context = requireContext()
-        val themePath = if (item.assetPath.contains("assets_keyboard/themes/")) {
-            item.assetPath.substringAfter("assets_keyboard/themes/").substringBefore("/key/")
-        } else if (item.assetPath.contains("feature_keyboard/themes/")) {
-            item.assetPath.substringAfter("feature_keyboard/themes/").substringBefore("/key/")
-        } else if (item.assetPath.contains("theme_decorates/")) {
-            item.assetPath.substringAfter("theme_decorates/").substringBefore("/key/")
-        } else {
-            item.assetPath.substringBefore("/key/")
-        }
-        val cdnUrl = com.app.personalization.core.data.ResourceConfig.getLauncherIconUrl(context, themePath, item.iconName)
+        val cleanPath = item.assetPath
+            .removePrefix("file:///android_asset/")
+            .removePrefix("file://android_asset/")
+            .removePrefix("android_asset/")
+            .removePrefix("/")
 
         return try {
-            if (theme.rawType == "widget_theme" || themePath.startsWith("theme_")) {
-                Glide.with(context)
-                    .asBitmap()
-                    .load(cdnUrl)
-                    .submit()
-                    .get()
-            } else {
-                val inputStream: InputStream = context.assets.open(item.assetPath)
-                BitmapFactory.decodeStream(inputStream)
-            }
+            val inputStream: InputStream = context.assets.open(cleanPath)
+            BitmapFactory.decodeStream(inputStream)
         } catch (e: Exception) {
             try {
                 Glide.with(context)
                     .asBitmap()
-                    .load(cdnUrl)
+                    .load("file:///android_asset/$cleanPath")
                     .submit()
                     .get()
             } catch (e2: Exception) {
@@ -256,7 +243,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 val fallback = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
                 val canvas = Canvas(fallback)
                 val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = Color.parseColor("#4F46E5")
+                    color = Color.parseColor("#FA4D75")
                     style = Paint.Style.FILL
                 }
                 canvas.drawRoundRect(0f, 0f, size.toFloat(), size.toFloat(), 16f, 16f, paint)
@@ -311,25 +298,17 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = list[position]
             val context = holder.itemView.context
-            val themeFolder = if (themePath.contains("/")) themePath.substringBefore("/") else themePath
-            val cdnUrl = com.app.personalization.core.data.ResourceConfig.getLauncherIconUrl(context, themeFolder, item.iconName)
-            val localKeyPath = com.app.personalization.core.data.ResourceConfig.getKeyboardKeyUrl(themeFolder)
+            val cleanPath = item.assetPath
+                .removePrefix("file:///android_asset/")
+                .removePrefix("file://android_asset/")
+                .removePrefix("android_asset/")
+                .removePrefix("/")
 
-            val glideRequest = if (cdnUrl.isNotEmpty()) {
-                Glide.with(context).load(cdnUrl)
-            } else {
-                Glide.with(context).load(localKeyPath)
-            }
-
-            glideRequest
+            Glide.with(context)
+                .load("file:///android_asset/$cleanPath")
                 .placeholder(R.drawable.bg_default_placeholder)
+                .error(R.drawable.bg_default_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(
-                    Glide.with(context)
-                        .load(localKeyPath)
-                        .placeholder(R.drawable.bg_default_placeholder)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                )
                 .into(holder.ivIcon)
         }
 

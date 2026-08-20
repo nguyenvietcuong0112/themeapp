@@ -44,9 +44,11 @@ class ThemeAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
-        private val ivPreviewCustom: ImageView = view.findViewById(R.id.ivPreviewCustom)
-        private val ivDelete: View = view.findViewById(R.id.ivDelete)
+        private val ivPreviewCustom: ImageView? = view.findViewById(R.id.ivPreviewCustom)
+        private val ivDelete: View? = view.findViewById(R.id.ivDelete)
         private val tvName: TextView = view.findViewById(R.id.tvName)
+        private val tvDownloads: TextView? = view.findViewById(R.id.tvDownloads)
+        private val llDownloadInfo: View? = view.findViewById(R.id.llDownloadInfo)
         private val cardView: View = view.findViewById(R.id.cardView)
 
         fun bind(
@@ -57,11 +59,13 @@ class ThemeAdapter(
             val context = itemView.context
             tvName.text = theme.name
             tvName.visibility = View.VISIBLE
+            tvDownloads?.text = theme.downloads.toString()
 
             if (theme.rawType == "diy") {
-                ivDelete.visibility = if (onDelete != null) View.VISIBLE else View.GONE
+                llDownloadInfo?.visibility = View.GONE
+                ivDelete?.visibility = if (onDelete != null) View.VISIBLE else View.GONE
                 ivPreview.visibility = View.GONE
-                ivPreviewCustom.visibility = View.VISIBLE
+                ivPreviewCustom?.visibility = View.VISIBLE
 
                 if (!theme.backgroundPath.isNullOrEmpty()) {
                     val file = File(theme.backgroundPath)
@@ -69,7 +73,7 @@ class ThemeAdapter(
                         Glide.with(context)
                             .load(file)
                             .centerCrop()
-                            .into(ivPreviewCustom)
+                            .into(ivPreviewCustom!!)
                     } else {
                         setDefaultDiyBackground(theme)
                     }
@@ -77,13 +81,14 @@ class ThemeAdapter(
                     setDefaultDiyBackground(theme)
                 }
 
-                ivDelete.setOnClickListener {
+                ivDelete?.setOnClickListener {
                     onDelete?.invoke(theme)
                 }
             } else {
-                ivDelete.visibility = View.GONE
+                llDownloadInfo?.visibility = View.VISIBLE
+                ivDelete?.visibility = View.GONE
                 ivPreview.visibility = View.VISIBLE
-                ivPreviewCustom.visibility = View.GONE
+                ivPreviewCustom?.visibility = View.GONE
 
                 val localDrawable = theme.generateLocalThemePreview(context)
                 val themeFolder = ResourceConfig.getThemeFolderByPath(context, theme.path)
@@ -106,7 +111,7 @@ class ThemeAdapter(
             val colorStr = config?.key?.customStyle?.backgroundColor ?: "#1E1E2E"
             val color = try { Color.parseColor(colorStr) } catch (e: Exception) { 0xFF1E1E2E.toInt() }
             
-            ivPreviewCustom.setImageDrawable(GradientDrawable().apply {
+            ivPreviewCustom?.setImageDrawable(GradientDrawable().apply {
                 setColor(color)
                 cornerRadius = 16f
             })

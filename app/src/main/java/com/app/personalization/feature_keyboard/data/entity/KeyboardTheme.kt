@@ -32,7 +32,8 @@ data class KeyboardTheme(
     val backgroundPath: String? = null,
     val popupKeyBackgroundPath: String? = null,
     val previewPath: String? = null,
-    val isPremium: Boolean = false
+    val isPremium: Boolean = false,
+    val downloads: Long = 7654321
 ) : java.io.Serializable {
 
     fun getPrefix(): String {

@@ -37,8 +37,17 @@
     <dimen name="design_snackbar_max_width">-1px</dimen>
     <dimen name="design_snackbar_min_width">-1px</dimen>
     <dimen name="design_snackbar_padding_vertical">14dp</dimen>
-    <dimen name="design_snackbar_padding_vertical_2lines">16dp</dimen>
     <dimen name="design_tab_scrollable_min_width">72dp</dimen>
+    <!-- Bottom Navigation Spacing Overrides -->
+    <dimen name="design_bottom_navigation_margin">4dp</dimen>
+    <dimen name="design_bottom_navigation_active_margin_top">4dp</dimen>
+    <dimen name="design_bottom_navigation_inactive_margin_top">4dp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size">13sp</dimen>
+    <dimen name="design_bottom_navigation_text_size">13sp</dimen>
+    <dimen name="mtrl_bottom_nav_item_margin">4dp</dimen>
+    <dimen name="mtrl_bottom_nav_item_spacing">4dp</dimen>
+    <dimen name="mtrl_bottom_nav_item_padding_top">10dp</dimen>
+    <dimen name="mtrl_bottom_nav_item_padding_bottom">10dp</dimen>
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_10">10dp</dimen>

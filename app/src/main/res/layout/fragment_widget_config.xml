@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/primaryBackgroundColor">
+    android:background="@color/transparent">
 
     <!-- ProgressBar for loading state -->
     <ProgressBar
@@ -34,5 +34,5 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingHorizontal="8dp"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="90dp" />
 </LinearLayout>

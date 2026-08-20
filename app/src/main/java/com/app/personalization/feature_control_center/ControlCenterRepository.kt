@@ -1,4 +1,4 @@
-﻿package com.app.personalization.feature_control_center
+package com.app.personalization.feature_control_center
 
 import android.content.Context
 import com.app.personalization.core.data.ResourceConfig
@@ -40,6 +40,7 @@ class ControlCenterRepository(private val context: Context) {
                 var key = themeSlug
                 var isHot = false
                 var isNew = false
+                var downloads = 7654321L
 
                 // Try reading metadata.json
                 try {
@@ -51,6 +52,7 @@ class ControlCenterRepository(private val context: Context) {
                     key = json.optString("key", key)
                     isHot = json.optBoolean("isHot", false)
                     isNew = json.optBoolean("isNew", false)
+                    downloads = json.optLong("downloads", 7654321L)
                 } catch (e: Exception) {
                     // Ignore, fallback to defaults
                 }
@@ -70,7 +72,8 @@ class ControlCenterRepository(private val context: Context) {
                         thumbPath = thumbFile,
                         previewPath = previewFile,
                         isHot = isHot,
-                        isNew = isNew
+                        isNew = isNew,
+                        downloads = downloads
                     )
                 )
             }

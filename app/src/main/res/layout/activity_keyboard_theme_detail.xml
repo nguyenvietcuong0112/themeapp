@@ -70,7 +70,7 @@
                         android:visibility="gone"
                         android:layout_width="@dimen/dp_28"
                         android:layout_height="@dimen/dp_28"
-                        android:src="@drawable/ic_install_ab_test"
+                        android:src="@drawable/ic_download"
                         android:layout_marginEnd="@dimen/dp_8"/>
                     <TextView
                         android:textSize="@dimen/sp_16"

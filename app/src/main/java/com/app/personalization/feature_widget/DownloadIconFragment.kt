@@ -1,22 +1,9 @@
 package com.app.personalization.feature_widget
 
 import android.app.AlertDialog
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.Rect
-import android.graphics.RectF
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,16 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.personalization.R
-import com.app.personalization.core.data.EventBus
-import com.app.personalization.core.data.Subscribe
-import com.app.personalization.core.data.ShortcutEvent
-import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
+import com.app.personalization.core.data.AppItemData
 import com.app.personalization.databinding.FragmentDownloadIconBinding
-import com.bumptech.glide.Glide
+import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.InputStream
 
 class DownloadIconFragment : Fragment() {
 
@@ -63,7 +46,7 @@ class DownloadIconFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(DownloadThemeViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[DownloadThemeViewModel::class.java]
         theme = arguments?.getSerializable("theme") as? KeyboardTheme
             ?: throw IllegalArgumentException("Theme required")
     }
@@ -97,54 +80,216 @@ class DownloadIconFragment : Fragment() {
         }
     }
 
-
-
     private fun initPresetIcons() {
-        val pm = requireContext().packageManager
-        val iconFolder = try {
-            val uuid = java.util.UUID.fromString(theme.id)
-            val diyIcon = com.app.personalization.feature_theme.data.ThemeDatabase.getDatabase(requireContext()).iconDao().getIconPackByTheme(uuid)
-            diyIcon?.folder ?: theme.path
-        } catch (e: Exception) {
-            theme.path
+        val context = requireContext()
+        val pm = context.packageManager
+        iconItems.clear()
+
+        val themePath = theme.path
+            .removePrefix("file:///android_asset/")
+            .removePrefix("file://android_asset/")
+            .removePrefix("android_asset/")
+            .removePrefix("/")
+
+        val discoveredIconNames = mutableListOf<String>()
+
+        val candidateDirs = listOf(
+            "assets_theme/$themePath/icons",
+            "assets_theme/category/$themePath/icons",
+            "assets_collection/theme/$themePath/icons",
+            "assets_collection/icons/$themePath",
+            "$themePath/icons",
+            themePath
+        )
+
+        var matchedDir: String? = null
+        for (dir in candidateDirs) {
+            try {
+                val cleanDir = dir.removePrefix("file:///android_asset/").removePrefix("android_asset/").removePrefix("/")
+                val files = context.assets.list(cleanDir)
+                if (!files.isNullOrEmpty()) {
+                    for (file in files) {
+                        if (file.endsWith(".png") || file.endsWith(".webp")) {
+                            val iconName = file.substringBeforeLast(".")
+                            if (!discoveredIconNames.contains(iconName)) {
+                                discoveredIconNames.add(iconName)
+                            }
+                        }
+                    }
+                    if (discoveredIconNames.isNotEmpty()) {
+                        matchedDir = cleanDir
+                        break
+                    }
+                }
+            } catch (e: Exception) {
+                // Ignore
+            }
         }
 
-        for (app in com.app.personalization.core.data.AppItemData.APPS) {
-            val name = app.id
-            var targetPkg = app.packageName
-            var targetAppName: String? = null
-            var targetIcon: android.graphics.drawable.Drawable? = null
-
-            try {
-                val appInfo = pm.getApplicationInfo(targetPkg, 0)
-                targetAppName = pm.getApplicationLabel(appInfo).toString()
-                targetIcon = pm.getApplicationIcon(appInfo)
-            } catch (e: Exception) {
-                // App not installed
-            }
-
-            if (targetAppName == null && (name == "phone" || name == "camera")) {
-                val intent = Intent(if (name == "phone") Intent.ACTION_DIAL else android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
-                val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                if (resolveInfo != null) {
-                    targetAppName = resolveInfo.loadLabel(pm).toString()
-                    targetIcon = resolveInfo.loadIcon(pm)
-                    targetPkg = resolveInfo.activityInfo.packageName
-                }
-            }
-
-            iconItems.add(
-                ThemeIconItem(
-                    id = "${theme.id}_$name",
-                    iconName = name,
-                    assetPath = "assets_keyboard/themes/$iconFolder/key/preview.png",
-                    targetPackageName = targetPkg,
-                    targetAppName = targetAppName ?: app.name,
-                    targetAppIcon = targetIcon,
-                    isSelected = true
+        if (discoveredIconNames.isEmpty()) {
+            discoveredIconNames.addAll(
+                listOf(
+                    "ic_calculator", "ic_calendar", "ic_camera", "ic_chrome",
+                    "ic_facebook", "ic_gallery", "ic_instagram", "ic_phone",
+                    "ic_phonebook", "ic_setting", "ic_tiktok", "ic_weather",
+                    "ic_youtube", "ic_gmail", "ic_maps", "ic_spotify",
+                    "ic_messenger", "ic_telegram", "ic_twitter", "ic_snapchat",
+                    "ic_healthy", "ic_record", "ic_binance", "ic_twitch"
                 )
             )
         }
+
+        val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+        }
+        val installedApps = pm.queryIntentActivities(mainIntent, 0)
+
+        for (rawIconName in discoveredIconNames) {
+            val normalizedName = rawIconName.removePrefix("ic_").lowercase()
+            var targetPkg: String? = null
+            var targetAppName: String? = null
+            var targetIcon: android.graphics.drawable.Drawable? = null
+
+            // 1. Known package mappings
+            val defaultApp = AppItemData.APPS.find { it.id.equals(normalizedName, ignoreCase = true) }
+            if (defaultApp != null) {
+                try {
+                    val appInfo = pm.getApplicationInfo(defaultApp.packageName, 0)
+                    targetPkg = defaultApp.packageName
+                    targetAppName = pm.getApplicationLabel(appInfo).toString()
+                    targetIcon = pm.getApplicationIcon(appInfo)
+                } catch (e: Exception) {
+                    // App not installed
+                }
+            }
+
+            // 2. Implicit system intent mappings
+            if (targetPkg == null) {
+                when (normalizedName) {
+                    "phone", "call", "dialer" -> {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "camera" -> {
+                        val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "gallery", "photo", "photos" -> {
+                        val intent = Intent(Intent.ACTION_VIEW).apply { type = "image/*" }
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null && resolveInfo.activityInfo.packageName != "android") {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "setting", "settings" -> {
+                        val intent = Intent(android.provider.Settings.ACTION_SETTINGS)
+                        val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        if (resolveInfo != null) {
+                            targetAppName = resolveInfo.loadLabel(pm).toString()
+                            targetIcon = resolveInfo.loadIcon(pm)
+                            targetPkg = resolveInfo.activityInfo.packageName
+                        }
+                    }
+                    "calculator" -> {
+                        val calcPkgs = listOf(
+                            "com.google.android.calculator", "com.sec.android.app.popupcalculator",
+                            "com.miui.calculator", "com.android.calculator2", "com.coloros.calculator",
+                            "com.oneplus.calculator", "com.asus.calculator"
+                        )
+                        for (pkg in calcPkgs) {
+                            try {
+                                val appInfo = pm.getApplicationInfo(pkg, 0)
+                                targetPkg = pkg
+                                targetAppName = pm.getApplicationLabel(appInfo).toString()
+                                targetIcon = pm.getApplicationIcon(appInfo)
+                                break
+                            } catch (e: Exception) {
+                                // continue
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. Fuzzy search in installed launcher apps
+            if (targetPkg == null) {
+                val matched = installedApps.firstOrNull { app ->
+                    val label = app.loadLabel(pm).toString().lowercase()
+                    label.contains(normalizedName) || normalizedName.contains(label)
+                }
+                if (matched != null) {
+                    targetPkg = matched.activityInfo.packageName
+                    targetAppName = matched.loadLabel(pm).toString()
+                    targetIcon = matched.loadIcon(pm)
+                }
+            }
+
+            val cleanName = rawIconName.removePrefix("ic_")
+            val candidateFilePaths = mutableListOf<String>()
+            if (matchedDir != null) {
+                candidateFilePaths.add("$matchedDir/$rawIconName.png")
+                candidateFilePaths.add("$matchedDir/ic_$cleanName.png")
+                candidateFilePaths.add("$matchedDir/$cleanName.png")
+                candidateFilePaths.add("$matchedDir/bg_icon.png")
+            }
+            candidateFilePaths.add("assets_theme/category/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_theme/category/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_theme/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_theme/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/$themePath/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/$themePath/icons/$rawIconName.png")
+            candidateFilePaths.add("assets_collection/icons/$themePath/bg_icon.png")
+            // Fallbacks
+            candidateFilePaths.add("assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_theme/category/Animal/theme_1/icons/ic_$cleanName.png")
+            candidateFilePaths.add("assets_collection/theme/theme_1/icons/ic_$cleanName.png")
+
+            var resolvedAssetPath = "assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png"
+            for (candidate in candidateFilePaths) {
+                try {
+                    val stream = context.assets.open(candidate)
+                    stream.close()
+                    resolvedAssetPath = candidate
+                    break
+                } catch (e: Exception) {
+                    // Try next
+                }
+            }
+
+            val assetPath = "file:///android_asset/$resolvedAssetPath"
+            val displayName = targetAppName ?: normalizedName.replaceFirstChar { it.uppercase() }
+
+            iconItems.add(
+                ThemeIconItem(
+                    id = "${theme.id}_$normalizedName",
+                    iconName = rawIconName,
+                    assetPath = assetPath,
+                    targetPackageName = targetPkg,
+                    targetAppName = displayName,
+                    targetAppIcon = targetIcon,
+                    isSelected = true,
+                    isUnlocked = false
+                )
+            )
+        }
+
+        // Sorting: Icons that match installed device apps go to TOP of list
+        iconItems.sortWith(
+            compareByDescending<ThemeIconItem> { it.targetAppIcon != null }
+                .thenBy { it.iconName }
+        )
     }
 
     private fun setupRecyclerView() {
@@ -182,7 +327,7 @@ class DownloadIconFragment : Fragment() {
     }
 
     private fun updateSelectAllUI() {
-        val allSelected = iconItems.all { it.isSelected }
+        val allSelected = iconItems.isNotEmpty() && iconItems.all { it.isSelected }
         isAllSelected = allSelected
         if (allSelected) {
             binding.ivSelectAll.setImageResource(R.drawable.ic_radio_checked)
@@ -194,11 +339,8 @@ class DownloadIconFragment : Fragment() {
     }
 
     private fun setupActions() {
-        // Hide unlock actions
-
-        // Make install button always visible and active
         binding.actionView.clInstall.visibility = View.VISIBLE
-        binding.actionView.tvInstall.text = "Install Icons"
+        binding.actionView.tvInstall.text = "Take All"
 
         binding.actionView.clInstall.setOnClickListener {
             installSelectedIcons()
@@ -240,9 +382,9 @@ class DownloadIconFragment : Fragment() {
     }
 
     private fun installSingleIcon(item: ThemeIconItem) {
-        val pkg = item.targetPackageName
-        if (pkg.isNullOrEmpty()) {
-            Toast.makeText(context, "Please bind a target app first!", Toast.LENGTH_SHORT).show()
+        if (item.targetPackageName.isNullOrEmpty()) {
+            Toast.makeText(context, "Please select an app to bind with this icon", Toast.LENGTH_SHORT).show()
+            showAppSelectionDialog(item)
             return
         }
         val sheet = SelectIconBottomSheet()
@@ -260,8 +402,6 @@ class DownloadIconFragment : Fragment() {
         sheet.setParams(theme, selected)
         sheet.show(childFragmentManager, "select_icons")
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

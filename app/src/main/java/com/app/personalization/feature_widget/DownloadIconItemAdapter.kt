@@ -1,15 +1,18 @@
 package com.app.personalization.feature_widget
 
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.personalization.R
-import com.app.personalization.databinding.ItemDownloadIconLayoutBinding
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.makeramen.roundedimageview.RoundedImageView
 
 class DownloadIconItemAdapter(
     private val items: List<ThemeIconItem>,
@@ -19,8 +22,12 @@ class DownloadIconItemAdapter(
 ) : RecyclerView.Adapter<DownloadIconItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemDownloadIconLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_download_icon_layout,
+            parent,
+            false
+        )
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,8 +36,17 @@ class DownloadIconItemAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    class ViewHolder(private val binding: ItemDownloadIconLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        private var textWatcher: android.text.TextWatcher? = null
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val ivSelect: ImageView = itemView.findViewById(R.id.ivSelect)
+        private val ivNewIcon: RoundedImageView = itemView.findViewById(R.id.ivNewIcon)
+        private val ivEditBadge: ImageView = itemView.findViewById(R.id.ivEditBadge)
+        private val tvThemeIconName: TextView = itemView.findViewById(R.id.tvThemeIconName)
+        private val llOldIcon: View = itemView.findViewById(R.id.llOldIcon)
+        private val ivOldIcon: RoundedImageView = itemView.findViewById(R.id.ivOldIcon)
+        private val ivAdd: ImageView = itemView.findViewById(R.id.ivAdd)
+        private val etAppName: TextView = itemView.findViewById(R.id.etAppName)
+        private val btnAction: FrameLayout = itemView.findViewById(R.id.btnAction)
+        private val tvActionText: TextView = itemView.findViewById(R.id.tvActionText)
 
         fun bind(
             item: ThemeIconItem,
@@ -39,91 +55,84 @@ class DownloadIconItemAdapter(
             onInstallClick: (ThemeIconItem) -> Unit
         ) {
             val context = itemView.context
+            val cleanName = item.iconName.removePrefix("ic_").replaceFirstChar { it.uppercase() }
 
-            // Remove old watcher
-            textWatcher?.let { binding.etAppName.removeTextChangedListener(it) }
-            
-            binding.etAppName.setText(item.targetAppName ?: item.iconName)
-            
-            val watcher = object : android.text.TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: android.text.Editable?) {
-                    item.targetAppName = s?.toString()
-                }
+            // 1. Checkbox State
+            if (item.isSelected) {
+                ivSelect.setImageResource(R.drawable.ic_radio_checked)
+                ivSelect.imageTintList = null
+            } else {
+                ivSelect.setImageResource(R.drawable.bg_circle)
+                ivSelect.imageTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#CCCCCC"))
             }
-            binding.etAppName.addTextChangedListener(watcher)
-            textWatcher = watcher
-
-            // Select checkbox state (tag binding_1)
-            val ivSelect = binding.root.findViewWithTag<android.widget.ImageView>("binding_1")
-            if (ivSelect != null) {
-                if (item.isSelected) {
-                    ivSelect.setImageResource(R.drawable.ic_radio_checked)
-                    ivSelect.imageTintList = null
-                } else {
-                    ivSelect.setImageResource(R.drawable.bg_circle)
-                    ivSelect.imageTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#CCCCCC"))
-                }
-                ivSelect.setOnClickListener {
-                    onSelectToggle(item)
-                }
+            ivSelect.setOnClickListener {
+                onSelectToggle(item)
             }
 
+            // 2. Left Icon (Theme Asset Icon)
+            tvThemeIconName.text = cleanName
             val assetPath = item.assetPath
-            val themePath = if (assetPath.contains("assets_keyboard/themes/")) {
-                assetPath.substringAfter("assets_keyboard/themes/").substringBefore("/key/")
-            } else if (assetPath.contains("feature_keyboard/themes/")) {
-                assetPath.substringAfter("feature_keyboard/themes/").substringBefore("/key/")
-            } else if (assetPath.contains("theme_decorates/")) {
-                assetPath.substringAfter("theme_decorates/").substringBefore("/key/")
-            } else {
-                assetPath.substringBefore("/key/")
-            }
-            val cdnUrl = com.app.personalization.core.data.ResourceConfig.getLauncherIconUrl(context, themePath, item.iconName)
-            val localKeyPath = com.app.personalization.core.data.ResourceConfig.getKeyboardKeyUrl(themePath)
-
-            val glideRequest = if (cdnUrl.isNotEmpty()) {
-                Glide.with(context).load(cdnUrl)
-            } else {
-                Glide.with(context).load(localKeyPath)
+            val cleanAssetPath = when {
+                assetPath.startsWith("file:///android_asset/") -> assetPath.removePrefix("file:///android_asset/")
+                assetPath.startsWith("file://android_asset/") -> assetPath.removePrefix("file://android_asset/")
+                assetPath.startsWith("android_asset/") -> assetPath.removePrefix("android_asset/")
+                else -> assetPath
             }
 
-            glideRequest
+            val iconUri = if (cleanAssetPath.startsWith("http://") || cleanAssetPath.startsWith("https://")) {
+                Uri.parse(cleanAssetPath)
+            } else {
+                Uri.parse("file:///android_asset/$cleanAssetPath")
+            }
+
+            Glide.with(context)
+                .load(iconUri)
                 .placeholder(R.drawable.bg_default_placeholder)
+                .error(R.drawable.bg_default_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(
-                    Glide.with(context)
-                        .load(localKeyPath)
-                        .placeholder(R.drawable.bg_default_placeholder)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .error(R.drawable.bg_default_placeholder)
-                )
-                .into(binding.ivNewIcon)
+                .into(ivNewIcon)
 
-            // Bound target application icon display
-            if (item.targetAppIcon != null) {
-                binding.ivOldIcon.visibility = View.VISIBLE
-                binding.ivOldIcon.setImageDrawable(item.targetAppIcon)
-                binding.ivAdd.visibility = View.GONE
-            } else {
-                binding.ivOldIcon.visibility = View.GONE
-                binding.ivAdd.visibility = View.VISIBLE
-            }
-
-            // Click container to change target app
-            binding.llOldIcon.setOnClickListener {
+            ivEditBadge.setOnClickListener {
                 onChangeApp(item)
             }
 
-            // Lock / Install UI: lock/gem views are hidden, install buttons always visible
-            binding.unlockView.root.visibility = View.GONE
-            binding.llInstall.visibility = View.VISIBLE
+            // 3. Right Icon (Device Target App)
+            etAppName.text = item.targetAppName ?: cleanName
+            if (item.targetAppIcon != null) {
+                ivOldIcon.visibility = View.VISIBLE
+                ivOldIcon.setImageDrawable(item.targetAppIcon)
+                ivAdd.visibility = View.GONE
+            } else {
+                ivOldIcon.visibility = View.GONE
+                ivAdd.visibility = View.VISIBLE
+            }
 
-            binding.llInstall.setOnClickListener {
-                onInstallClick(item)
+            llOldIcon.setOnClickListener {
+                onChangeApp(item)
+            }
+
+            // 4. Action Button (Unlock vs Cài đặt)
+            val primaryColor = androidx.core.content.ContextCompat.getColor(context, R.color.brand_primary)
+            if (item.isUnlocked) {
+                btnAction.setBackgroundResource(R.drawable.btn_primary_pill)
+                tvActionText.text = "Cài đặt"
+                tvActionText.setTextColor(Color.WHITE)
+                btnAction.setOnClickListener {
+                    onInstallClick(item)
+                }
+            } else {
+                btnAction.setBackgroundResource(R.drawable.btn_outline_pill)
+                tvActionText.text = "Unlock"
+                tvActionText.setTextColor(primaryColor)
+                btnAction.setOnClickListener {
+                    item.isUnlocked = true
+                    btnAction.setBackgroundResource(R.drawable.btn_primary_pill)
+                    tvActionText.text = "Cài đặt"
+                    tvActionText.setTextColor(Color.WHITE)
+                    btnAction.setOnClickListener {
+                        onInstallClick(item)
+                    }
+                }
             }
         }
     }

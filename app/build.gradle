@@ -1,19 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
-    id 'org.jetbrains.kotlin.plugin.serialization'
-    id 'kotlin-kapt'
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace 'com.app.personalization'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.app.personalization"
         minSdk 26
-        targetSdk 35
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -41,26 +41,18 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    buildFeatures {
-        viewBinding true
-    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    doFirst {
-        classpath += files(layout.buildDirectory.dir("tmp/kotlin-classes/debug"))
-    }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = '17'
-        languageVersion = '1.9'
-        apiVersion = '1.9'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+        dataBinding true
     }
 }
 
@@ -79,11 +71,11 @@ dependencies {
     // Room Database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     // Glide
     implementation(libs.glide)
-    kapt(libs.glide.compiler)
+    ksp(libs.glide.compiler)
 
     // Photo Filters
     implementation(libs.androidphotofilters)

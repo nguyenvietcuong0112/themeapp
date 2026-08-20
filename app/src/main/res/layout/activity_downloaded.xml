@@ -50,8 +50,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="6dp"
-                android:src="@drawable/ic_arrow_back_black_24"
-                app:tint="#1A1A1A" />
+                android:src="@drawable/ic_back"
+                app:tint="@color/text_primary" />
 
             <TextView
                 android:id="@+id/tvTitle"

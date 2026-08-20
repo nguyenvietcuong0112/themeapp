@@ -14,7 +14,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:orientation="vertical"
-                android:background="@drawable/bg_corner_14"
+                android:background="@drawable/bg_corner_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
@@ -63,7 +63,7 @@
                     android:paddingHorizontal="@dimen/dp_16"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:orientation="vertical"
-                    android:background="@drawable/bg_corner_14"
+                    android:background="@drawable/bg_corner_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
@@ -107,7 +107,7 @@
                     android:paddingHorizontal="@dimen/dp_16"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:orientation="vertical"
-                    android:background="@drawable/bg_corner_14"
+                    android:background="@drawable/bg_corner_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
@@ -146,7 +146,7 @@
                     app:setting_arrowEnabled="true"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:orientation="vertical"
-                    android:background="@drawable/bg_corner_14"
+                    android:background="@drawable/bg_corner_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"

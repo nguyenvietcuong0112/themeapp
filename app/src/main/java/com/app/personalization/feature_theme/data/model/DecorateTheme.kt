@@ -16,5 +16,6 @@ data class DecorateThemeItem(
     val themeType: String,
     val isNew: Boolean = false,
     val isPremium: Boolean = false,
-    val order: Int = 0
+    val order: Int = 0,
+    val downloads: Long = 7654321
 )

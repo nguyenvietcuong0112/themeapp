@@ -33,7 +33,7 @@
             android:layout_marginHorizontal="@dimen/dp_8"/>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llUnlockAll"
-            android:background="@drawable/bg_corner_18"
+            android:background="@drawable/btn_primary_pill"
             android:focusable="true"
             android:visibility="gone"
             android:clickable="true"

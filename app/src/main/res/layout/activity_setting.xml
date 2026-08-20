@@ -28,7 +28,7 @@
                 android:layout_marginHorizontal="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/bg_corner_14"
+                android:background="@drawable/bg_corner_16"
                 android:backgroundTint="?attr/secondaryBackgroundColor"
                 android:elevation="2dp"
                 android:orientation="vertical">
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/bg_corner_14"
+                android:background="@drawable/bg_corner_16"
                 android:backgroundTint="?attr/secondaryBackgroundColor"
                 android:elevation="2dp"
                 android:orientation="vertical">

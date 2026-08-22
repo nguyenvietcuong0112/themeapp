@@ -33,6 +33,7 @@ class ControlCenterAdapter(
     override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val cardView: View? = itemView.findViewById(R.id.cardView)
         private val ivThumbnail: ImageView = itemView.findViewById(R.id.ivThumbnail)
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
         private val tvDownloads: TextView? = itemView.findViewById(R.id.tvDownloads)
@@ -47,9 +48,11 @@ class ControlCenterAdapter(
                 .error(R.color.grayF2F2F2)
                 .into(ivThumbnail)
 
-            itemView.setOnClickListener {
+            val clickListener = View.OnClickListener {
                 onItemClick(item)
             }
+            itemView.setOnClickListener(clickListener)
+            cardView?.setOnClickListener(clickListener)
         }
     }
 }

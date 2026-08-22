@@ -14,6 +14,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -90,10 +91,16 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerView.adapter = SelectedIconsPreviewAdapter(selectedIcons, theme.path)
+        binding.recyclerView.adapter = SelectedIconsPreviewAdapter(selectedIcons)
 
         binding.tvDone.setOnClickListener {
-            startInstallation()
+            if (installQueue.isEmpty() && totalToInstall == 0) {
+                startInstallation()
+            } else {
+                // If in progress, allow user to manually advance to next
+                fallbackJob?.cancel()
+                processNextShortcut()
+            }
         }
     }
 
@@ -104,11 +111,16 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         installQueue.addAll(selectedIcons)
         totalToInstall = selectedIcons.size
 
-        binding.tvDone.visibility = View.GONE
+        if (totalToInstall == 0) {
+            dismissAllowingStateLoss()
+            return
+        }
+
         binding.tvCancel.visibility = View.GONE
         binding.progressBar.max = totalToInstall
         binding.progressBar.progress = 0
         binding.progressBar.visibility = View.VISIBLE
+        binding.tvDone.text = "Next >"
 
         processNextShortcut()
     }
@@ -118,14 +130,22 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         if (installQueue.isNotEmpty()) {
             val installedCount = totalToInstall - installQueue.size
             binding.progressBar.progress = installedCount
-            binding.tvTitle.text = "Adding icons... ($installedCount/$totalToInstall)"
 
             val nextItem = installQueue.removeAt(0)
+            val appLabel = nextItem.targetAppName ?: nextItem.iconName.removePrefix("ic_").replaceFirstChar { it.uppercase() }
+            binding.tvTitle.text = "Adding: $appLabel (${installedCount + 1}/$totalToInstall)"
+
             lifecycleScope.launch(Dispatchers.IO) {
                 val bitmap = loadThemeIconBitmap(nextItem)
                 withContext(Dispatchers.Main) {
-                    if (bitmap != null) {
-                        addShortcut(requireContext(), nextItem, bitmap)
+                    val ctx = context
+                    if (ctx != null && bitmap != null) {
+                        addShortcut(ctx, nextItem, bitmap)
+                        // Fallback auto-advance after 2.5s if OS broadcast is delayed
+                        fallbackJob = lifecycleScope.launch {
+                            delay(2500)
+                            processNextShortcut()
+                        }
                     } else {
                         processNextShortcut()
                     }
@@ -166,10 +186,14 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
 
     private fun addShortcut(context: Context, item: ThemeIconItem, bmp: Bitmap) {
         val targetPkg = item.targetPackageName ?: return
+        val shortcutId = "icon_${targetPkg}_${theme.id}_${item.iconName}_${System.currentTimeMillis()}"
         
         val proxyIntent = Intent(context, ChangeIconActivity::class.java).apply {
             action = Intent.ACTION_MAIN
+            addCategory(Intent.CATEGORY_LAUNCHER)
             putExtra("target_package", targetPkg)
+            data = Uri.parse("customicon://$targetPkg/$shortcutId")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
         val roundedBmp = roundBitmap(bmp, 16f)
@@ -194,8 +218,9 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val shortcutManager = context.getSystemService(android.content.pm.ShortcutManager::class.java)
             if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported) {
-                val shortcutInfo = android.content.pm.ShortcutInfo.Builder(context, targetPkg)
-                    .setShortLabel(item.targetAppName ?: item.iconName)
+                val label = item.targetAppName ?: item.iconName.removePrefix("ic_").replaceFirstChar { it.uppercase() }
+                val shortcutInfo = android.content.pm.ShortcutInfo.Builder(context, shortcutId)
+                    .setShortLabel(label)
                     .setIcon(android.graphics.drawable.Icon.createWithBitmap(roundedBmp))
                     .setIntent(proxyIntent)
                     .setActivity(android.content.ComponentName(context, ChangeIconActivity::class.java))
@@ -206,9 +231,10 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 EventBus.getDefault().post(ShortcutEvent())
             }
         } else {
+            val label = item.targetAppName ?: item.iconName.removePrefix("ic_").replaceFirstChar { it.uppercase() }
             val installIntent = Intent("com.android.launcher.action.INSTALL_SHORTCUT").apply {
                 putExtra(Intent.EXTRA_SHORTCUT_INTENT, proxyIntent)
-                putExtra(Intent.EXTRA_SHORTCUT_NAME, item.targetAppName ?: item.iconName)
+                putExtra(Intent.EXTRA_SHORTCUT_NAME, label)
                 putExtra(Intent.EXTRA_SHORTCUT_ICON, roundedBmp)
             }
             context.sendBroadcast(installIntent)
@@ -217,7 +243,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun loadThemeIconBitmap(item: ThemeIconItem): Bitmap? {
-        val context = requireContext()
+        val context = context ?: return null
         val cleanPath = item.assetPath
             .removePrefix("file:///android_asset/")
             .removePrefix("file://android_asset/")
@@ -231,7 +257,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
             try {
                 Glide.with(context)
                     .asBitmap()
-                    .load("file:///android_asset/$cleanPath")
+                    .load(Uri.parse("file:///android_asset/$cleanPath"))
                     .submit()
                     .get()
             } catch (e2: Exception) {
@@ -276,8 +302,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
     }
 
     private class SelectedIconsPreviewAdapter(
-        private val list: List<ThemeIconItem>,
-        private val themePath: String
+        private val list: List<ThemeIconItem>
     ) : RecyclerView.Adapter<SelectedIconsPreviewAdapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -301,7 +326,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 .removePrefix("/")
 
             Glide.with(context)
-                .load("file:///android_asset/$cleanPath")
+                .load(Uri.parse("file:///android_asset/$cleanPath"))
                 .placeholder(R.drawable.bg_default_placeholder)
                 .error(R.drawable.bg_default_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -31,44 +31,44 @@ class WidgetReceiver : BroadcastReceiver() {
                 Toast.makeText(ctx, "Widget added", Toast.LENGTH_SHORT).show()
 
                 val item = widgetItem
-                if (item != null) {
-                    val themeId = item.id
-                    val widgetType = item.widgetType
-                    val size = item.size
-                    
-                    val cleanId = themeId.replace('/', '_').replace('\\', '_')
-                    val fileName = "widget_bg_${cleanId}_${widgetType}_$size.png"
-                    val file = ctx.getFileStreamPath(fileName)
+                val themeId = extras.getString("theme_id") ?: item?.id ?: "1"
+                val themeFolder = extras.getString("theme_folder") ?: item?.themeFolder ?: "theme_1"
+                val widgetType = extras.getString("widget_type") ?: item?.widgetType ?: "weather"
+                val size = extras.getString("size") ?: item?.size ?: "4x2"
+                
+                val cleanId = themeId.replace('/', '_').replace('\\', '_')
+                val fileName = "widget_bg_${cleanId}_${widgetType}_$size.png"
+                val file = ctx.getFileStreamPath(fileName)
 
-                    if (file.exists()) {
-                        val config = WidgetConfig(
-                            widgetId = appWidgetId,
-                            bgType = "IMAGE",
-                            solidColor = 0,
-                            imageUri = Uri.fromFile(file).toString(),
-                            textColor = android.graphics.Color.WHITE,
-                            fontStyle = "normal",
-                            gradientStartColor = 0,
-                            gradientEndColor = 0
-                        )
+                val imageUriStr = if (file.exists()) Uri.fromFile(file).toString() else null
 
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                ctx.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
-                                    .edit()
-                                    .putString("widget_type_$appWidgetId", widgetType)
-                                    .putString("theme_folder_$appWidgetId", item.themeFolder)
-                                    .putString("theme_id_$appWidgetId", themeId)
-                                    .apply()
-                                ServiceLocator.getWidgetConfigDao(ctx).saveConfig(config)
-                                val appWidgetManager = AppWidgetManager.getInstance(ctx)
-                                Widget2x2Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
-                                Widget4x2Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
-                                Widget4x4Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
+                val config = WidgetConfig(
+                    widgetId = appWidgetId,
+                    bgType = if (imageUriStr != null) "IMAGE" else "COLOR",
+                    solidColor = 0xFF1E1E2E.toInt(),
+                    imageUri = imageUriStr,
+                    textColor = android.graphics.Color.WHITE,
+                    fontStyle = "normal",
+                    gradientStartColor = 0,
+                    gradientEndColor = 0
+                )
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        ctx.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("widget_type_$appWidgetId", widgetType)
+                            .putString("theme_folder_$appWidgetId", themeFolder)
+                            .putString("theme_id_$appWidgetId", themeId)
+                            .putString("widget_size_$appWidgetId", size)
+                            .apply()
+                        ServiceLocator.getWidgetConfigDao(ctx).saveConfig(config)
+                        val appWidgetManager = AppWidgetManager.getInstance(ctx)
+                        Widget2x2Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
+                        Widget4x2Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
+                        Widget4x4Provider().updateWidget(ctx, appWidgetManager, appWidgetId)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
                 }
             }

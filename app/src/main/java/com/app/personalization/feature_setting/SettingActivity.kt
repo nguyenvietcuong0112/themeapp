@@ -1,17 +1,13 @@
-﻿package com.app.personalization.feature_setting
+package com.app.personalization.feature_setting
 
 import android.app.AlertDialog
-import android.content.Context
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.app.personalization.R
 import com.app.personalization.databinding.ActivitySettingBinding
-import com.app.personalization.feature_wallpaper.diy.DIYWallpaperActivity
-import com.app.personalization.feature_widget.WidgetConfigActivity
 
 class SettingActivity : AppCompatActivity() {
 
@@ -22,84 +18,121 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
         setupClickListeners()
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.titleTextView.text = getString(R.string.setting)
-        binding.toolbar.ivBack.setOnClickListener {
+    private fun setupClickListeners() {
+        // Back Button
+        binding.btnBack.setOnClickListener {
             finish()
         }
-    }
 
-    private fun setupClickListeners() {
-        // 1. Customize Themes -> DIY Wallpaper
-        binding.siAddTheme.setOnClickListener {
-            startActivity(Intent(this, DIYWallpaperActivity::class.java))
+        // VIP / Crown Button
+        binding.btnPremium.setOnClickListener {
+            showPremiumDialog()
         }
 
-        // 2. Customize Widgets -> Widget Configuration
-        binding.siAddWidget.setOnClickListener {
-            val intent = Intent(this, WidgetConfigActivity::class.java).apply {
-                putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID, 9999)
+        // 1. Language
+        binding.btnLanguage.setOnClickListener {
+            showLanguageDialog()
+        }
+
+        // 2. Rate App
+        binding.btnRateApp.setOnClickListener {
+            rateApp()
+        }
+
+        // 3. Share App
+        binding.btnShareApp.setOnClickListener {
+            shareApp()
+        }
+
+        // 4. Policy
+        binding.btnPolicy.setOnClickListener {
+            openPrivacyPolicy()
+        }
+    }
+
+    private fun showLanguageDialog() {
+        val languages = arrayOf(
+            "English",
+            "Tiếng Việt",
+            "Español",
+            "Français",
+            "Deutsch",
+            "日本語",
+            "한국어",
+            "Português"
+        )
+        var selectedIdx = 0
+
+        AlertDialog.Builder(this)
+            .setTitle("Select Language")
+            .setSingleChoiceItems(languages, selectedIdx) { _, which ->
+                selectedIdx = which
             }
-            startActivity(intent)
-        }
+            .setPositiveButton("OK") { dialog, _ ->
+                Toast.makeText(this, "Language switched to ${languages[selectedIdx]}", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
 
-        // 3. Charging Animation
-        binding.siStartCharging.setOnClickListener {
-            showChargingAnimationDialog()
-        }
-
-        // 4. FAQ
-        binding.siFQA.setOnClickListener {
-            Toast.makeText(this, "Frequently Asked Questions", Toast.LENGTH_SHORT).show()
-        }
-
-        // 5. How to install icons
-        binding.siGetIcon.setOnClickListener {
-            Toast.makeText(this, "Select an Icon Pack and click Apply to add shortcuts", Toast.LENGTH_LONG).show()
-        }
-
-        // 6. How to add widgets
-        binding.siGetWidget.setOnClickListener {
-            Toast.makeText(this, "Select a Widget and click Add Widget to Home Screen", Toast.LENGTH_LONG).show()
+    private fun rateApp() {
+        val packageName = packageName
+        try {
+            val uri = Uri.parse("market://details?id=$packageName")
+            val goToMarket = Intent(Intent.ACTION_VIEW, uri).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            }
+            startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            val uri = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
     }
 
-    private fun showChargingAnimationDialog() {
-        val animNames = arrayOf(
-            "Cyberpunk Circle (Theme 1)",
-            "Water Bubbles (Theme 2)",
-            "Neon Flow (Theme 3)",
-            "Retro Pixel (Theme 4)",
-            "Galaxy Nebula (Theme 5)"
-        )
-        val animFolders = arrayOf(
-            "charging/charging_1",
-            "charging/charging_2",
-            "charging/charging_3",
-            "charging/charging_4",
-            "charging/charging_5"
-        )
-
-        val prefs = getSharedPreferences("charging_prefs", Context.MODE_PRIVATE)
-        val currentFolder = prefs.getString("applied_charging_folder", "charging/charging_1")
-        var selectedIdx = animFolders.indexOf(currentFolder).coerceAtLeast(0)
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Select Charging Animation")
-        builder.setSingleChoiceItems(animNames, selectedIdx) { _, which ->
-            selectedIdx = which
+    private fun shareApp() {
+        val packageName = packageName
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "Themes & Widgets App")
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Check out this amazing Theme & Widget customization app! Download here: https://play.google.com/store/apps/details?id=$packageName"
+            )
         }
-        builder.setPositiveButton("Apply") { dialog, _ ->
-            val folder = animFolders[selectedIdx]
-            prefs.edit().putString("applied_charging_folder", folder).apply()
-            Toast.makeText(this, "${animNames[selectedIdx]} applied successfully!", Toast.LENGTH_LONG).show()
-            dialog.dismiss()
+        startActivity(Intent.createChooser(shareIntent, "Share app via"))
+    }
+
+    private fun openPrivacyPolicy() {
+        try {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://policies.google.com/privacy")
+            )
+            startActivity(browserIntent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Unable to open privacy policy", Toast.LENGTH_SHORT).show()
         }
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-        builder.show()
+    }
+
+    private fun showPremiumDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("👑 VIP Premium")
+            .setMessage("Unlock all exclusive aesthetic themes, custom widgets, live charging animations and premium control center designs!")
+            .setPositiveButton("Upgrade") { dialog, _ ->
+                Toast.makeText(this, "Welcome to VIP!", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Close") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

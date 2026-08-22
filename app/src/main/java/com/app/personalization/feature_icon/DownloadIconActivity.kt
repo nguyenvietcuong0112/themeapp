@@ -263,7 +263,8 @@ class DownloadIconActivity : AppCompatActivity() {
             }
 
             val assetPath = "file:///android_asset/$resolvedAssetPath"
-            val displayName = targetAppName ?: normalizedName.replaceFirstChar { it.uppercase() }
+            val isMatched = !targetPkg.isNullOrEmpty()
+            val displayName = targetAppName ?: cleanName
 
             iconItems.add(
                 ThemeIconItem(
@@ -271,9 +272,9 @@ class DownloadIconActivity : AppCompatActivity() {
                     iconName = rawIconName,
                     assetPath = assetPath,
                     targetPackageName = targetPkg,
-                    targetAppName = displayName,
+                    targetAppName = if (isMatched) displayName else null,
                     targetAppIcon = targetIcon,
-                    isSelected = true,
+                    isSelected = isMatched, // Only select if app is bound
                     isUnlocked = false
                 )
             )
@@ -291,9 +292,14 @@ class DownloadIconActivity : AppCompatActivity() {
         adapter = DownloadIconItemAdapter(
             items = iconItems,
             onSelectToggle = { item ->
-                item.isSelected = !item.isSelected
-                adapter.notifyDataSetChanged()
-                updateSelectAllUI()
+                if (item.targetPackageName.isNullOrEmpty()) {
+                    Toast.makeText(this, "Please select an app to bind with this icon", Toast.LENGTH_SHORT).show()
+                    showAppSelectionDialog(item)
+                } else {
+                    item.isSelected = !item.isSelected
+                    adapter.notifyDataSetChanged()
+                    updateSelectAllUI()
+                }
             },
             onChangeApp = { item ->
                 showAppSelectionDialog(item)
@@ -309,9 +315,15 @@ class DownloadIconActivity : AppCompatActivity() {
         updateSelectAllUI()
         
         binding.ivSelectAll.setOnClickListener {
-            isAllSelected = !isAllSelected
+            val bindableItems = iconItems.filter { !it.targetPackageName.isNullOrEmpty() }
+            val hasUnselected = bindableItems.any { !it.isSelected }
+            
             for (item in iconItems) {
-                item.isSelected = isAllSelected
+                if (!item.targetPackageName.isNullOrEmpty()) {
+                    item.isSelected = hasUnselected
+                } else {
+                    item.isSelected = false
+                }
             }
             adapter.notifyDataSetChanged()
             updateSelectAllUI()
@@ -321,7 +333,8 @@ class DownloadIconActivity : AppCompatActivity() {
     }
 
     private fun updateSelectAllUI() {
-        val allSelected = iconItems.isNotEmpty() && iconItems.all { it.isSelected }
+        val bindableItems = iconItems.filter { !it.targetPackageName.isNullOrEmpty() }
+        val allSelected = bindableItems.isNotEmpty() && bindableItems.all { it.isSelected }
         isAllSelected = allSelected
         if (allSelected) {
             binding.ivSelectAll.setImageResource(R.drawable.ic_radio_checked)
@@ -366,7 +379,9 @@ class DownloadIconActivity : AppCompatActivity() {
                     item.targetPackageName = app.activityInfo.packageName
                     item.targetAppName = app.loadLabel(pm).toString()
                     item.targetAppIcon = app.loadIcon(pm)
+                    item.isSelected = true // Automatically select when newly bound
                     adapter.notifyDataSetChanged()
+                    updateSelectAllUI()
                     dialog.dismiss()
                 }
                 builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
@@ -387,9 +402,9 @@ class DownloadIconActivity : AppCompatActivity() {
     }
 
     private fun installSelectedIcons() {
-        val selected = iconItems.filter { it.isSelected }
+        val selected = iconItems.filter { it.isSelected && !it.targetPackageName.isNullOrEmpty() }
         if (selected.isEmpty()) {
-            Toast.makeText(this, "Please select at least one icon", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please select at least one icon bound to an app", Toast.LENGTH_SHORT).show()
             return
         }
         val sheet = SelectIconBottomSheet()

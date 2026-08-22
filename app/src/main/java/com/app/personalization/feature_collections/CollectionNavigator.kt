@@ -38,12 +38,11 @@ object CollectionNavigator {
             }
 
             categoryKey.contains("control") -> {
-                val bottomSheet = ControlCenterPreviewBottomSheet().apply {
-                    setItem(item)
-                }
-                if (activity is FragmentActivity) {
-                    bottomSheet.show(activity.supportFragmentManager, "control_center_preview")
-                }
+                com.app.personalization.feature_control_center.ControlCenterPreviewActivity.start(
+                    activity,
+                    item.targetPath,
+                    item.name
+                )
             }
 
             categoryKey.contains("widget") -> {

@@ -90,14 +90,14 @@ class DownloadWidgetFragment : Fragment() {
     private fun initWidgetItems(mappedFolder: String) {
         widgetItems.clear()
 
-        // 1. Calendar Widget 2x2 (today)
+        // 1. Weather Widget 4x2 (weather)
         widgetItems.add(
             ThemeWidgetItem(
-                id = "${theme.id}_widget_today_2x2",
-                name = "Calendar Widget 2x2",
-                size = "2x2",
-                providerClass = Widget2x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_large.png",
+                id = "${theme.id}_widget_weather_4x2",
+                name = "Weather Widget 4x2",
+                size = "4x2",
+                providerClass = Widget4x2Provider::class.java,
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/weather/bg_preview_medium.png",
                 isSelected = true
             )
         )
@@ -114,23 +114,11 @@ class DownloadWidgetFragment : Fragment() {
             )
         )
 
-        // 3. Weather Widget 4x2 (weather)
+        // 3. Calendar Widget 2x2 (today)
         widgetItems.add(
             ThemeWidgetItem(
-                id = "${theme.id}_widget_weather_4x2",
-                name = "Weather Widget 4x2",
-                size = "4x2",
-                providerClass = Widget4x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/weather/bg_preview_medium.png",
-                isSelected = false
-            )
-        )
-
-        // 4. Today Widget 2x2 (today)
-        widgetItems.add(
-            ThemeWidgetItem(
-                id = "${theme.id}_widget_today2_2x2",
-                name = "Today Widget 2x2",
+                id = "${theme.id}_widget_today_2x2",
+                name = "Calendar Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
                 previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_large.png",
@@ -138,7 +126,7 @@ class DownloadWidgetFragment : Fragment() {
             )
         )
 
-        // 5. Image Widget 2x2 (image)
+        // 4. Image Widget 2x2 (image)
         widgetItems.add(
             ThemeWidgetItem(
                 id = "${theme.id}_widget_image_2x2",
@@ -146,6 +134,30 @@ class DownloadWidgetFragment : Fragment() {
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
                 previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/image/bg_preview_large.png",
+                isSelected = false
+            )
+        )
+
+        // 5. Clock Widget 4x2 (clocks)
+        widgetItems.add(
+            ThemeWidgetItem(
+                id = "${theme.id}_widget_clocks_4x2",
+                name = "Clock Widget 4x2",
+                size = "4x2",
+                providerClass = Widget4x2Provider::class.java,
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/clocks/bg_preview_medium.png",
+                isSelected = false
+            )
+        )
+
+        // 6. Calendar Widget 4x2 (today)
+        widgetItems.add(
+            ThemeWidgetItem(
+                id = "${theme.id}_widget_today_4x2",
+                name = "Calendar Widget 4x2",
+                size = "4x2",
+                providerClass = Widget4x2Provider::class.java,
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_medium.png",
                 isSelected = false
             )
         )

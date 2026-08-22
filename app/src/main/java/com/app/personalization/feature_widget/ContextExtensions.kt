@@ -53,6 +53,10 @@ fun <V : AppWidgetProvider> Context.addWidget(
         }
 
         val intent = Intent(this, WidgetReceiver::class.java).apply {
+            putExtra("theme_id", widgetItem.id)
+            putExtra("theme_folder", widgetItem.themeFolder)
+            putExtra("widget_type", widgetItem.widgetType)
+            putExtra("size", widgetItem.size)
             WidgetReceiver.widgetItem = widgetItem
             WidgetReceiver.isMineOrCustom = isMineOrCustom
         }

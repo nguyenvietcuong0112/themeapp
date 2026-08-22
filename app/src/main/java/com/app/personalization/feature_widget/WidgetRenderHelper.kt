@@ -112,6 +112,49 @@ object WidgetRenderHelper {
                     e.printStackTrace()
                 }
             }
+            if (bgBmp == null) {
+                try {
+                    val folder = widgetItem.themeFolder
+                        .removePrefix("file:///android_asset/")
+                        .removePrefix("file://android_asset/")
+                        .removePrefix("android_asset/")
+                        .removePrefix("/")
+                    val typeFolder = when (widgetItem.widgetType.lowercase()) {
+                        "clock", "clocks" -> "clocks"
+                        "calendar", "today", "date" -> "today"
+                        "weather" -> "weather"
+                        "image", "photo" -> "image"
+                        else -> widgetItem.widgetType.lowercase()
+                    }
+                    val isMedium = widgetSize == WidgetSize.MEDIUM
+                    val previewFileName = if (isMedium) "bg_preview_medium.png" else "bg_preview_large.png"
+                    val bgFileName = if (isMedium) "bg_medium.png" else "bg_large.png"
+                    
+                    val candidatePaths = listOf(
+                        "assets_theme/$folder/widgets/$typeFolder/$previewFileName",
+                        "assets_theme/category/$folder/widgets/$typeFolder/$previewFileName",
+                        "assets_collection/theme/$folder/widgets/$typeFolder/$previewFileName",
+                        "assets_collection/$folder/widgets/$typeFolder/$previewFileName",
+                        "$folder/widgets/$typeFolder/$previewFileName",
+                        "assets_theme/$folder/widgets/$bgFileName",
+                        "assets_theme/category/$folder/widgets/$bgFileName",
+                        "assets_theme/$folder/widgets/bg_medium.png",
+                        "assets_theme/$folder/widgets/bg_large.png"
+                    )
+                    for (cand in candidatePaths) {
+                        try {
+                            context.assets.open(cand).use { stream ->
+                                bgBmp = BitmapFactory.decodeStream(stream)
+                            }
+                            if (bgBmp != null) break
+                        } catch (e: Exception) {
+                            // Try next
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
             if (bgBmp != null) {
                 ivBackground.setImageBitmap(bgBmp)
             } else {
@@ -123,58 +166,7 @@ object WidgetRenderHelper {
         when (widgetSize) {
             WidgetSize.SMALL -> {
                 val ivClock = view.findViewById<ImageView>(R.id.ivClock)
-                if (ivClock != null) {
-                    if (widgetItem.widgetType.lowercase() == "clock") {
-                        ivClock.visibility = View.VISIBLE
-                        val dialSize = 512
-                        val clockBmp = Bitmap.createBitmap(dialSize, dialSize, Bitmap.Config.ARGB_8888)
-                        val canvas = Canvas(clockBmp)
-
-                        val themeFolder = widgetItem.themeFolder
-                        val styleId = themeFolder.filter { it.isDigit() }.toIntOrNull()?.let {
-                            (it % 29).let { if (it < 0) -it else it } + 1
-                        } ?: 1
-
-                        val dialResId = context.resources.getIdentifier("widget_clock_${styleId}_dial", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_dial else it }
-                        val hourResId = context.resources.getIdentifier("widget_clock_${styleId}_hours", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_hours else it }
-                        val minResId = context.resources.getIdentifier("widget_clock_${styleId}_minutes", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_minutes else it }
-                        val secResId = context.resources.getIdentifier("widget_clock_${styleId}_seconds", "drawable", context.packageName).let { if (it == 0) R.drawable.widget_clock_1_seconds else it }
-
-                        val dialBmp = BitmapFactory.decodeResource(context.resources, dialResId)
-                        val hourBmp = BitmapFactory.decodeResource(context.resources, hourResId)
-                        val minBmp = BitmapFactory.decodeResource(context.resources, minResId)
-                        val secBmp = BitmapFactory.decodeResource(context.resources, secResId)
-
-                        val destRect = Rect(0, 0, dialSize, dialSize)
-                        if (dialBmp != null) {
-                            canvas.drawBitmap(dialBmp, null, destRect, null)
-                        } else {
-                            val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                                color = Color.WHITE
-                                style = Paint.Style.STROKE
-                                strokeWidth = 8f
-                            }
-                            canvas.drawCircle(dialSize / 2f, dialSize / 2f, dialSize / 2f - 16f, paint)
-                        }
-
-                        val cal = Calendar.getInstance()
-                        val hour = cal.get(Calendar.HOUR)
-                        val minute = cal.get(Calendar.MINUTE)
-                        val second = cal.get(Calendar.SECOND)
-
-                        val hrAngle = (hour % 12) * 30f + minute * 0.5f
-                        val minAngle = minute * 6f + second * 0.1f
-                        val secAngle = second * 6f
-
-                        drawRotatedHand(canvas, hourBmp, hrAngle, dialSize)
-                        drawRotatedHand(canvas, minBmp, minAngle, dialSize)
-                        drawRotatedHand(canvas, secBmp, secAngle, dialSize)
-
-                        ivClock.setImageBitmap(clockBmp)
-                    } else {
-                        ivClock.visibility = View.GONE
-                    }
-                }
+                ivClock?.visibility = View.GONE
             }
             WidgetSize.MEDIUM -> {
                 val tvTime = view.findViewById<TextView>(R.id.tvTime)
@@ -182,117 +174,14 @@ object WidgetRenderHelper {
                 val ivWeatherIcon = view.findViewById<ImageView>(R.id.ivWeatherIcon)
                 val tvWeatherTemp = view.findViewById<TextView>(R.id.tvWeatherTemp)
 
-                if (widgetItem.widgetType.lowercase() == "calendar") {
-                    tvTime?.visibility = View.GONE
-                    tvDate?.visibility = View.GONE
-                    ivWeatherIcon?.visibility = View.GONE
-                    tvWeatherTemp?.visibility = View.GONE
-                } else {
-                    tvTime?.visibility = View.VISIBLE
-                    tvDate?.visibility = View.VISIBLE
-                    ivWeatherIcon?.visibility = View.VISIBLE
-                    tvWeatherTemp?.visibility = View.VISIBLE
-
-                    val textColor = config?.textColor ?: Color.WHITE
-                    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                    val dateFormat = SimpleDateFormat("EEE, MMM d", Locale.getDefault())
-                    val now = Date()
-
-                    tvTime?.text = timeFormat.format(now)
-                    tvTime?.setTextColor(textColor)
-
-                    tvDate?.text = dateFormat.format(now)
-                    tvDate?.setTextColor(textColor)
-
-                    val prefs = context.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
-                    val weatherText = prefs.getString("weather_temp", "26°C Sunny") ?: "26°C Sunny"
-                    tvWeatherTemp?.text = weatherText
-                    tvWeatherTemp?.setTextColor(textColor)
-
-                    val iconCode = when {
-                        weatherText.contains("sunny", ignoreCase = true) -> "sunny"
-                        weatherText.contains("cloud", ignoreCase = true) -> "cloudy"
-                        weatherText.contains("rain", ignoreCase = true) -> "rainy"
-                        else -> "sunny"
-                    }
-                    val weatherIconId = context.resources.getIdentifier("ic_weather_${iconCode}", "drawable", context.packageName).let { if (it == 0) R.drawable.ic_style_weather else it }
-                    ivWeatherIcon?.setImageResource(weatherIconId)
-                }
+                tvTime?.visibility = View.GONE
+                tvDate?.visibility = View.GONE
+                ivWeatherIcon?.visibility = View.GONE
+                tvWeatherTemp?.visibility = View.GONE
             }
             WidgetSize.LARGE -> {
                 val ivCalendar = view.findViewById<ImageView>(R.id.ivCalendar)
-                if (ivCalendar != null) {
-                    val calSize = 1000
-                    val calBmp = Bitmap.createBitmap(calSize, calSize, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(calBmp)
-
-                    val calendar = Calendar.getInstance()
-                    calendar.set(Calendar.DAY_OF_MONTH, 1)
-                    val monthMax = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-                    val startDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
-
-                    val textColor = config?.textColor ?: Color.WHITE
-
-                    val titlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        color = textColor
-                        textSize = 64f
-                        textAlign = Paint.Align.CENTER
-                        style = Paint.Style.FILL
-                    }
-                    val monthFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
-                    canvas.drawText(monthFormat.format(Date()), calSize / 2f, 150f, titlePaint)
-
-                    val headerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        color = textColor
-                        textSize = 40f
-                        textAlign = Paint.Align.CENTER
-                        alpha = 180
-                    }
-                    val days = arrayOf("S", "M", "T", "W", "T", "F", "S")
-                    val cellWidth = calSize / 7f
-                    val gridTop = 260f
-                    val cellHeight = (calSize - gridTop) / 7f
-
-                    for (i in days.indices) {
-                        val x = i * cellWidth + cellWidth / 2f
-                        canvas.drawText(days[i], x, gridTop, headerPaint)
-                    }
-
-                    val dayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                        textSize = 44f
-                        textAlign = Paint.Align.CENTER
-                    }
-
-                    val today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-                    var row = 1
-                    for (day in 1..monthMax) {
-                        val col = (startDayOfWeek + day - 1) % 7
-                        val x = col * cellWidth + cellWidth / 2f
-                        val y = gridTop + row * cellHeight
-
-                        if (day == today) {
-                            val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                                color = textColor
-                                style = Paint.Style.STROKE
-                                strokeWidth = 6f
-                            }
-                            canvas.drawCircle(x, y - 15f, 35f, circlePaint)
-                            dayPaint.color = textColor
-                            dayPaint.isFakeBoldText = true
-                        } else {
-                            dayPaint.color = textColor
-                            dayPaint.isFakeBoldText = false
-                        }
-
-                        canvas.drawText(day.toString(), x, y, dayPaint)
-
-                        if (col == 6) {
-                            row++
-                        }
-                    }
-
-                    ivCalendar.setImageBitmap(calBmp)
-                }
+                ivCalendar?.visibility = View.GONE
             }
         }
     }

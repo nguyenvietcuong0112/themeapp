@@ -55,20 +55,8 @@ class ControlCenterPreviewBottomSheet : BottomSheetDialogFragment() {
             .into(ivPreview)
 
         btnApply.setOnClickListener {
-            lifecycleScope.launch {
-                val repo = CollectionRepository(requireContext())
-                repo.markAsDownloaded(
-                    id = currentItem.id,
-                    name = currentItem.name,
-                    category = "Control center",
-                    targetPath = currentItem.targetPath,
-                    previewPath = currentItem.previewPath,
-                    downloads = currentItem.downloads,
-                    rawType = "control_center"
-                )
-                Toast.makeText(requireContext(), "Applied Control Center: ${currentItem.name}", Toast.LENGTH_SHORT).show()
-                dismiss()
-            }
+            ControlCenterPreviewActivity.start(requireContext(), currentItem.targetPath, currentItem.name)
+            dismiss()
         }
     }
 

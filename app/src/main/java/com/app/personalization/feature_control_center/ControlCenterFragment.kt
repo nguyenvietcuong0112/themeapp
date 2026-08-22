@@ -73,18 +73,7 @@ class ControlCenterFragment : Fragment() {
         rvControlThemes.addItemDecoration(GridSpacingItemDecoration(columns, spacingHorizontal, spacingVertical, false))
 
         themeAdapter = ControlCenterAdapter(emptyList()) { theme ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                val repo = com.app.personalization.feature_collections.data.CollectionRepository(requireContext())
-                repo.markAsDownloaded(
-                    id = "control_${theme.slug}",
-                    name = theme.name,
-                    category = "Control center",
-                    targetPath = theme.folderPath,
-                    previewPath = theme.thumbPath,
-                    rawType = "control_center"
-                )
-            }
-            Toast.makeText(requireContext(), "Selected Control Center: ${theme.name}", Toast.LENGTH_SHORT).show()
+            ControlCenterPreviewActivity.start(requireContext(), theme.folderPath, theme.name)
         }
         rvControlThemes.adapter = themeAdapter
     }

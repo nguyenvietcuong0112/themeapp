@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.drawable.Drawable
@@ -153,15 +154,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         adapter.registerAdapterDataObserver(binding.indicator.adapterDataObserver)
 
         if (currentIndex in widgetList.indices) {
-            binding.recyclerView.scrollToPosition(currentIndex)
-            binding.recyclerView.post {
-                snapHelper.findSnapView(layoutManager)?.let { snapView ->
-                    val pos = layoutManager.getPosition(snapView)
-                    if (pos in widgetList.indices) {
-                        currentIndex = pos
-                    }
-                }
-            }
+            layoutManager.scrollToPositionWithOffset(currentIndex, 0)
         }
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -332,12 +325,17 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         val activity = requireActivity()
         val (currentType, currentSize) = getCurrentWidgetInfo()
 
-        val fileName = when (currentSize) {
-            "2x2" -> "bg_medium.png"
-            "4x2" -> "bg_medium.png"
-            "4x4" -> "bg_large.png"
-            else -> "bg_medium.png"
+        val typeFolder = when (currentType.lowercase()) {
+            "clock", "clocks" -> "clocks"
+            "calendar", "today", "date" -> "today"
+            "weather" -> "weather"
+            "image", "photo" -> "image"
+            else -> currentType.lowercase()
         }
+
+        val isMedium = currentSize.lowercase() == "4x2" || currentSize.lowercase() == "medium"
+        val previewFileName = if (isMedium) "bg_preview_medium.png" else "bg_preview_large.png"
+        val bgFileName = if (isMedium) "bg_medium.png" else "bg_large.png"
 
         lifecycleScope.launch(Dispatchers.IO) {
             val folder = try {
@@ -350,31 +348,74 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 ResourceConfig.getThemeFolderByPath(activity, theme.path)
             }
 
-            val cdnUrl = if (folder.startsWith("assets_collection/")) {
-                val clean = folder.removePrefix("assets_collection/").removePrefix("widget/")
-                "${ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$fileName"
-            } else {
-                "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$fileName"
+            val cleanFolder = folder
+                .removePrefix("file:///android_asset/")
+                .removePrefix("file://android_asset/")
+                .removePrefix("android_asset/")
+                .removePrefix("/")
+
+            var localBitmap: Bitmap? = null
+            val candidatePaths = listOf(
+                "assets_theme/$cleanFolder/widgets/$typeFolder/$previewFileName",
+                "assets_theme/category/$cleanFolder/widgets/$typeFolder/$previewFileName",
+                "assets_collection/theme/$cleanFolder/widgets/$typeFolder/$previewFileName",
+                "assets_collection/$cleanFolder/widgets/$typeFolder/$previewFileName",
+                "$cleanFolder/widgets/$typeFolder/$previewFileName",
+                "assets_theme/$cleanFolder/widgets/$bgFileName",
+                "assets_theme/category/$cleanFolder/widgets/$bgFileName",
+                "assets_theme/$cleanFolder/widgets/bg_medium.png",
+                "assets_theme/$cleanFolder/widgets/bg_large.png"
+            )
+
+            for (path in candidatePaths) {
+                try {
+                    activity.assets.open(path).use { stream ->
+                        localBitmap = BitmapFactory.decodeStream(stream)
+                    }
+                    if (localBitmap != null) break
+                } catch (e: Exception) {
+                    // Try next
+                }
             }
 
-            withContext(Dispatchers.Main) {
-                val downloadDialog = DownloadDialogFragment()
-                downloadDialog.setParams(cdnUrl, object : DownloadDialogFragment.DownloadCallback {
-                    override fun onDownloadComplete(bitmap: Bitmap) {
-                        saveWidgetBackground(activity, bitmap, currentType, currentSize)
-                        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                            dismissAllowingStateLoss()
-                            requestPinWidget(activity, currentType, currentSize)
-                        } else {
-                            applyToExistingWidget(activity, bitmap, currentType, currentSize)
-                        }
+            if (localBitmap != null) {
+                val finalBmp = localBitmap!!
+                withContext(Dispatchers.Main) {
+                    saveWidgetBackground(activity, finalBmp, currentType, currentSize)
+                    if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                        dismissAllowingStateLoss()
+                        requestPinWidget(activity, currentType, currentSize)
+                    } else {
+                        applyToExistingWidget(activity, finalBmp, currentType, currentSize)
                     }
+                }
+            } else {
+                val cdnUrl = if (folder.startsWith("assets_collection/")) {
+                    val clean = folder.removePrefix("assets_collection/").removePrefix("widget/")
+                    "${ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$previewFileName"
+                } else {
+                    "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$typeFolder/$previewFileName"
+                }
 
-                    override fun onDownloadFailed() {
-                        Toast.makeText(activity, "Failed to download widget assets", Toast.LENGTH_SHORT).show()
-                    }
-                })
-                downloadDialog.show(parentFragmentManager, "download")
+                withContext(Dispatchers.Main) {
+                    val downloadDialog = DownloadDialogFragment()
+                    downloadDialog.setParams(cdnUrl, object : DownloadDialogFragment.DownloadCallback {
+                        override fun onDownloadComplete(bitmap: Bitmap) {
+                            saveWidgetBackground(activity, bitmap, currentType, currentSize)
+                            if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                                dismissAllowingStateLoss()
+                                requestPinWidget(activity, currentType, currentSize)
+                            } else {
+                                applyToExistingWidget(activity, bitmap, currentType, currentSize)
+                            }
+                        }
+
+                        override fun onDownloadFailed() {
+                            Toast.makeText(activity, "Failed to download widget assets", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                    downloadDialog.show(parentFragmentManager, "download")
+                }
             }
         }
     }

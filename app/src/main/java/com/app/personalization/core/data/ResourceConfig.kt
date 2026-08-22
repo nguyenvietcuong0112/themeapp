@@ -199,7 +199,7 @@ object ResourceConfig {
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean"
         }
-        return "$ASSET_BASE_URL/assets_theme/previews/wallpapers/$clean/bg_wallpaper.png"
+        return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/bg_wallpaper.png"
     }
 
     fun getWallpaperThumbnailUrl(themeFolder: String, imageName: String = ""): String {
@@ -208,11 +208,8 @@ object ResourceConfig {
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean"
         }
-        if (clean.startsWith("theme_")) {
-            return "$ASSET_BASE_URL/assets_theme/previews/wallpapers/$clean/bg_wallpaper.png"
-        }
         val name = if (imageName.isEmpty()) "bg_wallpaper" else imageName.removeSuffix(".png")
-        return "$ASSET_BASE_URL/assets_theme/previews/wallpapers/$clean/$name.png"
+        return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/$name.png"
     }
 
     fun getWallpaperFullUrl(themeFolder: String, imageName: String = "bg_wallpaper"): String {
@@ -295,7 +292,10 @@ object ResourceConfig {
     fun getIconPackPreviewUrl(themeFolder: String): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
-        return "$ASSET_BASE_URL/assets_theme/previews/icons/$clean/bg_icon.png"
+        if (clean.startsWith("assets_collection/")) {
+            return "$ASSET_BASE_URL/$clean/bg_icon.png"
+        }
+        return "$ASSET_BASE_URL/assets_theme/$clean/bg_preview.png"
     }
 
     fun getIconCategoryPreviewUrl(folder: String): String = getIconPackPreviewUrl(folder)

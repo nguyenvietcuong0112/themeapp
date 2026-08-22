@@ -1,123 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background"
-    android:orientation="vertical">
+    android:background="@drawable/bg_main"
+    android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_my_theme" />
-
-    <androidx.core.widget.NestedScrollView
+    <!-- ================= TOP HEADER (Back, Title, VIP Crown) ================= -->
+    <LinearLayout
+        android:id="@+id/headerBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="6dp"
+            android:src="@drawable/ic_back"
+            app:tint="#1E1E24" />
+
+        <!-- Title: Setting -->
+        <TextView
+            android:id="@+id/tvSettingTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inter_bold"
+            android:text="Setting"
+            android:textColor="#1E1E24"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- Golden VIP / Crown Badge -->
+        <ImageView
+            android:id="@+id/btnPremium"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_header_premium" />
+    </LinearLayout>
+
+    <!-- ================= SETTING ITEMS LIST (Figma Specs: Gap 12dp, Padding 16dp, Border 1px #FFF1F4, Shadow #FA5783 10%) ================= -->
+    <LinearLayout
+        android:id="@+id/llSettingItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/headerBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 1. Language -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp">
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#FFF1F4"
+            android:outlineSpotShadowColor="#1AFA5783"
+            android:outlineAmbientShadowColor="#1AFA5783">
 
-            <!-- Card 1: Customizations -->
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/bg_corner_16"
-                android:backgroundTint="?attr/secondaryBackgroundColor"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siAddTheme"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_setting_language" />
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_title="@string/customize_themes" />
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Language"
+                    android:textColor="#1E1E24"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siAddWidget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_title="@string/customize_widget" />
+        <!-- 2. Rate app -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnRateApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#FFF1F4"
+            android:outlineSpotShadowColor="#1AFA5783"
+            android:outlineAmbientShadowColor="#1AFA5783">
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siStartCharging"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_title="@string/start_charging_animation" />
-
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siTemperature"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_showLine="false"
-                    app:setting_title="@string/temperature_unit" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <!-- Section 2: Guides & Info -->
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:text="@string/how_to_use"
-                android:textColor="?attr/detailTextColor"
-                android:textSize="@dimen/sp_16"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_setting_rate" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Rate app"
+                    android:textColor="#1E1E24"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. Share app -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnShareApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#FFF1F4"
+            android:outlineSpotShadowColor="#1AFA5783"
+            android:outlineAmbientShadowColor="#1AFA5783">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/bg_corner_16"
-                android:backgroundTint="?attr/secondaryBackgroundColor"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siFQA"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_setting_share" />
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_title="FAQ" />
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Share app"
+                    android:textColor="#1E1E24"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siGetIcon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_title="How to install icons" />
+        <!-- 4. Policy -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#FFF1F4"
+            android:outlineSpotShadowColor="#1AFA5783"
+            android:outlineAmbientShadowColor="#1AFA5783">
 
-                <com.app.personalization.core.ui.SettingItemView
-                    android:id="@+id/siGetWidget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_arrowEnabled="true"
-                    app:setting_showLine="false"
-                    app:setting_title="How to add widgets" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <!-- Section 3: App Info & Version -->
-            <TextView
-                android:id="@+id/tvVersion"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
-                android:gravity="center"
-                android:text="Themes &amp; Widgets v1.0.0"
-                android:textColor="?attr/detailTextColor"
-                android:textSize="@dimen/sp_12" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.core.widget.NestedScrollView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_setting_policy" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Policy"
+                    android:textColor="#1E1E24"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

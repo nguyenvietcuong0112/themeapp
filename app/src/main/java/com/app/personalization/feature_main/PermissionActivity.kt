@@ -4,8 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,11 +18,13 @@ import com.app.personalization.R
 class PermissionActivity : AppCompatActivity() {
 
     private lateinit var btnGrantStorage: Button
-    private lateinit var btnGrantLocation: Button
+    private lateinit var btnGrantOverlay: Button
+    private lateinit var btnGrantWriteSettings: Button
     private lateinit var btnGrantNotifications: Button
+    private lateinit var btnGrantLocation: Button
     private lateinit var btnGetStarted: Button
 
-    // Register Activity Results for Permission Requests
+    // Launchers
     private val requestStorageLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { results ->
@@ -51,19 +55,15 @@ class PermissionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Check if permissions are already granted, skip directly to MainActivity
-        if (isStorageGranted() && isLocationGranted()) {
+        // If core permissions already granted, jump directly to Main
+        if (isStorageGranted() && isOverlayGranted()) {
             navigateToMain()
             return
         }
 
         setContentView(R.layout.activity_permission)
 
-        btnGrantStorage = findViewById(R.id.btnGrantStorage)
-        btnGrantLocation = findViewById(R.id.btnGrantLocation)
-        btnGrantNotifications = findViewById(R.id.btnGrantNotifications)
-        btnGetStarted = findViewById(R.id.btnGetStarted)
-
+        initViews()
         setupClickListeners()
         updateButtonStates()
     }
@@ -73,10 +73,20 @@ class PermissionActivity : AppCompatActivity() {
         updateButtonStates()
     }
 
+    private fun initViews() {
+        btnGrantStorage = findViewById(R.id.btnGrantStorage)
+        btnGrantOverlay = findViewById(R.id.btnGrantOverlay)
+        btnGrantWriteSettings = findViewById(R.id.btnGrantWriteSettings)
+        btnGrantNotifications = findViewById(R.id.btnGrantNotifications)
+        btnGrantLocation = findViewById(R.id.btnGrantLocation)
+        btnGetStarted = findViewById(R.id.btnGetStarted)
+    }
+
     private fun setupClickListeners() {
+        // 1. Storage
         btnGrantStorage.setOnClickListener {
             if (isStorageGranted()) return@setOnClickListener
-            
+
             val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
             } else {
@@ -88,9 +98,65 @@ class PermissionActivity : AppCompatActivity() {
             requestStorageLauncher.launch(permissions)
         }
 
+        // 2. Display Over Other Apps (Overlay)
+        btnGrantOverlay.setOnClickListener {
+            if (isOverlayGranted()) return@setOnClickListener
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+
+                com.app.personalization.core.utils.PermissionDetector.startDetectingPermission(
+                    activity = this,
+                    checkPermission = { isOverlayGranted() },
+                    onGranted = {
+                        updateButtonStates()
+                        Toast.makeText(this, "Overlay permission granted!", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+
+        // 3. Write Settings
+        btnGrantWriteSettings.setOnClickListener {
+            if (isWriteSettingsGranted()) return@setOnClickListener
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+
+                com.app.personalization.core.utils.PermissionDetector.startDetectingPermission(
+                    activity = this,
+                    checkPermission = { isWriteSettingsGranted() },
+                    onGranted = {
+                        updateButtonStates()
+                        Toast.makeText(this, "Settings permission granted!", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+
+        // 4. Notifications
+        btnGrantNotifications.setOnClickListener {
+            if (isNotificationsGranted()) return@setOnClickListener
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                Toast.makeText(this, "Notification permission not required for this version", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // 5. Location
         btnGrantLocation.setOnClickListener {
             if (isLocationGranted()) return@setOnClickListener
-            
+
             requestLocationLauncher.launch(
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -99,66 +165,31 @@ class PermissionActivity : AppCompatActivity() {
             )
         }
 
-        btnGrantNotifications.setOnClickListener {
-            if (isNotificationsGranted()) return@setOnClickListener
-            
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requestNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                Toast.makeText(this, "Notification permission not required for this Android version", Toast.LENGTH_SHORT).show()
-            }
-        }
-
+        // Continue
         btnGetStarted.setOnClickListener {
             navigateToMain()
         }
     }
 
     private fun updateButtonStates() {
-        // Storage Button
-        if (isStorageGranted()) {
-            btnGrantStorage.text = "Granted"
-            btnGrantStorage.setBackgroundColor(Color.parseColor("#2E2E3E"))
-            btnGrantStorage.setTextColor(Color.parseColor("#00E5FF"))
-            btnGrantStorage.isEnabled = false
-        } else {
-            btnGrantStorage.text = "Grant"
-            btnGrantStorage.setBackgroundColor(Color.parseColor("#00E5FF"))
-            btnGrantStorage.setTextColor(Color.parseColor("#12121A"))
-            btnGrantStorage.isEnabled = true
-        }
+        applyButtonState(btnGrantStorage, isStorageGranted())
+        applyButtonState(btnGrantOverlay, isOverlayGranted())
+        applyButtonState(btnGrantWriteSettings, isWriteSettingsGranted())
+        applyButtonState(btnGrantNotifications, isNotificationsGranted())
+        applyButtonState(btnGrantLocation, isLocationGranted())
+    }
 
-        // Location Button
-        if (isLocationGranted()) {
-            btnGrantLocation.text = "Granted"
-            btnGrantLocation.setBackgroundColor(Color.parseColor("#2E2E3E"))
-            btnGrantLocation.setTextColor(Color.parseColor("#00E5FF"))
-            btnGrantLocation.isEnabled = false
+    private fun applyButtonState(button: Button, isGranted: Boolean) {
+        if (isGranted) {
+            button.text = "Granted"
+            button.setBackgroundColor(Color.parseColor("#2A2A3C"))
+            button.setTextColor(Color.parseColor("#4CAF50")) // Green text
+            button.isEnabled = false
         } else {
-            btnGrantLocation.text = "Grant"
-            btnGrantLocation.setBackgroundColor(Color.parseColor("#00E5FF"))
-            btnGrantLocation.setTextColor(Color.parseColor("#12121A"))
-            btnGrantLocation.isEnabled = true
-        }
-
-        // Notifications Button
-        if (isNotificationsGranted()) {
-            btnGrantNotifications.text = "Granted"
-            btnGrantNotifications.setBackgroundColor(Color.parseColor("#2E2E3E"))
-            btnGrantNotifications.setTextColor(Color.parseColor("#00E5FF"))
-            btnGrantNotifications.isEnabled = false
-        } else {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                btnGrantNotifications.text = "N/A"
-                btnGrantNotifications.setBackgroundColor(Color.parseColor("#2E2E3E"))
-                btnGrantNotifications.setTextColor(Color.parseColor("#888899"))
-                btnGrantNotifications.isEnabled = false
-            } else {
-                btnGrantNotifications.text = "Grant"
-                btnGrantNotifications.setBackgroundColor(Color.parseColor("#00E5FF"))
-                btnGrantNotifications.setTextColor(Color.parseColor("#12121A"))
-                btnGrantNotifications.isEnabled = true
-            }
+            button.text = "Grant"
+            button.setBackgroundColor(Color.parseColor("#FF4081")) // Pink accent
+            button.setTextColor(Color.parseColor("#FFFFFF"))
+            button.isEnabled = true
         }
     }
 
@@ -167,6 +198,22 @@ class PermissionActivity : AppCompatActivity() {
             ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
         } else {
             ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun isOverlayGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(this)
+        } else {
+            true
+        }
+    }
+
+    private fun isWriteSettingsGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.System.canWrite(this)
+        } else {
+            true
         }
     }
 
@@ -180,6 +227,11 @@ class PermissionActivity : AppCompatActivity() {
         } else {
             true
         }
+    }
+
+    override fun onDestroy() {
+        com.app.personalization.core.utils.PermissionDetector.stopDetecting()
+        super.onDestroy()
     }
 
     private fun navigateToMain() {

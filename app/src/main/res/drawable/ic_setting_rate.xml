@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Star Shape -->
+    <path
+        android:strokeColor="#FF3366"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M16.5,2.5 L18.6,6.8 L23.3,7.5 L19.9,10.8 L20.7,15.5 L16.5,13.3 L12.3,15.5 L13.1,10.8 L9.7,7.5 L14.4,6.8 Z" />
+    <!-- Horizontal Speed / Sparkle Lines on left -->
+    <path
+        android:strokeColor="#FF3366"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M2,7 L6,7" />
+    <path
+        android:strokeColor="#FF3366"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M1,12 L5,12" />
+    <path
+        android:strokeColor="#FF3366"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M3,17 L7,17" />
+</vector>

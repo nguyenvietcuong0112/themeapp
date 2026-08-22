@@ -1,9 +1,9 @@
-﻿package com.themes.diy.widgets.keyboard.controlcenter.core.data
+package com.themes.diy.widgets.keyboard.controlcenter.core.data
 
 import android.content.Context
 
 object ResourceConfig {
-    const val ASSET_BASE_URL = "file:///android_asset"
+    const val ASSET_BASE_URL = "https://h03-themeapp-assets.pages.dev"
     const val CONTROL_CENTER = "assets_control_center"
 
 

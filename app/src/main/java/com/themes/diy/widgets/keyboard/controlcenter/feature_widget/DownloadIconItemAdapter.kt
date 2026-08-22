@@ -13,6 +13,7 @@ import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.makeramen.roundedimageview.RoundedImageView
+import com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig
 
 class DownloadIconItemAdapter(
     private val items: List<ThemeIconItem>,
@@ -82,7 +83,7 @@ class DownloadIconItemAdapter(
             val iconUri = if (cleanAssetPath.startsWith("http://") || cleanAssetPath.startsWith("https://")) {
                 Uri.parse(cleanAssetPath)
             } else {
-                Uri.parse("file:///android_asset/$cleanAssetPath")
+                Uri.parse("${ResourceConfig.ASSET_BASE_URL}/$cleanAssetPath")
             }
 
             Glide.with(context)

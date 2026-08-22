@@ -80,7 +80,7 @@ class DownloadWallpaperActivity : AppCompatActivity() {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val repo = com.themes.diy.widgets.keyboard.controlcenter.feature_collections.data.CollectionRepository(this@DownloadWallpaperActivity)
                         val previewUrl = if (wallpaper.folder.startsWith("category/")) {
-                            "file:///android_asset/assets_theme/${wallpaper.folder}/wallpapers/bg_wallpaper.png"
+                            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/${wallpaper.folder}/wallpapers/bg_wallpaper.png"
                         } else {
                             wallpaper.getOnlinePreviewUri(this@DownloadWallpaperActivity).toString()
                         }

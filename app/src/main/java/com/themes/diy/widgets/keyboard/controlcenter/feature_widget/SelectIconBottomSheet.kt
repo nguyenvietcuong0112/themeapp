@@ -157,7 +157,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val repo = com.themes.diy.widgets.keyboard.controlcenter.feature_collections.data.CollectionRepository(currentContext)
                     val previewUrl = if (theme.path.startsWith("category/")) {
-                        "file:///android_asset/assets_theme/${theme.path}/bg_preview.png"
+                        "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/bg_preview.png"
                     } else {
                         com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemePreviewUrl(theme.path)
                     }
@@ -257,7 +257,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
             try {
                 Glide.with(context)
                     .asBitmap()
-                    .load(Uri.parse("file:///android_asset/$cleanPath"))
+                    .load(Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanPath"))
                     .submit()
                     .get()
             } catch (e2: Exception) {
@@ -326,7 +326,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                 .removePrefix("/")
 
             Glide.with(context)
-                .load(Uri.parse("file:///android_asset/$cleanPath"))
+                .load(Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanPath"))
                 .placeholder(R.drawable.bg_default_placeholder)
                 .error(R.drawable.bg_default_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

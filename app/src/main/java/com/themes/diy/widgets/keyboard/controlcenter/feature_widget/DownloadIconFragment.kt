@@ -268,7 +268,7 @@ class DownloadIconFragment : Fragment() {
                 }
             }
 
-            val assetPath = "file:///android_asset/$resolvedAssetPath"
+            val assetPath = "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$resolvedAssetPath"
             val isMatched = !targetPkg.isNullOrEmpty()
             val displayName = targetAppName ?: cleanName
 

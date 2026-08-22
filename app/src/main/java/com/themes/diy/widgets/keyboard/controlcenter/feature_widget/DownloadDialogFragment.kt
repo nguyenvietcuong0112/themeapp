@@ -42,24 +42,26 @@ class DownloadDialogFragment : DialogFragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val input = if (downloadUrl.startsWith(com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL)) {
-                    val assetPath = downloadUrl.removePrefix("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/")
-                    requireContext().assets.open(assetPath)
-                } else if (downloadUrl.startsWith("http://") || downloadUrl.startsWith("https://")) {
-                    val url = URL(downloadUrl)
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
-                    connection.connect()
-                    if (connection.responseCode != HttpURLConnection.HTTP_OK) {
-                        throw Exception("Server HTTP ${connection.responseCode}")
-                    }
-                    connection.inputStream
-                } else {
+                val input = if (downloadUrl.startsWith("http://") || downloadUrl.startsWith("https://")) {
                     try {
-                        requireContext().assets.open(downloadUrl)
+                        val url = URL(downloadUrl)
+                        val connection = url.openConnection() as HttpURLConnection
+                        connection.connectTimeout = 10000
+                        connection.readTimeout = 10000
+                        connection.setRequestProperty("User-Agent", "Mozilla/5.0")
+                        connection.connect()
+                        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                            connection.inputStream
+                        } else {
+                            val assetPath = downloadUrl.removePrefix("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/")
+                            requireContext().assets.open(assetPath)
+                        }
                     } catch (e: Exception) {
-                        URL(downloadUrl).openStream()
+                        val assetPath = downloadUrl.removePrefix("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/")
+                        requireContext().assets.open(assetPath)
                     }
+                } else {
+                    requireContext().assets.open(downloadUrl)
                 }
 
                 val output = ByteArrayOutputStream()

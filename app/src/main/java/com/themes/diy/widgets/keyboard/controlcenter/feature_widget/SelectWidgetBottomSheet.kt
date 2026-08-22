@@ -443,7 +443,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 }
                 val previewFileName = if (currentSize.lowercase() == "4x2") "bg_preview_medium.png" else "bg_preview_large.png"
                 val resolvedPreview = if (theme.path.startsWith("category/")) {
-                    "file:///android_asset/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
+                    "${ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
                 } else {
                     "${ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
                 }

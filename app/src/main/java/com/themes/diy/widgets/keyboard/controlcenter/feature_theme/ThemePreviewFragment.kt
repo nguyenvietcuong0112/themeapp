@@ -100,7 +100,7 @@ class ThemePreviewFragment : Fragment() {
                     viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                         val repo = com.themes.diy.widgets.keyboard.controlcenter.feature_collections.data.CollectionRepository(appContext)
                         val resolvedPreview = if (item.path.startsWith("category/")) {
-                            "file:///android_asset/assets_theme/${item.path}/bg_preview.png"
+                            "${ResourceConfig.ASSET_BASE_URL}/assets_theme/${item.path}/bg_preview.png"
                         } else {
                             ResourceConfig.getThemePreviewUrl(item.path)
                         }

@@ -52,7 +52,7 @@ data class WidgetThemeWallpaper(
 
     fun getOnlinePreviewUri(context: Context): Uri {
         if (folder.startsWith("assets_collection/")) {
-            return Uri.parse("file:///android_asset/$folder")
+            return Uri.parse("${ResourceConfig.ASSET_BASE_URL}/$folder")
         }
         val themePath = if (folder.startsWith("theme_") || folder.contains("/")) folder else "$folder/$imageBg"
         val themeFolder = ResourceConfig.getThemeFolderByPath(context, themePath)
@@ -61,7 +61,7 @@ data class WidgetThemeWallpaper(
 
     fun getOnlineImageUri(context: Context): Uri {
         if (folder.startsWith("assets_collection/")) {
-            return Uri.parse("file:///android_asset/$folder")
+            return Uri.parse("${ResourceConfig.ASSET_BASE_URL}/$folder")
         }
         val themePath = if (folder.startsWith("theme_") || folder.contains("/")) folder else "$folder/$imageBg"
         val themeFolder = ResourceConfig.getThemeFolderByPath(context, themePath)

@@ -58,8 +58,8 @@ class ControlCenterRepository(private val context: Context) {
                 }
 
                 // Check thumbnail and preview
-                val thumbFile = "file:///android_asset/$themeFolder/thumb.webp"
-                val previewFile = "file:///android_asset/$themeFolder/preview.jpg"
+                val thumbFile = "${ResourceConfig.ASSET_BASE_URL}/$themeFolder/thumb.webp"
+                val previewFile = "${ResourceConfig.ASSET_BASE_URL}/$themeFolder/preview.jpg"
 
                 themes.add(
                     ControlTheme(

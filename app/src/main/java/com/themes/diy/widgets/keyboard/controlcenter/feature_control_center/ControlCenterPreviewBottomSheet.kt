@@ -43,7 +43,7 @@ class ControlCenterPreviewBottomSheet : BottomSheetDialogFragment() {
         tvTitle.text = currentItem.name
 
         val previewUrl = if (currentItem.targetPath.startsWith("assets_control_center")) {
-            "file:///android_asset/${currentItem.targetPath}/thumb.webp"
+            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/${currentItem.targetPath}/thumb.webp"
         } else {
             currentItem.previewPath
         }

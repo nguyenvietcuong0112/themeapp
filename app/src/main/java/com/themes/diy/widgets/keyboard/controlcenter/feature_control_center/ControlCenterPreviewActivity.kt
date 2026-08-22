@@ -54,7 +54,7 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
         val thumbPath = if (themePath.startsWith("file://") || themePath.startsWith("http")) {
             themePath
         } else {
-            "file:///android_asset/$themePath/thumb.webp"
+            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$themePath/thumb.webp"
         }
 
         Glide.with(this)

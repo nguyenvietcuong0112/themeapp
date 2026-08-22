@@ -212,8 +212,20 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
 
         try {
             val templatePath = if (templateFolder.startsWith("designs/")) templateFolder else "designs/$templateFolder"
-            val jsonString = context.assets.open("assets_wallpaper/templates/$templatePath/config.json").use { input ->
-                input.bufferedReader().use { it.readText() }
+            val jsonString = try {
+                context.assets.open("assets_wallpaper/templates/$templatePath/config.json").use { input ->
+                    input.bufferedReader().use { it.readText() }
+                }
+            } catch (e: Exception) {
+                try {
+                    val url = java.net.URL("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$templatePath/config.json")
+                    val conn = url.openConnection() as java.net.HttpURLConnection
+                    conn.connectTimeout = 8000
+                    conn.readTimeout = 8000
+                    conn.inputStream.bufferedReader().use { it.readText() }
+                } catch (e2: Exception) {
+                    "{}"
+                }
             }
 
             val root = JSONObject(jsonString)
@@ -456,9 +468,28 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
                     } else {
                         "assets_wallpaper/templates/$svgPath"
                     }
-                    val svg = com.caverock.androidsvg.SVG.getFromAsset(context.assets, resolvedSvgPath)
-                    val rect = RectF(0f, 0f, w.toFloat(), h.toFloat())
-                    svg.renderToCanvas(maskCanvas, rect)
+                    val svg = try {
+                        com.caverock.androidsvg.SVG.getFromAsset(context.assets, resolvedSvgPath)
+                    } catch (e: Exception) {
+                        try {
+                            val url = java.net.URL("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$resolvedSvgPath")
+                            val conn = url.openConnection() as java.net.HttpURLConnection
+                            conn.connectTimeout = 8000
+                            conn.readTimeout = 8000
+                            conn.inputStream.use { stream ->
+                                com.caverock.androidsvg.SVG.getFromInputStream(stream)
+                            }
+                        } catch (e2: Exception) {
+                            null
+                        }
+                    }
+                    if (svg != null) {
+                        val rect = RectF(0f, 0f, w.toFloat(), h.toFloat())
+                        svg.renderToCanvas(maskCanvas, rect)
+                    } else {
+                        val paint = Paint().apply { color = Color.WHITE }
+                        maskCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), paint)
+                    }
                 } catch (e: Exception) {
                     val paint = Paint().apply { color = Color.WHITE }
                     maskCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), paint)

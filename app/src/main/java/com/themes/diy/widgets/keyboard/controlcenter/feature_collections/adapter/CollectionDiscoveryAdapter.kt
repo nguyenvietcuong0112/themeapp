@@ -105,7 +105,7 @@ class CollectionDiscoveryAdapter(
             val imageUri = if (cleanAssetPath.startsWith("http://") || cleanAssetPath.startsWith("https://")) {
                 Uri.parse(cleanAssetPath)
             } else {
-                Uri.parse("file:///android_asset/$cleanAssetPath")
+                Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanAssetPath")
             }
 
             Log.d("CollectionDebug", "WidgetViewHolder.bind: pos=$bindingAdapterPosition id=${item.id}, uri=$imageUri, height=$itemHeight")
@@ -162,7 +162,7 @@ class CollectionDiscoveryAdapter(
             val imageUri = if (cleanAssetPath.startsWith("http://") || cleanAssetPath.startsWith("https://")) {
                 Uri.parse(cleanAssetPath)
             } else {
-                Uri.parse("file:///android_asset/$cleanAssetPath")
+                Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanAssetPath")
             }
 
             Glide.with(itemView.context)

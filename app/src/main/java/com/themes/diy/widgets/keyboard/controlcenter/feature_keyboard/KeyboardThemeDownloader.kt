@@ -50,14 +50,14 @@ object KeyboardThemeDownloader {
         var downloadedCount = 0
         for ((subPath, destFile) in files) {
             // 1. Try assets_keyboard/themes/
-            var success = copyFromAssets(context, "assets_keyboard/themes/$folderTheme/$subPath", destFile)
+            var success = copyOrDownloadFile(context, "assets_keyboard/themes/$folderTheme/$subPath", destFile)
             if (!success) {
                 // 2. Try with prefix
-                success = copyFromAssets(context, "$prefix/$subPath", destFile)
+                success = copyOrDownloadFile(context, "$prefix/$subPath", destFile)
             }
             if (!success) {
                 // 3. Try with assets_theme/
-                success = copyFromAssets(context, "assets_theme/${theme.path}/$subPath", destFile)
+                success = copyOrDownloadFile(context, "assets_theme/${theme.path}/$subPath", destFile)
             }
 
             if (success) {
@@ -80,16 +80,39 @@ object KeyboardThemeDownloader {
         return@withContext true
     }
 
-    private fun copyFromAssets(context: Context, assetPath: String, destFile: File): Boolean {
-        return try {
+    private fun copyOrDownloadFile(context: Context, assetPath: String, destFile: File): Boolean {
+        // 1. Try local assets
+        try {
             context.assets.open(assetPath).use { input ->
                 destFile.outputStream().use { output ->
                     input.copyTo(output)
                 }
             }
-            true
+            return true
         } catch (e: Exception) {
-            false
+            // Not in assets
         }
+
+        // 2. Try Cloudflare CDN
+        if (ResourceConfig.ASSET_BASE_URL.startsWith("http")) {
+            try {
+                val cleanPath = assetPath.removePrefix("/")
+                val url = java.net.URL("${ResourceConfig.ASSET_BASE_URL}/$cleanPath")
+                val conn = url.openConnection() as java.net.HttpURLConnection
+                conn.connectTimeout = 10000
+                conn.readTimeout = 10000
+                if (conn.responseCode == 200) {
+                    conn.inputStream.use { input ->
+                        destFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                    return true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return false
     }
 }

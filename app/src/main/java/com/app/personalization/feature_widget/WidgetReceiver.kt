@@ -36,7 +36,8 @@ class WidgetReceiver : BroadcastReceiver() {
                     val widgetType = item.widgetType
                     val size = item.size
                     
-                    val fileName = "widget_bg_${themeId}_${widgetType}_$size.png"
+                    val cleanId = themeId.replace('/', '_').replace('\\', '_')
+                    val fileName = "widget_bg_${cleanId}_${widgetType}_$size.png"
                     val file = ctx.getFileStreamPath(fileName)
 
                     if (file.exists()) {

@@ -59,7 +59,12 @@ class MainActivity : AppCompatActivity() {
             else -> "Collections"
         }
         binding.tvHeaderTitle.text = title
-        binding.tvHeaderSubtitle.text = "Make your phone unique"
+        if (position != 0) {
+            binding.tvHeaderSubtitle.visibility = View.GONE
+        } else {
+            binding.tvHeaderSubtitle.visibility = View.VISIBLE
+            binding.tvHeaderSubtitle.text = "Make your phone unique"
+        }
     }
 
     private fun setupViewPager() {

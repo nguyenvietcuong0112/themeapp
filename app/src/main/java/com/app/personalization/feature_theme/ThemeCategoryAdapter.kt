@@ -41,20 +41,18 @@ class ThemeCategoryAdapter(
 
         fun bind(item: CategoryTag, onClick: (CategoryTag) -> Unit) {
             tvName.text = item.name
-            
             val context = tvName.context
-            val typedValue = android.util.TypedValue()
             
             if (item.isSelected) {
                 llContainer.setBackgroundResource(R.drawable.bg_category_tab_selected)
                 llContainer.backgroundTintList = null
                 tvName.setTextColor(Color.parseColor("#FA5783"))
-                tvName.setTypeface(null, android.graphics.Typeface.BOLD)
+                tvName.typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.inter_semi_bold)
             } else {
                 llContainer.setBackgroundResource(R.drawable.bg_category_tab_unselected)
                 llContainer.backgroundTintList = null
                 tvName.setTextColor(Color.parseColor("#1A1A1A"))
-                tvName.setTypeface(null, android.graphics.Typeface.NORMAL)
+                tvName.typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.inter_medium)
             }
 
             llContainer.setOnClickListener {

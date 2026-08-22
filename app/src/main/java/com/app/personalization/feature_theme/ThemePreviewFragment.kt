@@ -121,7 +121,6 @@ class ThemePreviewFragment : Fragment() {
                         putExtra("theme_type", item.rawType)
                     }
                     startActivity(intent)
-                    activity?.finish()
                 }
             }
         }

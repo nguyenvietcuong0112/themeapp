@@ -11,41 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="90dp">
+        android:paddingTop="8dp"
+        android:paddingBottom="120dp">
 
         <!-- Top Mascot & Sparkle Decoration Layer -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            >
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="70dp"
-                android:layout_gravity="end|top"
-                android:layout_marginTop="-20dp"
-                android:layout_marginEnd="-10dp"
-                android:src="@drawable/ic_collection_mascot"
-                android:contentDescription="Decoration Mascot" />
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="end|top"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="95dp"
-                android:src="@drawable/ic_sparkle_gold"
-                android:contentDescription="Sparkle" />
 
             <!-- Category Filter Tabs -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategoryTabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="12dp"
+                android:layout_marginHorizontal="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_collection_tab" />
         </FrameLayout>
@@ -56,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp"
             android:orientation="vertical">
 
             <!-- Section Title & See More Action -->
@@ -110,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_collection_empty_card"
                 android:padding="8dp">
+
 
                 <!-- Populated Downloaded List -->
                 <androidx.recyclerview.widget.RecyclerView
@@ -170,7 +155,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <TextView

@@ -97,7 +97,7 @@ class DownloadWidgetFragment : Fragment() {
                 name = "Calendar Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_medium.png",
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_large.png",
                 isSelected = true
             )
         )
@@ -109,7 +109,7 @@ class DownloadWidgetFragment : Fragment() {
                 name = "Clock Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/clocks/bg_preview_medium.png",
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/clocks/bg_preview_large.png",
                 isSelected = false
             )
         )
@@ -133,7 +133,7 @@ class DownloadWidgetFragment : Fragment() {
                 name = "Today Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_medium.png",
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/today/bg_preview_large.png",
                 isSelected = false
             )
         )
@@ -145,7 +145,7 @@ class DownloadWidgetFragment : Fragment() {
                 name = "Image Widget 2x2",
                 size = "2x2",
                 providerClass = Widget2x2Provider::class.java,
-                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/image/bg_preview_medium.png",
+                previewUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$mappedFolder/widgets/image/bg_preview_large.png",
                 isSelected = false
             )
         )
@@ -154,19 +154,53 @@ class DownloadWidgetFragment : Fragment() {
     private fun setupRecyclerView(mappedFolder: String) {
         binding.pbCreate.visibility = View.GONE
         val context = requireContext()
-        
-        // 2-column grid layout matching the screenshot design
+        val spacing = (12 * resources.displayMetrics.density).toInt()
+
+        // 2-column grid layout
         val layoutManager = GridLayoutManager(context, 2)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val item = widgetItems.getOrNull(position)
-                // 4x2 widgets take full width (2 spans), others take 1 span
                 return if (item?.size == "4x2") 2 else 1
             }
         }
-        
         binding.recyclerView.layoutManager = layoutManager
-        
+
+        while (binding.recyclerView.itemDecorationCount > 0) {
+            binding.recyclerView.removeItemDecorationAt(0)
+        }
+
+        binding.recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: android.graphics.Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                val position = parent.getChildAdapterPosition(view)
+                if (position < 0) return
+                val item = widgetItems.getOrNull(position)
+                val isFullWidth = item?.size == "4x2"
+
+                outRect.bottom = spacing
+
+                if (isFullWidth) {
+                    outRect.left = 0
+                    outRect.right = 0
+                } else {
+                    val lp = view.layoutParams as? GridLayoutManager.LayoutParams
+                    val spanIndex = lp?.spanIndex ?: (position % 2)
+                    if (spanIndex == 0) {
+                        outRect.left = 0
+                        outRect.right = spacing / 2
+                    } else {
+                        outRect.left = spacing / 2
+                        outRect.right = 0
+                    }
+                }
+            }
+        })
+
         adapter = DownloadWidgetItemAdapter(widgetItems, mappedFolder) { index ->
             selectedIndex = index
             for (i in widgetItems.indices) {
@@ -178,26 +212,18 @@ class DownloadWidgetFragment : Fragment() {
     }
 
     private fun setupActions() {
-        binding.actionView.clInstall.visibility = View.VISIBLE
-        binding.actionView.tvInstall.text = "Add Widget"
-
-        binding.actionView.clInstall.setOnClickListener {
+        binding.btnAction.setOnClickListener {
             installSelectedWidget()
         }
     }
 
     private fun installSelectedWidget() {
-        val selectedItem = widgetItems.getOrNull(selectedIndex) ?: return
-        val typeId = selectedItem.id.substringAfter("_widget_").substringBefore("_2x2").substringBefore("_4x2")
-        val widgetType = when (typeId) {
-            "today", "today2" -> "calendar"
-            "clocks" -> "clock"
-            "weather" -> "weather"
-            "image" -> "image"
-            else -> "clock"
-        }
         val sheet = SelectWidgetBottomSheet()
-        sheet.setParams(theme, widgetType, selectedItem.size, selectedItem.previewUrl)
+        sheet.setParams(
+            theme = theme,
+            widgetList = widgetItems,
+            initialIndex = selectedIndex
+        )
         sheet.show(childFragmentManager, "select_widget")
     }
 
@@ -221,40 +247,33 @@ class DownloadWidgetFragment : Fragment() {
             val context = holder.itemView.context
             val binding = holder.binding
 
-            // Set layout params dynamically based on size to fit the image perfectly
             val displayMetrics = context.resources.displayMetrics
-            val screenWidth = displayMetrics.widthPixels
             val density = displayMetrics.density
-            val horizontalPadding = (32 * density).toInt()
+            val horizontalPadding = (32 * density).toInt() // 16dp each side
+            val spacing = (12 * density).toInt()
 
-            val margin = (8 * density).toInt()
+            val parentWidth = (displayMetrics.widthPixels - horizontalPadding)
+
             val lp = holder.itemView.layoutParams as? ViewGroup.MarginLayoutParams ?: RecyclerView.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-
-            // Set margins
-            lp.setMargins(margin, margin, margin, margin)
+            lp.width = ViewGroup.LayoutParams.MATCH_PARENT
 
             if (item.size == "4x2") {
-                // Wide: full width minus paddings and margins
-                val itemWidth = screenWidth - horizontalPadding - (margin * 2)
-                val itemHeight = (itemWidth * 9) / 16
-                lp.width = ViewGroup.LayoutParams.MATCH_PARENT
+                // Wide: 2 spans, image ratio is 818:395
+                val itemHeight = (parentWidth * 395 / 818)
                 lp.height = itemHeight
             } else {
-                // Square: half width minus paddings and margins
-                val itemWidth = (screenWidth - horizontalPadding - (margin * 4)) / 2
-                val itemHeight = itemWidth
-                lp.width = itemWidth
-                lp.height = itemHeight
+                // Square: 1 span, 1:1 ratio
+                val itemWidth = (parentWidth - spacing) / 2
+                lp.height = itemWidth
             }
             holder.itemView.layoutParams = lp
 
             // Load widget preview
             val cdnUrl = item.previewUrl
-
-            binding.ivPreview.scaleType = ImageView.ScaleType.CENTER_CROP
+            binding.ivPreview.scaleType = ImageView.ScaleType.FIT_XY
 
             Glide.with(context)
                 .load(cdnUrl)

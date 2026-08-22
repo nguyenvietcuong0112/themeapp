@@ -108,6 +108,8 @@ class DownloadWallpaperFragment : Fragment() {
         }
     }
 
+    private var downloadedBitmap: Bitmap? = null
+
     private fun setupUI() {
         val wp = wallpaper
         if (wp == null) {
@@ -141,29 +143,37 @@ class DownloadWallpaperFragment : Fragment() {
             )
             .into(binding.ivPreview)
 
+        // Setup Download / Set Wallpaper action button
+        updateButtonState(isDownloaded = downloadedBitmap != null)
 
-
-        // Always show install button
-        binding.actionView.clInstall.visibility = View.VISIBLE
-        binding.actionView.tvInstall.text = "Set Wallpaper"
-
-        binding.actionView.clInstall.setOnClickListener {
-            downloadAndApplyWallpaper(wp)
+        binding.btnAction.setOnClickListener {
+            val bmp = downloadedBitmap
+            if (bmp != null) {
+                showSetWallpaperSheet(bmp)
+            } else {
+                downloadWallpaper(wp)
+            }
         }
     }
 
-    private fun downloadAndApplyWallpaper(wp: WidgetThemeWallpaper) {
+    private fun updateButtonState(isDownloaded: Boolean) {
+        if (isDownloaded) {
+            binding.tvAction.text = "Set Wallpaper"
+            binding.btnAction.setBackgroundResource(R.drawable.bg_btn_theme_set_wallpaper)
+            binding.tvAction.setTextColor(android.graphics.Color.WHITE)
+        } else {
+            binding.tvAction.text = "Download"
+            binding.btnAction.setBackgroundResource(R.drawable.bg_btn_theme_download_outline)
+            binding.tvAction.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.brand_primary))
+        }
+    }
+
+    private fun downloadWallpaper(wp: WidgetThemeWallpaper) {
         val downloadDialog = DownloadDialogFragment()
         downloadDialog.setParams(wp.getOnlineImageUri(requireContext()).toString(), object : DownloadDialogFragment.DownloadCallback {
             override fun onDownloadComplete(bitmap: Bitmap) {
-                // Show bottom sheet to choose set target
-                val sheet = DownloadThemeWallpaperBottomSheet()
-                sheet.setCallback(object : DownloadThemeWallpaperBottomSheet.Callback {
-                    override fun onApply(flag: Int) {
-                        applyWallpaper(bitmap, flag)
-                    }
-                })
-                sheet.show(childFragmentManager, "set_wallpaper")
+                downloadedBitmap = bitmap
+                updateButtonState(isDownloaded = true)
             }
 
             override fun onDownloadFailed() {
@@ -171,6 +181,16 @@ class DownloadWallpaperFragment : Fragment() {
             }
         })
         downloadDialog.show(parentFragmentManager, "download")
+    }
+
+    private fun showSetWallpaperSheet(bitmap: Bitmap) {
+        val sheet = DownloadThemeWallpaperBottomSheet()
+        sheet.setCallback(object : DownloadThemeWallpaperBottomSheet.Callback {
+            override fun onApply(flag: Int) {
+                applyWallpaper(bitmap, flag)
+            }
+        })
+        sheet.show(childFragmentManager, "set_wallpaper")
     }
 
     private fun applyWallpaper(bitmap: Bitmap, flag: Int) {

@@ -46,14 +46,12 @@ class DownloadThemeActivity : AppCompatActivity() {
             theme = KeyboardTheme(id = themeId, name = themeName, path = themePath, rawType = themeType)
         }
 
-        // Set Tab background color dynamically using ?attr/secondaryBackgroundColor
-        binding.llTab.setBackgroundColor(getAttrColor(R.attr.secondaryBackgroundColor))
-
         initToolbar()
         initViewPager()
         initTabs()
         val startTab = intent.getIntExtra("start_tab", 0)
         binding.viewPager.setCurrentItem(startTab, false)
+        updateTabUI(startTab)
     }
 
     private fun getAttrColor(attrId: Int): Int {
@@ -68,7 +66,8 @@ class DownloadThemeActivity : AppCompatActivity() {
 
     private fun initToolbar() {
         val toolbarBinding = binding.toolbar
-        toolbarBinding.titleTextView.text = theme.name
+        toolbarBinding.titleTextView.text = getString(R.string.theme_setup)
+        toolbarBinding.titleTextView.visibility = View.VISIBLE
         
         // Hide adContainer completely as requested
         binding.adContainer.visibility = View.GONE
@@ -101,7 +100,6 @@ class DownloadThemeActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateTabUI(position)
-                updateToolbarButtons(position)
             }
         })
     }
@@ -125,34 +123,13 @@ class DownloadThemeActivity : AppCompatActivity() {
             if (i == position) {
                 tab.isSelected = true
                 tab.setTextColor(Color.WHITE)
-                tab.setBackgroundResource(R.drawable.tab_indicator_primary)
-                tab.typeface = ResourcesCompat.getFont(this, R.font.helvetica_medium)
+                tab.setBackgroundResource(R.drawable.bg_theme_setup_tab_selected)
+                tab.typeface = ResourcesCompat.getFont(this, R.font.inter_semi_bold)
             } else {
                 tab.isSelected = false
-                tab.setTextColor(getAttrColor(R.attr.detailTextColor))
+                tab.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
                 tab.setBackgroundResource(0)
-                tab.typeface = ResourcesCompat.getFont(this, R.font.helvetica_regular)
-            }
-        }
-    }
-
-    private fun updateToolbarButtons(position: Int) {
-        val toolbarBinding = binding.toolbar
-        when (position) {
-            0 -> {
-                toolbarBinding.llCreateWallpaper.root.visibility = View.VISIBLE
-                toolbarBinding.llCreateWidget.root.visibility = View.GONE
-                toolbarBinding.titleTextView.visibility = View.GONE
-            }
-            1 -> {
-                toolbarBinding.llCreateWallpaper.root.visibility = View.GONE
-                toolbarBinding.llCreateWidget.root.visibility = View.GONE
-                toolbarBinding.titleTextView.visibility = View.VISIBLE
-            }
-            2 -> {
-                toolbarBinding.llCreateWallpaper.root.visibility = View.GONE
-                toolbarBinding.llCreateWidget.root.visibility = View.VISIBLE
-                toolbarBinding.titleTextView.visibility = View.GONE
+                tab.typeface = ResourcesCompat.getFont(this, R.font.inter_medium)
             }
         }
     }

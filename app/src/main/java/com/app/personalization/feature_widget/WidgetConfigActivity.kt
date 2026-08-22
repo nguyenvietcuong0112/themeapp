@@ -240,7 +240,8 @@ class WidgetConfigActivity : AppCompatActivity() {
                     .submit()
                     .get()
 
-                val localName = "widget_bg_${item.id}_${item.widgetType}_${item.size}.png"
+                val cleanId = item.id.replace('/', '_').replace('\\', '_')
+                val localName = "widget_bg_${cleanId}_${item.widgetType}_${item.size}.png"
                 openFileOutput(localName, MODE_PRIVATE).use { out ->
                     bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
                 }

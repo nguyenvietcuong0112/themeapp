@@ -5,6 +5,22 @@
     <string name="tab_control">Control</string>
     <string name="tab_widget">Widget</string>
     <string name="tab_collections">Collections</string>
+
+    <!-- Theme Banners -->
+    <string name="banner_theme_1_title">Your Phone,\nYour Style</string>
+    <string name="banner_theme_1_subtitle">Thousands of cute themes,\nicons &amp; widgets to express you !</string>
+
+    <string name="banner_theme_2_title"><![CDATA[<font color="#353770">Make you</font><br/><font color="#FF5678">Phone</font> <font color="#353770">Adorable</font>]]></string>
+    <string name="banner_theme_2_subtitle">Cute themes, icons &amp; widgets\nto match your vibe</string>
+
+    <string name="banner_theme_3_title">Decorate Your Phone\nYour Way</string>
+    <string name="banner_theme_3_subtitle">Trendy themes, cute icons &amp; widgets\nto match your mood</string>
+
+    <!-- Theme Setup -->
+    <string name="theme_setup">Theme Setup</string>
+    <string name="tab_wallpaper_single">Wallpaper</string>
+    <string name="tab_icon_single">Icon</string>
+    <string name="tab_widget_single">Widget</string>
     <string name="_1_please_enable_the_theme_keyboard">1. Please enable the Theme Keyboard</string>
     <string name="_2_switch_to_keyboard">2. Switch to Theme Keyboard</string>
     <string name="abc">ABC</string>

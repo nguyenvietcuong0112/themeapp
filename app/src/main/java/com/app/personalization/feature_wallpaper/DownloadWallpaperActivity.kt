@@ -33,8 +33,24 @@ class DownloadWallpaperActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_download_wallpaper)
 
+        val path = intent.getStringExtra("wallpaper_path")
+        val title = intent.getStringExtra("wallpaper_title") ?: "Wallpaper"
+        val id = intent.getStringExtra("collection_id") ?: "wp_${System.currentTimeMillis()}"
+
         wallpaper = intent.getSerializableExtra("wallpaper_item") as? WidgetThemeWallpaper
             ?: intent.getSerializableExtra("WIDGET_WALLPAPER") as? WidgetThemeWallpaper
+            ?: if (!path.isNullOrEmpty()) {
+                val cleanPath = path.removePrefix("file:///android_asset/").removePrefix("/")
+                WidgetThemeWallpaper(
+                    id = id,
+                    themeId = cleanPath,
+                    name = title,
+                    order = 0,
+                    folder = cleanPath,
+                    imageBg = "wallpaper",
+                    category = "collection"
+                )
+            } else null
             ?: return finish()
 
         initViews()

@@ -1,58 +1,46 @@
 package com.app.personalization.feature_widget
 
+import android.Manifest
+import android.app.Activity
 import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.os.Build
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import com.app.personalization.R
-import com.app.personalization.core.data.EventBus
-import com.app.personalization.core.data.Subscribe
-import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
-import com.app.personalization.databinding.FragmentSelectWidgetBottomSheetBinding
-import com.app.personalization.feature_widget.Widget2x2Provider
-import com.app.personalization.feature_widget.Widget4x2Provider
-import com.app.personalization.feature_widget.Widget4x4Provider
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.app.personalization.feature_widget.event.WidgetAddSucceedEvent
-import com.app.personalization.feature_widget.data.entity.WidgetItem
-import com.app.personalization.feature_widget.data.entity.WidgetSize
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import com.app.personalization.feature_widget.data.entity.WidgetConfig
-import com.app.personalization.core.di.ServiceLocator
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import com.app.personalization.R
+import com.app.personalization.core.data.EventBus
+import com.app.personalization.core.data.ResourceConfig
+import com.app.personalization.core.data.Subscribe
+import com.app.personalization.core.di.ServiceLocator
 import com.app.personalization.core.ui.PreviewWidgetView
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.graphics.Color
-import android.graphics.Typeface
-import java.util.Calendar
-import java.util.Locale
-import java.util.Date
-import java.text.SimpleDateFormat
+import com.app.personalization.databinding.FragmentSelectWidgetBottomSheetBinding
+import com.app.personalization.feature_keyboard.data.entity.KeyboardTheme
+import com.app.personalization.feature_widget.data.entity.WidgetConfig
+import com.app.personalization.feature_widget.data.entity.WidgetItem
+import com.app.personalization.feature_widget.data.entity.WidgetSize
+import com.app.personalization.feature_widget.event.WidgetAddSucceedEvent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import android.graphics.drawable.Drawable
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -63,16 +51,15 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var theme: KeyboardTheme
-    private lateinit var widgetType: String // "clock", "weather", "calendar"
-    private lateinit var size: String // "2x2", "4x2", "4x4"
-    private var previewUrl: String? = null
+    private var widgetList: MutableList<ThemeWidgetItem> = mutableListOf()
+    private var currentIndex: Int = 0
     private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        val fineGranted = permissions[android.Manifest.permission.ACCESS_FINE_LOCATION] ?: false
-        val coarseGranted = permissions[android.Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
         if (fineGranted || coarseGranted) {
             continueDownloadAndPin()
         } else {
@@ -80,11 +67,50 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    fun setParams(theme: KeyboardTheme, widgetType: String, size: String, previewUrl: String? = null, widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID) {
+    fun setParams(
+        theme: KeyboardTheme,
+        widgetType: String,
+        size: String,
+        previewUrl: String? = null,
+        widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
+    ) {
         this.theme = theme
-        this.widgetType = widgetType
-        this.size = size
-        this.previewUrl = previewUrl
+        this.widgetId = widgetId
+        val resolvedPreview = previewUrl ?: run {
+            val isMedium = size.lowercase() == "4x2" || size.lowercase() == "medium"
+            val fileName = if (isMedium) "bg_preview_medium.png" else "bg_preview_large.png"
+            val typeFolder = when (widgetType.lowercase()) {
+                "clock" -> "clocks"
+                "calendar", "date" -> "today"
+                "weather" -> "weather"
+                "image" -> "image"
+                else -> widgetType.lowercase()
+            }
+            "${ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$fileName"
+        }
+        val providerClass = if (size == "4x2") Widget4x2Provider::class.java else Widget2x2Provider::class.java
+        this.widgetList = mutableListOf(
+            ThemeWidgetItem(
+                id = "${theme.id}_widget_${widgetType}_$size",
+                name = "$widgetType $size",
+                size = size,
+                providerClass = providerClass,
+                previewUrl = resolvedPreview,
+                isSelected = true
+            )
+        )
+        this.currentIndex = 0
+    }
+
+    fun setParams(
+        theme: KeyboardTheme,
+        widgetList: List<ThemeWidgetItem>,
+        initialIndex: Int = 0,
+        widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
+    ) {
+        this.theme = theme
+        this.widgetList = widgetList.toMutableList()
+        this.currentIndex = initialIndex.coerceIn(0, (widgetList.size - 1).coerceAtLeast(0))
         this.widgetId = widgetId
     }
 
@@ -100,8 +126,6 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
 
-        binding.adContainer.visibility = View.GONE
-        binding.llAction.visibility = View.GONE
         binding.clInstall.visibility = View.VISIBLE
         binding.tvDownload.text = if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) "Add to Home" else "Apply Widget"
 
@@ -113,98 +137,84 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
             downloadAndPinWidget()
         }
 
-        // Setup RecyclerView preview
-        val resolvedPreview = previewUrl ?: run {
-            val isMedium = size.lowercase() == "4x2" || size.lowercase() == "medium"
-            val fileName = if (isMedium) {
-                "bg_preview_medium.png"
-            } else {
-                "bg_preview_large.png"
-            }
-            val typeFolder = when (widgetType.lowercase()) {
-                "clock" -> "clocks"
-                "calendar", "date" -> "today"
-                "weather" -> "weather"
-                "image" -> "image"
-                else -> widgetType.lowercase()
-            }
-            "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$fileName"
-        }
-
-        val density = resources.displayMetrics.density
-        val targetWidth = when (size.lowercase()) {
-            "2x2", "small" -> (180 * density).toInt()
-            "4x2", "medium" -> (320 * density).toInt()
-            "4x4", "large" -> (280 * density).toInt()
-            "2x4" -> (160 * density).toInt()
-            else -> (180 * density).toInt()
-        }
-        val targetHeight = when (size.lowercase()) {
-            "2x2", "small" -> (180 * density).toInt()
-            "4x2", "medium" -> (160 * density).toInt()
-            "4x4", "large" -> (280 * density).toInt()
-            "2x4" -> (320 * density).toInt()
-            else -> (180 * density).toInt()
-        }
-
-        binding.recyclerView.layoutManager = object : LinearLayoutManager(context, HORIZONTAL, false) {
-            override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
-                lp?.let {
-                    it.width = targetWidth
-                    it.height = targetHeight
-                }
-                return true
-            }
-        }
-        binding.recyclerView.adapter = SelectWidgetAdapter(resolvedPreview)
-        val snapHelper = androidx.recyclerview.widget.PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.recyclerView)
-        binding.indicator.attachToRecyclerView(binding.recyclerView, snapHelper)
+        setupCarousel()
     }
- 
-    private inner class SelectWidgetAdapter(private val imageUrl: String) : RecyclerView.Adapter<SelectWidgetAdapter.ViewHolder>() {
+
+    private fun setupCarousel() {
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView.layoutManager = layoutManager
+        val adapter = SelectWidgetAdapter(widgetList)
+        binding.recyclerView.adapter = adapter
+
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.recyclerView)
+
+        binding.indicator.attachToRecyclerView(binding.recyclerView, snapHelper)
+        adapter.registerAdapterDataObserver(binding.indicator.adapterDataObserver)
+
+        if (currentIndex in widgetList.indices) {
+            binding.recyclerView.scrollToPosition(currentIndex)
+            binding.recyclerView.post {
+                snapHelper.findSnapView(layoutManager)?.let { snapView ->
+                    val pos = layoutManager.getPosition(snapView)
+                    if (pos in widgetList.indices) {
+                        currentIndex = pos
+                    }
+                }
+            }
+        }
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val snapView = snapHelper.findSnapView(layoutManager) ?: return
+                    val pos = layoutManager.getPosition(snapView)
+                    if (pos in widgetList.indices) {
+                        currentIndex = pos
+                    }
+                }
+            }
+        })
+    }
+
+    private inner class SelectWidgetAdapter(
+        private val list: List<ThemeWidgetItem>
+    ) : RecyclerView.Adapter<SelectWidgetAdapter.ViewHolder>() {
+
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
             val cardView: CardView = view.findViewById(R.id.cardView)
             val previewView: PreviewWidgetView = view.findViewById(R.id.previewView)
         }
- 
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_widget_preview_layout, parent, false)
-            val density = parent.context.resources.displayMetrics.density
-            val targetWidth = when (size.lowercase()) {
-                "2x2", "small" -> (180 * density).toInt()
-                "4x2", "medium" -> (320 * density).toInt()
-                "4x4", "large" -> (280 * density).toInt()
-                "2x4" -> (160 * density).toInt()
-                else -> (180 * density).toInt()
-            }
-            val targetHeight = when (size.lowercase()) {
-                "2x2", "small" -> (180 * density).toInt()
-                "4x2", "medium" -> (160 * density).toInt()
-                "4x4", "large" -> (280 * density).toInt()
-                "2x4" -> (320 * density).toInt()
-                else -> (180 * density).toInt()
-            }
- 
-            view.layoutParams = ViewGroup.LayoutParams(
-                targetWidth,
-                targetHeight
+            val view = LayoutInflater.from(parent.context).inflate(
+                R.layout.item_widget_preview_layout, parent, false
             )
- 
-            val cardView = view.findViewById<View>(R.id.cardView)
-            val lp = cardView.layoutParams
-            lp.width = ViewGroup.LayoutParams.MATCH_PARENT
-            lp.height = ViewGroup.LayoutParams.MATCH_PARENT
-            cardView.layoutParams = lp
- 
+            view.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val item = list[position]
             val context = holder.itemView.context
-            
-            val widgetSize = when (size.lowercase()) {
+            val density = context.resources.displayMetrics.density
+
+            val typeId = item.id.substringAfter("_widget_").substringBefore("_2x2").substringBefore("_4x2")
+            val currentType = when (typeId) {
+                "today", "today2" -> "calendar"
+                "clocks" -> "clock"
+                "weather" -> "weather"
+                "image" -> "image"
+                else -> "clock"
+            }
+            val currentSize = item.size
+
+            val widgetSize = when (currentSize.lowercase()) {
                 "2x2", "small" -> WidgetSize.SMALL
                 "4x2", "medium" -> WidgetSize.MEDIUM
                 "4x4", "large" -> WidgetSize.LARGE
@@ -217,12 +227,24 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 WidgetSize.LARGE -> R.layout.widget_layout_4x4
             }
 
+            val targetWidth = if (currentSize == "4x2") (320 * density).toInt() else (180 * density).toInt()
+            val targetHeight = if (currentSize == "4x2") (160 * density).toInt() else (180 * density).toInt()
+
+            holder.cardView.layoutParams = holder.cardView.layoutParams.apply {
+                width = targetWidth
+                height = targetHeight
+            }
+            holder.ivPreview.layoutParams = holder.ivPreview.layoutParams.apply {
+                width = targetWidth
+                height = targetHeight
+            }
+
             val widgetItem = WidgetItem(
                 id = theme.id,
                 themeFolder = theme.path,
                 name = theme.name,
-                widgetType = widgetType,
-                size = size,
+                widgetType = currentType,
+                size = currentSize,
                 isFree = true,
                 isFavorite = false
             )
@@ -246,7 +268,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
 
             Glide.with(context)
                 .asBitmap()
-                .load(imageUrl)
+                .load(item.previewUrl)
                 .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         val realBmp = WidgetRenderHelper.getSnapshotImage(
@@ -263,35 +285,43 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                             holder.ivPreview.setImageBitmap(realBmp)
                         }
                     }
+
                     override fun onLoadCleared(placeholder: Drawable?) {}
                 })
         }
 
-        private fun drawRotatedHand(canvas: Canvas, handBmp: Bitmap?, angle: Float, size: Int) {
-            if (handBmp == null) return
-            val matrix = Matrix()
-            val scale = size.toFloat() / handBmp.height.toFloat()
-            matrix.postScale(scale, scale)
-            val dx = (size / 2f) - (handBmp.width / 2f * scale)
-            val dy = (size / 2f) - (handBmp.height / 2f * scale)
-            matrix.postTranslate(dx, dy)
-            matrix.postRotate(angle, size / 2f, size / 2f)
-            canvas.drawBitmap(handBmp, matrix, null)
-        }
+        override fun getItemCount(): Int = list.size
+    }
 
-        override fun getItemCount(): Int = 1
+    private fun getCurrentWidgetInfo(): Pair<String, String> {
+        val item = widgetList.getOrNull(currentIndex)
+        val currentSize = item?.size ?: "2x2"
+        val currentType = item?.let {
+            val typeId = it.id.substringAfter("_widget_").substringBefore("_2x2").substringBefore("_4x2")
+            when (typeId) {
+                "today", "today2" -> "calendar"
+                "clocks" -> "clock"
+                "weather" -> "weather"
+                "image" -> "image"
+                else -> "clock"
+            }
+        } ?: "clock"
+        return Pair(currentType, currentSize)
     }
 
     private fun downloadAndPinWidget() {
         val activity = activity ?: return
-        if (widgetType.lowercase().contains("weather")) {
+        val (currentType, _) = getCurrentWidgetInfo()
+        if (currentType.lowercase().contains("weather")) {
             val hasFine = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
             val hasCoarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             if (!hasFine && !hasCoarse) {
-                requestPermissionLauncher.launch(arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ))
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
                 return
             }
         }
@@ -300,7 +330,9 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
 
     private fun continueDownloadAndPin() {
         val activity = requireActivity()
-        val fileName = when (size) {
+        val (currentType, currentSize) = getCurrentWidgetInfo()
+
+        val fileName = when (currentSize) {
             "2x2" -> "bg_medium.png"
             "4x2" -> "bg_medium.png"
             "4x4" -> "bg_large.png"
@@ -312,28 +344,29 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 val uuid = java.util.UUID.fromString(theme.id)
                 val db = com.app.personalization.feature_theme.data.ThemeDatabase.getDatabase(activity)
                 val diyWidgets = db.widgetDao().getWidgetsByTheme(uuid)
-                val matchingWidget = diyWidgets.firstOrNull { it.type.lowercase() == widgetType.lowercase() }
-                matchingWidget?.templatePath ?: com.app.personalization.core.data.ResourceConfig.getThemeFolderByPath(activity, theme.path)
+                val matchingWidget = diyWidgets.firstOrNull { it.type.lowercase() == currentType.lowercase() }
+                matchingWidget?.templatePath ?: ResourceConfig.getThemeFolderByPath(activity, theme.path)
             } catch (e: Exception) {
-                com.app.personalization.core.data.ResourceConfig.getThemeFolderByPath(activity, theme.path)
+                ResourceConfig.getThemeFolderByPath(activity, theme.path)
             }
 
             val cdnUrl = if (folder.startsWith("assets_collection/")) {
                 val clean = folder.removePrefix("assets_collection/").removePrefix("widget/")
-                "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$fileName"
+                "${ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$fileName"
             } else {
-                "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$fileName"
+                "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$fileName"
             }
 
             withContext(Dispatchers.Main) {
                 val downloadDialog = DownloadDialogFragment()
                 downloadDialog.setParams(cdnUrl, object : DownloadDialogFragment.DownloadCallback {
                     override fun onDownloadComplete(bitmap: Bitmap) {
-                        saveWidgetBackground(activity, bitmap)
+                        saveWidgetBackground(activity, bitmap, currentType, currentSize)
                         if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                            requestPinWidget(activity)
+                            dismissAllowingStateLoss()
+                            requestPinWidget(activity, currentType, currentSize)
                         } else {
-                            applyToExistingWidget(activity, bitmap)
+                            applyToExistingWidget(activity, bitmap, currentType, currentSize)
                         }
                     }
 
@@ -346,40 +379,41 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun saveWidgetBackground(context: Context, bitmap: Bitmap) {
+    private fun saveWidgetBackground(context: Context, bitmap: Bitmap, currentType: String, currentSize: String) {
         try {
-            val fileName = "widget_bg_${theme.id}_${widgetType}_$size.png"
+            val cleanId = theme.id.replace('/', '_').replace('\\', '_')
+            val fileName = "widget_bg_${cleanId}_${currentType}_$currentSize.png"
             context.openFileOutput(fileName, Context.MODE_PRIVATE).use { out ->
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
             }
             context.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
                 .edit()
-                .putString("bg_path_${theme.id}_${widgetType}_$size", fileName)
+                .putString("bg_path_${cleanId}_${currentType}_$currentSize", fileName)
                 .apply()
 
             val repo = com.app.personalization.feature_collections.data.CollectionRepository(context)
             lifecycleScope.launch(Dispatchers.IO) {
-                val typeFolder = when (widgetType.lowercase()) {
+                val typeFolder = when (currentType.lowercase()) {
                     "clock" -> "clocks"
                     "calendar", "date" -> "today"
                     "weather" -> "weather"
                     "image" -> "image"
-                    else -> widgetType.lowercase()
+                    else -> currentType.lowercase()
                 }
-                val previewFileName = if (size.lowercase() == "4x2") "bg_preview_medium.png" else "bg_preview_large.png"
+                val previewFileName = if (currentSize.lowercase() == "4x2") "bg_preview_medium.png" else "bg_preview_large.png"
                 val resolvedPreview = if (theme.path.startsWith("category/")) {
                     "file:///android_asset/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
                 } else {
-                    "${com.app.personalization.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
+                    "${ResourceConfig.ASSET_BASE_URL}/assets_theme/${theme.path}/widgets/$typeFolder/$previewFileName"
                 }
                 repo.markAsDownloaded(
-                    id = "widget_${theme.path.replace('/', '_')}_${widgetType}_$size",
-                    name = "${theme.name} ${widgetType.replaceFirstChar { it.uppercase() }}",
+                    id = "widget_${theme.path.replace('/', '_')}_${currentType}_$currentSize",
+                    name = "${theme.name} ${currentType.replaceFirstChar { it.uppercase() }}",
                     category = "Widget",
                     targetPath = theme.path,
                     previewPath = resolvedPreview,
-                    rawType = widgetType,
-                    extra = size
+                    rawType = currentType,
+                    extra = currentSize
                 )
             }
         } catch (e: Exception) {
@@ -387,8 +421,8 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun requestPinWidget(context: Context) {
-        val widgetSize = when (size.lowercase()) {
+    private fun requestPinWidget(context: Context, currentType: String, currentSize: String) {
+        val widgetSize = when (currentSize.lowercase()) {
             "2x2", "small" -> WidgetSize.SMALL
             "4x2", "medium" -> WidgetSize.MEDIUM
             "4x4", "large" -> WidgetSize.LARGE
@@ -405,8 +439,8 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
             id = theme.id,
             themeFolder = theme.path,
             name = theme.name,
-            widgetType = widgetType,
-            size = size,
+            widgetType = currentType,
+            size = currentSize,
             isFree = true,
             isFavorite = false
         )
@@ -414,10 +448,11 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
         context.addWidget(providerClass, widgetItem, isMineOrCustom = false)
     }
 
-    private fun applyToExistingWidget(activity: FragmentActivity, bitmap: Bitmap) {
+    private fun applyToExistingWidget(activity: FragmentActivity, bitmap: Bitmap, currentType: String, currentSize: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val fileName = "widget_bg_${theme.id}_${widgetType}_$size.png"
+                val cleanId = theme.id.replace('/', '_').replace('\\', '_')
+                val fileName = "widget_bg_${cleanId}_${currentType}_$currentSize.png"
                 val config = WidgetConfig(
                     widgetId = widgetId,
                     bgType = "IMAGE",
@@ -431,7 +466,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
 
                 activity.getSharedPreferences("widget_prefs", Context.MODE_PRIVATE)
                     .edit()
-                    .putString("widget_type_$widgetId", widgetType)
+                    .putString("widget_type_$widgetId", currentType)
                     .apply()
                 ServiceLocator.getWidgetConfigDao(activity).saveConfig(config)
 
@@ -447,7 +482,6 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                     activity.setResult(Activity.RESULT_OK, resultValue)
                     Toast.makeText(activity, "Widget applied successfully!", Toast.LENGTH_SHORT).show()
                     dismissAllowingStateLoss()
-                    activity.finish()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

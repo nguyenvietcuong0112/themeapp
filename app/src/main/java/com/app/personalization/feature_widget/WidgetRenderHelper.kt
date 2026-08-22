@@ -102,7 +102,8 @@ object WidgetRenderHelper {
                         WidgetSize.MEDIUM -> "4x2"
                         WidgetSize.LARGE -> "4x4"
                     }
-                    val fileName = "widget_bg_${widgetItem.id}_${widgetItem.widgetType}_$sizeStr.png"
+                    val cleanId = widgetItem.id.replace('/', '_').replace('\\', '_')
+                    val fileName = "widget_bg_${cleanId}_${widgetItem.widgetType}_$sizeStr.png"
                     val file = context.getFileStreamPath(fileName)
                     if (file.exists()) {
                         bgBmp = BitmapFactory.decodeFile(file.absolutePath)

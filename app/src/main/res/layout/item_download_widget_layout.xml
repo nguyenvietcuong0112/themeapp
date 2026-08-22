@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="match_parent" app:cardCornerRadius="@dimen/dp_16" app:cardElevation="0dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/transparent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false">
+
     <FrameLayout
         android:id="@+id/llContainer"
-        android:background="@drawable/bg_widget"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_6"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clipToOutline="true">
+        android:background="@drawable/bg_widget"
+        android:clickable="true"
+        android:clipToOutline="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
         <com.app.personalization.core.ui.RemoteImageView
             android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp_1"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_gravity="end"
+            android:id="@+id/ivChecked"
             android:tag="binding_1"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_radio_checked"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:translationZ="@dimen/dp_12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:translationZ="12dp"
+            android:visibility="gone" />
     </FrameLayout>
 </androidx.cardview.widget.CardView>

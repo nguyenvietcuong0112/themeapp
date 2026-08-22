@@ -158,11 +158,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-        <!-- Premium Screen Activity -->
-        <activity
-            android:name="com.app.personalization.feature_setting.PremiumActivity"
-            android:exported="true" />
-
         <!-- Widget Configuration Activity -->
         <activity
             android:name="com.app.personalization.feature_widget.WidgetConfigActivity"

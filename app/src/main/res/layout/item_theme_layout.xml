@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="match_parent" android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto"  
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:focusable="true"
@@ -7,9 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginVertical="@dimen/dp_4"
         android:clipToOutline="true"
-        app:cardCornerRadius="14dp"
+        app:cardCornerRadius="16dp"
         app:cardElevation="@dimen/dp_0"
         app:layout_constraintDimensionRatio="H,9:16"
         app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +93,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="0dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/tvName"

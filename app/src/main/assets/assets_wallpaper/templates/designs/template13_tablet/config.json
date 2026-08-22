@@ -1,0 +1,199 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#f1f2ed",
+          "bgImage": "template13_tablet/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 169.20215,
+                "top": 939.39453
+              },
+              "rotation": 0.16042231,
+              "sampleImageUrl": "template13_tablet/ic_image_sample_1.png",
+              "size": "384.10025, 376.03543",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 95.75781,
+                "top": 871.0
+              },
+              "size": "544.0, 554.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_2_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 271.33496,
+                "top": 436.60742
+              },
+              "rotation": 0.46135765,
+              "sampleImageUrl": "template13_tablet/ic_image_sample_2.png",
+              "size": "427.09543, 419.4538",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 152.75781,
+                "top": 360.0
+              },
+              "size": "620.0, 625.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_3_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 498.7129,
+                "top": 749.3864
+              },
+              "rotation": -0.3946787,
+              "sampleImageUrl": "template13_tablet/ic_image_sample_3.png",
+              "size": "421.27124, 413.005",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_3.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 428.7578,
+                "top": 646.0
+              },
+              "size": "613.0, 664.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_4.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 506.61377,
+                "top": 1216.2812
+              },
+              "size": "469.80215, 263.59174",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#8b5482",
+                "font": "Kapakana Regular",
+                "size": 93.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 622.8721,
+                "top": 1306.9277
+              },
+              "text": "My Love",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_5.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 278.80908,
+                "top": 863.0879
+              },
+              "size": "150.11339, 152.41553",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_6.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 198.32227,
+                "top": 1505.9121
+              },
+              "size": "162.71382, 161.32378",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_7.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 775.8374,
+                "top": 508.84766
+              },
+              "size": "169.57219, 188.74254",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13_tablet/ic_image_8.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 713.96436,
+                "top": 1540.2949
+              },
+              "size": "144.37645, 143.14673",
+              "type": "sticker"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

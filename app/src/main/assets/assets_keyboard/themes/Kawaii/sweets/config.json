@@ -1,0 +1,27 @@
+{
+  "key": {
+    "customKey": "sweets"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Kavoon-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_d24",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "sound": {
+    "soundName": "bird",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FF3049",
+  "primaryColor": "#FFFFFF"
+}

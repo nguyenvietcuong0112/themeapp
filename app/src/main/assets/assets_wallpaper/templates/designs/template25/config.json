@@ -1,0 +1,199 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#5b5b5b",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 50.2959,
+                "top": 848.7285
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 75.44238,
+                "top": 873.8755
+              },
+              "rotation": 9.106551E-26,
+              "sampleImageUrl": "template25/ic_image_sample_1.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 50.2959,
+                "top": 106.87683
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 75.44238,
+                "top": 132.02515
+              },
+              "rotation": 9.106551E-26,
+              "sampleImageUrl": "template25/ic_image_sample_2.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_3.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 50.2959,
+                "top": 1590.5791
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 75.44238,
+                "top": 1615.727
+              },
+              "rotation": 9.106551E-26,
+              "sampleImageUrl": "template25/ic_image_sample_3.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_4.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 587.8242,
+                "top": 848.7285
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 612.96875,
+                "top": 873.8755
+              },
+              "rotation": -1.9721523E-31,
+              "sampleImageUrl": "template25/ic_image_sample_4.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_5.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 587.8242,
+                "top": 106.87683
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 612.96875,
+                "top": 132.02515
+              },
+              "rotation": -1.9721523E-31,
+              "sampleImageUrl": "template25/ic_image_sample_5.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template25/ic_image_6.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 587.8242,
+                "top": 1590.5791
+              },
+              "size": "490.3761, 694.69934",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_25_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 612.96875,
+                "top": 1615.727
+              },
+              "rotation": -1.9721523E-31,
+              "sampleImageUrl": "template25/ic_image_sample_6.png",
+              "size": "440.0811, 553.2448",
+              "type": "image_template"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

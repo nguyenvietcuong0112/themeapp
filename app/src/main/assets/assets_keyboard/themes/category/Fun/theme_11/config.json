@@ -1,0 +1,27 @@
+{
+  "key": {
+    "customKey": "treasure"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Bungee-Shade-Regular"
+  },
+  "swipe": {
+    "customSwipe": "swipe_d8"
+  },
+  "effect": "effect_d8",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "sound": {
+    "soundName": "piano",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF"
+}

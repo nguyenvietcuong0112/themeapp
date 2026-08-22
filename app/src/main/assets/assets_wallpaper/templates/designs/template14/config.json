@@ -1,0 +1,98 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#f1f2ed",
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_14_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 72.29883,
+                "top": 704.1294
+              },
+              "sampleImageUrl": "template14/ic_image_sample_1.png",
+              "size": "458.94168, 748.1378",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_14_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 72.29883,
+                "top": 1521.4233
+              },
+              "sampleImageUrl": "template14/ic_image_sample_2.png",
+              "size": "458.94168, 748.1378",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_14_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 597.25195,
+                "top": 704.1294
+              },
+              "sampleImageUrl": "template14/ic_image_sample_3.png",
+              "size": "458.94168, 748.1378",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_14_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 597.25195,
+                "top": 1521.4233
+              },
+              "sampleImageUrl": "template14/ic_image_sample_4.png",
+              "size": "458.94168, 748.1378",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#000000",
+                "font": "Kapakana Regular",
+                "size": 70.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 72.29883,
+                "top": 565.8174
+              },
+              "text": "Today’s a great day to smile!",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

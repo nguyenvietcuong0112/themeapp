@@ -1,0 +1,23 @@
+{
+  "key": {
+    "customKey": "wood"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Itim-Regular"
+  },
+  "swipe": {
+    "customSwipe": "swipe_d29"
+  },
+  "effect": "effect_d29",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF"
+}

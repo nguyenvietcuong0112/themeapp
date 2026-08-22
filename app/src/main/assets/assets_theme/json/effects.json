@@ -1,0 +1,227 @@
+[
+  {
+    "name" : "effect1",
+    "isNone" : true,
+    "isPremium" : false
+  },
+  {
+    "name" : "effect2",
+    "isPremium" : false
+  },
+  {
+    "name" : "effect3",
+    "isPremium" : false
+  },
+  {
+    "name" : "effect4",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect5",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect6",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect7",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect8",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect9",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect10",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect11",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect12",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect13",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect14",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect15",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect16",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect17",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect18",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect19",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect20",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect21",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect22",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect23",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect24",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect25",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect26",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect27",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect28",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect29",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect30",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect31",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect32",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect33",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect34",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect35",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect36",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect37",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect38",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect39",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect40",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect41",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect42",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect43",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect44",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect45",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect46",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect47",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect48",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect49",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect50",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect51",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect52",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect53",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect54",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect55",
+    "isPremium" : true
+  },
+  {
+    "name" : "effect56",
+    "isPremium" : true
+  }
+]

@@ -1,0 +1,227 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#f1f2ed",
+          "bgImage": "template13/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 485.02637,
+                "top": 1667.3257
+              },
+              "size": "643.47797, 361.34244",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#8b5482",
+                "font": "Kapakana Regular",
+                "size": 128.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 644.8872,
+                "top": 1791.7451
+              },
+              "text": "My Love",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_3.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 315.85352,
+                "top": 483.78247
+              },
+              "size": "156.6348, 139.52899",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_4.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 62.77539,
+                "top": 2064.3638
+              },
+              "size": "222.86694, 221.14973",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_5.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 853.7822,
+                "top": 697.5469
+              },
+              "size": "232.25719, 258.73544",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_6.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 769.02734,
+                "top": 2111.4944
+              },
+              "size": "197.7497, 196.23203",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_7.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 315.86328,
+                "top": 483.78247
+              },
+              "size": "156.6348, 139.52899",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 22.890625,
+                "top": 1287.758
+              },
+              "rotation": 0.1605573,
+              "sampleImageUrl": "template13/ic_image_sample_1.png",
+              "size": "526.0889, 515.4837",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_8.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": -46.058594,
+                "top": 1194.0
+              },
+              "size": "651.0, 759.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_2.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 162.77539,
+                "top": 598.5176
+              },
+              "rotation": 0.46169886,
+              "sampleImageUrl": "template13/ic_image_sample_2.png",
+              "size": "584.9779, 575.00336",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_9.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 22.941406,
+                "top": 484.0
+              },
+              "size": "835.0, 845.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_13_3.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 474.21387,
+                "top": 1027.2866
+              },
+              "rotation": -0.39498258,
+              "sampleImageUrl": "template13/ic_image_sample_3.png",
+              "size": "577.0009, 566.16315",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_10.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 378.9414,
+                "top": 932.0
+              },
+              "size": "796.0, 864.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template13/ic_image_11.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 173.00488,
+                "top": 1183.155
+              },
+              "size": "205.61467, 208.94362",
+              "type": "sticker"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

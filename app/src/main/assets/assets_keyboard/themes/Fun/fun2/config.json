@@ -1,0 +1,21 @@
+{
+  "font": {
+    "fontColor": "#33BAC5",
+    "fontFamily": "Kavoon-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "sound": {
+    "soundName": "",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": true,
+    "textColor": "#097C86"
+  },
+  "tintColor": "#33BAC5",
+  "primaryColor": "#33BAC5",
+  "decorateKeys": []
+}

@@ -1,0 +1,164 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#000000",
+          "bgImage": "template5_tablet/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template5_tablet/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": true,
+              "opacity": 1.0,
+              "position": {
+                "left": 0.34765625,
+                "top": 0.0
+              },
+              "size": "1130.0, 1742.0",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template5_tablet/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 205.98047,
+                "top": 364.45898
+              },
+              "size": "187.95277, 281.92917",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template5_tablet/ic_image_3.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 700.9629,
+                "top": 820.58984
+              },
+              "size": "130.6281, 116.897446",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 584.1797,
+                "top": 325.4961
+              },
+              "sampleImageUrl": "template5_tablet/ic_image_sample_1.png",
+              "size": "362.1529, 362.1529",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 185.35156,
+                "top": 710.5664
+              },
+              "sampleImageUrl": "template5_tablet/ic_image_sample_2.png",
+              "size": "362.1529, 362.1529",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 584.1797,
+                "top": 1095.6406
+              },
+              "sampleImageUrl": "template5_tablet/ic_image_sample_3.png",
+              "size": "362.1529, 362.1529",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Nunito SemiBold",
+                "size": 24.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 224.31445,
+                "top": 561.5801
+              },
+              "text": "Shape of You",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Nunito SemiBold",
+                "size": 24.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 421.43848,
+                "top": 442.39062
+              },
+              "text": "Luna Ray",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Nunito Bold",
+                "size": 35.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 105.48535,
+                "top": 1276.3613
+              },
+              "text": "\"Enjoy the little things!\" 🌟",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

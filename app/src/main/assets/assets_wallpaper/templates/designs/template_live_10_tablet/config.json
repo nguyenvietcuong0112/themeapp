@@ -1,0 +1,191 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#ffffff",
+          "animation": {
+            "style": "translate_from_center"
+          },
+          "components": [
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 580.4844,
+                "top": 468.1797
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_1.png",
+              "size": "271.9674, 189.86403",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_1_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 277.73242,
+                "top": 468.1797
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_2.png",
+              "size": "271.9674, 189.86403",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_2_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 134.05273,
+                "top": 688.83203
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_3.png",
+              "size": "415.64835, 189.86403",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_3_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 252.07031,
+                "top": 909.4863
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_4.png",
+              "size": "189.86403, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_2_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 580.4844,
+                "top": 688.83203
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_5.png",
+              "size": "415.64835, 189.86403",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_3_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 472.73242,
+                "top": 909.4863
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_6.png",
+              "size": "187.29831, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_4_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 382.9297,
+                "top": 1042.9023
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_7.png",
+              "size": "169.33821, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_3_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 690.8164,
+                "top": 909.4863
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_8.png",
+              "size": "189.86403, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_4_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 583.0508,
+                "top": 1042.9023
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_9.png",
+              "size": "169.33821, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_10_5_tablet.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 482.99023,
+                "top": 1173.7578
+              },
+              "sampleImageUrl": "template10_tablet/ic_image_sample_10.png",
+              "size": "169.33821, 100.063484",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ff8080",
+                "font": "Island Moments Regular",
+                "size": 128.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 475.29102,
+                "top": 1307.1738
+              },
+              "text": "Love",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 1742"
+        }
+      ],
+      "size": "1130, 1742"
+    }
+  ]
+}

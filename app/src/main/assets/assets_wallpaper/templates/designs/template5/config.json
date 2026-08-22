@@ -1,0 +1,149 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#222222",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template5/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 72.26367,
+                "top": 710.11304
+              },
+              "size": "257.65152, 386.47778",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template5/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 750.19336,
+                "top": 1335.3945
+              },
+              "size": "178.91666, 160.24666",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 590.96094,
+                "top": 656.9725
+              },
+              "sampleImageUrl": "template5/ic_image_sample_1.png",
+              "size": "496.6584, 496.6584",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 44.009766,
+                "top": 1185.0653
+              },
+              "sampleImageUrl": "template5/ic_image_sample_2.png",
+              "size": "496.6584, 496.6584",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_5_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 590.96094,
+                "top": 1713.1572
+              },
+              "sampleImageUrl": "template5/ic_image_sample_3.png",
+              "size": "496.6584, 496.6584",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Inter SemiBold",
+                "size": 33.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 97.44641,
+                "top": 980.7428
+              },
+              "text": "Shape of You",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Inter SemiBold",
+                "size": 33.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 367.77612,
+                "top": 817.2856
+              },
+              "text": "Luna Ray",
+              "type": "text"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#ffffff",
+                "font": "Nunito Bold",
+                "size": 41.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 35.69,
+                "top": 1921.46
+              },
+              "text": "\"Enjoy the little things!\" 🌟",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

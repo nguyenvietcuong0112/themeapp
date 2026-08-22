@@ -9,6 +9,6 @@ import com.bumptech.glide.module.AppGlideModule
 @GlideModule
 class MyAppGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        builder.setLogLevel(Log.ERROR)
+        builder.setLogLevel(Log.DEBUG)
     }
 }

@@ -31,6 +31,45 @@ class ThemeApp : Application() {
         registerReceiver(chargingReceiver, filter)
 
         setupFullScreenLifecycle()
+        checkCdnConnection()
+    }
+
+    private fun checkCdnConnection() {
+        Thread {
+            val cdnBase = com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL
+            android.util.Log.i("CDN_CHECK", "==================================================================")
+            android.util.Log.i("CDN_CHECK", "🚀 TESTING CLOUDFLARE CDN CONNECTION: $cdnBase")
+            android.util.Log.i("CDN_CHECK", "==================================================================")
+
+            val testEndpoints = listOf(
+                "index.html",
+                "assets_collection/collections.json",
+                "assets_keyboard/themes/Animal/autumn/preview.png",
+                "assets_theme/category/Aesthetic/blue-sky/bg_preview.png"
+            )
+
+            for (endpoint in testEndpoints) {
+                val fullUrl = "$cdnBase/$endpoint"
+                val start = System.currentTimeMillis()
+                try {
+                    val url = java.net.URL(fullUrl)
+                    val conn = url.openConnection() as java.net.HttpURLConnection
+                    conn.requestMethod = "HEAD"
+                    conn.connectTimeout = 5000
+                    conn.readTimeout = 5000
+                    val code = conn.responseCode
+                    val duration = System.currentTimeMillis() - start
+                    if (code in 200..299) {
+                        android.util.Log.i("CDN_CHECK", "🟢 [CDN SUCCESS $code] $endpoint (${conn.contentLength} bytes in ${duration}ms)")
+                    } else {
+                        android.util.Log.w("CDN_CHECK", "🟡 [CDN HTTP $code] $endpoint (in ${duration}ms)")
+                    }
+                } catch (e: Exception) {
+                    android.util.Log.e("CDN_CHECK", "🔴 [CDN FAILED] $endpoint -> Error: ${e.message}")
+                }
+            }
+            android.util.Log.i("CDN_CHECK", "==================================================================")
+        }.start()
     }
 
     private fun setupFullScreenLifecycle() {

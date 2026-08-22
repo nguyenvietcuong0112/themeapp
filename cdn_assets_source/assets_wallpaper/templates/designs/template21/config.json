@@ -1,0 +1,127 @@
+{
+  "templatePages": [
+    {
+      "components": [],
+      "order": 0,
+      "pageType": "A1",
+      "pages": [
+        {
+          "colorPage": "#eecfae",
+          "bgImage": "template21/background.png",
+          "components": [
+            {
+              "angle": 0.0,
+              "imageUrl": "template21/ic_image_1.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 55.66992,
+                "top": 1485.6255
+              },
+              "size": "1052.4061, 773.4551",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "imageUrl": "template21/ic_image_2.png",
+              "isCircular": false,
+              "isFixed": true,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 37.70703,
+                "top": 1099.742
+              },
+              "size": "1071.463, 257.6539",
+              "type": "sticker"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_21_1.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 182.32031,
+                "top": 1436.55
+              },
+              "sampleImageUrl": "template21/ic_image_sample_1.png",
+              "size": "389.78607, 402.35986",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_21_2.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 182.32031,
+                "top": 1867.2012
+              },
+              "sampleImageUrl": "template21/ic_image_sample_2.png",
+              "size": "392.92953, 443.22443",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_21_3.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 594.1094,
+                "top": 1930.0693
+              },
+              "sampleImageUrl": "template21/ic_image_sample_3.png",
+              "size": "392.92953, 389.78607",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "bgMaskImageUrl": "templates/mask/bg/ic_mask_image_21_4.svg",
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 594.1094,
+                "top": 1436.55
+              },
+              "sampleImageUrl": "template21/ic_image_sample_4.png",
+              "size": "389.78607, 474.65884",
+              "type": "image_template"
+            },
+            {
+              "angle": 0.0,
+              "fontStyle": {
+                "alignment": "center",
+                "color": "#9b6c3a",
+                "font": "Leckerli One Regular",
+                "size": 55.0
+              },
+              "isCircular": false,
+              "isFixed": false,
+              "isHide": false,
+              "opacity": 1.0,
+              "position": {
+                "left": 91.1604,
+                "top": 1153.6406
+              },
+              "text": "🍀🌼 Every day is a new beginning\nenjoy it! 🌼🍀",
+              "type": "text"
+            }
+          ],
+          "pageType": "A1",
+          "size": "1130, 2388"
+        }
+      ],
+      "size": "1130, 2388"
+    }
+  ]
+}

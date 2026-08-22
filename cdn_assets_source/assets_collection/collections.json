@@ -1,0 +1,1412 @@
+﻿{
+    "theme":  [
+                  {
+                      "id":  "col_theme_1",
+                      "name":  "Dark Moon",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_1",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_1/bg_preview.png",
+                      "downloads":  7654321,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_2",
+                      "name":  "Matcha Latte",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_2",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_2/bg_preview.png",
+                      "downloads":  6543210,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_3",
+                      "name":  "Dreamy Bear",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_3",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_3/bg_preview.png",
+                      "downloads":  5892100,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_4",
+                      "name":  "Feel The Beats",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_4",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_4/bg_preview.png",
+                      "downloads":  4820194,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_5",
+                      "name":  "Galaxy",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_5",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_5/bg_preview.png",
+                      "downloads":  3940120,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_6",
+                      "name":  "Cat \u0026 Drops",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_6",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_6/bg_preview.png",
+                      "downloads":  3520110,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_7",
+                      "name":  "Crystal Bubbles",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_7",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_7/bg_preview.png",
+                      "downloads":  3120450,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_8",
+                      "name":  "Neon City",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_8",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_8/bg_preview.png",
+                      "downloads":  2980100,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_9",
+                      "name":  "Pink Bunny",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_9",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_9/bg_preview.png",
+                      "downloads":  2740900,
+                      "rawType":  "collection_theme"
+                  },
+                  {
+                      "id":  "col_theme_10",
+                      "name":  "Wedding Day",
+                      "category":  "Theme",
+                      "targetPath":  "assets_collection/theme/theme_10",
+                      "previewPath":  "file:///android_asset/assets_collection/theme/theme_10/bg_preview.png",
+                      "downloads":  2450800,
+                      "rawType":  "collection_theme"
+                  }
+              ],
+    "icons":  [
+                  {
+                      "id":  "col_icon_1",
+                      "name":  "Dark Moon Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_1",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_1/bg_icon.png",
+                      "downloads":  7654321,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_2",
+                      "name":  "Matcha Latte Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_2",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_2/bg_icon.png",
+                      "downloads":  6543210,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_3",
+                      "name":  "Dreamy Bear Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_3",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_3/bg_icon.png",
+                      "downloads":  5892100,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_4",
+                      "name":  "Feel The Beats Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_4",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_4/bg_icon.png",
+                      "downloads":  4820194,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_5",
+                      "name":  "Galaxy Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_5",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_5/bg_icon.png",
+                      "downloads":  3940120,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_6",
+                      "name":  "Cat \u0026 Drops Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_6",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_6/bg_icon.png",
+                      "downloads":  3520110,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_7",
+                      "name":  "Crystal Bubbles Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_7",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_7/bg_icon.png",
+                      "downloads":  3120450,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_8",
+                      "name":  "Neon City Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_8",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_8/bg_icon.png",
+                      "downloads":  2980100,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_9",
+                      "name":  "Pink Bunny Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_9",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_9/bg_icon.png",
+                      "downloads":  2740900,
+                      "rawType":  "collection_icon"
+                  },
+                  {
+                      "id":  "col_icon_10",
+                      "name":  "Wedding Day Icons",
+                      "category":  "Icons",
+                      "targetPath":  "assets_collection/icons/icon_10",
+                      "previewPath":  "file:///android_asset/assets_collection/icons/icon_10/bg_icon.png",
+                      "downloads":  2450800,
+                      "rawType":  "collection_icon"
+                  }
+              ],
+    "control_center":  [
+                           {
+                               "id":  "col_ctrl_1",
+                               "name":  "AI Felt Bear",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/ai_felt_bear",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/ai_felt_bear/thumb.webp",
+                               "downloads":  7654321,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_2",
+                               "name":  "Capybara",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/capybara",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/capybara/thumb.webp",
+                               "downloads":  6543210,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_3",
+                               "name":  "Cute 3D Stitch",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/cute_3d_stitch",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/cute_3d_stitch/thumb.webp",
+                               "downloads":  5892100,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_4",
+                               "name":  "Doraemon",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/doraemon",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/doraemon/thumb.webp",
+                               "downloads":  4820194,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_5",
+                               "name":  "Kuromi Purple",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/purple_glitch_art_kuromi_girl",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/purple_glitch_art_kuromi_girl/thumb.webp",
+                               "downloads":  3940120,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_6",
+                               "name":  "Autumn Study",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/autumn_study",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/autumn_study/thumb.webp",
+                               "downloads":  3520110,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_7",
+                               "name":  "Aesthetic Moon",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/moon",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/moon/thumb.webp",
+                               "downloads":  3120450,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_8",
+                               "name":  "Transparent Coffee",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/transparent_coffee",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/transparent_coffee/thumb.webp",
+                               "downloads":  2980100,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_9",
+                               "name":  "Gothic Black",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/gothic_black",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/gothic_black/thumb.webp",
+                               "downloads":  2740900,
+                               "rawType":  "collection_control"
+                           },
+                           {
+                               "id":  "col_ctrl_10",
+                               "name":  "Shimmer Butterfly",
+                               "category":  "Control center",
+                               "targetPath":  "assets_collection/control_center/transparent_shimmering_butterfly",
+                               "previewPath":  "file:///android_asset/assets_collection/control_center/transparent_shimmering_butterfly/thumb.webp",
+                               "downloads":  2450800,
+                               "rawType":  "collection_control"
+                           }
+                       ],
+    "widget":  [
+                   {
+                       "id":  "col_w1_cal",
+                       "name":  "Dark Moon Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_1",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_1/today/bg_preview_medium.png",
+                       "downloads":  7654321,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w1_clock",
+                       "name":  "Dark Moon Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_1",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_1/clocks/bg_preview_large.png",
+                       "downloads":  7540200,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w1_weather",
+                       "name":  "Dark Moon Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_1",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_1/weather/bg_preview_large.png",
+                       "downloads":  7430100,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w1_date",
+                       "name":  "Dark Moon Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_1",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_1/today/bg_preview_large.png",
+                       "downloads":  7320400,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w1_image",
+                       "name":  "Dark Moon Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_1",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_1/image/bg_preview_large.png",
+                       "downloads":  7210900,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w2_cal",
+                       "name":  "Matcha Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_2",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_2/today/bg_preview_medium.png",
+                       "downloads":  6543210,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w2_clock",
+                       "name":  "Matcha Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_2",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_2/clocks/bg_preview_large.png",
+                       "downloads":  6430100,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w2_weather",
+                       "name":  "Matcha Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_2",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_2/weather/bg_preview_large.png",
+                       "downloads":  6320500,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w2_date",
+                       "name":  "Matcha Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_2",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_2/today/bg_preview_large.png",
+                       "downloads":  6210000,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w2_image",
+                       "name":  "Matcha Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_2",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_2/image/bg_preview_large.png",
+                       "downloads":  6120400,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w3_cal",
+                       "name":  "Dreamy Bear Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_3",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_3/today/bg_preview_medium.png",
+                       "downloads":  5892100,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w3_clock",
+                       "name":  "Dreamy Bear Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_3",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_3/clocks/bg_preview_large.png",
+                       "downloads":  5780000,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w3_weather",
+                       "name":  "Dreamy Bear Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_3",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_3/weather/bg_preview_large.png",
+                       "downloads":  5670100,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w3_date",
+                       "name":  "Dreamy Bear Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_3",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_3/today/bg_preview_large.png",
+                       "downloads":  5540300,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w3_image",
+                       "name":  "Dreamy Bear Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_3",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_3/image/bg_preview_large.png",
+                       "downloads":  5430200,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w4_cal",
+                       "name":  "Feel The Beats Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_4",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_4/today/bg_preview_medium.png",
+                       "downloads":  4820194,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w4_clock",
+                       "name":  "Feel The Beats Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_4",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_4/clocks/bg_preview_large.png",
+                       "downloads":  4710200,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w4_weather",
+                       "name":  "Feel The Beats Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_4",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_4/weather/bg_preview_large.png",
+                       "downloads":  4620500,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w4_date",
+                       "name":  "Feel The Beats Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_4",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_4/today/bg_preview_large.png",
+                       "downloads":  4510900,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w4_image",
+                       "name":  "Feel The Beats Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_4",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_4/image/bg_preview_large.png",
+                       "downloads":  4420000,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w5_cal",
+                       "name":  "Galaxy Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_5",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_5/today/bg_preview_medium.png",
+                       "downloads":  3940120,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w5_clock",
+                       "name":  "Galaxy Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_5",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_5/clocks/bg_preview_large.png",
+                       "downloads":  3830400,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w5_weather",
+                       "name":  "Galaxy Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_5",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_5/weather/bg_preview_large.png",
+                       "downloads":  3720900,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w5_date",
+                       "name":  "Galaxy Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_5",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_5/today/bg_preview_large.png",
+                       "downloads":  3610000,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w5_image",
+                       "name":  "Galaxy Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_5",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_5/image/bg_preview_large.png",
+                       "downloads":  3520100,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w6_cal",
+                       "name":  "Cat \u0026 Drops Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_6",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_6/today/bg_preview_medium.png",
+                       "downloads":  3520110,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w6_clock",
+                       "name":  "Cat \u0026 Drops Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_6",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_6/clocks/bg_preview_large.png",
+                       "downloads":  3410200,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w6_weather",
+                       "name":  "Cat \u0026 Drops Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_6",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_6/weather/bg_preview_large.png",
+                       "downloads":  3320500,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w6_date",
+                       "name":  "Cat \u0026 Drops Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_6",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_6/today/bg_preview_large.png",
+                       "downloads":  3210400,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w6_image",
+                       "name":  "Cat \u0026 Drops Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_6",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_6/image/bg_preview_large.png",
+                       "downloads":  3120000,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w7_cal",
+                       "name":  "Crystal Bubbles Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_7",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_7/today/bg_preview_medium.png",
+                       "downloads":  3120450,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w7_clock",
+                       "name":  "Crystal Bubbles Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_7",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_7/clocks/bg_preview_large.png",
+                       "downloads":  3050100,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w7_weather",
+                       "name":  "Crystal Bubbles Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_7",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_7/weather/bg_preview_large.png",
+                       "downloads":  2980300,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w7_date",
+                       "name":  "Crystal Bubbles Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_7",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_7/today/bg_preview_large.png",
+                       "downloads":  2890500,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w7_image",
+                       "name":  "Crystal Bubbles Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_7",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_7/image/bg_preview_large.png",
+                       "downloads":  2810200,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w8_cal",
+                       "name":  "Neon City Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_8",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_8/today/bg_preview_medium.png",
+                       "downloads":  2980100,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w8_clock",
+                       "name":  "Neon City Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_8",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_8/clocks/bg_preview_large.png",
+                       "downloads":  2890000,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w8_weather",
+                       "name":  "Neon City Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_8",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_8/weather/bg_preview_large.png",
+                       "downloads":  2810400,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w8_date",
+                       "name":  "Neon City Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_8",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_8/today/bg_preview_large.png",
+                       "downloads":  2750000,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w8_image",
+                       "name":  "Neon City Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_8",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_8/image/bg_preview_large.png",
+                       "downloads":  2690000,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w9_cal",
+                       "name":  "Pink Bunny Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_9",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_9/today/bg_preview_medium.png",
+                       "downloads":  2740900,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w9_clock",
+                       "name":  "Pink Bunny Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_9",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_9/clocks/bg_preview_large.png",
+                       "downloads":  2680200,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w9_weather",
+                       "name":  "Pink Bunny Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_9",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_9/weather/bg_preview_large.png",
+                       "downloads":  2610500,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w9_date",
+                       "name":  "Pink Bunny Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_9",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_9/today/bg_preview_large.png",
+                       "downloads":  2550100,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w9_image",
+                       "name":  "Pink Bunny Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_9",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_9/image/bg_preview_large.png",
+                       "downloads":  2490000,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w10_cal",
+                       "name":  "Wedding Day Calendar",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_10",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_10/today/bg_preview_medium.png",
+                       "downloads":  2450800,
+                       "rawType":  "calendar",
+                       "extra":  "4x2"
+                   },
+                   {
+                       "id":  "col_w10_clock",
+                       "name":  "Wedding Day Clock",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_10",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_10/clocks/bg_preview_large.png",
+                       "downloads":  2390100,
+                       "rawType":  "clock",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w10_weather",
+                       "name":  "Wedding Day Weather",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_10",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_10/weather/bg_preview_large.png",
+                       "downloads":  2340500,
+                       "rawType":  "weather",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w10_date",
+                       "name":  "Wedding Day Date",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_10",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_10/today/bg_preview_large.png",
+                       "downloads":  2290000,
+                       "rawType":  "date",
+                       "extra":  "2x2"
+                   },
+                   {
+                       "id":  "col_w10_image",
+                       "name":  "Wedding Day Image",
+                       "category":  "Widget",
+                       "targetPath":  "assets_collection/widget/widget_10",
+                       "previewPath":  "file:///android_asset/assets_collection/widget/widget_10/image/bg_preview_large.png",
+                       "downloads":  2240100,
+                       "rawType":  "image",
+                       "extra":  "2x2"
+                   }
+               ],
+    "wallpaper":  [
+                      {
+                          "id":  "col_wp_1",
+                          "name":  "Dark Moon",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_1/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_1/preview.png",
+                          "downloads":  7926234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_2",
+                          "name":  "Matcha Latte",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_2/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_2/preview.png",
+                          "downloads":  7851234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_3",
+                          "name":  "Dreamy Bear",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_3/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_3/preview.png",
+                          "downloads":  7776234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_4",
+                          "name":  "Feel The Beats",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_4/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_4/preview.png",
+                          "downloads":  7701234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_5",
+                          "name":  "Galaxy",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_5/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_5/preview.png",
+                          "downloads":  7626234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_6",
+                          "name":  "Cat \u0026 Drops",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_6/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_6/preview.png",
+                          "downloads":  7551234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_7",
+                          "name":  "Crystal Bubbles",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_7/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_7/preview.png",
+                          "downloads":  7476234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_8",
+                          "name":  "Neon City",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_8/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_8/preview.png",
+                          "downloads":  7401234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_9",
+                          "name":  "Pink Bunny",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_9/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_9/preview.png",
+                          "downloads":  7326234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_10",
+                          "name":  "Wedding Day",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_10/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_10/preview.png",
+                          "downloads":  7251234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_11",
+                          "name":  "Aurora Horizon",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_11/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_11/preview.png",
+                          "downloads":  7176234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_12",
+                          "name":  "Neon Cyberpunk",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_12/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_12/preview.png",
+                          "downloads":  7101234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_13",
+                          "name":  "Pastel Sky",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_13/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_13/preview.png",
+                          "downloads":  7026234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_14",
+                          "name":  "Midnight Bloom",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_14/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_14/preview.png",
+                          "downloads":  6951234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_15",
+                          "name":  "Sunset Glow",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_15/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_15/preview.png",
+                          "downloads":  6876234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_16",
+                          "name":  "Cosmic Dream",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_16/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_16/preview.png",
+                          "downloads":  6801234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_17",
+                          "name":  "Cherry Blossom",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_17/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_17/preview.png",
+                          "downloads":  6726234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_18",
+                          "name":  "Golden Hour",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_18/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_18/preview.png",
+                          "downloads":  6651234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_19",
+                          "name":  "Ocean Waves",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_19/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_19/preview.png",
+                          "downloads":  6576234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_20",
+                          "name":  "Lavender Field",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_20/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_20/preview.png",
+                          "downloads":  6501234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_21",
+                          "name":  "Misty Mountain",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_21/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_21/preview.png",
+                          "downloads":  6426234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_22",
+                          "name":  "Autumn Leaves",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_22/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_22/preview.png",
+                          "downloads":  6351234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_23",
+                          "name":  "Retro Synthwave",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_23/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_23/preview.png",
+                          "downloads":  6276234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_24",
+                          "name":  "Starry Night",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_24/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_24/preview.png",
+                          "downloads":  6201234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_25",
+                          "name":  "Emerald Forest",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_25/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_25/preview.png",
+                          "downloads":  6126234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_26",
+                          "name":  "Desert Dunes",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_26/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_26/preview.png",
+                          "downloads":  6051234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_27",
+                          "name":  "Polar Light",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_27/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_27/preview.png",
+                          "downloads":  5976234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_28",
+                          "name":  "Urban Twilight",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_28/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_28/preview.png",
+                          "downloads":  5901234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_29",
+                          "name":  "Floral Fantasy",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_29/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_29/preview.png",
+                          "downloads":  5826234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_30",
+                          "name":  "Abstract Flow",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_30/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_30/preview.png",
+                          "downloads":  5751234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_31",
+                          "name":  "Geometric Art",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_31/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_31/preview.png",
+                          "downloads":  5676234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_32",
+                          "name":  "Deep Abyss",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_32/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_32/preview.png",
+                          "downloads":  5601234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_33",
+                          "name":  "Sunburst Ray",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_33/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_33/preview.png",
+                          "downloads":  5526234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_34",
+                          "name":  "Velvet Dusk",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_34/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_34/preview.png",
+                          "downloads":  5451234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_35",
+                          "name":  "Breeze Valley",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_35/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_35/preview.png",
+                          "downloads":  5376234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_36",
+                          "name":  "Twilight Sparkle",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_36/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_36/preview.png",
+                          "downloads":  5301234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_37",
+                          "name":  "Crystal Lake",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_37/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_37/preview.png",
+                          "downloads":  5226234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_38",
+                          "name":  "Rose Quartz",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_38/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_38/preview.png",
+                          "downloads":  5151234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_39",
+                          "name":  "Cyberpunk Alley",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_39/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_39/preview.png",
+                          "downloads":  5076234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_40",
+                          "name":  "Solar Flare",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_40/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_40/preview.png",
+                          "downloads":  5001234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_41",
+                          "name":  "Silent Lake",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_41/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_41/preview.png",
+                          "downloads":  4926234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_42",
+                          "name":  "Cloud Nine",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_42/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_42/preview.png",
+                          "downloads":  4851234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_43",
+                          "name":  "Neon Palms",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_43/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_43/preview.png",
+                          "downloads":  4776234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_44",
+                          "name":  "Prism Glow",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_44/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_44/preview.png",
+                          "downloads":  4701234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_45",
+                          "name":  "Serene Oasis",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_45/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_45/preview.png",
+                          "downloads":  4626234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_46",
+                          "name":  "Starlight Symphony",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_46/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_46/preview.png",
+                          "downloads":  4551234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_47",
+                          "name":  "Golden Sunrise",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_47/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_47/preview.png",
+                          "downloads":  4476234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_48",
+                          "name":  "Dreamy Cloud",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_48/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_48/preview.png",
+                          "downloads":  4401234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_49",
+                          "name":  "Mystic Fog",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_49/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_49/preview.png",
+                          "downloads":  4326234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_50",
+                          "name":  "Vibrant Nebula",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_50/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_50/preview.png",
+                          "downloads":  4251234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_51",
+                          "name":  "Aqua Glow",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_51/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_51/preview.png",
+                          "downloads":  4176234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_52",
+                          "name":  "Purple Twilight",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_52/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_52/preview.png",
+                          "downloads":  4101234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_53",
+                          "name":  "Blossom Rain",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_53/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_53/preview.png",
+                          "downloads":  4026234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_54",
+                          "name":  "Midnight Sky",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_54/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_54/preview.png",
+                          "downloads":  3951234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_55",
+                          "name":  "Emerald Breeze",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_55/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_55/preview.png",
+                          "downloads":  3876234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_56",
+                          "name":  "Peach Sunset",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_56/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_56/preview.png",
+                          "downloads":  3801234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_57",
+                          "name":  "Electric Wave",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_57/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_57/preview.png",
+                          "downloads":  3726234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_58",
+                          "name":  "Frozen Glacier",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_58/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_58/preview.png",
+                          "downloads":  3651234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_59",
+                          "name":  "Golden Radiance",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_59/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_59/preview.png",
+                          "downloads":  3576234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_60",
+                          "name":  "Magic Mirage",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_60/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_60/preview.png",
+                          "downloads":  3501234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_61",
+                          "name":  "Zen Garden",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_61/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_61/preview.png",
+                          "downloads":  3426234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_62",
+                          "name":  "Cosmic Dust",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_62/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_62/preview.png",
+                          "downloads":  3351234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_63",
+                          "name":  "Radiant Sunrise",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_63/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_63/preview.png",
+                          "downloads":  3276234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_64",
+                          "name":  "Moonlight Serenade",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_64/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_64/preview.png",
+                          "downloads":  3201234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_65",
+                          "name":  "Enchanted Forest",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_65/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_65/preview.png",
+                          "downloads":  3126234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_66",
+                          "name":  "Velvet Sunset",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_66/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_66/preview.png",
+                          "downloads":  3051234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_67",
+                          "name":  "Diamond Frost",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_67/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_67/preview.png",
+                          "downloads":  2976234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_68",
+                          "name":  "Pastel Rainbow",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_68/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_68/preview.png",
+                          "downloads":  2901234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_69",
+                          "name":  "Twilight Horizon",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_69/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_69/preview.png",
+                          "downloads":  2826234,
+                          "rawType":  "collection_wallpaper"
+                      },
+                      {
+                          "id":  "col_wp_70",
+                          "name":  "Celestial Spark",
+                          "category":  "Wallpaper",
+                          "targetPath":  "assets_collection/wallpaper/wp_70/wallpaper.png",
+                          "previewPath":  "file:///android_asset/assets_collection/wallpaper/wp_70/preview.png",
+                          "downloads":  2751234,
+                          "rawType":  "collection_wallpaper"
+                      }
+                  ]
+}

@@ -1,0 +1,27 @@
+{
+  "key": {
+    "customKey": "planet"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Bungee-Shade-Regular"
+  },
+  "swipe": {
+    "customSwipe": "swipe_d7"
+  },
+  "effect": "effect_d7",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "sound": {
+    "soundName": "piano",
+    "volume": 1.0
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FFFFFF",
+  "primaryColor": "#FFFFFF"
+}

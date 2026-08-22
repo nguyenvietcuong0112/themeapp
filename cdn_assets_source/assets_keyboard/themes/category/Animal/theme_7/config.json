@@ -1,0 +1,23 @@
+{
+  "key": {
+    "customKey": "autumn"
+  },
+  "font": {
+    "fontColor": "#FFFFFF",
+    "fontFamily": "Bangers-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "effect_d13",
+  "len": {
+    "lenName": "",
+    "blurry": ""
+  },
+  "popup": {
+    "useImage": false,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#B6533F",
+  "primaryColor": "#FFFFFF"
+}

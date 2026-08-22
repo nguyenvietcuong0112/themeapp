@@ -1,0 +1,23 @@
+{
+  "pullBarColor": "#FFFFFF",
+  "pullBarAlpha": 0.5,
+  "controlTextColor": "#FFFFFF",
+  "controlTextAlpha": 1,
+  "volumeTextColor": "#FFFFFF",
+  "volumeTextAlpha":  1,
+  "brightnessTextColor": "#FFFFFF",
+  "brightnessTextAlpha": 1,
+  "musicKnownTitleColor": "#351600",
+  "musicKnownTitleAlpha": 1,
+  "musicKnownSingerColor": "#351600",
+  "musicKnownSingerAlpha": 0.8,
+  "musicUnknownTitleColor": "#351600",
+  "musicUnknownTitleAlpha": 1,
+  "musicUnknownSingerColor": "#351600",
+  "musicUnknownSingerAlpha": 1,
+  "musicTimeColor": "#FFFFFF",
+  "musicTimeAlpha": 0.45,
+  "musicAlbumCorner": 33,
+  "homeControlDiyCorner": 22,
+  "homeControlDiySize": 30
+}

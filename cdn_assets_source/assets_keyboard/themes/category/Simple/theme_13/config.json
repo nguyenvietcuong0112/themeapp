@@ -1,0 +1,25 @@
+{
+  "font": {
+    "fontColor": "#36CDFC",
+    "fontFamily": "Roboto-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#36CDFC",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": [
+    "space",
+    "shift",
+    "return",
+    "emoji",
+    "backspace",
+    "mic"
+  ],
+  "decorateKeyColor": "#36CDFC"
+}

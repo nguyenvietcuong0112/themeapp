@@ -1,0 +1,17 @@
+{
+  "font": {
+    "fontColor": "#FF5FA2",
+    "fontFamily": "Jost-Regular"
+  },
+  "swipe": {
+    "customSwipe": ""
+  },
+  "effect": "",
+  "popup": {
+    "useImage": true,
+    "textColor": "#FFFFFF"
+  },
+  "tintColor": "#FF5FA2",
+  "primaryColor": "#FFFFFF",
+  "decorateKeys": []
+}

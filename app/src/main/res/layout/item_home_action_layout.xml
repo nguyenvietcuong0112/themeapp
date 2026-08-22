@@ -1,114 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_width="match_parent" android:layout_height="wrap_content">
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
         android:id="@+id/llWallpaper"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_weight="1">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:background="@drawable/bg_corner_12"
-            android:padding="@dimen/dp_5"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:src="@drawable/ic_home_action_wallpaper"
-            android:backgroundTint="#eff9ff"/>
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_action_wallpaper"
+            android:padding="13dp"
+            android:src="@drawable/ic_action_diy_wallpaper" />
+
         <TextView
-            android:textSize="@dimen/sp_10"
-            android:textColor="?attr/titleTextColor"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lines="1"
             android:text="@string/diy_wallpaper"
-            android:lines="1"
-            android:fontFamily="@font/inter_regular"/>
+            android:textColor="@color/text_primary"
+            android:textSize="11.5sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
         android:id="@+id/llTheme"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginHorizontal="@dimen/dp_16">
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:background="@drawable/bg_corner_12"
-            android:padding="@dimen/dp_5"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:src="@drawable/ic_home_action_theme"
-            android:backgroundTint="#eef2ff"/>
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_action_theme"
+            android:padding="13dp"
+            android:src="@drawable/ic_action_customize_theme" />
+
         <TextView
-            android:textSize="@dimen/sp_10"
-            android:textColor="?attr/titleTextColor"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lines="1"
             android:text="@string/customize_theme"
-            android:lines="1"
-            android:fontFamily="@font/inter_regular"/>
+            android:textColor="@color/text_primary"
+            android:textSize="11.5sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:id="@+id/llWidget"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_weight="1">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:background="@drawable/bg_corner_12"
-            android:padding="@dimen/dp_5"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:src="@drawable/ic_home_action_widget"
-            android:backgroundTint="#fff4f0"/>
-        <TextView
-            android:textSize="@dimen/sp_10"
-            android:textColor="?attr/titleTextColor"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/widget"
-            android:lines="1"
-            android:fontFamily="@font/inter_regular"
-            android:layout_marginHorizontal="@dimen/dp_16"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
         android:id="@+id/llKeyboard"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="@dimen/dp_16">
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:background="@drawable/bg_corner_12"
-            android:padding="@dimen/dp_5"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:src="@drawable/ic_home_action_keyboard"
-            android:backgroundTint="#dcfcea"/>
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_action_keyboard"
+            android:padding="13dp"
+            android:src="@drawable/ic_action_keyboard" />
+
         <TextView
-            android:textSize="@dimen/sp_10"
-            android:textColor="?attr/titleTextColor"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/keyboard"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
             android:lines="1"
-            android:fontFamily="@font/inter_regular"/>
+            android:text="@string/keyboard"
+            android:textColor="@color/text_primary"
+            android:textSize="11.5sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

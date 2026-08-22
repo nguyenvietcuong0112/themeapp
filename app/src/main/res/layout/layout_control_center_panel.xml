@@ -359,7 +359,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <!-- Brightness Slider (Col 3) -->
-                <com.app.personalization.feature_control_center.view.VerticalSliderView
+                <com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.view.VerticalSliderView
                     android:id="@+id/sliderBrightness"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -370,7 +370,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/sliderVolume" />
 
                 <!-- Volume Slider (Col 4) -->
-                <com.app.personalization.feature_control_center.view.VerticalSliderView
+                <com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.view.VerticalSliderView
                     android:id="@+id/sliderVolume"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

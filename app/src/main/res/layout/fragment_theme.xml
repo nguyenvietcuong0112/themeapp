@@ -13,23 +13,18 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:scrollbars="none"
             android:layout_marginHorizontal="@dimen/dp_16">
-            <com.app.personalization.core.ui.HomeActionView
+            <com.themes.diy.widgets.keyboard.controlcenter.core.ui.HomeActionView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/actionView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </HorizontalScrollView>
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpBanner"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecyclerView"
             android:tag="binding_2"

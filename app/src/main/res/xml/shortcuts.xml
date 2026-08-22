@@ -8,10 +8,10 @@
         android:shortcutLongLabel="@string/customize_widget"
         android:shortcutDisabledMessage="@string/customize_widget">
         <intent
-            android:targetPackage="com.app.personalization"
+            android:targetPackage="com.themes.diy.widgets.keyboard.controlcenter"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_custom_widget"
-            android:targetClass="com.app.personalization.feature_main.MainActivity"/>
+            android:targetClass="com.themes.diy.widgets.keyboard.controlcenter.feature_main.MainActivity"/>
     </shortcut>
     <shortcut
         android:icon="@drawable/ic_theme_home"
@@ -21,9 +21,9 @@
         android:shortcutLongLabel="@string/my_collection"
         android:shortcutDisabledMessage="@string/my_collection">
         <intent
-            android:targetPackage="com.app.personalization"
+            android:targetPackage="com.themes.diy.widgets.keyboard.controlcenter"
             android:action="android.intent.action.VIEW"
             android:data="shortcut_my_collection"
-            android:targetClass="com.app.personalization.feature_main.MainActivity"/>
+            android:targetClass="com.themes.diy.widgets.keyboard.controlcenter.feature_main.MainActivity"/>
     </shortcut>
 </shortcuts>

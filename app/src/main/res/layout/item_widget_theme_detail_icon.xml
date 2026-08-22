@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.app.personalization.core.ui.RemoteImageView
+        <com.themes.diy.widgets.keyboard.controlcenter.core.ui.RemoteImageView
             android:id="@+id/ivIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

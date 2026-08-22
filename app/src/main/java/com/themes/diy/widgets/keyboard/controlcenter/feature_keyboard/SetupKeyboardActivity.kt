@@ -1,0 +1,139 @@
+package com.themes.diy.widgets.keyboard.controlcenter.feature_keyboard
+
+import android.content.Context
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
+import android.util.TypedValue
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import com.themes.diy.widgets.keyboard.controlcenter.R
+import com.themes.diy.widgets.keyboard.controlcenter.databinding.ActivitySetupKeyboardBinding
+
+class SetupKeyboardActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySetupKeyboardBinding
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val checkStep1Runnable = object : Runnable {
+        override fun run() {
+            if (isKeyboardEnabled()) {
+                updateStepStates()
+            } else {
+                handler.postDelayed(this, 1000)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySetupKeyboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Setup Close Button
+        binding.ivClose.setOnClickListener {
+            finish()
+        }
+
+        // Setup Clicks
+        binding.tvEnabledStep1.setOnClickListener {
+            val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
+            startActivity(intent)
+        }
+
+        binding.tvEnabledStep2.setOnClickListener {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showInputMethodPicker()
+        }
+
+        updateStepStates()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Start polling Step 1 status when user returns
+        handler.removeCallbacks(checkStep1Runnable)
+        if (!isKeyboardEnabled()) {
+            handler.post(checkStep1Runnable)
+        } else {
+            updateStepStates()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(checkStep1Runnable)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            updateStepStates()
+            if (isKeyboardEnabled() && isKeyboardDefault()) {
+                Toast.makeText(this, "Theme Keyboard is ready!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+
+    private fun isKeyboardEnabled(): Boolean {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val list = imm.enabledInputMethodList ?: return false
+        for (info in list) {
+            if (info.packageName == packageName) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun isKeyboardDefault(): Boolean {
+        val currentIme = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.DEFAULT_INPUT_METHOD
+        ) ?: return false
+        return currentIme.contains(packageName)
+    }
+
+    private fun updateStepStates() {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(R.attr.primaryColor, typedValue, true)
+        val primaryColor = typedValue.data
+        theme.resolveAttribute(R.attr.secondaryBackgroundColor, typedValue, true)
+        val inactiveBg = typedValue.data
+
+        val enabled = isKeyboardEnabled()
+        val isDefault = isKeyboardDefault()
+
+        if (!enabled) {
+            binding.tvEnabledStep1.text = "Click to settings"
+            binding.tvEnabledStep1.backgroundTintList = ColorStateList.valueOf(primaryColor)
+            binding.tvEnabledStep1.setTextColor(Color.WHITE)
+        } else {
+            binding.tvEnabledStep1.text = "Enabled"
+            binding.tvEnabledStep1.backgroundTintList = ColorStateList.valueOf(inactiveBg)
+            binding.tvEnabledStep1.setTextColor(Color.GRAY)
+        }
+
+        if (!isDefault) {
+            binding.tvEnabledStep2.text = "Click to settings"
+            binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(primaryColor)
+            binding.tvEnabledStep2.setTextColor(Color.WHITE)
+        } else {
+            binding.tvEnabledStep2.text = "Default Keyboard"
+            binding.tvEnabledStep2.backgroundTintList = ColorStateList.valueOf(inactiveBg)
+            binding.tvEnabledStep2.setTextColor(Color.GRAY)
+        }
+
+        // Keep both buttons always clickable to prevent any lockouts
+        binding.tvEnabledStep1.isEnabled = true
+        binding.tvEnabledStep2.isEnabled = true
+    }
+}

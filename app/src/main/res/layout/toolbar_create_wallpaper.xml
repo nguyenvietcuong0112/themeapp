@@ -2,92 +2,87 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbarHeight">
+    android:layout_height="@dimen/dp_48">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBack"
-        android:background="@drawable/bg_circle"
-        android:padding="@dimen/dp_6"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_close"
-        android:tint="@color/white"
-        android:layout_marginStart="@dimen/dp_12"
-        android:backgroundTint="#64333333"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/dp_3"
+        android:src="@drawable/ic_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivDownload"
-        android:background="@drawable/bg_circle"
-        android:padding="@dimen/dp_6"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_design_share"
-        android:tint="@color/white"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:backgroundTint="#64333333"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvSave"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_primary" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivUndo"
-            android:background="@drawable/bg_circle"
-            android:padding="@dimen/dp_6"
-            android:focusable="true"
-            android:clickable="true"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginEnd="12dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/dp_3"
             android:src="@drawable/ic_design_undo"
-            android:tint="@color/white"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:backgroundTint="#64333333"
-            android:clipToOutline="true"/>
+            app:tint="@color/text_primary" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivRedo"
-            android:background="@drawable/bg_circle"
-            android:padding="@dimen/dp_6"
-            android:focusable="true"
-            android:clickable="true"
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/dp_3"
             android:src="@drawable/ic_design_redo"
-            android:tint="@color/white"
-            android:layout_marginEnd="@dimen/dp_12"
-            android:backgroundTint="#64333333"
-            android:clipToOutline="true"/>
+            app:tint="@color/text_primary" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <TextView
-        android:textSize="@dimen/sp_16"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:id="@+id/tvSave"
-        android:background="@drawable/bg_theme_category_selected"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="wrap_content"
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDownload"
+        android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="SAVE"
-        android:fontFamily="@font/helvetica_medium"
+        android:layout_marginEnd="12dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/dp_3"
+        android:src="@drawable/ic_design_share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvSave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_primary" />
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginEnd="@dimen/dp_16"
-        android:paddingHorizontal="@dimen/dp_24"
+        android:background="@drawable/bg_theme_category_selected"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_bold"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingHorizontal="18dp"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="12.5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

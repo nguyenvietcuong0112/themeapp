@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.app.personalization.feature_wallpaper.diy.PageWrapperView
+        <com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.diy.PageWrapperView
             android:id="@+id/pageWrapperView"
             android:layout_gravity="center"
             android:layout_width="match_parent"

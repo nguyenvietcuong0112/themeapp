@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607394733685",
+    "project_id": "h03-themeiconswidget",
+    "storage_bucket": "h03-themeiconswidget.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607394733685:android:5e4b03a551293c41d4e23c",
+        "android_client_info": {
+          "package_name": "com.themes.diy.widgets.keyboard.controlcenter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaEa9qxu81wfoWPGb29Hzb3oc2S5jsscE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

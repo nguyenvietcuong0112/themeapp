@@ -4,14 +4,16 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
-    namespace 'com.app.personalization'
+    namespace 'com.themes.diy.widgets.keyboard.controlcenter'
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.app.personalization"
+        applicationId "com.themes.diy.widgets.keyboard.controlcenter"
         minSdk 26
         targetSdk 36
         versionCode 1
@@ -57,6 +59,11 @@ android {
 }
 
 dependencies {
+    // Firebase BoM & Crashlytics / Analytics
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)

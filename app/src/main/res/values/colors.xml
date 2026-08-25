@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Brand Semantic Tokens -->
-    <color name="brand_primary">#FA5783</color>
-    <color name="brand_primary_soft">#FFF1F4</color>
-    <color name="brand_primary_variant">#FF819F</color>
+    <color name="brand_primary">#FF6B6B</color>
+    <color name="brand_primary_soft">#FFF0ED</color>
+    <color name="brand_primary_variant">#E05252</color>
     <color name="brand_secondary">#25D2BB</color>
     
     <!-- Text Semantic Tokens -->
@@ -16,10 +16,10 @@
     <color name="app_background">#FEF9F3</color>
     <color name="card_surface">#FFFFFF</color>
     <color name="divider_line">#EAEAEA</color>
-    <color name="ripple_light">#22FA4D75</color>
+    <color name="ripple_light">#22FF6B6B</color>
     <color name="ripple_dark">#22000000</color>
-    <color name="nav_border_pink">#FFF1F4</color>
-    <color name="nav_shadow_pink">#1AFA5783</color>
+    <color name="nav_border_pink">#FFF0ED</color>
+    <color name="nav_shadow_pink">#1AFF6B6B</color>
     <color name="blackAlpha40">#66000000</color>
     <color name="nav_item_unselected">#66000000</color>
 
@@ -73,10 +73,10 @@
     <color name="material_personalized_color_text_secondary_and_tertiary_inverse">#ffffff</color>
     <color name="material_personalized_color_text_secondary_and_tertiary_inverse_disabled">#ffffff</color>
     <color name="orange">#f57f65</color>
-    <color name="primary">#FA4D75</color>
+    <color name="primary">@color/brand_primary</color>
     <color name="purple_200">#ffbb86fc</color>
-    <color name="purple_500">#FA4D75</color>
-    <color name="purple_700">#E0335D</color>
+    <color name="purple_500">@color/brand_primary</color>
+    <color name="purple_700">@color/brand_primary_variant</color>
     <color name="rte_separator_color">#bbbbbb</color>
     <color name="secondaryPrimary">#25d2bb</color>
     <color name="selectedColor">#eefbff</color>

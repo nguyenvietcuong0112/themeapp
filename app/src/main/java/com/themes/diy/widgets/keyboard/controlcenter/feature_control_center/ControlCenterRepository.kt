@@ -5,7 +5,7 @@ import com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.io.File
+import java.net.URL
 
 class ControlCenterRepository(private val context: Context) {
 
@@ -14,83 +14,145 @@ class ControlCenterRepository(private val context: Context) {
     suspend fun getCategories(): List<ControlCategory> = withContext(Dispatchers.IO) {
         cachedCategories?.let { return@withContext it }
 
-        val assetManager = context.assets
-        val rootPath = "${ResourceConfig.CONTROL_CENTER}/control_themes"
-        val categoryDirs = try {
-            assetManager.list(rootPath) ?: emptyArray()
-        } catch (e: Exception) {
-            emptyArray()
-        }
+        val resultCategories = mutableListOf<ControlCategory>()
 
-        val categoriesList = mutableListOf<ControlCategory>()
-
-        for (catSlug in categoryDirs) {
-            val catPath = "$rootPath/$catSlug"
-            val themeDirs = try {
-                assetManager.list(catPath) ?: emptyArray()
+        // 1. Read exclusively from dedicated assets_control_center/control_center.json (CDN or local assets)
+        var jsonStr: String? = null
+        try {
+            // Try downloading latest control_center.json from CDN
+            val url = URL("${ResourceConfig.ASSET_BASE_URL}/assets_control_center/control_center.json")
+            val connection = url.openConnection()
+            connection.connectTimeout = 3000
+            connection.readTimeout = 3000
+            jsonStr = connection.getInputStream().bufferedReader().use { it.readText() }
+        } catch (_: Exception) {
+            // Fallback to local asset assets_control_center/control_center.json
+            try {
+                val stream = context.assets.open("assets_control_center/control_center.json")
+                jsonStr = stream.bufferedReader().use { it.readText() }
             } catch (e: Exception) {
-                emptyArray()
-            }
-
-            val themes = mutableListOf<ControlTheme>()
-            for (themeSlug in themeDirs) {
-                val themeFolder = "$catPath/$themeSlug"
-                var name = themeSlug.replace("_", " ").replaceFirstChar { it.uppercase() }
-                var categoryName = catSlug.replaceFirstChar { it.uppercase() }
-                var key = themeSlug
-                var isHot = false
-                var isNew = false
-                var downloads = 7654321L
-
-                // Try reading metadata.json
-                try {
-                    val metaStream = assetManager.open("$themeFolder/metadata.json")
-                    val jsonStr = metaStream.bufferedReader().use { it.readText() }
-                    val json = JSONObject(jsonStr)
-                    name = json.optString("name", name)
-                    categoryName = json.optString("category", categoryName)
-                    key = json.optString("key", key)
-                    isHot = json.optBoolean("isHot", false)
-                    isNew = json.optBoolean("isNew", false)
-                    downloads = json.optLong("downloads", 7654321L)
-                } catch (e: Exception) {
-                    // Ignore, fallback to defaults
-                }
-
-                // Check thumbnail and preview
-                val thumbFile = "${ResourceConfig.ASSET_BASE_URL}/$themeFolder/thumb.webp"
-                val previewFile = "${ResourceConfig.ASSET_BASE_URL}/$themeFolder/preview.jpg"
-
-                themes.add(
-                    ControlTheme(
-                        key = key,
-                        name = name,
-                        slug = themeSlug,
-                        category = categoryName,
-                        categorySlug = catSlug,
-                        folderPath = themeFolder,
-                        thumbPath = thumbFile,
-                        previewPath = previewFile,
-                        isHot = isHot,
-                        isNew = isNew,
-                        downloads = downloads
-                    )
-                )
-            }
-
-            if (themes.isNotEmpty()) {
-                val catName = themes.firstOrNull()?.category ?: catSlug.replaceFirstChar { it.uppercase() }
-                categoriesList.add(
-                    ControlCategory(
-                        slug = catSlug,
-                        name = catName,
-                        themes = themes
-                    )
-                )
+                e.printStackTrace()
             }
         }
 
-        cachedCategories = categoriesList
-        categoriesList
+        if (!jsonStr.isNullOrEmpty()) {
+            try {
+                val rootJson = JSONObject(jsonStr)
+                val catArray = rootJson.optJSONArray("categories")
+
+                if (catArray != null) {
+                    for (i in 0 until catArray.length()) {
+                        val catObj = catArray.getJSONObject(i)
+                        val catSlug = catObj.optString("slug", "category_$i")
+                        val catName = catObj.optString("name", "Category $i")
+                        val themeArray = catObj.optJSONArray("themes")
+
+                        val themeList = mutableListOf<ControlTheme>()
+                        if (themeArray != null) {
+                            for (j in 0 until themeArray.length()) {
+                                val tObj = themeArray.getJSONObject(j)
+                                val id = tObj.optString("id", "${catSlug}_$j")
+                                val name = tObj.optString("name", "Theme $j")
+                                val folderPath = tObj.optString("folderPath", "assets_control_center/control_themes/$catSlug/$id")
+                                val rawThumbUrl = tObj.optString("thumbUrl")
+
+                                val thumbUrl = if (rawThumbUrl.startsWith("http")) {
+                                    rawThumbUrl
+                                } else {
+                                    "${ResourceConfig.ASSET_BASE_URL}/$folderPath/thumb.webp"
+                                }
+
+                                themeList.add(
+                                    ControlTheme(
+                                        key = id,
+                                        name = name,
+                                        slug = id,
+                                        category = catName,
+                                        categorySlug = catSlug,
+                                        folderPath = folderPath,
+                                        thumbPath = thumbUrl,
+                                        previewPath = thumbUrl,
+                                        isHot = tObj.optBoolean("isHot", false),
+                                        isNew = tObj.optBoolean("isNew", false),
+                                        downloads = tObj.optLong("downloads", 1000000L)
+                                    )
+                                )
+                            }
+                        }
+
+                        if (themeList.isNotEmpty()) {
+                            resultCategories.add(
+                                ControlCategory(
+                                    slug = catSlug,
+                                    name = catName,
+                                    themes = themeList
+                                )
+                            )
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // 2. Scan local asset folders in assets_control_center/control_themes if present
+        try {
+            val assetManager = context.assets
+            val rootPath = "${ResourceConfig.CONTROL_CENTER}/control_themes"
+            val categoryDirs = assetManager.list(rootPath) ?: emptyArray()
+
+            for (catSlug in categoryDirs) {
+                val catPath = "$rootPath/$catSlug"
+                val themeDirs = assetManager.list(catPath) ?: emptyArray()
+
+                val categoryName = catSlug.replaceFirstChar { it.uppercase() }
+                val localCategory = resultCategories.find { it.slug == catSlug }
+                    ?: ControlCategory(slug = catSlug, name = categoryName, themes = mutableListOf()).also {
+                        resultCategories.add(it)
+                    }
+
+                val currentList = localCategory.themes as? MutableList<ControlTheme> ?: localCategory.themes.toMutableList()
+
+                for (themeSlug in themeDirs) {
+                    val themeFolder = "$catPath/$themeSlug"
+                    if (currentList.none { it.slug == themeSlug }) {
+                        var name = themeSlug.replace("_", " ").replaceFirstChar { it.uppercase() }
+                        var key = themeSlug
+
+                        try {
+                            val metaStream = assetManager.open("$themeFolder/metadata.json")
+                            val metaJsonStr = metaStream.bufferedReader().use { it.readText() }
+                            val json = JSONObject(metaJsonStr)
+                            name = json.optString("name", name)
+                            key = json.optString("key", key)
+                        } catch (_: Exception) {}
+
+                        val thumbFile = "file:///android_asset/$themeFolder/thumb.webp"
+
+                        currentList.add(
+                            ControlTheme(
+                                key = key,
+                                name = name,
+                                slug = themeSlug,
+                                category = categoryName,
+                                categorySlug = catSlug,
+                                folderPath = themeFolder,
+                                thumbPath = thumbFile,
+                                previewPath = thumbFile,
+                                isHot = true,
+                                isNew = false,
+                                downloads = 7654321L
+                            )
+                        )
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        cachedCategories = resultCategories
+        resultCategories
     }
 }

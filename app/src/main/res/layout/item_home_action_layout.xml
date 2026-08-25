@@ -1,97 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/brand_primary_soft"
+    app:strokeWidth="1dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llWallpaper"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingVertical="14dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_action_wallpaper"
-            android:padding="13dp"
-            android:src="@drawable/ic_action_diy_wallpaper" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- 1. DIY Wallpaper -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llWallpaper"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/inter_medium"
-            android:gravity="center"
-            android:lines="1"
-            android:text="@string/diy_wallpaper"
-            android:textColor="@color/text_primary"
-            android:textSize="11.5sp" />
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_action_wallpaper">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_diy_wallpaper" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@string/diy_wallpaper"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- 2. Customize Theme -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_action_theme">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_customize_theme" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@string/customize_theme"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- 3. DIY Keyboard -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llKeyboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_action_keyboard">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_keyboard" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@string/keyboard"
+                android:textColor="@color/text_primary"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llTheme"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_action_theme"
-            android:padding="13dp"
-            android:src="@drawable/ic_action_customize_theme" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/inter_medium"
-            android:gravity="center"
-            android:lines="1"
-            android:text="@string/customize_theme"
-            android:textColor="@color/text_primary"
-            android:textSize="11.5sp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llKeyboard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_action_keyboard"
-            android:padding="13dp"
-            android:src="@drawable/ic_action_keyboard" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/inter_medium"
-            android:gravity="center"
-            android:lines="1"
-            android:text="@string/keyboard"
-            android:textColor="@color/text_primary"
-            android:textSize="11.5sp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>

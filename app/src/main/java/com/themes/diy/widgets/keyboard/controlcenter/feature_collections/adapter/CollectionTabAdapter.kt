@@ -38,7 +38,7 @@ class CollectionTabAdapter(
             val context = tvTabName.context
             if (tab.isSelected) {
                 tvTabName.setBackgroundResource(R.drawable.bg_category_tab_selected)
-                tvTabName.setTextColor(Color.parseColor("#FA5783"))
+                tvTabName.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.brand_primary))
                 tvTabName.typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.inter_semi_bold)
             } else {
                 tvTabName.setBackgroundResource(R.drawable.bg_category_tab_unselected)

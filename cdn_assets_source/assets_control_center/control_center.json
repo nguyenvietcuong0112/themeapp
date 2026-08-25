@@ -1,0 +1,294 @@
+{
+  "categories": [
+    {
+      "slug": "recommend",
+      "name": "Recommend",
+      "themes": [
+        {
+          "id": "autumn_study",
+          "name": "Autumn Study",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/aesthetic/autumn_study",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/autumn_study/thumb.webp",
+          "downloads": 9823410,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "ai_felt_bear",
+          "name": "AI Felt Bear",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/cute/ai_felt_bear",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/ai_felt_bear/thumb.webp",
+          "downloads": 8752100,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "capybara",
+          "name": "Capybara",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/cute/capybara",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/capybara/thumb.webp",
+          "downloads": 7654321,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "cute_3d_stitch",
+          "name": "Cute 3D Stitch",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/cute/cute_3d_stitch",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/cute_3d_stitch/thumb.webp",
+          "downloads": 6981200,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "doraemon",
+          "name": "Doraemon",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/anime/doraemon",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/anime/doraemon/thumb.webp",
+          "downloads": 6543210,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "purple_glitch_art_kuromi_girl",
+          "name": "Kuromi Purple",
+          "category": "Recommend",
+          "categorySlug": "recommend",
+          "folderPath": "assets_control_center/control_themes/anime/purple_glitch_art_kuromi_girl",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/anime/purple_glitch_art_kuromi_girl/thumb.webp",
+          "downloads": 5940120,
+          "isHot": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "slug": "new",
+      "name": "New",
+      "themes": [
+        {
+          "id": "transparent_shimmering_butterfly",
+          "name": "Shimmer Butterfly",
+          "category": "New",
+          "categorySlug": "new",
+          "folderPath": "assets_control_center/control_themes/aesthetic/transparent_shimmering_butterfly",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/transparent_shimmering_butterfly/thumb.webp",
+          "downloads": 4820190,
+          "isHot": false,
+          "isNew": true
+        },
+        {
+          "id": "transparent_coffee",
+          "name": "Transparent Coffee",
+          "category": "New",
+          "categorySlug": "new",
+          "folderPath": "assets_control_center/control_themes/aesthetic/transparent_coffee",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/transparent_coffee/thumb.webp",
+          "downloads": 4120850,
+          "isHot": false,
+          "isNew": true
+        },
+        {
+          "id": "moon",
+          "name": "Aesthetic Moon",
+          "category": "New",
+          "categorySlug": "new",
+          "folderPath": "assets_control_center/control_themes/aesthetic/moon",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/moon/thumb.webp",
+          "downloads": 3950120,
+          "isHot": false,
+          "isNew": true
+        },
+        {
+          "id": "gothic_black",
+          "name": "Gothic Black",
+          "category": "New",
+          "categorySlug": "new",
+          "folderPath": "assets_control_center/control_themes/dark/gothic_black",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/dark/gothic_black/thumb.webp",
+          "downloads": 3420100,
+          "isHot": false,
+          "isNew": true
+        }
+      ]
+    },
+    {
+      "slug": "cute",
+      "name": "Cute",
+      "themes": [
+        {
+          "id": "ai_felt_bear",
+          "name": "AI Felt Bear",
+          "category": "Cute",
+          "categorySlug": "cute",
+          "folderPath": "assets_control_center/control_themes/cute/ai_felt_bear",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/ai_felt_bear/thumb.webp",
+          "downloads": 8752100,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "capybara",
+          "name": "Capybara",
+          "category": "Cute",
+          "categorySlug": "cute",
+          "folderPath": "assets_control_center/control_themes/cute/capybara",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/capybara/thumb.webp",
+          "downloads": 7654321,
+          "isHot": false,
+          "isNew": false
+        },
+        {
+          "id": "cute_3d_stitch",
+          "name": "Cute 3D Stitch",
+          "category": "Cute",
+          "categorySlug": "cute",
+          "folderPath": "assets_control_center/control_themes/cute/cute_3d_stitch",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/cute/cute_3d_stitch/thumb.webp",
+          "downloads": 6981200,
+          "isHot": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "slug": "anime",
+      "name": "Anime",
+      "themes": [
+        {
+          "id": "purple_glitch_art_kuromi_girl",
+          "name": "Kuromi Purple",
+          "category": "Anime",
+          "categorySlug": "anime",
+          "folderPath": "assets_control_center/control_themes/anime/purple_glitch_art_kuromi_girl",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/anime/purple_glitch_art_kuromi_girl/thumb.webp",
+          "downloads": 5940120,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "doraemon",
+          "name": "Doraemon",
+          "category": "Anime",
+          "categorySlug": "anime",
+          "folderPath": "assets_control_center/control_themes/anime/doraemon",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/anime/doraemon/thumb.webp",
+          "downloads": 6543210,
+          "isHot": false,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "slug": "aesthetic",
+      "name": "Aesthetic",
+      "themes": [
+        {
+          "id": "autumn_study",
+          "name": "Autumn Study",
+          "category": "Aesthetic",
+          "categorySlug": "aesthetic",
+          "folderPath": "assets_control_center/control_themes/aesthetic/autumn_study",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/autumn_study/thumb.webp",
+          "downloads": 9823410,
+          "isHot": true,
+          "isNew": false
+        },
+        {
+          "id": "transparent_coffee",
+          "name": "Transparent Coffee",
+          "category": "Aesthetic",
+          "categorySlug": "aesthetic",
+          "folderPath": "assets_control_center/control_themes/aesthetic/transparent_coffee",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/transparent_coffee/thumb.webp",
+          "downloads": 4120850,
+          "isHot": false,
+          "isNew": false
+        },
+        {
+          "id": "moon",
+          "name": "Aesthetic Moon",
+          "category": "Aesthetic",
+          "categorySlug": "aesthetic",
+          "folderPath": "assets_control_center/control_themes/aesthetic/moon",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/moon/thumb.webp",
+          "downloads": 3950120,
+          "isHot": false,
+          "isNew": false
+        },
+        {
+          "id": "transparent_shimmering_butterfly",
+          "name": "Shimmer Butterfly",
+          "category": "Aesthetic",
+          "categorySlug": "aesthetic",
+          "folderPath": "assets_control_center/control_themes/aesthetic/transparent_shimmering_butterfly",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/aesthetic/transparent_shimmering_butterfly/thumb.webp",
+          "downloads": 4820190,
+          "isHot": false,
+          "isNew": true
+        }
+      ]
+    },
+    {
+      "slug": "dark",
+      "name": "Dark",
+      "themes": [
+        {
+          "id": "gothic_black",
+          "name": "Gothic Black",
+          "category": "Dark",
+          "categorySlug": "dark",
+          "folderPath": "assets_control_center/control_themes/dark/gothic_black",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/dark/gothic_black/thumb.webp",
+          "downloads": 3420100,
+          "isHot": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "slug": "halloween",
+      "name": "Halloween",
+      "themes": [
+        {
+          "id": "spooky_halloween",
+          "name": "Spooky Halloween",
+          "category": "Halloween",
+          "categorySlug": "halloween",
+          "folderPath": "assets_control_center/control_themes/halloween/spooky_halloween",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/halloween/spooky_halloween/thumb.webp",
+          "downloads": 3120450,
+          "isHot": true,
+          "isNew": true
+        }
+      ]
+    },
+    {
+      "slug": "default",
+      "name": "Default",
+      "themes": [
+        {
+          "id": "classic_ios",
+          "name": "Classic iOS",
+          "category": "Default",
+          "categorySlug": "default",
+          "folderPath": "assets_control_center/control_themes/default/classic_ios",
+          "thumbUrl": "https://h03-themeapp-assets.pages.dev/assets_control_center/control_themes/default/classic_ios/thumb.webp",
+          "downloads": 9999999,
+          "isHot": true,
+          "isNew": false
+        }
+      ]
+    }
+  ]
+}

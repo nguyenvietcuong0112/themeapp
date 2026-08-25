@@ -40,7 +40,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:indeterminateTint="#FF4081"
+        android:indeterminateTint="@color/brand_primary"
         android:visibility="gone" />
 
 </FrameLayout>

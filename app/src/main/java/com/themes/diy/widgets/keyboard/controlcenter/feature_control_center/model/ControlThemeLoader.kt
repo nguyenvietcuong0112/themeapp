@@ -61,51 +61,59 @@ data class ControlThemeAssets(
 
 class ControlThemeLoader(private val context: Context) {
 
+    private val defaultFolder = "assets_control_center/control_themes/aesthetic/autumn_study"
+
     fun loadTheme(themePath: String): ControlThemeAssets {
         val cleanPath = themePath.removePrefix("file:///android_asset/").removePrefix("android_asset/")
         val spec = loadSpec("$cleanPath/control_spec.json")
 
+        fun loadBitmapWithFallback(filename: String): Bitmap? {
+            val primary = loadBitmap("$cleanPath/$filename")
+            if (primary != null) return primary
+            return loadBitmap("$defaultFolder/$filename")
+        }
+
         return ControlThemeAssets(
             themeFolder = cleanPath,
             spec = spec,
-            homeBg = loadBitmap("$cleanPath/home_bg.jpg"),
-            controlBg = loadBitmap("$cleanPath/home_control_bg.png"),
-            musicBg = loadBitmap("$cleanPath/home_music_bg.png"),
-            wifiOff = loadBitmap("$cleanPath/common_control_wifi.png"),
-            wifiOn = loadBitmap("$cleanPath/common_control_wifi_select.png"),
-            btOff = loadBitmap("$cleanPath/common_control_ic_bluetooth.png"),
-            btOn = loadBitmap("$cleanPath/common_control_ic_bluetooth_select.png"),
-            airplaneOff = loadBitmap("$cleanPath/common_control_ic_airplane.png"),
-            airplaneOn = loadBitmap("$cleanPath/common_control_ic_airplane_select.png"),
-            dataOff = loadBitmap("$cleanPath/common_control_ic_data.png"),
-            dataOn = loadBitmap("$cleanPath/common_control_ic_data_select.png"),
-            lightBg = loadBitmap("$cleanPath/common_light_bg.png"),
-            lightSlide = loadBitmap("$cleanPath/common_light_slide.png"),
-            lightIcon = loadBitmap("$cleanPath/home_light_icon.png") ?: loadBitmap("$cleanPath/light_ic_light.png"),
-            soundBg = loadBitmap("$cleanPath/common_home_sound_bg.png"),
-            soundSlide = loadBitmap("$cleanPath/common_home_sound_slide.png"),
-            soundBig = loadBitmap("$cleanPath/common_home_sound_big.png"),
-            soundMute = loadBitmap("$cleanPath/common_home_sound_mute.png"),
-            musicPlay = loadBitmap("$cleanPath/common_music_ic_play.png"),
-            musicPause = loadBitmap("$cleanPath/common_music_ic_pause.png"),
-            musicNext = loadBitmap("$cleanPath/common_music_ic_next.png"),
-            musicPrev = loadBitmap("$cleanPath/common_music_ic_previous.png"),
-            lockOff = loadBitmap("$cleanPath/home_second_ic_locking.png"),
-            lockOn = loadBitmap("$cleanPath/home_second_ic_locking_select.png"),
-            ringOff = loadBitmap("$cleanPath/home_second_ic_ring.png"),
-            ringOn = loadBitmap("$cleanPath/home_second_ic_ring_select.png"),
-            focusOff = loadBitmap("$cleanPath/home_second_ic_focus.png"),
-            focusOn = loadBitmap("$cleanPath/home_second_ic_focus_select.png"),
-            flashlightOff = loadBitmap("$cleanPath/home_bottom_ic_flashlight.png"),
-            flashlightOn = loadBitmap("$cleanPath/home_bottom_ic_flashlight_select.png"),
-            icCalculator = loadBitmap("$cleanPath/home_bottom_ic_calculator.png"),
-            icCamera = loadBitmap("$cleanPath/home_bottom_ic_camera.png"),
-            icTiming = loadBitmap("$cleanPath/home_bottom_ic_timing.png"),
-            icBattery = loadBitmap("$cleanPath/home_bottom_ic_battery.png"),
-            icSetup = loadBitmap("$cleanPath/home_bottom_ic_setup.png"),
-            icRecord = loadBitmap("$cleanPath/home_bottom_ic_record.png"),
-            icRecording = loadBitmap("$cleanPath/home_bottom_ic_recording.png"),
-            icScreenshot = loadBitmap("$cleanPath/home_bottom_ic_screenshot.png")
+            homeBg = loadBitmapWithFallback("home_bg.jpg"),
+            controlBg = loadBitmapWithFallback("home_control_bg.png"),
+            musicBg = loadBitmapWithFallback("home_music_bg.png"),
+            wifiOff = loadBitmapWithFallback("common_control_wifi.png"),
+            wifiOn = loadBitmapWithFallback("common_control_wifi_select.png"),
+            btOff = loadBitmapWithFallback("common_control_ic_bluetooth.png"),
+            btOn = loadBitmapWithFallback("common_control_ic_bluetooth_select.png"),
+            airplaneOff = loadBitmapWithFallback("common_control_ic_airplane.png"),
+            airplaneOn = loadBitmapWithFallback("common_control_ic_airplane_select.png"),
+            dataOff = loadBitmapWithFallback("common_control_ic_data.png"),
+            dataOn = loadBitmapWithFallback("common_control_ic_data_select.png"),
+            lightBg = loadBitmapWithFallback("common_light_bg.png"),
+            lightSlide = loadBitmapWithFallback("common_light_slide.png"),
+            lightIcon = loadBitmapWithFallback("home_light_icon.png") ?: loadBitmapWithFallback("light_ic_light.png"),
+            soundBg = loadBitmapWithFallback("common_home_sound_bg.png"),
+            soundSlide = loadBitmapWithFallback("common_home_sound_slide.png"),
+            soundBig = loadBitmapWithFallback("common_home_sound_big.png"),
+            soundMute = loadBitmapWithFallback("common_home_sound_mute.png"),
+            musicPlay = loadBitmapWithFallback("common_music_ic_play.png"),
+            musicPause = loadBitmapWithFallback("common_music_ic_pause.png"),
+            musicNext = loadBitmapWithFallback("common_music_ic_next.png"),
+            musicPrev = loadBitmapWithFallback("common_music_ic_previous.png"),
+            lockOff = loadBitmapWithFallback("home_second_ic_locking.png"),
+            lockOn = loadBitmapWithFallback("home_second_ic_locking_select.png"),
+            ringOff = loadBitmapWithFallback("home_second_ic_ring.png"),
+            ringOn = loadBitmapWithFallback("home_second_ic_ring_select.png"),
+            focusOff = loadBitmapWithFallback("home_second_ic_focus.png"),
+            focusOn = loadBitmapWithFallback("home_second_ic_focus_select.png"),
+            flashlightOff = loadBitmapWithFallback("home_bottom_ic_flashlight.png"),
+            flashlightOn = loadBitmapWithFallback("home_bottom_ic_flashlight_select.png"),
+            icCalculator = loadBitmapWithFallback("home_bottom_ic_calculator.png"),
+            icCamera = loadBitmapWithFallback("home_bottom_ic_camera.png"),
+            icTiming = loadBitmapWithFallback("home_bottom_ic_timing.png"),
+            icBattery = loadBitmapWithFallback("home_bottom_ic_battery.png"),
+            icSetup = loadBitmapWithFallback("home_bottom_ic_setup.png"),
+            icRecord = loadBitmapWithFallback("home_bottom_ic_record.png"),
+            icRecording = loadBitmapWithFallback("home_bottom_ic_recording.png"),
+            icScreenshot = loadBitmapWithFallback("home_bottom_ic_screenshot.png")
         )
     }
 

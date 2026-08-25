@@ -75,13 +75,13 @@ class ThemeApp : Application() {
     private fun setupFullScreenLifecycle() {
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                hideStatusBar(activity)
+                hideSystemBars(activity)
             }
 
             override fun onActivityStarted(activity: Activity) {}
 
             override fun onActivityResumed(activity: Activity) {
-                hideStatusBar(activity)
+                hideSystemBars(activity)
             }
 
             override fun onActivityPaused(activity: Activity) {}
@@ -94,11 +94,11 @@ class ThemeApp : Application() {
         })
     }
 
-    private fun hideStatusBar(activity: Activity) {
+    private fun hideSystemBars(activity: Activity) {
         val window = activity.window ?: return
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-        insetsController.hide(WindowInsetsCompat.Type.statusBars())
+        insetsController.hide(WindowInsetsCompat.Type.systemBars())
         insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
 }

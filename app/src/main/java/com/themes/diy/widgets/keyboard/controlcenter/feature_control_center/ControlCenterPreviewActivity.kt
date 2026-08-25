@@ -2,12 +2,9 @@ package com.themes.diy.widgets.keyboard.controlcenter.feature_control_center
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,13 +16,12 @@ import com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.serv
 
 class ControlCenterPreviewActivity : AppCompatActivity() {
 
-    private lateinit var ivPreviewThumb: ImageView
     private lateinit var btnBack: ImageView
-    private lateinit var tvHeaderTitle: TextView
-    private lateinit var btnApplyTheme: View
+    private lateinit var tvTitle: TextView
+    private lateinit var ivPreviewThumb: ImageView
+    private lateinit var btnApplyTheme: TextView
 
     private lateinit var prefs: ControlCenterPreferences
-
     private var themePath: String = ""
     private var themeName: String = ""
 
@@ -35,8 +31,8 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
 
         prefs = ControlCenterPreferences(this)
 
-        themePath = intent.getStringExtra(EXTRA_THEME_PATH) ?: prefs.activeThemePath
-        themeName = intent.getStringExtra(EXTRA_THEME_NAME) ?: prefs.activeThemeName
+        themePath = intent.getStringExtra(EXTRA_THEME_PATH) ?: ""
+        themeName = intent.getStringExtra(EXTRA_THEME_NAME) ?: "Control Theme"
 
         initViews()
         loadThemePreview()
@@ -44,10 +40,12 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        ivPreviewThumb = findViewById(R.id.ivPreviewThumb)
         btnBack = findViewById(R.id.btnBack)
-        tvHeaderTitle = findViewById(R.id.tvHeaderTitle)
+        tvTitle = findViewById(R.id.tvHeaderTitle)
+        ivPreviewThumb = findViewById(R.id.ivPreviewThumb)
         btnApplyTheme = findViewById(R.id.btnApplyTheme)
+
+        tvTitle.text = themeName
     }
 
     private fun loadThemePreview() {
@@ -95,6 +93,8 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
         prefs.isEnabled = true
 
         ControlCenterOverlayService.start(this)
+        ControlCenterOverlayService.reloadTheme(this)
+        ControlCenterOverlayService.openPanel(this)
 
         Toast.makeText(this, "Control Center applied successfully!", Toast.LENGTH_SHORT).show()
         finish()

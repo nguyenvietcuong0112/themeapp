@@ -24,6 +24,7 @@ class HomeActionView @JvmOverloads constructor(
     private var listener: OnHomeActionViewListener? = null
 
     init {
+        orientation = VERTICAL
         LayoutInflater.from(context).inflate(R.layout.item_home_action_layout, this, true)
         
         findViewById<View>(R.id.llWallpaper)?.setOnClickListener {

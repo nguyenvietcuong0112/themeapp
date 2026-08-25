@@ -48,7 +48,7 @@ class WallpaperCategoryAdapter(
             if (isSelected) {
                 llContainer.setBackgroundResource(R.drawable.bg_category_tab_selected)
                 llContainer.backgroundTintList = null
-                tvName.setTextColor(Color.parseColor("#FA5783"))
+                tvName.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.brand_primary))
                 tvName.typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.inter_semi_bold)
             } else {
                 llContainer.setBackgroundResource(R.drawable.bg_category_tab_unselected)

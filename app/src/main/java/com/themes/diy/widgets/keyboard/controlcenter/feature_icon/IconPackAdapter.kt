@@ -44,7 +44,6 @@ class IconPackAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
         private val tvName: TextView = view.findViewById(R.id.tvName)
-        private val llViewAll: View? = view.findViewById(R.id.llViewAll)
         private val cardContainer: View = view.findViewById(R.id.cardContainer)
 
         fun bind(
@@ -66,9 +65,6 @@ class IconPackAdapter(
                 .into(ivPreview)
 
             cardContainer.setOnClickListener {
-                onClick(item)
-            }
-            llViewAll?.setOnClickListener {
                 onClick(item)
             }
         }

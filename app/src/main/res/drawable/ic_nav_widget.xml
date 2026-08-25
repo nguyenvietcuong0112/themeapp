@@ -3,36 +3,28 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+  <!-- Clock Circle -->
   <path
-      android:pathData="M22,10.9V4.1C22,2.6 21.36,2 19.77,2H15.73C14.14,2 13.5,2.6 13.5,4.1V10.9C13.5,12.4 14.14,13 15.73,13H19.77C21.36,13 22,12.4 22,10.9Z"
-      android:strokeAlpha="0.4"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
+      android:pathData="M7.5,11.5C9.7,11.5 11.5,9.7 11.5,7.5C11.5,5.3 9.7,3.5 7.5,3.5C5.3,3.5 3.5,5.3 3.5,7.5C3.5,9.7 5.3,11.5 7.5,11.5Z"
       android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"/>
+      android:strokeColor="#FF000000"
+      android:strokeWidth="1.8"/>
   <path
-      android:pathData="M22,19.9V18.1C22,16.6 21.36,16 19.77,16H15.73C14.14,16 13.5,16.6 13.5,18.1V19.9C13.5,21.4 14.14,22 15.73,22H19.77C21.36,22 22,21.4 22,19.9Z"
-      android:strokeAlpha="0.4"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
+      android:pathData="M7.5,5.5V7.5H9.5"
       android:fillColor="#00000000"
-      android:strokeColor="#000000"
+      android:strokeColor="#FF000000"
+      android:strokeWidth="1.5"
       android:strokeLineCap="round"/>
+  <!-- Widget Card -->
   <path
-      android:pathData="M10.5,13.1V19.9C10.5,21.4 9.86,22 8.27,22H4.23C2.64,22 2,21.4 2,19.9V13.1C2,11.6 2.64,11 4.23,11H8.27C9.86,11 10.5,11.6 10.5,13.1Z"
-      android:strokeAlpha="0.4"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
+      android:pathData="M14,4.5H17.5C19.2,4.5 20.5,5.8 20.5,7.5V17.5C20.5,19.2 19.2,20.5 17.5,20.5H7.5C5.8,20.5 4.5,19.2 4.5,17.5V14"
       android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"/>
+      android:strokeColor="#FF000000"
+      android:strokeWidth="1.8"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"/>
+  <!-- Heart Badge inside Widget Card -->
   <path
-      android:pathData="M10.5,4.1V5.9C10.5,7.4 9.86,8 8.27,8H4.23C2.64,8 2,7.4 2,5.9V4.1C2,2.6 2.64,2 4.23,2H8.27C9.86,2 10.5,2.6 10.5,4.1Z"
-      android:strokeAlpha="0.4"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"/>
+      android:pathData="M15,16.8L13.8,15.7C13.4,15.3 13.4,14.7 13.8,14.3C14.2,13.9 14.8,13.9 15.2,14.3L15.5,14.5L15.8,14.3C16.2,13.9 16.8,13.9 17.2,14.3C17.6,14.7 17.6,15.3 17.2,15.7L16,16.8H15Z"
+      android:fillColor="#FF000000"/>
 </vector>

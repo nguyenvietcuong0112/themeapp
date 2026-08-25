@@ -35,7 +35,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/bg_corner_8"
-        android:backgroundTint="#FF4081"
+        android:backgroundTint="@color/brand_primary"
         android:fontFamily="@font/helvetica_medium"
         android:text="Apply Control Center"
         android:textAllCaps="false"

@@ -30,14 +30,14 @@
     </style>
 
     <style name="BottomNavTextActive" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">@font/inter_bold</item>
     </style>
 
     <style name="BottomNavTextInactive" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>

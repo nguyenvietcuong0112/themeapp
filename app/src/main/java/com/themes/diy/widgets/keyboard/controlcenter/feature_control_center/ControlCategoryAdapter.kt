@@ -49,7 +49,7 @@ class ControlCategoryAdapter(
 
             if (item.isSelected) {
                 tvTabName.setBackgroundResource(R.drawable.bg_category_tab_selected)
-                tvTabName.setTextColor(Color.parseColor("#FA5783"))
+                tvTabName.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.brand_primary))
                 tvTabName.typeface = ResourcesCompat.getFont(context, R.font.inter_semi_bold)
             } else {
                 tvTabName.setBackgroundResource(R.drawable.bg_category_tab_unselected)

@@ -15,13 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.themes.diy.widgets.keyboard.controlcenter.R
 
+import androidx.appcompat.widget.SwitchCompat
+
 class PermissionActivity : AppCompatActivity() {
 
-    private lateinit var btnGrantStorage: Button
-    private lateinit var btnGrantOverlay: Button
-    private lateinit var btnGrantWriteSettings: Button
-    private lateinit var btnGrantNotifications: Button
-    private lateinit var btnGrantLocation: Button
+    private lateinit var btnGrantStorage: SwitchCompat
+    private lateinit var btnGrantOverlay: SwitchCompat
+    private lateinit var btnGrantWriteSettings: SwitchCompat
+    private lateinit var btnGrantNotifications: SwitchCompat
+    private lateinit var btnGrantLocation: SwitchCompat
     private lateinit var btnGetStarted: Button
 
     // Launchers
@@ -85,7 +87,11 @@ class PermissionActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         // 1. Storage
         btnGrantStorage.setOnClickListener {
-            if (isStorageGranted()) return@setOnClickListener
+            if (isStorageGranted()) {
+                btnGrantStorage.isChecked = true
+                return@setOnClickListener
+            }
+            btnGrantStorage.isChecked = false
 
             val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
@@ -100,7 +106,11 @@ class PermissionActivity : AppCompatActivity() {
 
         // 2. Display Over Other Apps (Overlay)
         btnGrantOverlay.setOnClickListener {
-            if (isOverlayGranted()) return@setOnClickListener
+            if (isOverlayGranted()) {
+                btnGrantOverlay.isChecked = true
+                return@setOnClickListener
+            }
+            btnGrantOverlay.isChecked = false
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val intent = Intent(
@@ -122,7 +132,11 @@ class PermissionActivity : AppCompatActivity() {
 
         // 3. Write Settings
         btnGrantWriteSettings.setOnClickListener {
-            if (isWriteSettingsGranted()) return@setOnClickListener
+            if (isWriteSettingsGranted()) {
+                btnGrantWriteSettings.isChecked = true
+                return@setOnClickListener
+            }
+            btnGrantWriteSettings.isChecked = false
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val intent = Intent(
@@ -144,7 +158,11 @@ class PermissionActivity : AppCompatActivity() {
 
         // 4. Notifications
         btnGrantNotifications.setOnClickListener {
-            if (isNotificationsGranted()) return@setOnClickListener
+            if (isNotificationsGranted()) {
+                btnGrantNotifications.isChecked = true
+                return@setOnClickListener
+            }
+            btnGrantNotifications.isChecked = false
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 requestNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -155,7 +173,11 @@ class PermissionActivity : AppCompatActivity() {
 
         // 5. Location
         btnGrantLocation.setOnClickListener {
-            if (isLocationGranted()) return@setOnClickListener
+            if (isLocationGranted()) {
+                btnGrantLocation.isChecked = true
+                return@setOnClickListener
+            }
+            btnGrantLocation.isChecked = false
 
             requestLocationLauncher.launch(
                 arrayOf(
@@ -172,25 +194,15 @@ class PermissionActivity : AppCompatActivity() {
     }
 
     private fun updateButtonStates() {
-        applyButtonState(btnGrantStorage, isStorageGranted())
-        applyButtonState(btnGrantOverlay, isOverlayGranted())
-        applyButtonState(btnGrantWriteSettings, isWriteSettingsGranted())
-        applyButtonState(btnGrantNotifications, isNotificationsGranted())
-        applyButtonState(btnGrantLocation, isLocationGranted())
+        applySwitchState(btnGrantStorage, isStorageGranted())
+        applySwitchState(btnGrantOverlay, isOverlayGranted())
+        applySwitchState(btnGrantWriteSettings, isWriteSettingsGranted())
+        applySwitchState(btnGrantNotifications, isNotificationsGranted())
+        applySwitchState(btnGrantLocation, isLocationGranted())
     }
 
-    private fun applyButtonState(button: Button, isGranted: Boolean) {
-        if (isGranted) {
-            button.text = "Granted"
-            button.setBackgroundColor(Color.parseColor("#2A2A3C"))
-            button.setTextColor(Color.parseColor("#4CAF50")) // Green text
-            button.isEnabled = false
-        } else {
-            button.text = "Grant"
-            button.setBackgroundColor(Color.parseColor("#FF4081")) // Pink accent
-            button.setTextColor(Color.parseColor("#FFFFFF"))
-            button.isEnabled = true
-        }
+    private fun applySwitchState(switch: SwitchCompat, isGranted: Boolean) {
+        switch.isChecked = isGranted
     }
 
     private fun isStorageGranted(): Boolean {

@@ -10,15 +10,14 @@ import com.themes.diy.widgets.keyboard.controlcenter.feature_widget.WidgetConfig
 import com.themes.diy.widgets.keyboard.controlcenter.feature_collections.CollectionsFragment
 
 class MainPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = 4
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ThemeFragment.newInstance()
             1 -> IconFragment.newInstance()
-            2 -> ControlCenterFragment.newInstance()
-            3 -> WidgetConfigFragment.newInstance()
-            else -> CollectionsFragment.newInstance()
+            2 -> WidgetConfigFragment.newInstance()
+            else -> ControlCenterFragment.newInstance()
         }
     }
 }

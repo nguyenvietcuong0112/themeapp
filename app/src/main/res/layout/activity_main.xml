@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Theme App"
-                android:textColor="#FF5678"
+                android:textColor="@color/brand_primary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/fredoka_bold" />
@@ -81,20 +81,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/headerLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardBottomNav"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Floating Pill Bottom Navigation Bar -->
-    <!-- Floating Pill Bottom Navigation Bar -->
+    <!-- Custom Floating Pill Bottom Navigation Bar -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardBottomNav"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="36dp"
-        app:cardElevation="8dp"
+        android:layout_height="68dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="34dp"
+        app:cardElevation="2dp"
         app:cardBackgroundColor="@color/white"
         app:strokeWidth="1dp"
         app:strokeColor="@color/nav_border_pink"
@@ -105,25 +104,135 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:paddingHorizontal="13dp"
-            app:elevation="0dp"
-            app:itemIconSize="24dp"
-            android:paddingTop="16dp"
-            app:paddingBottomSystemWindowInsets="false"
-            app:paddingTopSystemWindowInsets="false"
-            app:itemTextAppearanceActive="@style/BottomNavTextActive"
-            app:itemTextAppearanceInactive="@style/BottomNavTextInactive"
-            app:itemIconTint="@color/nav_item_icon_color"
-            app:itemTextColor="@color/nav_item_text_color"
-            app:itemActiveIndicatorStyle="@null"
-            app:itemRippleColor="@color/transparent"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/navigation" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="4">
+
+            <!-- Tab 0: Theme -->
+            <LinearLayout
+                android:id="@+id/navItemTheme"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:id="@+id/ivNavTheme"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_nav_theme"
+                    app:tint="@color/brand_primary" />
+
+                <TextView
+                    android:id="@+id/tvNavTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/tab_theme"
+                    android:textSize="10.5sp"
+                    android:textColor="@color/brand_primary"
+                    android:fontFamily="@font/inter_bold" />
+            </LinearLayout>
+
+            <!-- Tab 1: Icons -->
+            <LinearLayout
+                android:id="@+id/navItemIcons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:id="@+id/ivNavIcons"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_nav_icons"
+                    app:tint="#8E8E93" />
+
+                <TextView
+                    android:id="@+id/tvNavIcons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/tab_icons"
+                    android:textSize="10.5sp"
+                    android:textColor="#8E8E93"
+                    android:fontFamily="@font/inter_medium" />
+            </LinearLayout>
+
+            <!-- Tab 2: Widget -->
+            <LinearLayout
+                android:id="@+id/navItemWidget"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:id="@+id/ivNavWidget"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_nav_widget"
+                    app:tint="#8E8E93" />
+
+                <TextView
+                    android:id="@+id/tvNavWidget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/tab_widget"
+                    android:textSize="10.5sp"
+                    android:textColor="#8E8E93"
+                    android:fontFamily="@font/inter_medium" />
+            </LinearLayout>
+
+            <!-- Tab 3: Control -->
+            <LinearLayout
+                android:id="@+id/navItemControl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:id="@+id/ivNavControl"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_nav_control"
+                    app:tint="#8E8E93" />
+
+                <TextView
+                    android:id="@+id/tvNavControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/tab_control"
+                    android:textSize="10.5sp"
+                    android:textColor="#8E8E93"
+                    android:fontFamily="@font/inter_medium" />
+            </LinearLayout>
+
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

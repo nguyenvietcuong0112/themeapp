@@ -4,45 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#12121A"
+    android:background="@drawable/bg_main"
     android:padding="20dp">
 
-    <!-- Header Section -->
-    <TextView
-        android:id="@+id/tvHeader"
-        android:layout_width="wrap_content"
+    <!-- Top Header Bar with Next Button on Right -->
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Welcome!"
-        android:textColor="#FF4081"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvSubHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/inter_regular"
-        android:text="Enable permissions to unlock all personalization features"
-        android:textColor="#9E9EA8"
-        android:textSize="13.5sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/btnGetStarted"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Permissions Setup"
+                android:textColor="@color/brand_primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSubHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Unlock all DIY features"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Top Right Next Button -->
+        <Button
+            android:id="@+id/btnGetStarted"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/brand_primary"
+            android:fontFamily="@font/inter_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="16dp"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            app:cornerRadius="18dp"
+            app:elevation="0dp" />
+    </RelativeLayout>
 
     <!-- Scrollable Permission List -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
+        android:layout_marginTop="16dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubHeader">
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,277 +81,351 @@
             android:orientation="vertical">
 
             <!-- Card 1: Storage / Photos -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_control_card_rounded"
-                android:backgroundTint="#1E1E2E"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/brand_primary_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_corner_12"
+                        android:backgroundTint="@color/brand_primary_soft">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_perm_photos"
+                             />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="Photos &amp; Media Access"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Select photos for DIY wallpapers, widgets &amp; custom icons."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnGrantStorage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="Photos &amp; Media Access"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:text="Required to select photos for DIY wallpapers, widgets &amp; custom icons."
-                        android:textColor="#888899"
-                        android:textSize="12sp" />
+                        android:layout_marginStart="10dp"
+                        android:track="@drawable/bg_ios_switch_track"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:showText="false" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnGrantStorage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="#FF4081"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Grant"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 2: Display Over Other Apps (Overlay) -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_control_card_rounded"
-                android:backgroundTint="#1E1E2E"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/brand_primary_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_corner_12"
+                        android:backgroundTint="@color/brand_primary_soft">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_perm_overlay"
+                             />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="Display Over Other Apps"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Required for Control Center edge gesture and charging animations."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnGrantOverlay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="Display Over Other Apps"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:text="Required for Control Center edge gesture and charging animations."
-                        android:textColor="#888899"
-                        android:textSize="12sp" />
+                        android:layout_marginStart="10dp"
+                        android:track="@drawable/bg_ios_switch_track"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:showText="false" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnGrantOverlay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="#FF4081"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Grant"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 3: System Settings Modification -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_control_card_rounded"
-                android:backgroundTint="#1E1E2E"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/brand_primary_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_corner_12"
+                        android:backgroundTint="@color/brand_primary_soft">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_perm_settings"
+                             />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="Modify System Settings"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Enables brightness and rotation lock control in Control Center."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnGrantWriteSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="Modify System Settings"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:text="Enables brightness and rotation lock control in Control Center."
-                        android:textColor="#888899"
-                        android:textSize="12sp" />
+                        android:layout_marginStart="10dp"
+                        android:track="@drawable/bg_ios_switch_track"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:showText="false" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnGrantWriteSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="#FF4081"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Grant"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 4: Notifications -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_control_card_rounded"
-                android:backgroundTint="#1E1E2E"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/brand_primary_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_corner_12"
+                        android:backgroundTint="@color/brand_primary_soft">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_perm_notifications"
+                             />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="Notifications"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Keeps Control Center active in background and sends theme updates."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnGrantNotifications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="Notifications"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:text="Keeps Control Center active in background and sends theme alerts."
-                        android:textColor="#888899"
-                        android:textSize="12sp" />
+                        android:layout_marginStart="10dp"
+                        android:track="@drawable/bg_ios_switch_track"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:showText="false" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnGrantNotifications"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="#FF4081"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Grant"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Card 5: Location Access -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_control_card_rounded"
-                android:backgroundTint="#1E1E2E"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/brand_primary_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
-                    <TextView
+                    <FrameLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_corner_12"
+                        android:backgroundTint="@color/brand_primary_soft">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_perm_location"
+                             />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="Location Access"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Required to display local weather info on clock &amp; weather widgets."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnGrantLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="Location Access"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:text="Required to display local weather info on clock &amp; weather widgets."
-                        android:textColor="#888899"
-                        android:textSize="12sp" />
+                        android:layout_marginStart="10dp"
+                        android:track="@drawable/bg_ios_switch_track"
+                        android:thumb="@drawable/bg_ios_switch_thumb"
+                        app:showText="false" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnGrantLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="10dp"
-                    android:backgroundTint="#FF4081"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Grant"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:cornerRadius="18dp" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <!-- Bottom Continue Button -->
-    <Button
-        android:id="@+id/btnGetStarted"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FF4081"
-        android:fontFamily="@font/inter_semi_bold"
-        android:text="Get Started"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:cornerRadius="26dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

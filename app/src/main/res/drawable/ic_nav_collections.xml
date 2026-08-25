@@ -3,18 +3,16 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+  <!-- Cute Heart Outline -->
   <path
-      android:pathData="M9.2,14.781L11.781,17.041C11.901,17.15 12.09,17.15 12.21,17.041L14.79,14.781C15.46,14.191 15.55,13.191 14.991,12.491C14.431,11.79 13.41,11.66 12.7,12.2L12,12.741L11.29,12.21C10.571,11.67 9.56,11.8 9,12.5C8.44,13.191 8.53,14.2 9.2,14.781Z"
-      android:strokeAlpha="0.4"
-      android:strokeLineJoin="round"
-      android:strokeWidth="1.5"
+      android:pathData="M12,20.2L4.5,12.7C2.5,10.7 2.5,7.5 4.5,5.5C6.5,3.5 9.7,3.5 11.7,5.5L12,5.8L12.3,5.5C14.3,3.5 17.5,3.5 19.5,5.5C21.5,7.5 21.5,10.7 19.5,12.7L12,20.2Z"
       android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"/>
+      android:strokeColor="#FF000000"
+      android:strokeWidth="1.8"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"/>
+  <!-- Cute Inner Sparkle -->
   <path
-      android:pathData="M22,11V17C22,21 21,22 17,22H7C3,22 2,21 2,17V7C2,3 3,2 7,2H8.5C10,2 10.33,2.44 10.9,3.2L12.4,5.2C12.78,5.7 13,6 14,6H17C21,6 22,7 22,11Z"
-      android:strokeAlpha="0.4"
-      android:strokeWidth="1.5"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"/>
+      android:pathData="M12,9L12.3,10.2L13.5,10.5L12.3,10.8L12,12L11.7,10.8L10.5,10.5L11.7,10.2Z"
+      android:fillColor="#FF000000"/>
 </vector>

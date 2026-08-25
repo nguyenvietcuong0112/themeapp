@@ -10,6 +10,16 @@ import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.themes.diy.widgets.keyboard.controlcenter.databinding.ActivityMainBinding
 import com.themes.diy.widgets.keyboard.controlcenter.feature_setting.InfoActivity
 
+import android.graphics.Color
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updateLayoutParams
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -19,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupEdgeToEdgeAndHideSystemNav()
 
         // Ensure any ad elements are hidden if present in layouts
         val idsToHide = listOf("bannerView", "bannerUpsale", "adContainer")
@@ -38,6 +50,24 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
     }
 
+    private fun setupEdgeToEdgeAndHideSystemNav() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.cardBottomNav) { view, insets ->
+            val navBarInset = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            val baseMarginBottom = (16 * resources.displayMetrics.density).toInt()
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = navBarInset + baseMarginBottom
+            }
+            insets
+        }
+    }
+
     private fun setupHeader() {
         // Premium button click
         binding.btnPremium.setOnClickListener {
@@ -54,9 +84,8 @@ class MainActivity : AppCompatActivity() {
         val title = when (position) {
             0 -> "Theme App"
             1 -> "Icons App"
-            2 -> "Control Center"
-            3 -> "Widgets"
-            else -> "Collections"
+            2 -> "Widgets"
+            else -> "Control Center"
         }
         binding.tvHeaderTitle.text = title
         if (position != 0) {
@@ -76,35 +105,73 @@ class MainActivity : AppCompatActivity() {
         binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateHeaderTitle(position)
-                val itemId = when (position) {
-                    0 -> R.id.nav_theme
-                    1 -> R.id.nav_icons
-                    2 -> R.id.nav_control
-                    3 -> R.id.nav_widget
-                    else -> R.id.nav_collections
-                }
-                if (binding.bottomNavigationView.selectedItemId != itemId) {
-                    binding.bottomNavigationView.selectedItemId = itemId
-                }
+                updateCustomNavSelection(position)
             }
         })
     }
 
     private fun setupBottomNavigation() {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            val position = when (item.itemId) {
-                R.id.nav_theme -> 0
-                R.id.nav_icons -> 1
-                R.id.nav_control -> 2
-                R.id.nav_widget -> 3
-                R.id.nav_collections -> 4
-                else -> 0
+        val items = listOf(
+            binding.navItemTheme to 0,
+            binding.navItemIcons to 1,
+            binding.navItemWidget to 2,
+            binding.navItemControl to 3
+        )
+
+        for ((view, position) in items) {
+            view.setOnClickListener {
+                if (binding.viewpager.currentItem != position) {
+                    binding.viewpager.setCurrentItem(position, false)
+                }
+                updateHeaderTitle(position)
+                updateCustomNavSelection(position)
             }
-            if (binding.viewpager.currentItem != position) {
-                binding.viewpager.setCurrentItem(position, false)
+        }
+        updateCustomNavSelection(0)
+    }
+
+    private fun updateCustomNavSelection(position: Int) {
+        val activeColor = ContextCompat.getColor(this, R.color.brand_primary)
+        val inactiveColor = Color.parseColor("#8E8E93")
+
+        val containers = listOf(
+            binding.navItemTheme,
+            binding.navItemIcons,
+            binding.navItemWidget,
+            binding.navItemControl
+        )
+
+        val icons = listOf(
+            binding.ivNavTheme,
+            binding.ivNavIcons,
+            binding.ivNavWidget,
+            binding.ivNavControl
+        )
+
+        val texts = listOf(
+            binding.tvNavTheme,
+            binding.tvNavIcons,
+            binding.tvNavWidget,
+            binding.tvNavControl
+        )
+
+        for (i in icons.indices) {
+            val isActive = (i == position)
+            val color = if (isActive) activeColor else inactiveColor
+
+            if (isActive) {
+                containers[i].setBackgroundResource(R.drawable.bg_nav_active_item)
+            } else {
+                containers[i].background = null
             }
-            updateHeaderTitle(position)
-            true
+
+            icons[i].setColorFilter(color)
+            texts[i].setTextColor(color)
+            texts[i].typeface = if (isActive) {
+                ResourcesCompat.getFont(this, R.font.inter_bold)
+            } else {
+                ResourcesCompat.getFont(this, R.font.inter_medium)
+            }
         }
     }
 }

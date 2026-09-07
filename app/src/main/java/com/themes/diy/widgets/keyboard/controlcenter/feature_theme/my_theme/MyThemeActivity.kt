@@ -16,7 +16,6 @@ class MyThemeActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tvMine: TextView
-    private lateinit var tvFavorite: TextView
     private lateinit var tvCustomize: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,12 +28,11 @@ class MyThemeActivity : AppCompatActivity() {
         }
 
         tvMine = findViewById(R.id.tvMine)
-        tvFavorite = findViewById(R.id.tvFavorite)
         tvCustomize = findViewById(R.id.tvCustomize)
         viewPager = findViewById(R.id.viewPager)
 
         viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = 3
+            override fun getItemCount(): Int = 2
             override fun createFragment(position: Int): Fragment {
                 return MyThemeListFragment()
             }
@@ -53,11 +51,8 @@ class MyThemeActivity : AppCompatActivity() {
         tvMine.setOnClickListener {
             viewPager.currentItem = 0
         }
-        tvFavorite.setOnClickListener {
-            viewPager.currentItem = 1
-        }
         tvCustomize.setOnClickListener {
-            viewPager.currentItem = 2
+            viewPager.currentItem = 1
         }
     }
 
@@ -68,10 +63,7 @@ class MyThemeActivity : AppCompatActivity() {
         tvMine.setTextColor(if (position == 0) selectedColor else unselectedColor)
         tvMine.backgroundTintList = android.content.res.ColorStateList.valueOf(if (position == 0) Color.parseColor("#00E5FF") else Color.TRANSPARENT)
 
-        tvFavorite.setTextColor(if (position == 1) selectedColor else unselectedColor)
-        tvFavorite.backgroundTintList = android.content.res.ColorStateList.valueOf(if (position == 1) Color.parseColor("#00E5FF") else Color.TRANSPARENT)
-
-        tvCustomize.setTextColor(if (position == 2) selectedColor else unselectedColor)
-        tvCustomize.backgroundTintList = android.content.res.ColorStateList.valueOf(if (position == 2) Color.parseColor("#00E5FF") else Color.TRANSPARENT)
+        tvCustomize.setTextColor(if (position == 1) selectedColor else unselectedColor)
+        tvCustomize.backgroundTintList = android.content.res.ColorStateList.valueOf(if (position == 1) Color.parseColor("#00E5FF") else Color.TRANSPARENT)
     }
 }

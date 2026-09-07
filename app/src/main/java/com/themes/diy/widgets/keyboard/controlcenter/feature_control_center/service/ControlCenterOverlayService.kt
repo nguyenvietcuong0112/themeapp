@@ -23,7 +23,6 @@ class ControlCenterOverlayService : Service() {
     private lateinit var prefs: ControlCenterPreferences
     private lateinit var themeLoader: ControlThemeLoader
 
-    private var topTriggerView: View? = null
     private var rightEdgeTriggerView: View? = null
     private var panelView: ControlCenterPanelView? = null
     private var isPanelOpen = false
@@ -208,72 +207,6 @@ class ControlCenterOverlayService : Service() {
                 e.printStackTrace()
             }
         }
-
-        // 2. TOP-RIGHT TRIGGER (Thanh mép trên bên phải: Vuốt xuống hoặc Chạm)
-        if (topTriggerView == null) {
-            val topWidth = (screenWidth * 0.52f).toInt()
-            val topHeight = (42 * density).toInt()
-
-            val topParams = WindowManager.LayoutParams(
-                topWidth,
-                topHeight,
-                layoutFlag,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                PixelFormat.TRANSLUCENT
-            ).apply {
-                gravity = Gravity.TOP or Gravity.END
-                x = 0
-                y = 0
-            }
-
-            val topView = View(this).apply {
-                val gd = GradientDrawable().apply {
-                    setColor(Color.parseColor("#22FFFFFF"))
-                    cornerRadius = 12f * density
-                }
-                background = gd
-            }
-
-            var startY = 0f
-            var isDragging = false
-
-            topView.setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        startY = event.rawY
-                        isDragging = true
-                        true
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        val deltaY = event.rawY - startY
-                        if (deltaY > 10 * density && isDragging && !isPanelOpen) {
-                            isDragging = false
-                            openControlCenter()
-                        }
-                        true
-                    }
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                        val deltaY = event.rawY - startY
-                        if (deltaY > 10 * density && isDragging && !isPanelOpen) {
-                            openControlCenter()
-                        }
-                        isDragging = false
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            this.topTriggerView = topView
-            try {
-                windowManager.addView(topView, topParams)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
     private fun openControlCenter() {
@@ -379,15 +312,6 @@ class ControlCenterOverlayService : Service() {
 
     override fun onDestroy() {
         closeControlCenter()
-        topTriggerView?.let {
-            try {
-                windowManager.removeView(it)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        topTriggerView = null
-
         rightEdgeTriggerView?.let {
             try {
                 windowManager.removeView(it)

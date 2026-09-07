@@ -4,15 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main"
-    android:fitsSystemWindows="true">
+    android:background="#16161A">
+
+    <!-- Ambient Theme Backdrop -->
+    <ImageView
+        android:id="@+id/ivAmbientBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ambient Dimming Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2E000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ================= TOP HEADER (Back Button + Title "Apply") ================= -->
     <LinearLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -29,7 +49,7 @@
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="6dp"
             android:src="@drawable/ic_back"
-            app:tint="#1E1E24" />
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tvHeaderTitle"
@@ -38,35 +58,59 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/inter_bold"
             android:text="Apply"
-            android:textColor="#1E1E24"
+            android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <!-- ================= CENTER PREVIEW CARD ================= -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPreview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="42dp"
+        android:layout_marginHorizontal="46dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="10dp"
-        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="14dp"
         app:cardPreventCornerOverlap="false"
-        app:layout_constraintDimensionRatio="9:18"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="3dp"
+        app:strokeColor="#E2E4E8"
+        android:outlineSpotShadowColor="#2E000000"
+        android:outlineAmbientShadowColor="#1A000000"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintDimensionRatio="656:1240"
         app:layout_constraintTop_toBottomOf="@+id/headerBar"
         app:layout_constraintBottom_toTopOf="@+id/btnApplyTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/ivPreviewThumb"
+        <!-- Outer Phone Bezel Frame (Clean White Bezel) -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY" />
-    </androidx.cardview.widget.CardView>
+            android:padding="5dp">
+
+            <!-- Inner Screen Card (Concentric 25dp radius) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:id="@+id/ivPreviewThumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- ================= BOTTOM ACTION BUTTON ("Apply") ================= -->
     <androidx.appcompat.widget.AppCompatButton

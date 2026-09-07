@@ -20,7 +20,7 @@ class ControlCenterPreferences(context: Context) {
         set(value) = prefs.edit().putString(KEY_ACTIVE_THEME_NAME, value).apply()
 
     var triggerPosition: String
-        get() = prefs.getString(KEY_TRIGGER_POS, POS_TOP_RIGHT) ?: POS_TOP_RIGHT
+        get() = prefs.getString(KEY_TRIGGER_POS, POS_RIGHT_EDGE) ?: POS_RIGHT_EDGE
         set(value) = prefs.edit().putString(KEY_TRIGGER_POS, value).apply()
 
     var triggerSizeDp: Int

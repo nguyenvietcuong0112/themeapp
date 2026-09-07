@@ -19,6 +19,7 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
     private lateinit var btnBack: ImageView
     private lateinit var tvTitle: TextView
     private lateinit var ivPreviewThumb: ImageView
+    private lateinit var ivAmbientBg: ImageView
     private lateinit var btnApplyTheme: TextView
 
     private lateinit var prefs: ControlCenterPreferences
@@ -43,7 +44,16 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
         tvTitle = findViewById(R.id.tvHeaderTitle)
         ivPreviewThumb = findViewById(R.id.ivPreviewThumb)
+        ivAmbientBg = findViewById(R.id.ivAmbientBg)
         btnApplyTheme = findViewById(R.id.btnApplyTheme)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            ivAmbientBg.setRenderEffect(
+                android.graphics.RenderEffect.createBlurEffect(
+                    70f, 70f, android.graphics.Shader.TileMode.CLAMP
+                )
+            )
+        }
 
         tvTitle.text = themeName
     }
@@ -55,6 +65,13 @@ class ControlCenterPreviewActivity : AppCompatActivity() {
             "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$themePath/thumb.webp"
         }
 
+        // Ambient blurred backdrop
+        Glide.with(this)
+            .load(thumbPath)
+            .override(40, 80)
+            .into(ivAmbientBg)
+
+        // Mockup preview inside phone card
         Glide.with(this)
             .load(thumbPath)
             .placeholder(R.color.grayF2F2F2)

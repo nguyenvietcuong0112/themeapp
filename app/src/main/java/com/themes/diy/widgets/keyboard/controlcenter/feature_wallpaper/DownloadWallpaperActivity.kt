@@ -68,10 +68,7 @@ class DownloadWallpaperActivity : AppCompatActivity() {
             finish()
         }
 
-        updateFavoriteUI()
-        ivFavorite.setOnClickListener {
-            toggleFavorite()
-        }
+        ivFavorite.visibility = View.GONE
 
         btnApply.setOnClickListener {
             val bitmap = loadedBitmap

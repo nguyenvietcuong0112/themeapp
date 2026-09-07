@@ -31,6 +31,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivFavorite"
+        android:visibility="gone"
         android:background="@drawable/bg_circle"
         android:padding="@dimen/dp_4"
         android:focusable="true"

@@ -53,30 +53,11 @@ class ThemePreviewActivity : AppCompatActivity() {
             isFav = widgetTheme?.isFavorite == true
             
             withContext(Dispatchers.Main) {
-                binding.ivFavorite.isSelected = isFav
+                binding.ivFavorite.visibility = View.GONE
                 binding.pbLoading.visibility = View.GONE
             }
         }
-
-        binding.ivFavorite.setOnClickListener {
-            isFav = !isFav
-            binding.ivFavorite.isSelected = isFav
-            lifecycleScope.launch(Dispatchers.IO) {
-                val folder = if (themeId.startsWith("default_")) {
-                    val path = themeId.substringAfter("default_")
-                    ResourceConfig.getThemeFolderByPath(this@ThemePreviewActivity, path)
-                } else {
-                    val theme = ServiceLocator.getThemeDao(this@ThemePreviewActivity).getThemeById(themeId)
-                    if (theme != null) ResourceConfig.getThemeFolderByPath(this@ThemePreviewActivity, theme.path) else ""
-                }
-                
-                val widgetTheme = ServiceLocator.getWidgetThemeDao(this@ThemePreviewActivity).getWidgetThemeByFolder(folder)
-                if (widgetTheme != null) {
-                    widgetTheme.isFavorite = isFav
-                    ServiceLocator.getWidgetThemeDao(this@ThemePreviewActivity).insertWidgetTheme(widgetTheme)
-                }
-            }
-        }
+        binding.ivFavorite.visibility = View.GONE
 
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 1

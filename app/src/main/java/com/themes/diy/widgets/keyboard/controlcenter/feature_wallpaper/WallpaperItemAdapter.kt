@@ -64,22 +64,8 @@ class WallpaperItemAdapter(
                 .error(localDrawable)
                 .into(ivPreview)
 
-            // Setup favorite icon state
-            if (wallpaper.isFavorite) {
-                ivFavorite.setImageResource(R.drawable.bg_favorite)
-                ivFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
-                    android.graphics.Color.parseColor("#FF4081")
-                )
-            } else {
-                ivFavorite.setImageResource(R.drawable.bg_favorite)
-                ivFavorite.imageTintList = android.content.res.ColorStateList.valueOf(
-                    android.graphics.Color.parseColor("#FFFFFF")
-                )
-            }
-
-            ivFavorite.setOnClickListener {
-                onFavClick(wallpaper)
-            }
+            // Hide favorite icon as feature is disabled
+            ivFavorite.visibility = View.GONE
 
             cardView.setOnClickListener {
                 onClick(wallpaper)

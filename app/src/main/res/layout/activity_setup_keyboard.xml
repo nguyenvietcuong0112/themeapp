@@ -36,7 +36,7 @@
                 android:padding="@dimen/dp_6"
                 android:layout_width="@dimen/dp_32"
                 android:layout_height="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
                 android:src="@drawable/ic_close"
                 android:tint="@color/white"
                 android:layout_marginEnd="@dimen/dp_16"

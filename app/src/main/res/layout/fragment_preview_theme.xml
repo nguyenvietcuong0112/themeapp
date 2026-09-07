@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"  android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto"  
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
+
+    <!-- Ambient Theme Screen Backdrop -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/thumbnailImageView"
         android:layout_width="match_parent"
@@ -9,75 +15,85 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dp_72"
-        android:layout_marginBottom="@dimen/dp_160"
-        android:layout_marginHorizontal="@dimen/dp_44"
+
+    <!-- Frosted Ambient Vignette & Contrast Overlay -->
+    <View
+        android:id="@+id/viewDimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2E000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="231:473"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Phone Device Mockup Container with White Bezel & Realistic Floating Depth -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/phoneDeviceCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="46dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="14dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="3dp"
+        app:strokeColor="#E2E4E8"
+        android:outlineSpotShadowColor="#2E000000"
+        android:outlineAmbientShadowColor="#1A000000"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintDimensionRatio="656:1240"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/llDownload"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Outer Phone Bezel Frame (Clean White Bezel) -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <!-- Inner Screen Card (Concentric 25dp radius) -->
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:cardBackgroundColor="@color/transparent"
-                app:cardCornerRadius="@dimen/dp_56"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="25dp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="231:473"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <FrameLayout
+                app:cardBackgroundColor="@color/white"
+                app:cardPreventCornerOverlap="false">
+
+                <!-- Theme Screen Content (fitXY to preserve 100% of the 656x1240 layout with 0 crop) -->
+                <com.themes.diy.widgets.keyboard.controlcenter.core.ui.RemoteImageView
+                    android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/dp_4">
-                    <com.themes.diy.widgets.keyboard.controlcenter.core.ui.RemoteImageView
-                        android:id="@+id/imageView"
-                        android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivPreviewCustom"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:layout_marginHorizontal="@dimen/dp_8"
-                        android:layout_marginVertical="@dimen/dp_2"/>
-                </FrameLayout>
+                    android:scaleType="fitXY" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPreviewCustom"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
             </androidx.cardview.widget.CardView>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:background="@drawable/bg_phone_device"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="231:473"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-            <com.themes.diy.widgets.keyboard.controlcenter.core.ui.DownloadThemeButtonView
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/llDownload"
-                android:focusable="true"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_12"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clipToOutline="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.themes.diy.widgets.keyboard.controlcenter.core.ui.DownloadThemeButtonView
+        android:id="@+id/llDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_36"
+        android:layout_marginBottom="@dimen/dp_28"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

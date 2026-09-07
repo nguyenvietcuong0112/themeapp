@@ -26,7 +26,14 @@ class DownloadThemeButtonView @JvmOverloads constructor(
         }
     }
 
+    override fun setPressed(pressed: Boolean) {
+        super.setPressed(pressed)
+        val scale = if (pressed) 0.96f else 1.0f
+        animate().scaleX(scale).scaleY(scale).setDuration(100).start()
+    }
+
     fun setText(text: String) {
         tvDownload.text = text
     }
 }
+

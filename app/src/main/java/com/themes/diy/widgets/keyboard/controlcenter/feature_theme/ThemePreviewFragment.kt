@@ -49,11 +49,11 @@ class ThemePreviewFragment : Fragment() {
         val ivPreviewCustom = view.findViewById<ImageView>(R.id.ivPreviewCustom)
         val llDownload = view.findViewById<DownloadThemeButtonView>(R.id.llDownload)
 
-        // Apply native blur filter to background image on Android 12+
+        // Apply native hardware blur to background on Android 12+ (API 31+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             thumbnailImageView?.setRenderEffect(
                 android.graphics.RenderEffect.createBlurEffect(
-                    25f, 25f, android.graphics.Shader.TileMode.CLAMP
+                    70f, 70f, android.graphics.Shader.TileMode.CLAMP
                 )
             )
         }
@@ -77,16 +77,16 @@ class ThemePreviewFragment : Fragment() {
 
                 val previewUrl = ResourceConfig.getWidgetPreviewUrl(context, item.path)
 
-                // Load blurred background
+                // Load dynamic ambient blurred backdrop (downsampled + hardware blur for smooth glow on all Android versions)
                 if (thumbnailImageView != null) {
                     Glide.with(context)
                         .load(previewUrl)
+                        .override(40, 80)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.bg_default_placeholder)
                         .into(thumbnailImageView)
                 }
 
-                // Load mockup preview
+                // Load mockup preview inside phone card
                 if (imageView != null) {
                     Glide.with(context)
                         .load(previewUrl)

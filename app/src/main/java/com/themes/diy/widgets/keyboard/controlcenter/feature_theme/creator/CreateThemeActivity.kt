@@ -60,6 +60,7 @@ class CreateThemeActivity : AppCompatActivity() {
             val wallpaperDialog = ChangeCreateThemeWallpaperDialog()
             wallpaperDialog.setOnChangeAppListener(object : ChangeCreateThemeWallpaperDialog.OnChangeAppListener {
                 override fun onSelect(wallpaper: WidgetThemeWallpaper) {
+                    binding.themeView.binding.pbLoading.visibility = View.VISIBLE
                     viewModel.loadWallpaper(wallpaper)
                 }
             })
@@ -70,6 +71,7 @@ class CreateThemeActivity : AppCompatActivity() {
             val iconDialog = ChangeCreateThemeIconDialog()
             iconDialog.setOnChangeAppListener(object : ChangeCreateThemeIconDialog.OnChangeAppListener {
                 override fun onSelect(icon: WidgetThemeIcon) {
+                    binding.themeView.binding.pbLoading.visibility = View.VISIBLE
                     viewModel.loadIcons(icon)
                 }
             })
@@ -80,6 +82,7 @@ class CreateThemeActivity : AppCompatActivity() {
             val widgetDialog = ChangeCreateThemeWidgetDialog()
             widgetDialog.setOnChangeAppListener(object : ChangeCreateThemeWidgetDialog.OnChangeAppListener {
                 override fun onSelect(widget: WidgetThemeWidget) {
+                    binding.themeView.binding.pbLoading.visibility = View.VISIBLE
                     viewModel.loadWidget(widget)
                 }
             })
@@ -87,6 +90,7 @@ class CreateThemeActivity : AppCompatActivity() {
         }
 
         binding.actionView.ivReset.setOnClickListener {
+            binding.themeView.binding.pbLoading.visibility = View.VISIBLE
             viewModel.resetTheme()
             Toast.makeText(this, "Chủ đề đã được đặt lại về mặc định", Toast.LENGTH_SHORT).show()
         }
@@ -118,8 +122,10 @@ class CreateThemeActivity : AppCompatActivity() {
         viewModel.icon.observe(this) { ic ->
             val resolvedFolder = ResourceConfig.getThemeFolderByPath(this, ic.folder)
             val iconsList = listOf(
-                "facebook", "instagram", "messenger", "tiktok",
-                "chrome", "gmail", "camera", "settings"
+                "phone", "phonebook", "camera", "gallery",
+                "chrome", "facebook", "instagram", "tiktok",
+                "setting", "calendar", "calculator", "weather",
+                "healthy", "record", "binance", "twitch"
             )
             val urls = iconsList.map { 
                 ResourceConfig.getSingleIconUrl(resolvedFolder, it) 
@@ -203,14 +209,18 @@ class CreateThemeActivity : AppCompatActivity() {
                 )
                 com.themes.diy.widgets.keyboard.controlcenter.feature_theme.data.ThemeDatabase.getDatabase(this@CreateThemeActivity).iconDao().insertIconPack(themeIconPack)
 
-                val themeWidget = ThemeWidget(
-                    id = UUID.randomUUID(),
-                    themeId = themeId,
-                    templatePath = wdg.folder,
-                    size = "MEDIUM",
-                    type = wdg.category.uppercase()
-                )
-                com.themes.diy.widgets.keyboard.controlcenter.feature_theme.data.ThemeDatabase.getDatabase(this@CreateThemeActivity).widgetDao().insertWidget(themeWidget)
+                val widgetDao = com.themes.diy.widgets.keyboard.controlcenter.feature_theme.data.ThemeDatabase.getDatabase(this@CreateThemeActivity).widgetDao()
+                val widgetTypes = listOf("CLOCKS", "CLOCK", "WEATHER", "TODAY", "CALENDAR", "IMAGE", wdg.category.uppercase())
+                for (wType in widgetTypes.distinct()) {
+                    val themeWidget = ThemeWidget(
+                        id = UUID.randomUUID(),
+                        themeId = themeId,
+                        templatePath = wdg.folder,
+                        size = "MEDIUM",
+                        type = wType
+                    )
+                    widgetDao.insertWidget(themeWidget)
+                }
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@CreateThemeActivity, "Đã lưu chủ đề tùy chỉnh thành công!", Toast.LENGTH_SHORT).show()

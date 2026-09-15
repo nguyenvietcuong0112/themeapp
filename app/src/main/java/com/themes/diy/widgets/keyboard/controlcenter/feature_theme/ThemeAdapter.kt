@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.themes.diy.widgets.keyboard.controlcenter.feature_keyboard.data.entity.KeyboardTheme
 import com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig
@@ -98,6 +100,8 @@ class ThemeAdapter(
                     .load(previewUrl)
                     .placeholder(R.drawable.bg_default_placeholder)
                     .error(localDrawable)
+                    .transition(DrawableTransitionOptions.withCrossFade(200))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivPreview)
             }
 

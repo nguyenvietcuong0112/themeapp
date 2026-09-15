@@ -343,16 +343,25 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                 val db = com.themes.diy.widgets.keyboard.controlcenter.feature_theme.data.ThemeDatabase.getDatabase(activity)
                 val diyWidgets = db.widgetDao().getWidgetsByTheme(uuid)
                 val matchingWidget = diyWidgets.firstOrNull { it.type.lowercase() == currentType.lowercase() }
-                matchingWidget?.templatePath ?: ResourceConfig.getThemeFolderByPath(activity, theme.path)
+                val templatePath = matchingWidget?.templatePath ?: diyWidgets.firstOrNull()?.templatePath
+                if (!templatePath.isNullOrEmpty() && !templatePath.startsWith("/") && !templatePath.contains("files/theme_preview")) {
+                    templatePath
+                } else {
+                    ResourceConfig.getThemeFolderByPath(activity, theme.path)
+                }
             } catch (e: Exception) {
                 ResourceConfig.getThemeFolderByPath(activity, theme.path)
             }
 
-            val cleanFolder = folder
+            var cleanFolder = folder
                 .removePrefix("file:///android_asset/")
                 .removePrefix("file://android_asset/")
                 .removePrefix("android_asset/")
                 .removePrefix("/")
+
+            if (cleanFolder.startsWith("/") || cleanFolder.contains("files/theme_preview")) {
+                cleanFolder = "category/Trending/theme_1"
+            }
 
             var localBitmap: Bitmap? = null
             val candidatePaths = listOf(
@@ -390,11 +399,14 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
                     }
                 }
             } else {
-                val cdnUrl = if (folder.startsWith("assets_collection/")) {
-                    val clean = folder.removePrefix("assets_collection/").removePrefix("widget/")
+                val cdnUrl = if (cleanFolder.startsWith("assets_collection/")) {
+                    val clean = cleanFolder.removePrefix("assets_collection/").removePrefix("widget/")
                     "${ResourceConfig.ASSET_BASE_URL}/assets_collection/widget/$clean/$previewFileName"
+                } else if (cleanFolder.startsWith("http://") || cleanFolder.startsWith("https://")) {
+                    cleanFolder
                 } else {
-                    "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$folder/widgets/$typeFolder/$previewFileName"
+                    val clean = cleanFolder.removePrefix("assets_theme/").removePrefix("/")
+                    "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$clean/widgets/$typeFolder/$previewFileName"
                 }
 
                 withContext(Dispatchers.Main) {

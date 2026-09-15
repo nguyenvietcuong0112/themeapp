@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
+import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.themes.diy.widgets.keyboard.controlcenter.databinding.ItemCreateThemeViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
@@ -27,6 +30,7 @@ class CreateThemeView @JvmOverloads constructor(
     )
 
     init {
+        binding.pbLoading.visibility = View.VISIBLE
         // Setup initial recycler settings
         binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
         binding.recyclerView.adapter = CreateThemeIconAdapter(emptyList())
@@ -35,11 +39,14 @@ class CreateThemeView @JvmOverloads constructor(
     fun setWallpaper(url: String) {
         if (url.isEmpty()) {
             binding.ivBackground.setImageDrawable(null)
+            binding.pbLoading.visibility = View.GONE
             return
         }
         binding.pbLoading.visibility = View.VISIBLE
         Glide.with(context)
             .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .transition(DrawableTransitionOptions.withCrossFade(200))
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -72,11 +79,39 @@ class CreateThemeView @JvmOverloads constructor(
         }
         Glide.with(context)
             .load(url)
+            .placeholder(R.drawable.bg_default_placeholder)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .transition(DrawableTransitionOptions.withCrossFade(200))
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.pbLoading.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.pbLoading.visibility = View.GONE
+                    return false
+                }
+            })
             .into(binding.ivWidget)
     }
 
     fun setIcons(list: List<String>) {
         val adapter = CreateThemeIconAdapter(list)
         binding.recyclerView.adapter = adapter
+        postDelayed({
+            binding.pbLoading.visibility = View.GONE
+        }, 500)
     }
 }

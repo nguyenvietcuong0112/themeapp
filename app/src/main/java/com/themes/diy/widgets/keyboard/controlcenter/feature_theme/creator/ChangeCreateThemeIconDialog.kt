@@ -40,6 +40,7 @@ class ChangeCreateThemeIconDialog : BottomSheetDialogFragment() {
             val behavior = com.google.android.material.bottomsheet.BottomSheetBehavior.from(bottomSheet)
             behavior.state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
+            behavior.isDraggable = false
             bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         }
     }
@@ -64,10 +65,12 @@ class ChangeCreateThemeIconDialog : BottomSheetDialogFragment() {
 
         // Setup Category list (horizontal)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRecyclerView.isNestedScrollingEnabled = false
         binding.categoryRecyclerView.visibility = View.VISIBLE
 
         // Setup Grid list ( cuon doc)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.isNestedScrollingEnabled = true
         binding.pbCreate.visibility = View.VISIBLE
 
         binding.viewClick.setOnClickListener { dismiss() }
@@ -80,6 +83,13 @@ class ChangeCreateThemeIconDialog : BottomSheetDialogFragment() {
         viewModel.categories.observe(viewLifecycleOwner) { cats ->
             val selected = viewModel.selectedCategory.value ?: "All"
             binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(cats, selected) { cat ->
+                viewModel.filterIcons(cat)
+            }
+        }
+
+        viewModel.selectedCategory.observe(viewLifecycleOwner) { selectedCat ->
+            val cats = viewModel.categories.value ?: return@observe
+            binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(cats, selectedCat) { cat ->
                 viewModel.filterIcons(cat)
             }
         }
@@ -133,6 +143,8 @@ class ChangeCreateThemeIconDialog : BottomSheetDialogFragment() {
                 val previewUrl = ResourceConfig.getIconPackPreviewUrl(resolvedFolder)
                 Glide.with(itemView.context)
                     .load(previewUrl)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .error(R.drawable.bg_default_placeholder)
                     .centerInside()
                     .into(ivPreview)
 

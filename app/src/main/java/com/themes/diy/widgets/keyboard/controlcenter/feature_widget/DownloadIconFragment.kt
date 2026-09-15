@@ -85,11 +85,28 @@ class DownloadIconFragment : Fragment() {
         val pm = context.packageManager
         iconItems.clear()
 
-        val themePath = theme.path
+        val resolvedThemePath = try {
+            val uuid = java.util.UUID.fromString(theme.id)
+            val db = com.themes.diy.widgets.keyboard.controlcenter.feature_theme.data.ThemeDatabase.getDatabase(context)
+            val savedPack = db.iconDao().getIconPackByTheme(uuid)
+            if (!savedPack?.folder.isNullOrEmpty()) {
+                savedPack!!.folder
+            } else {
+                com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemeFolderByPath(context, theme.path)
+            }
+        } catch (e: Exception) {
+            com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemeFolderByPath(context, theme.path)
+        }
+
+        var themePath = resolvedThemePath
             .removePrefix("file:///android_asset/")
             .removePrefix("file://android_asset/")
             .removePrefix("android_asset/")
             .removePrefix("/")
+
+        if (themePath.startsWith("/") || themePath.contains("files/theme_preview")) {
+            themePath = "category/Trending/theme_1"
+        }
 
         val discoveredIconNames = mutableListOf<String>()
 
@@ -237,38 +254,43 @@ class DownloadIconFragment : Fragment() {
             }
 
             val cleanName = rawIconName.removePrefix("ic_")
-            val candidateFilePaths = mutableListOf<String>()
-            if (matchedDir != null) {
-                candidateFilePaths.add("$matchedDir/$rawIconName.png")
-                candidateFilePaths.add("$matchedDir/ic_$cleanName.png")
-                candidateFilePaths.add("$matchedDir/$cleanName.png")
-                candidateFilePaths.add("$matchedDir/bg_icon.png")
-            }
-            candidateFilePaths.add("assets_theme/category/$themePath/icons/$rawIconName.png")
-            candidateFilePaths.add("assets_theme/category/$themePath/icons/ic_$cleanName.png")
-            candidateFilePaths.add("assets_theme/$themePath/icons/$rawIconName.png")
-            candidateFilePaths.add("assets_theme/$themePath/icons/ic_$cleanName.png")
-            candidateFilePaths.add("assets_collection/theme/$themePath/icons/ic_$cleanName.png")
-            candidateFilePaths.add("assets_collection/theme/$themePath/icons/$rawIconName.png")
-            candidateFilePaths.add("assets_collection/icons/$themePath/bg_icon.png")
-            // Fallbacks
-            candidateFilePaths.add("assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png")
-            candidateFilePaths.add("assets_theme/category/Animal/theme_1/icons/ic_$cleanName.png")
-            candidateFilePaths.add("assets_collection/theme/theme_1/icons/ic_$cleanName.png")
 
-            var resolvedAssetPath = "assets_theme/category/Trending/theme_1/icons/ic_$cleanName.png"
-            for (candidate in candidateFilePaths) {
+            val cleanThemePath = if (themePath.startsWith("category/")) {
+                themePath
+            } else if (themePath.startsWith("assets_theme/category/")) {
+                themePath.removePrefix("assets_theme/")
+            } else if (themePath.startsWith("assets_theme/")) {
+                themePath.removePrefix("assets_theme/")
+            } else {
+                "category/$themePath"
+            }
+
+            var localAssetFound: String? = null
+            val localCandidates = mutableListOf<String>()
+            if (matchedDir != null) {
+                localCandidates.add("$matchedDir/$rawIconName.png")
+                localCandidates.add("$matchedDir/ic_$cleanName.png")
+                localCandidates.add("$matchedDir/$cleanName.png")
+            }
+            localCandidates.add("assets_theme/$cleanThemePath/icons/ic_$cleanName.png")
+            localCandidates.add("assets_theme/$cleanThemePath/icons/$rawIconName.png")
+
+            for (cand in localCandidates) {
                 try {
-                    val stream = context.assets.open(candidate)
+                    val stream = context.assets.open(cand)
                     stream.close()
-                    resolvedAssetPath = candidate
+                    localAssetFound = cand
                     break
                 } catch (e: Exception) {
                     // Try next
                 }
             }
 
-            val assetPath = "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$resolvedAssetPath"
+            val assetPath = if (localAssetFound != null) {
+                "file:///android_asset/$localAssetFound"
+            } else {
+                "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_theme/$cleanThemePath/icons/ic_$cleanName.png"
+            }
             val isMatched = !targetPkg.isNullOrEmpty()
             val displayName = targetAppName ?: cleanName
 

@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.themes.diy.widgets.keyboard.controlcenter.R
 
 class ControlCenterAdapter(
@@ -44,8 +46,10 @@ class ControlCenterAdapter(
 
             Glide.with(itemView.context)
                 .load(item.thumbPath)
-                .placeholder(R.color.grayF2F2F2)
-                .error(R.color.grayF2F2F2)
+                .placeholder(R.drawable.bg_default_placeholder)
+                .error(R.drawable.bg_default_placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivThumbnail)
 
             val clickListener = View.OnClickListener {

@@ -74,7 +74,13 @@ class ConnectivityController(private val context: Context) {
 
     // --- Bluetooth ---
     fun isBluetoothEnabled(): Boolean {
-        return bluetoothAdapter?.isEnabled == true
+        return try {
+            bluetoothAdapter?.isEnabled == true
+        } catch (e: SecurityException) {
+            false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun toggleBluetooth() {

@@ -13,10 +13,12 @@ class CreateThemeIconAdapter(
     private val iconUrls: List<String>
 ) : RecyclerView.Adapter<CreateThemeIconAdapter.ViewHolder>() {
 
-    // Default 8 app titles to show under icons
+    // Default 16 app titles to show under icons in phone preview
     private val appTitles = listOf(
-        "Facebook", "Instagram", "Messenger", "TikTok",
-        "Chrome", "Gmail", "Camera", "Settings"
+        "Phone", "Contacts", "Camera", "Gallery",
+        "Chrome", "Facebook", "Instagram", "TikTok",
+        "Settings", "Calendar", "Calculator", "Weather",
+        "Health", "Recorder", "Binance", "Twitch"
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,9 +27,8 @@ class CreateThemeIconAdapter(
             parent,
             false
         )
-        // Set dynamic sizing for grid items (approx 56dp square for icon)
         val density = parent.context.resources.displayMetrics.density
-        val size = (56 * density).toInt()
+        val size = (38 * density).toInt()
         view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val ivIcon = view.findViewById<ImageView>(R.id.ivIcon)
         ivIcon.layoutParams.width = size
@@ -41,7 +42,7 @@ class CreateThemeIconAdapter(
         holder.bind(url, title)
     }
 
-    override fun getItemCount(): Int = minOf(iconUrls.size, 8).coerceAtLeast(iconUrls.size)
+    override fun getItemCount(): Int = iconUrls.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val ivIcon: ImageView = view.findViewById(R.id.ivIcon)
@@ -52,9 +53,11 @@ class CreateThemeIconAdapter(
             if (url.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(url)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .error(R.drawable.bg_default_placeholder)
                     .into(ivIcon)
             } else {
-                ivIcon.setImageResource(R.mipmap.ic_launcher)
+                ivIcon.setImageResource(R.drawable.bg_default_placeholder)
             }
         }
     }

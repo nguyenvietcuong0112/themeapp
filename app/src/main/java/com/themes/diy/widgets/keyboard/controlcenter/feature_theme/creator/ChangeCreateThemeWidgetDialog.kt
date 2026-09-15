@@ -41,6 +41,7 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
             val behavior = com.google.android.material.bottomsheet.BottomSheetBehavior.from(bottomSheet)
             behavior.state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
+            behavior.isDraggable = false
             bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         }
     }
@@ -65,10 +66,12 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
 
         // Setup Category list (horizontal)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRecyclerView.isNestedScrollingEnabled = false
         binding.categoryRecyclerView.visibility = View.VISIBLE
 
         // Setup List (1 column)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.isNestedScrollingEnabled = true
         binding.pbCreate.visibility = View.VISIBLE
 
         binding.viewClick.setOnClickListener { dismiss() }
@@ -81,6 +84,13 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
         viewModel.categories.observe(viewLifecycleOwner) { cats ->
             val selected = viewModel.selectedCategory.value ?: "All"
             binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(cats, selected) { cat ->
+                viewModel.filterWidgets(cat)
+            }
+        }
+
+        viewModel.selectedCategory.observe(viewLifecycleOwner) { selectedCat ->
+            val cats = viewModel.categories.value ?: return@observe
+            binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(cats, selectedCat) { cat ->
                 viewModel.filterWidgets(cat)
             }
         }
@@ -111,11 +121,6 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
                 parent,
                 false
             )
-            val density = parent.context.resources.displayMetrics.density
-            val screenWidth = parent.context.resources.displayMetrics.widthPixels
-            val itemWidth = screenWidth - (32 * density).toInt()
-            val itemHeight = (itemWidth * 9) / 16
-            view.layoutParams = ViewGroup.LayoutParams(itemWidth, itemHeight)
             return ViewHolder(view)
         }
 
@@ -129,7 +134,6 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
             private val tvName: TextView = view.findViewById(R.id.tvName)
-            private val cardView: View? = view.findViewById(R.id.cardView)
 
             fun bind(item: WidgetThemeWidget, onSelected: (WidgetThemeWidget) -> Unit) {
                 tvName.text = item.name
@@ -142,22 +146,19 @@ class ChangeCreateThemeWidgetDialog : BottomSheetDialogFragment() {
                 }
                 
                 val resolvedFolder = com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemeFolderByPath(itemView.context, item.folder)
-                
-                // Construct URL as requested:
-                // Nếu folderChild null: [BaseURL]/themes/[folder]/widgets/[type]/bg_preview_medium.png
-                val widgetUrl = "${ResourceConfig.ASSET_BASE_URL}/assets_theme/$resolvedFolder/widgets/$type/bg_preview_medium.png"
+                val widgetUrl = ResourceConfig.getWidgetComponentUrl(itemView.context, item.folder, type, "bg_preview_medium.png")
 
                 Glide.with(itemView.context)
                     .load(widgetUrl)
-                    .centerInside()
                     .placeholder(R.drawable.bg_default_placeholder)
                     .error(
-                        ResourceConfig.getWidgetPreviewUrl(resolvedFolder, "medium")
+                        Glide.with(itemView.context)
+                            .load(ResourceConfig.getWidgetPreviewUrl(resolvedFolder, "medium"))
+                            .placeholder(R.drawable.bg_default_placeholder)
                     )
                     .into(ivPreview)
 
-                val clickTarget = cardView ?: itemView
-                clickTarget.setOnClickListener {
+                itemView.setOnClickListener {
                     onSelected(item)
                 }
             }

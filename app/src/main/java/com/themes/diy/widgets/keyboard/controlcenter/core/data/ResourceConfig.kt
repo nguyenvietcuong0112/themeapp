@@ -170,6 +170,11 @@ object ResourceConfig {
 
     fun getKeyboardStickerUrl(assetPath: String): String = "$ASSET_BASE_URL/${assetPath.removePrefix("/")}"
 
+    private fun resolveThemeAssetUrl(path: String): String {
+        val clean = path.removePrefix("/")
+        return "$ASSET_BASE_URL/assets_theme/$clean"
+    }
+
     /**
      * 2. Theme Previews & Wallpapers
      */
@@ -178,7 +183,7 @@ object ResourceConfig {
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean/bg_preview.png"
         }
-        return "$ASSET_BASE_URL/assets_theme/$clean/bg_preview.png"
+        return "${resolveThemeAssetUrl(clean)}/bg_preview.png"
     }
 
     fun getThemeOriginalUrl(themeFolder: String, deviceType: String? = null): String {
@@ -191,30 +196,41 @@ object ResourceConfig {
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean/bg_preview$suffix.png"
         }
-        return "$ASSET_BASE_URL/assets_theme/$clean/bg_preview_original$suffix.png"
+        return "${resolveThemeAssetUrl(clean)}/bg_preview_original$suffix.png"
     }
 
     fun getWallpaperPreviewUrl(themeFolder: String): String {
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/theme/")) {
+            return "$ASSET_BASE_URL/$clean/wallpapers/bg_wallpaper.png"
+        }
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean"
         }
-        return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/bg_wallpaper.png"
+        return "${resolveThemeAssetUrl(clean)}/wallpapers/bg_wallpaper.png"
     }
 
     fun getWallpaperThumbnailUrl(themeFolder: String, imageName: String = ""): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/theme/")) {
+            val name = if (imageName.isEmpty()) "bg_wallpaper" else imageName.removeSuffix(".png")
+            return "$ASSET_BASE_URL/$clean/wallpapers/$name.png"
+        }
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean"
         }
         val name = if (imageName.isEmpty()) "bg_wallpaper" else imageName.removeSuffix(".png")
-        return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/$name.png"
+        return "${resolveThemeAssetUrl(clean)}/wallpapers/$name.png"
     }
 
     fun getWallpaperFullUrl(themeFolder: String, imageName: String = "bg_wallpaper"): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/theme/")) {
+            val cleanImageName = if (imageName.endsWith(".png")) imageName else "$imageName.png"
+            return "$ASSET_BASE_URL/$clean/wallpapers/$cleanImageName"
+        }
         if (clean.startsWith("assets_collection/")) {
             if (clean.endsWith(".png") || clean.endsWith(".jpg")) {
                 return "$ASSET_BASE_URL/$clean"
@@ -222,7 +238,7 @@ object ResourceConfig {
             return "$ASSET_BASE_URL/$clean/wallpaper.png"
         }
         val cleanImageName = if (imageName.endsWith(".png")) imageName else "$imageName.png"
-        return "$ASSET_BASE_URL/assets_theme/$clean/wallpapers/$cleanImageName"
+        return "${resolveThemeAssetUrl(clean)}/wallpapers/$cleanImageName"
     }
 
     /**
@@ -237,7 +253,8 @@ object ResourceConfig {
     fun getDiyStickerUrl(categoryFolder: String, imageName: String): String {
         if (categoryFolder.isEmpty() || imageName.isEmpty()) return ""
         val cleanCat = categoryFolder.removePrefix("/")
-        return "$ASSET_BASE_URL/assets_wallpaper/templates/stickers/$cleanCat/$imageName"
+        val cleanImg = if (imageName.endsWith(".svg")) imageName.replace(".svg", ".png") else imageName
+        return "$ASSET_BASE_URL/assets_wallpaper/templates/stickers/$cleanCat/$cleanImg"
     }
 
     fun getDiyBackgroundUrl(categoryFolder: String, imageName: String): String {
@@ -292,10 +309,14 @@ object ResourceConfig {
     fun getIconPackPreviewUrl(themeFolder: String): String {
         if (themeFolder.isEmpty()) return ""
         val clean = themeFolder.removePrefix("/")
+        if (clean.startsWith("assets_collection/theme/")) {
+            val themeIndex = clean.substringAfter("theme_").substringBefore("/")
+            return "$ASSET_BASE_URL/assets_collection/icons/icon_$themeIndex/bg_icon.png"
+        }
         if (clean.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$clean/bg_icon.png"
         }
-        return "$ASSET_BASE_URL/assets_theme/$clean/icons/bg_icon.png"
+        return "${resolveThemeAssetUrl(clean)}/icons/bg_icon.png"
     }
 
     fun getIconCategoryPreviewUrl(folder: String): String = getIconPackPreviewUrl(folder)
@@ -303,11 +324,19 @@ object ResourceConfig {
     fun getSingleIconUrl(themeFolder: String, iconId: String): String {
         if (themeFolder.isEmpty() || iconId.isEmpty()) return ""
         val cleanFolder = themeFolder.removePrefix("/")
-        val cleanIconId = iconId.removePrefix("ic_").removeSuffix(".png").lowercase()
+        val rawName = iconId.removePrefix("ic_").removeSuffix(".png").lowercase()
+        val cleanIconId = when (rawName) {
+            "settings" -> "setting"
+            "contacts" -> "phonebook"
+            else -> rawName
+        }
+        if (cleanFolder.startsWith("assets_collection/theme/")) {
+            return "$ASSET_BASE_URL/$cleanFolder/icons/ic_$cleanIconId.png"
+        }
         if (cleanFolder.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$cleanFolder/ic_$cleanIconId.png"
         }
-        return "$ASSET_BASE_URL/assets_theme/$cleanFolder/icons/ic_$cleanIconId.png"
+        return "${resolveThemeAssetUrl(cleanFolder)}/icons/ic_$cleanIconId.png"
     }
 
     fun getLauncherIconUrl(context: Context, themeFolder: String, iconId: String): String = getSingleIconUrl(themeFolder, iconId)
@@ -318,10 +347,13 @@ object ResourceConfig {
     fun getWidgetPreviewUrl(themeFolder: String, widgetSize: String = "medium"): String {
         val cleanFolder = themeFolder.removePrefix("/")
         val cleanSize = widgetSize.lowercase().removeSuffix(".png")
+        if (cleanFolder.startsWith("assets_collection/theme/")) {
+            return "$ASSET_BASE_URL/$cleanFolder/widgets/bg_$cleanSize.png"
+        }
         if (cleanFolder.startsWith("assets_collection/")) {
             return "$ASSET_BASE_URL/$cleanFolder/bg_$cleanSize.png"
         }
-        return "$ASSET_BASE_URL/assets_theme/$cleanFolder/widgets/bg_$cleanSize.png"
+        return "${resolveThemeAssetUrl(cleanFolder)}/widgets/bg_$cleanSize.png"
     }
 
     fun getWidgetPreviewUrl(context: Context, themeFolder: String): String = getThemePreviewUrl(themeFolder)
@@ -333,13 +365,19 @@ object ResourceConfig {
 
     fun getWidgetComponentUrl(context: Context, themeFolder: String, widgetType: String, fileName: String): String {
         if (themeFolder.isEmpty() || widgetType.isEmpty() || fileName.isEmpty()) return ""
-        val folder = getThemeFolderByPath(context, themeFolder)
-        return "$ASSET_BASE_URL/assets_theme/$folder/widgets/$widgetType/$fileName"
+        val folder = getThemeFolderByPath(context, themeFolder).removePrefix("/")
+        if (folder.startsWith("assets_collection/theme/")) {
+            return "$ASSET_BASE_URL/$folder/widgets/$widgetType/$fileName"
+        }
+        return "${resolveThemeAssetUrl(folder)}/widgets/$widgetType/$fileName"
     }
 
     fun getWidgetComponentUrl(context: Context, themeFolder: String, widgetType: String, folderChild: String, fileName: String): String {
         if (themeFolder.isEmpty() || widgetType.isEmpty() || folderChild.isEmpty() || fileName.isEmpty()) return ""
-        val folder = getThemeFolderByPath(context, themeFolder)
-        return "$ASSET_BASE_URL/assets_theme/$folder/widgets/$widgetType/$folderChild/$fileName"
+        val folder = getThemeFolderByPath(context, themeFolder).removePrefix("/")
+        if (folder.startsWith("assets_collection/theme/")) {
+            return "$ASSET_BASE_URL/$folder/widgets/$widgetType/$folderChild/$fileName"
+        }
+        return "${resolveThemeAssetUrl(folder)}/widgets/$widgetType/$folderChild/$fileName"
     }
 }

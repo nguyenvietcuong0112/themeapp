@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.themes.diy.widgets.keyboard.controlcenter.feature_collections.data.CollectionItem
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 
@@ -113,6 +115,7 @@ class CollectionDiscoveryAdapter(
             Glide.with(context)
                 .asBitmap()
                 .load(imageUri)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.bg_default_placeholder)
                 .error(R.drawable.bg_default_placeholder)
                 .into(object : CustomTarget<Bitmap>() {
@@ -169,6 +172,8 @@ class CollectionDiscoveryAdapter(
                 .load(imageUri)
                 .placeholder(R.drawable.bg_default_placeholder)
                 .error(R.drawable.bg_default_placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivThumbnail)
 
             itemView.setOnClickListener {

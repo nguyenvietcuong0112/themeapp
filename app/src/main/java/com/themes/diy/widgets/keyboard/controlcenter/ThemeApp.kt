@@ -31,7 +31,45 @@ class ThemeApp : Application() {
         registerReceiver(chargingReceiver, filter)
 
         setupFullScreenLifecycle()
+        warmUpResources()
         checkCdnConnection()
+    }
+
+    private fun warmUpResources() {
+        Thread {
+            try {
+                // 1. Warm up Control Center categories & preload top 12 thumbnails
+                val controlRepo = com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.ControlCenterRepository(this)
+                val controlCats = controlRepo.getCategoriesFast()
+                val topControlThemes = controlCats.flatMap { it.themes }.distinctBy { it.name }.take(12)
+                for (theme in topControlThemes) {
+                    try {
+                        com.bumptech.glide.Glide.with(this)
+                            .load(theme.thumbPath)
+                            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                            .preload()
+                    } catch (_: Exception) {}
+                }
+
+                // 2. Warm up Theme categories & preload top 12 previews
+                val themeRepo = com.themes.diy.widgets.keyboard.controlcenter.core.di.ServiceLocator.getThemeRepository(this)
+                kotlinx.coroutines.runBlocking {
+                    val themes = themeRepo.getPresetThemes("trending").take(12)
+                    for (th in themes) {
+                        val folder = com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemeFolderByPath(this@ThemeApp, th.path)
+                        val previewUrl = com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.getThemePreviewUrl(folder)
+                        try {
+                            com.bumptech.glide.Glide.with(this@ThemeApp)
+                                .load(previewUrl)
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                                .preload()
+                        } catch (_: Exception) {}
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
     private fun checkCdnConnection() {

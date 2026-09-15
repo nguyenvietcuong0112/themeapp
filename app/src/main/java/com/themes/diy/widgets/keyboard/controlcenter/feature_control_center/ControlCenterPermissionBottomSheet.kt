@@ -1,7 +1,6 @@
 package com.themes.diy.widgets.keyboard.controlcenter.feature_control_center
 
 import android.Manifest
-import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,20 +11,17 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.accessibility.AccessibilityManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.themes.diy.widgets.keyboard.controlcenter.R
 import com.themes.diy.widgets.keyboard.controlcenter.core.utils.PermissionDetector
-import com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.service.ControlCenterAccessibilityService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class ControlCenterPermissionBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var btnCloseDialog: ImageView
-    private lateinit var switchAccessibility: SwitchMaterial
     private lateinit var switchWriteSettings: SwitchMaterial
     private lateinit var switchNotifications: SwitchMaterial
     private lateinit var switchOverlay: SwitchMaterial
@@ -44,7 +40,6 @@ class ControlCenterPermissionBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnCloseDialog = view.findViewById(R.id.btnCloseDialog)
-        switchAccessibility = view.findViewById(R.id.switchAccessibility)
         switchWriteSettings = view.findViewById(R.id.switchWriteSettings)
         switchNotifications = view.findViewById(R.id.switchNotifications)
         switchOverlay = view.findViewById(R.id.switchOverlay)
@@ -63,29 +58,7 @@ class ControlCenterPermissionBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun setupSwitchListeners(view: View) {
-        // 1. Accessibility Service
-        val cardAcc = view.findViewById<View>(R.id.layoutCardAccessibility)
-        val onAccClick = View.OnClickListener {
-            if (!isAccessibilityGranted()) {
-                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                startActivity(intent)
-
-                val act = activity ?: return@OnClickListener
-                PermissionDetector.startDetectingPermission(
-                    activity = act,
-                    checkPermission = { isAccessibilityGranted() },
-                    onGranted = {
-                        updateSwitchStates()
-                        onPermissionUpdated?.invoke()
-                        Toast.makeText(context, "Dịch vụ trợ năng đã được bật!", Toast.LENGTH_SHORT).show()
-                    }
-                )
-            }
-        }
-        cardAcc.setOnClickListener(onAccClick)
-        switchAccessibility.setOnClickListener(onAccClick)
-
-        // 2. Write Settings
+        // 1. Write Settings
         val cardSettings = view.findViewById<View>(R.id.layoutCardWriteSettings)
         val onSettingsClick = View.OnClickListener {
             if (!isWriteSettingsGranted()) {
@@ -160,21 +133,9 @@ class ControlCenterPermissionBottomSheet : BottomSheetDialogFragment() {
     private fun updateSwitchStates() {
         val context = context ?: return
 
-        switchAccessibility.isChecked = isAccessibilityGranted()
         switchWriteSettings.isChecked = isWriteSettingsGranted()
         switchNotifications.isChecked = isNotificationsGranted()
         switchOverlay.isChecked = isOverlayGranted()
-    }
-
-    private fun isAccessibilityGranted(): Boolean {
-        val context = context ?: return false
-        val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager ?: return false
-        val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-        val myService = "${context.packageName}/${ControlCenterAccessibilityService::class.java.name}"
-        return enabledServices.any { 
-            val id = it.id
-            id.contains(context.packageName) && id.contains("ControlCenterAccessibilityService")
-        }
     }
 
     private fun isWriteSettingsGranted(): Boolean {

@@ -64,7 +64,7 @@ class ControlThemeLoader(private val context: Context) {
     private val defaultFolder = "assets_control_center/control_themes/aesthetic/autumn_study"
 
     fun loadTheme(themePath: String): ControlThemeAssets {
-        val cleanPath = themePath.removePrefix("file:///android_asset/").removePrefix("android_asset/")
+        val cleanPath = com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.ControlCenterRepository.resolveControlThemeFolderPath(themePath)
         val spec = loadSpec("$cleanPath/control_spec.json")
 
         fun loadBitmapWithFallback(filename: String): Bitmap? {
@@ -118,20 +118,39 @@ class ControlThemeLoader(private val context: Context) {
     }
 
     private fun loadSpec(jsonPath: String): ControlSpec {
+        val cleanPath = jsonPath.removePrefix("file:///android_asset/").removePrefix("android_asset/").removePrefix("/")
+        
+        // 1. Check downloaded files in internal storage
+        val localFile = java.io.File(context.filesDir, cleanPath)
+        if (localFile.exists() && localFile.length() > 0) {
+            try {
+                val jsonStr = localFile.readText()
+                val json = JSONObject(jsonStr)
+                return parseSpec(json)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // 2. Check APK packaged assets
         return try {
-            val jsonStr = context.assets.open(jsonPath).bufferedReader().use { it.readText() }
+            val jsonStr = context.assets.open(cleanPath).bufferedReader().use { it.readText() }
             val json = JSONObject(jsonStr)
-            ControlSpec(
-                pullBarColor = parseColorSafe(json.optString("pullBarColor"), Color.WHITE),
-                controlTextColor = parseColorSafe(json.optString("controlTextColor"), Color.WHITE),
-                brightnessTextColor = parseColorSafe(json.optString("brightnessTextColor"), Color.WHITE),
-                volumeTextColor = parseColorSafe(json.optString("volumeTextColor"), Color.WHITE),
-                musicKnownTitleColor = parseColorSafe(json.optString("musicKnownTitleColor"), Color.WHITE),
-                musicKnownSingerColor = parseColorSafe(json.optString("musicKnownSingerColor"), Color.WHITE)
-            )
+            parseSpec(json)
         } catch (e: Exception) {
             ControlSpec()
         }
+    }
+
+    private fun parseSpec(json: JSONObject): ControlSpec {
+        return ControlSpec(
+            pullBarColor = parseColorSafe(json.optString("pullBarColor"), Color.WHITE),
+            controlTextColor = parseColorSafe(json.optString("controlTextColor"), Color.WHITE),
+            brightnessTextColor = parseColorSafe(json.optString("brightnessTextColor"), Color.WHITE),
+            volumeTextColor = parseColorSafe(json.optString("volumeTextColor"), Color.WHITE),
+            musicKnownTitleColor = parseColorSafe(json.optString("musicKnownTitleColor"), Color.WHITE),
+            musicKnownSingerColor = parseColorSafe(json.optString("musicKnownSingerColor"), Color.WHITE)
+        )
     }
 
     private fun parseColorSafe(colorStr: String?, defaultColor: Int): Int {
@@ -144,8 +163,21 @@ class ControlThemeLoader(private val context: Context) {
     }
 
     private fun loadBitmap(assetPath: String): Bitmap? {
+        val cleanPath = assetPath.removePrefix("file:///android_asset/").removePrefix("android_asset/").removePrefix("/")
+
+        // 1. Check downloaded files in internal storage
+        val localFile = java.io.File(context.filesDir, cleanPath)
+        if (localFile.exists() && localFile.length() > 0) {
+            try {
+                return BitmapFactory.decodeFile(localFile.absolutePath)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // 2. Check APK packaged assets
         return try {
-            val isStream: InputStream = context.assets.open(assetPath)
+            val isStream: InputStream = context.assets.open(cleanPath)
             isStream.use {
                 BitmapFactory.decodeStream(it)
             }

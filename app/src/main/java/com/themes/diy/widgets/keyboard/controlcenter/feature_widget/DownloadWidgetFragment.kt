@@ -81,8 +81,16 @@ class DownloadWidgetFragment : Fragment() {
                 }
             }
 
-            initWidgetItems(mappedFolder)
-            setupRecyclerView(mappedFolder)
+            var safeMappedFolder = mappedFolder
+                .removePrefix("assets_theme/")
+                .removePrefix("file:///android_asset/")
+                .removePrefix("/")
+            if (safeMappedFolder.startsWith("/") || safeMappedFolder.contains("files/theme_preview") || safeMappedFolder.isEmpty()) {
+                safeMappedFolder = "category/Trending/theme_1"
+            }
+
+            initWidgetItems(safeMappedFolder)
+            setupRecyclerView(safeMappedFolder)
             setupActions()
         }
     }

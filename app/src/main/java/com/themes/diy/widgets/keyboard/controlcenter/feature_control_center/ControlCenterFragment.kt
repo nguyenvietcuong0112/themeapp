@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.themes.diy.widgets.keyboard.controlcenter.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -79,24 +81,66 @@ class ControlCenterFragment : Fragment() {
     }
 
     private fun loadControlThemes() {
-        pbLoading.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.IO) {
-            val categories = repository.getCategories()
-            allCategories = categories
+            // 1. Fast instant load from memory/disk/local asset (0ms, no blank screen)
+            val fastCategories = repository.getCategoriesFast()
+            if (fastCategories.isNotEmpty()) {
+                allCategories = fastCategories
+                val categoryItems = buildCategoryItems(fastCategories)
+                val allThemes = fastCategories.flatMap { it.themes }.distinctBy { it.name }
 
-            val categoryItems = mutableListOf<ControlCategoryItem>()
-            categoryItems.add(ControlCategoryItem(slug = "all", name = "All", isSelected = true))
-            categories.forEach { cat ->
-                categoryItems.add(ControlCategoryItem(slug = cat.slug, name = cat.name, isSelected = false))
+                withContext(Dispatchers.Main) {
+                    pbLoading.visibility = View.GONE
+                    categoryAdapter.submitList(categoryItems)
+                    themeAdapter.updateData(allThemes)
+                }
+
+                // Preload top 15 thumbnails into Glide cache
+                preloadThumbnails(allThemes.take(15))
+            } else {
+                withContext(Dispatchers.Main) {
+                    pbLoading.visibility = View.VISIBLE
+                }
             }
 
-            val allThemes = categories.flatMap { it.themes }
+            // 2. Background sync from CDN (Stale-While-Revalidate)
+            val updatedCategories = repository.refreshFromCdn()
+            if (updatedCategories != null && updatedCategories.isNotEmpty()) {
+                allCategories = updatedCategories
+                val categoryItems = buildCategoryItems(updatedCategories)
+                val currentThemes = if (selectedCategorySlug == "all") {
+                    updatedCategories.flatMap { it.themes }.distinctBy { it.name }
+                } else {
+                    updatedCategories.firstOrNull { it.slug == selectedCategorySlug }?.themes ?: emptyList()
+                }
 
-            withContext(Dispatchers.Main) {
-                pbLoading.visibility = View.GONE
-                categoryAdapter.submitList(categoryItems)
-                themeAdapter.updateData(allThemes)
+                withContext(Dispatchers.Main) {
+                    pbLoading.visibility = View.GONE
+                    categoryAdapter.submitList(categoryItems)
+                    themeAdapter.updateData(currentThemes)
+                }
             }
+        }
+    }
+
+    private fun buildCategoryItems(categories: List<ControlCategory>): List<ControlCategoryItem> {
+        val categoryItems = mutableListOf<ControlCategoryItem>()
+        categoryItems.add(ControlCategoryItem(slug = "all", name = "All", isSelected = (selectedCategorySlug == "all")))
+        categories.forEach { cat ->
+            categoryItems.add(ControlCategoryItem(slug = cat.slug, name = cat.name, isSelected = (selectedCategorySlug == cat.slug)))
+        }
+        return categoryItems
+    }
+
+    private fun preloadThumbnails(themes: List<ControlTheme>) {
+        val ctx = context ?: return
+        for (theme in themes) {
+            try {
+                Glide.with(ctx)
+                    .load(theme.thumbPath)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .preload()
+            } catch (_: Exception) {}
         }
     }
 
@@ -111,7 +155,7 @@ class ControlCenterFragment : Fragment() {
         categoryAdapter.submitList(updatedTabs)
 
         val filteredThemes = if (slug == "all") {
-            allCategories.flatMap { it.themes }
+            allCategories.flatMap { it.themes }.distinctBy { it.name }
         } else {
             allCategories.firstOrNull { it.slug == slug }?.themes ?: emptyList()
         }

@@ -64,15 +64,14 @@ class WallpaperViewModel(application: Application) : AndroidViewModel(applicatio
                 val displayName = catName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
                 WallpaperCategory(catName, displayName)
             }
-            val finalCats = listOf(WallpaperCategory("all", "All", true)) + cats
+            val finalCats = cats
 
             withContext(Dispatchers.Main) {
                 _categories.value = finalCats
-                if (selectedCategory.value == null) {
-                    selectedCategory.value = finalCats.first()
-                } else {
-                    loadWallpapers(false)
+                if (selectedCategory.value == null || !finalCats.any { it.id == selectedCategory.value?.id }) {
+                    selectedCategory.value = finalCats.firstOrNull()
                 }
+                loadWallpapers(false)
             }
         }
     }
@@ -89,11 +88,11 @@ class WallpaperViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun loadWallpapers(loadMore: Boolean = false) {
-        val cat = selectedCategory.value?.id ?: "all"
-        val filtered = if (cat == "all") {
+        val cat = selectedCategory.value?.id ?: ""
+        val filtered = if (cat.isEmpty()) {
             allWallpapersList
         } else {
-            allWallpapersList.filter { it.category == cat }
+            allWallpapersList.filter { it.category.equals(cat, ignoreCase = true) }
         }
         _wallpapers.value = filtered
     }

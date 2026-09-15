@@ -7,7 +7,7 @@ import android.os.Build
 import android.provider.AlarmClock
 import android.provider.MediaStore
 import android.provider.Settings
-import com.themes.diy.widgets.keyboard.controlcenter.feature_control_center.service.ControlCenterAccessibilityService
+import android.widget.Toast
 
 class ShortcutController(private val context: Context) {
 
@@ -123,15 +123,12 @@ class ShortcutController(private val context: Context) {
     }
 
     fun takeScreenshot(): Boolean {
-        val accService = ControlCenterAccessibilityService.instance
-        if (accService != null && accService.takeScreenshot()) {
-            return true
-        }
         try {
-            val intent = Intent(Intent.ACTION_MAIN).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-            context.startActivity(intent)
+            Toast.makeText(
+                context,
+                "Nhấn nút Nguồn + Giảm âm lượng để chụp ảnh màn hình",
+                Toast.LENGTH_SHORT
+            ).show()
         } catch (e: Exception) {
             e.printStackTrace()
         }

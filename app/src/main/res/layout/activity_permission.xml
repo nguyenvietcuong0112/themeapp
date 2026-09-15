@@ -357,11 +357,13 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 5: Location Access -->
+            <!-- Card 5: Location Access (Requested contextually when adding Weather Widget, hidden on initial onboarding) -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"

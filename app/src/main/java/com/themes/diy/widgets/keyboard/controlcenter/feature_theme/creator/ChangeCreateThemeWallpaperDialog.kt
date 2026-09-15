@@ -41,6 +41,7 @@ class ChangeCreateThemeWallpaperDialog : BottomSheetDialogFragment() {
             val behavior = com.google.android.material.bottomsheet.BottomSheetBehavior.from(bottomSheet)
             behavior.state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
+            behavior.isDraggable = false
             bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         }
     }
@@ -65,10 +66,12 @@ class ChangeCreateThemeWallpaperDialog : BottomSheetDialogFragment() {
 
         // Setup Category list (horizontal)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRecyclerView.isNestedScrollingEnabled = false
         binding.categoryRecyclerView.visibility = View.VISIBLE
 
         // Setup Grid list (3 columns cuon doc)
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
+        binding.recyclerView.isNestedScrollingEnabled = true
         binding.pbCreate.visibility = View.VISIBLE
 
         binding.viewClick.setOnClickListener { dismiss() }
@@ -80,8 +83,16 @@ class ChangeCreateThemeWallpaperDialog : BottomSheetDialogFragment() {
     private fun observeViewModel() {
         viewModel.categories.observe(viewLifecycleOwner) { cats ->
             val catNames = cats.map { it.name }
-            val selected = viewModel.selectedCategory.value?.name ?: "All"
+            val selected = viewModel.selectedCategory.value?.name ?: catNames.firstOrNull() ?: ""
             binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(catNames, selected) { cat ->
+                viewModel.filterWallpapers(cat)
+            }
+        }
+
+        viewModel.selectedCategory.observe(viewLifecycleOwner) { selectedCat ->
+            val cats = viewModel.categories.value ?: return@observe
+            val catNames = cats.map { it.name }
+            binding.categoryRecyclerView.adapter = CreateThemeCategoryAdapter(catNames, selectedCat.name) { cat ->
                 viewModel.filterWallpapers(cat)
             }
         }
@@ -140,6 +151,8 @@ class ChangeCreateThemeWallpaperDialog : BottomSheetDialogFragment() {
 
                 Glide.with(itemView.context)
                     .load(url)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .error(R.drawable.bg_default_placeholder)
                     .centerCrop()
                     .into(ivPreview)
 

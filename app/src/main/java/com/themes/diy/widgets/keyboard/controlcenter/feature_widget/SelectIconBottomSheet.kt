@@ -64,6 +64,13 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         this.selectedIcons = selectedIcons
     }
 
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog as? com.google.android.material.bottomsheet.BottomSheetDialog
+        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.setBackgroundResource(android.R.color.transparent)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,7 +91,13 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.tvTitle.text = "Add Icons to Home Screen"
+        val count = selectedIcons.size
+        binding.tvSubtitle.text = "$count icon${if (count > 1) "s" else ""} selected to install"
         binding.tvDone.text = "Add"
+
+        binding.ivClose.setOnClickListener {
+            dismiss()
+        }
 
         binding.tvCancel.setOnClickListener {
             dismiss()
@@ -120,6 +133,7 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         binding.progressBar.max = totalToInstall
         binding.progressBar.progress = 0
         binding.progressBar.visibility = View.VISIBLE
+        binding.tvSubtitle.text = "Tap Next or accept launcher prompts"
         binding.tvDone.text = "Next >"
 
         processNextShortcut()
@@ -133,7 +147,8 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
 
             val nextItem = installQueue.removeAt(0)
             val appLabel = nextItem.targetAppName ?: nextItem.iconName.removePrefix("ic_").replaceFirstChar { it.uppercase() }
-            binding.tvTitle.text = "Adding: $appLabel (${installedCount + 1}/$totalToInstall)"
+            binding.tvTitle.text = "Adding: $appLabel"
+            binding.tvSubtitle.text = "Shortcut ${installedCount + 1} of $totalToInstall"
 
             lifecycleScope.launch(Dispatchers.IO) {
                 val bitmap = loadThemeIconBitmap(nextItem)
@@ -244,7 +259,21 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
 
     private fun loadThemeIconBitmap(item: ThemeIconItem): Bitmap? {
         val context = context ?: return null
-        val cleanPath = item.assetPath
+        val rawPath = item.assetPath
+
+        if (rawPath.startsWith("http://") || rawPath.startsWith("https://")) {
+            return try {
+                Glide.with(context)
+                    .asBitmap()
+                    .load(Uri.parse(rawPath))
+                    .submit()
+                    .get()
+            } catch (e: Exception) {
+                drawFallbackIcon()
+            }
+        }
+
+        val cleanPath = rawPath
             .removePrefix("file:///android_asset/")
             .removePrefix("file://android_asset/")
             .removePrefix("android_asset/")
@@ -261,17 +290,21 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
                     .submit()
                     .get()
             } catch (e2: Exception) {
-                val size = 96
-                val fallback = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
-                val canvas = Canvas(fallback)
-                val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    color = Color.parseColor("#FA4D75")
-                    style = Paint.Style.FILL
-                }
-                canvas.drawRoundRect(0f, 0f, size.toFloat(), size.toFloat(), 16f, 16f, paint)
-                fallback
+                drawFallbackIcon()
             }
         }
+    }
+
+    private fun drawFallbackIcon(): Bitmap {
+        val size = 96
+        val fallback = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(fallback)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#FA4D75")
+            style = Paint.Style.FILL
+        }
+        canvas.drawRoundRect(0f, 0f, size.toFloat(), size.toFloat(), 16f, 16f, paint)
+        return fallback
     }
 
     private fun roundBitmap(bitmap: Bitmap, cornerRadiusDp: Float): Bitmap {
@@ -319,14 +352,22 @@ class SelectIconBottomSheet : BottomSheetDialogFragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = list[position]
             val context = holder.itemView.context
-            val cleanPath = item.assetPath
-                .removePrefix("file:///android_asset/")
-                .removePrefix("file://android_asset/")
-                .removePrefix("android_asset/")
-                .removePrefix("/")
+            val rawPath = item.assetPath
+
+            val uri = if (rawPath.startsWith("http://") || rawPath.startsWith("https://")) {
+                Uri.parse(rawPath)
+            } else if (rawPath.startsWith("file:///android_asset/")) {
+                Uri.parse(rawPath)
+            } else {
+                val cleanPath = rawPath
+                    .removePrefix("file://android_asset/")
+                    .removePrefix("android_asset/")
+                    .removePrefix("/")
+                Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanPath")
+            }
 
             Glide.with(context)
-                .load(Uri.parse("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$cleanPath"))
+                .load(uri)
                 .placeholder(R.drawable.bg_default_placeholder)
                 .error(R.drawable.bg_default_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

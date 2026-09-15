@@ -4,28 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"  
     android:layout_width="match_parent" 
     android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/dp_4">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:foreground="?android:attr/selectableItemBackground"
         android:clipToOutline="true"
         app:cardCornerRadius="@dimen/dp_16"
         app:cardElevation="@dimen/dp_0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintDimensionRatio="H,9:16">
+        app:layout_constraintDimensionRatio="H,218:105">
 
         <com.themes.diy.widgets.keyboard.controlcenter.core.ui.RemoteImageView
             android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
     </androidx.cardview.widget.CardView>
 
     <TextView

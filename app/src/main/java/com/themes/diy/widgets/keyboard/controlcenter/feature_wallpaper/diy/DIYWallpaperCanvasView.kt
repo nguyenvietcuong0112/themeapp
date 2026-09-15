@@ -127,6 +127,27 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
         }
     }
 
+    fun initBlankCanvas(backgroundColor: Int = 0xFF12121A.toInt()) {
+        undoList.clear()
+        redoList.clear()
+        layers.clear()
+        activeLayer = null
+        baseType = "solid"
+        baseColor = backgroundColor
+        baseImageBitmap = null
+        saveToHistory()
+        invalidate()
+    }
+
+    fun deleteActiveLayer() {
+        activeLayer?.let {
+            saveToHistory()
+            layers.remove(it)
+            activeLayer = null
+            invalidate()
+        }
+    }
+
     fun setBackgroundSolid(color: Int) {
         saveToHistory()
         baseType = "solid"
@@ -616,7 +637,8 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             if (layer === activeLayer) {
                 val halfW = layer.width / 2f
                 val halfH = layer.height / 2f
-                canvas.drawRect(-halfW - 8f, -halfH - 8f, halfW + 8f, halfH + 8f, borderPaint)
+                val rect = RectF(-halfW - 8f, -halfH - 8f, halfW + 8f, halfH + 8f)
+                canvas.drawRoundRect(rect, 12f, 12f, borderPaint)
             }
 
             canvas.restore()

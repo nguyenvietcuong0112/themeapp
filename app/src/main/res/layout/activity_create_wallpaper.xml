@@ -72,10 +72,11 @@
             android:id="@+id/llMenuView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_corner_24_top"
-            android:backgroundTint="#FFFFFF"
-            android:elevation="@dimen/dp_16"
-            app:layout_constraintBottom_toTopOf="@+id/bottomView"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_floating_dock"
+            android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
             
@@ -84,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingVertical="12dp"
+                android:paddingVertical="10dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
                 
@@ -307,7 +308,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Choose a template to customize your wallpaper"
+            android:text="Choose a template or start from a blank canvas"
             android:textColor="@color/text_secondary"
             android:textSize="13sp" />
 
@@ -317,7 +318,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="8dp"
             android:paddingBottom="24dp" />
     </LinearLayout>
 </FrameLayout>

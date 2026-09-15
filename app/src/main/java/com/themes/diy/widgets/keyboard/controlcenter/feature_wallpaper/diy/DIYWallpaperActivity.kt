@@ -24,6 +24,7 @@ import com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig
 import com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.data.entity.Template
 import com.themes.diy.widgets.keyboard.controlcenter.core.di.ServiceLocator
 import com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.SetWallpaperBottomSheet
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
     }
 
     private fun setupTemplatesSelector() {
-        rvTemplates.layoutManager = GridLayoutManager(this, 3)
+        rvTemplates.layoutManager = GridLayoutManager(this, 2)
 
         lifecycleScope.launch(Dispatchers.IO) {
             val templateDao = ServiceLocator.getTemplateDao(this@DIYWallpaperActivity)
@@ -139,10 +140,17 @@ class DIYWallpaperActivity : AppCompatActivity() {
             }
 
             withContext(Dispatchers.Main) {
-                rvTemplates.adapter = TemplateAdapter(finalList) { selectedTemplate ->
-                    templateContainer.visibility = View.GONE
-                    wallpaperCanvas.loadTemplate(selectedTemplate.templateFolder)
-                }
+                rvTemplates.adapter = TemplateAdapter(
+                    list = finalList,
+                    onBlankClick = {
+                        templateContainer.visibility = View.GONE
+                        wallpaperCanvas.initBlankCanvas()
+                    },
+                    onClick = { selectedTemplate ->
+                        templateContainer.visibility = View.GONE
+                        wallpaperCanvas.loadTemplate(selectedTemplate.templateFolder)
+                    }
+                )
             }
         }
 
@@ -233,15 +241,15 @@ class DIYWallpaperActivity : AppCompatActivity() {
         }
 
         btnAddSticker.setOnClickListener {
-            showStickerPickerDialog()
+            showStickerBottomSheet()
         }
 
         btnChangeBase.setOnClickListener {
-            showBaseLayerDialog()
+            showBackgroundBottomSheet()
         }
 
         btnFrame.setOnClickListener {
-            rvTemplates.visibility = View.VISIBLE
+            templateContainer.visibility = View.VISIBLE
         }
     }
 
@@ -301,112 +309,41 @@ class DIYWallpaperActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun showStickerPickerDialog() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val dbStickers = try {
-                ServiceLocator.getStickerDao(this@DIYWallpaperActivity).getAllStickers()
-            } catch (e: Exception) {
-                emptyList()
+    private fun showStickerBottomSheet() {
+        val sheet = BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_diy_sticker, null)
+        sheet.setContentView(sheetView)
+
+        val btnPickFromGallery = sheetView.findViewById<View>(R.id.btnPickFromGallery)
+        val rvCategories = sheetView.findViewById<RecyclerView>(R.id.rvStickerCategories)
+        val rvStickers = sheetView.findViewById<RecyclerView>(R.id.rvStickers)
+        val pbLoading = sheetView.findViewById<View>(R.id.pbLoading)
+
+        btnPickFromGallery.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
             }
-
-            withContext(Dispatchers.Main) {
-                if (dbStickers.isEmpty()) {
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "image/*"
-                    }
-                    startActivityForResult(intent, REQUEST_PICK_STICKER_IMAGE)
-                    return@withContext
-                }
-
-                val options = dbStickers.map { it.name }.toMutableList().apply {
-                    add("Choose from Gallery...")
-                }.toTypedArray()
-
-                AlertDialog.Builder(this@DIYWallpaperActivity)
-                    .setTitle("Select Sticker")
-                    .setItems(options) { dialog, which ->
-                        if (which == options.size - 1) {
-                            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                                addCategory(Intent.CATEGORY_OPENABLE)
-                                type = "image/*"
-                            }
-                            startActivityForResult(intent, REQUEST_PICK_STICKER_IMAGE)
-                        } else {
-                            val selectedSticker = dbStickers[which]
-                            val cdnUrl = ResourceConfig.getDiyStickerUrl(selectedSticker.category, selectedSticker.imageName)
-                            
-                            lifecycleScope.launch(Dispatchers.IO) {
-                                try {
-                                    val bmp = Glide.with(this@DIYWallpaperActivity)
-                                        .asBitmap()
-                                        .load(cdnUrl)
-                                        .submit()
-                                        .get()
-                                    if (bmp != null) {
-                                        withContext(Dispatchers.Main) {
-                                            wallpaperCanvas.addStickerLayer(bmp)
-                                            Toast.makeText(this@DIYWallpaperActivity, "Sticker added!", Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                    withContext(Dispatchers.Main) {
-                                        Toast.makeText(this@DIYWallpaperActivity, "Failed to load sticker from CDN", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                            }
-                        }
-                        dialog.dismiss()
-                    }
-                    .show()
-            }
+            startActivityForResult(intent, REQUEST_PICK_STICKER_IMAGE)
+            sheet.dismiss()
         }
-    }
 
-    private fun showBaseLayerDialog() {
-        val choices = arrayOf("Solid Color", "Linear Gradient", "Gallery Image", "CDN Canvas Background")
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Choose Base Background Type")
-        builder.setItems(choices) { dialog, which ->
-            when (which) {
-                0 -> showSolidColorPickDialog()
-                1 -> showGradientColorPickDialog()
-                2 -> {
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "image/*"
-                    }
-                    startActivityForResult(intent, REQUEST_PICK_BASE_IMAGE)
-                }
-                3 -> showCDNBackgroundPickDialog()
-            }
-            dialog.dismiss()
-        }
-        builder.show()
-    }
+        val categories = listOf("Cute", "Heart", "Animal", "Flowers", "Birthday", "Food&Drink", "Emoji", "Party", "Holiday", "Babies", "Graduation", "Wedding")
+        var selectedCategory = categories.first()
 
-    private fun showCDNBackgroundPickDialog() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val dbBackgrounds = try {
-                ServiceLocator.getBackgroundDao(this@DIYWallpaperActivity).getAllBackgrounds()
-            } catch (e: Exception) {
-                emptyList()
-            }
+        fun loadStickers(category: String) {
+            pbLoading.visibility = View.VISIBLE
+            rvStickers.visibility = View.GONE
 
-            withContext(Dispatchers.Main) {
-                if (dbBackgrounds.isEmpty()) {
-                    Toast.makeText(this@DIYWallpaperActivity, "No CDN backgrounds available", Toast.LENGTH_SHORT).show()
-                    return@withContext
-                }
+            lifecycleScope.launch(Dispatchers.IO) {
+                val stickerFiles = (1..20).map { "ic_${category}_$it.png" }
 
-                val options = dbBackgrounds.map { it.name }.toTypedArray()
-                AlertDialog.Builder(this@DIYWallpaperActivity)
-                    .setTitle("Select CDN Background")
-                    .setItems(options) { dialog, which ->
-                        val selectedBg = dbBackgrounds[which]
-                        val cdnUrl = ResourceConfig.getDiyBackgroundUrl(selectedBg.category, selectedBg.imageName)
-
+                withContext(Dispatchers.Main) {
+                    pbLoading.visibility = View.GONE
+                    rvStickers.visibility = View.VISIBLE
+                    rvStickers.layoutManager = GridLayoutManager(this@DIYWallpaperActivity, 4)
+                    rvStickers.adapter = StickerGridAdapter(category, stickerFiles) { cdnUrl ->
+                        sheet.dismiss()
                         lifecycleScope.launch(Dispatchers.IO) {
                             try {
                                 val bmp = Glide.with(this@DIYWallpaperActivity)
@@ -416,66 +353,138 @@ class DIYWallpaperActivity : AppCompatActivity() {
                                     .get()
                                 if (bmp != null) {
                                     withContext(Dispatchers.Main) {
-                                        wallpaperCanvas.setBackgroundImage(bmp)
-                                        Toast.makeText(this@DIYWallpaperActivity, "Background applied!", Toast.LENGTH_SHORT).show()
+                                        wallpaperCanvas.addStickerLayer(bmp)
+                                        Toast.makeText(this@DIYWallpaperActivity, "Sticker added!", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             } catch (e: Exception) {
                                 e.printStackTrace()
-                                withContext(Dispatchers.Main) {
-                                    Toast.makeText(this@DIYWallpaperActivity, "Failed to load background from CDN", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        rvCategories.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        rvCategories.adapter = CategoryChipAdapter(categories) { cat ->
+            selectedCategory = cat
+            loadStickers(cat)
+        }
+
+        loadStickers(selectedCategory)
+        sheet.show()
+    }
+
+    private fun showBackgroundBottomSheet() {
+        val sheet = BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.dialog_bottom_sheet_diy_background, null)
+        sheet.setContentView(sheetView)
+
+        val btnPickFromGallery = sheetView.findViewById<View>(R.id.btnPickBgFromGallery)
+        val rvCategories = sheetView.findViewById<RecyclerView>(R.id.rvBgCategories)
+        val rvBackgrounds = sheetView.findViewById<RecyclerView>(R.id.rvBackgrounds)
+        val pbLoading = sheetView.findViewById<View>(R.id.pbBgLoading)
+
+        btnPickFromGallery.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+            }
+            startActivityForResult(intent, REQUEST_PICK_BASE_IMAGE)
+            sheet.dismiss()
+        }
+
+        val categories = listOf("Solid Colors", "Gradients", "Aesthetic", "Cute", "Texture", "Colorful", "Elegant")
+        var selectedCategory = categories.first()
+
+        val solidColors = listOf(
+            Pair("#12121A", "Midnight"),
+            Pair("#1E1E2E", "Dark Slate"),
+            Pair("#2D3748", "Charcoal"),
+            Pair("#FF6B6B", "Coral Pink"),
+            Pair("#4ECDC4", "Mint"),
+            Pair("#FFE66D", "Pastel Sun"),
+            Pair("#6C5CE7", "Purple"),
+            Pair("#A8E6CF", "Light Mint"),
+            Pair("#FD79A8", "Rose"),
+            Pair("#FFFFFF", "Pure White"),
+            Pair("#F5F6FA", "Cloud"),
+            Pair("#2C3E50", "Deep Navy")
+        )
+
+        val gradients = listOf(
+            Pair("Neon Glow", Pair(0xFF00E5FF.toInt(), 0xFF7C4DFF.toInt())),
+            Pair("Sunset", Pair(0xFFFF6B6B.toInt(), 0xFFFFBE53.toInt())),
+            Pair("Dark Cosmic", Pair(0xFF12121A.toInt(), 0xFF3A3D52.toInt())),
+            Pair("Ocean Mint", Pair(0xFF4ECDC4.toInt(), 0xFF556270.toInt())),
+            Pair("Soft Dream", Pair(0xFFA18CD1.toInt(), 0xFFFBC2EB.toInt())),
+            Pair("Sky Blue", Pair(0xFF84FAB0.toInt(), 0xFF8FD3F4.toInt()))
+        )
+
+        fun loadBackgroundTab(category: String) {
+            when (category) {
+                "Solid Colors" -> {
+                    pbLoading.visibility = View.GONE
+                    rvBackgrounds.visibility = View.VISIBLE
+                    rvBackgrounds.layoutManager = GridLayoutManager(this@DIYWallpaperActivity, 3)
+                    rvBackgrounds.adapter = ColorPaletteAdapter(solidColors) { colorHex ->
+                        wallpaperCanvas.setBackgroundSolid(Color.parseColor(colorHex))
+                        sheet.dismiss()
+                    }
+                }
+                "Gradients" -> {
+                    pbLoading.visibility = View.GONE
+                    rvBackgrounds.visibility = View.VISIBLE
+                    rvBackgrounds.layoutManager = GridLayoutManager(this@DIYWallpaperActivity, 3)
+                    rvBackgrounds.adapter = GradientPaletteAdapter(gradients) { gradPair ->
+                        wallpaperCanvas.setBackgroundGradient(gradPair.first, gradPair.second)
+                        sheet.dismiss()
+                    }
+                }
+                else -> {
+                    pbLoading.visibility = View.VISIBLE
+                    rvBackgrounds.visibility = View.GONE
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val bgFiles = (1..15).map { "bg_wallpaper_$it.png" }
+                        withContext(Dispatchers.Main) {
+                            pbLoading.visibility = View.GONE
+                            rvBackgrounds.visibility = View.VISIBLE
+                            rvBackgrounds.layoutManager = GridLayoutManager(this@DIYWallpaperActivity, 3)
+                            rvBackgrounds.adapter = CdnBgGridAdapter(category, bgFiles) { cdnUrl ->
+                                sheet.dismiss()
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    try {
+                                        val bmp = Glide.with(this@DIYWallpaperActivity)
+                                            .asBitmap()
+                                            .load(cdnUrl)
+                                            .submit()
+                                            .get()
+                                        if (bmp != null) {
+                                            withContext(Dispatchers.Main) {
+                                                wallpaperCanvas.setBackgroundImage(bmp)
+                                                Toast.makeText(this@DIYWallpaperActivity, "Background applied!", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
                                 }
                             }
                         }
-                        dialog.dismiss()
                     }
-                    .show()
+                }
             }
         }
-    }
 
-    private fun showSolidColorPickDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Choose Background Color")
-        val etColor = EditText(this).apply {
-            setText("#12121A")
-            setPadding(48, 48, 48, 48)
+        rvCategories.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        rvCategories.adapter = CategoryChipAdapter(categories) { cat ->
+            selectedCategory = cat
+            loadBackgroundTab(cat)
         }
-        builder.setView(etColor)
-        builder.setPositiveButton("Apply") { dialog, _ ->
-            val colorStr = etColor.text.toString().trim()
-            val color = try { Color.parseColor(colorStr) } catch (e: Exception) { 0xFF12121A.toInt() }
-            wallpaperCanvas.setBackgroundSolid(color)
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-        builder.show()
-    }
 
-    private fun showGradientColorPickDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Choose Gradient Colors")
-        val root = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(48, 48, 48, 48)
-        }
-        val etStart = EditText(this).apply {
-            setText("#00E5FF")
-        }
-        val etEnd = EditText(this).apply {
-            setText("#7C4DFF")
-        }
-        root.addView(etStart)
-        root.addView(etEnd)
-        builder.setView(root)
-        builder.setPositiveButton("Apply") { dialog, _ ->
-            val start = try { Color.parseColor(etStart.text.toString().trim()) } catch (e: Exception) { 0xFF00E5FF.toInt() }
-            val end = try { Color.parseColor(etEnd.text.toString().trim()) } catch (e: Exception) { 0xFF7C4DFF.toInt() }
-            wallpaperCanvas.setBackgroundGradient(start, end)
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-        builder.show()
+        loadBackgroundTab(selectedCategory)
+        sheet.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -568,29 +577,63 @@ class DIYWallpaperActivity : AppCompatActivity() {
 
     private class TemplateAdapter(
         private val list: List<Template>,
+        private val onBlankClick: () -> Unit,
         private val onClick: (Template) -> Unit
-    ) : RecyclerView.Adapter<TemplateAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_template, parent, false)
-            return ViewHolder(view)
+        companion object {
+            private const val TYPE_BLANK = 0
+            private const val TYPE_TEMPLATE = 1
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(list[position], onClick)
+        override fun getItemViewType(position: Int): Int {
+            return if (position == 0) TYPE_BLANK else TYPE_TEMPLATE
         }
 
-        override fun getItemCount(): Int = list.size
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            return if (viewType == TYPE_BLANK) {
+                val view = inflater.inflate(R.layout.item_diy_template_blank, parent, false)
+                BlankViewHolder(view)
+            } else {
+                val view = inflater.inflate(R.layout.item_diy_template, parent, false)
+                TemplateViewHolder(view)
+            }
+        }
 
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            if (holder is BlankViewHolder) {
+                holder.bind(onBlankClick)
+            } else if (holder is TemplateViewHolder) {
+                holder.bind(list[position - 1], onClick)
+            }
+        }
+
+        override fun getItemCount(): Int = list.size + 1
+
+        class BlankViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            fun bind(onBlankClick: () -> Unit) {
+                itemView.setOnClickListener { onBlankClick() }
+            }
+        }
+
+        class TemplateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             private val ivPreview: ImageView = view.findViewById(R.id.ivPreview)
             private val tvName: TextView = view.findViewById(R.id.tvName)
+            private val tvBadge: TextView? = view.findViewById(R.id.tvBadge)
 
             fun bind(item: Template, onClick: (Template) -> Unit) {
                 tvName.text = item.name
-                
+                val badgeText = when {
+                    item.templateFolder.endsWith("1") || item.templateFolder.endsWith("7") -> "HOT"
+                    item.templateFolder.endsWith("2") || item.templateFolder.endsWith("8") -> "STORY"
+                    item.templateFolder.endsWith("3") || item.templateFolder.endsWith("9") -> "COLLAGE"
+                    else -> "NEW"
+                }
+                tvBadge?.text = badgeText
+
                 val previewUrl = ResourceConfig.getDiyPreviewUrl(item.templateFolder)
-                
+
                 Glide.with(itemView.context)
                     .load(previewUrl)
                     .placeholder(R.drawable.bg_default_placeholder)
@@ -600,6 +643,152 @@ class DIYWallpaperActivity : AppCompatActivity() {
                 itemView.setOnClickListener {
                     onClick(item)
                 }
+            }
+        }
+    }
+
+    private class CategoryChipAdapter(
+        private val categories: List<String>,
+        private val onSelect: (String) -> Unit
+    ) : RecyclerView.Adapter<CategoryChipAdapter.ViewHolder>() {
+        private var selectedIndex = 0
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_sticker_category, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(categories[position], position == selectedIndex) {
+                val prev = selectedIndex
+                selectedIndex = position
+                notifyItemChanged(prev)
+                notifyItemChanged(selectedIndex)
+                onSelect(categories[position])
+            }
+        }
+
+        override fun getItemCount(): Int = categories.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val tv: TextView = view.findViewById(R.id.tvCategoryName)
+            fun bind(cat: String, isSelected: Boolean, onClick: () -> Unit) {
+                tv.text = cat
+                if (isSelected) {
+                    tv.setBackgroundResource(R.drawable.bg_category_chip_selected)
+                    tv.setTextColor(Color.WHITE)
+                } else {
+                    tv.setBackgroundResource(R.drawable.bg_category_chip_unselected)
+                    tv.setTextColor(Color.parseColor("#1A1A1A"))
+                }
+                tv.setOnClickListener { onClick() }
+            }
+        }
+    }
+
+    private class StickerGridAdapter(
+        private val category: String,
+        private val items: List<String>,
+        private val onClick: (String) -> Unit
+    ) : RecyclerView.Adapter<StickerGridAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_sticker_picker, parent, false)
+            return ViewHolder(view)
+        }
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(category, items[position], onClick)
+        }
+        override fun getItemCount(): Int = items.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val iv: ImageView = view.findViewById(R.id.ivSticker)
+            fun bind(cat: String, imageName: String, onClick: (String) -> Unit) {
+                val url = ResourceConfig.getDiyStickerUrl(cat, imageName)
+                Glide.with(itemView.context)
+                    .load(url)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .into(iv)
+                itemView.setOnClickListener { onClick(url) }
+            }
+        }
+    }
+
+    private class ColorPaletteAdapter(
+        private val colors: List<Pair<String, String>>,
+        private val onClick: (String) -> Unit
+    ) : RecyclerView.Adapter<ColorPaletteAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_color_circle, parent, false)
+            return ViewHolder(view)
+        }
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(colors[position], onClick)
+        }
+        override fun getItemCount(): Int = colors.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val viewColor: View = view.findViewById(R.id.viewColor)
+            private val tvLabel: TextView = view.findViewById(R.id.tvColorLabel)
+            fun bind(item: Pair<String, String>, onClick: (String) -> Unit) {
+                viewColor.setBackgroundColor(Color.parseColor(item.first))
+                tvLabel.text = item.second
+                itemView.setOnClickListener { onClick(item.first) }
+            }
+        }
+    }
+
+    private class GradientPaletteAdapter(
+        private val gradients: List<Pair<String, Pair<Int, Int>>>,
+        private val onClick: (Pair<Int, Int>) -> Unit
+    ) : RecyclerView.Adapter<GradientPaletteAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_color_circle, parent, false)
+            return ViewHolder(view)
+        }
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(gradients[position], onClick)
+        }
+        override fun getItemCount(): Int = gradients.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val viewColor: View = view.findViewById(R.id.viewColor)
+            private val tvLabel: TextView = view.findViewById(R.id.tvColorLabel)
+            fun bind(item: Pair<String, Pair<Int, Int>>, onClick: (Pair<Int, Int>) -> Unit) {
+                val gd = android.graphics.drawable.GradientDrawable(
+                    android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(item.second.first, item.second.second)
+                )
+                viewColor.background = gd
+                tvLabel.text = item.first
+                itemView.setOnClickListener { onClick(item.second) }
+            }
+        }
+    }
+
+    private class CdnBgGridAdapter(
+        private val category: String,
+        private val items: List<String>,
+        private val onClick: (String) -> Unit
+    ) : RecyclerView.Adapter<CdnBgGridAdapter.ViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diy_bg_picker, parent, false)
+            return ViewHolder(view)
+        }
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.bind(category, items[position], onClick)
+        }
+        override fun getItemCount(): Int = items.size
+
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val iv: ImageView = view.findViewById(R.id.ivBgImage)
+            fun bind(cat: String, imageName: String, onClick: (String) -> Unit) {
+                val url = ResourceConfig.getDiyBackgroundUrl(cat, imageName)
+                Glide.with(itemView.context)
+                    .load(url)
+                    .placeholder(R.drawable.bg_default_placeholder)
+                    .centerCrop()
+                    .into(iv)
+                itemView.setOnClickListener { onClick(url) }
             }
         }
     }

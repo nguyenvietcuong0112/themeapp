@@ -56,17 +56,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
     private var currentIndex: Int = 0
     private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
-        val coarseGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
-        if (fineGranted || coarseGranted) {
-            continueDownloadAndPin()
-        } else {
-            Toast.makeText(context, "Location permission is required for weather widget.", Toast.LENGTH_SHORT).show()
-        }
-    }
+
 
     fun setParams(
         theme: KeyboardTheme,
@@ -303,21 +293,7 @@ class SelectWidgetBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun downloadAndPinWidget() {
-        val activity = activity ?: return
-        val (currentType, _) = getCurrentWidgetInfo()
-        if (currentType.lowercase().contains("weather")) {
-            val hasFine = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-            val hasCoarse = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-            if (!hasFine && !hasCoarse) {
-                requestPermissionLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                )
-                return
-            }
-        }
+        if (activity == null) return
         continueDownloadAndPin()
     }
 

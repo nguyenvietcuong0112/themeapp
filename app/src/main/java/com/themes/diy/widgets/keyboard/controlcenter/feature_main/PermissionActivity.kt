@@ -23,7 +23,6 @@ class PermissionActivity : AppCompatActivity() {
     private lateinit var btnGrantOverlay: SwitchCompat
     private lateinit var btnGrantWriteSettings: SwitchCompat
     private lateinit var btnGrantNotifications: SwitchCompat
-    private lateinit var btnGrantLocation: SwitchCompat
     private lateinit var btnGetStarted: Button
 
     // Launchers
@@ -33,15 +32,6 @@ class PermissionActivity : AppCompatActivity() {
         updateButtonStates()
         if (results.values.all { it }) {
             Toast.makeText(this, "Storage permission granted", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private val requestLocationLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { results ->
-        updateButtonStates()
-        if (results.values.all { it }) {
-            Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -80,7 +70,6 @@ class PermissionActivity : AppCompatActivity() {
         btnGrantOverlay = findViewById(R.id.btnGrantOverlay)
         btnGrantWriteSettings = findViewById(R.id.btnGrantWriteSettings)
         btnGrantNotifications = findViewById(R.id.btnGrantNotifications)
-        btnGrantLocation = findViewById(R.id.btnGrantLocation)
         btnGetStarted = findViewById(R.id.btnGetStarted)
     }
 
@@ -171,22 +160,6 @@ class PermissionActivity : AppCompatActivity() {
             }
         }
 
-        // 5. Location
-        btnGrantLocation.setOnClickListener {
-            if (isLocationGranted()) {
-                btnGrantLocation.isChecked = true
-                return@setOnClickListener
-            }
-            btnGrantLocation.isChecked = false
-
-            requestLocationLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        }
-
         // Continue
         btnGetStarted.setOnClickListener {
             navigateToMain()
@@ -198,7 +171,6 @@ class PermissionActivity : AppCompatActivity() {
         applySwitchState(btnGrantOverlay, isOverlayGranted())
         applySwitchState(btnGrantWriteSettings, isWriteSettingsGranted())
         applySwitchState(btnGrantNotifications, isNotificationsGranted())
-        applySwitchState(btnGrantLocation, isLocationGranted())
     }
 
     private fun applySwitchState(switch: SwitchCompat, isGranted: Boolean) {
@@ -227,10 +199,6 @@ class PermissionActivity : AppCompatActivity() {
         } else {
             true
         }
-    }
-
-    private fun isLocationGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun isNotificationsGranted(): Boolean {

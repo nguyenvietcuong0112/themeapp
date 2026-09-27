@@ -54,7 +54,8 @@
         <!-- Launcher Onboarding Permission Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_main.PermissionActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -64,42 +65,50 @@
         <!-- Main Dashboard Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_main.MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Setting Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_setting.SettingActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Theme Builder Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_theme.creator.CreateThemeActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Wallpaper DIY Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.diy.DIYWallpaperActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Wallpaper Creator/Editor Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.diy.CreateWallpaperActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Icon Changer Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_icon.IconChangerActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- Theme Preview Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_theme.ThemePreviewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- My Themes List Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_theme.my_theme.MyThemeActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <!-- All Keyboards Activity -->
         <activity
@@ -122,7 +131,8 @@
         <!-- Widget Configuration Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_widget.WidgetConfigActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -131,14 +141,15 @@
         <!-- Download & Apply Wallpaper Activity -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_wallpaper.DownloadWallpaperActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
  
         <!-- Charging Animation Screen -->
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_charging.ChargingActivity"
             android:exported="true"
             android:showOnLockScreen="true"
-            android:screenOrientation="sensor" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.themes.diy.widgets.keyboard.controlcenter.feature_widget.DownloadThemeActivity"

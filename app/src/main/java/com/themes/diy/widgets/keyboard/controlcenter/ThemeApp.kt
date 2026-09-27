@@ -113,6 +113,11 @@ class ThemeApp : Application() {
     private fun setupFullScreenLifecycle() {
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                try {
+                    activity.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 hideSystemBars(activity)
             }
 

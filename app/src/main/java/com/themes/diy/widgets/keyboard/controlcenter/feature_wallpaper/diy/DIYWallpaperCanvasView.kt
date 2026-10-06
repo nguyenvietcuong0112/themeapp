@@ -21,7 +21,7 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     var baseType = "solid"
-    var baseColor = 0xFF12121A.toInt()
+    var baseColor = Color.WHITE
     var gradientStartColor = 0xFF00E5FF.toInt()
     var gradientEndColor = 0xFF7C4DFF.toInt()
     var baseImageBitmap: Bitmap? = null
@@ -54,6 +54,7 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
     var onFrameClickListener: ((CanvasLayer) -> Unit)? = null
 
     private var pendingTemplateFolder: String? = null
+    private var pendingTemplateConfig: JSONObject? = null
 
     // Undo / Redo History States
     private val undoList = ArrayList<HistoryState>()
@@ -127,7 +128,7 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
         }
     }
 
-    fun initBlankCanvas(backgroundColor: Int = 0xFF12121A.toInt()) {
+    fun initBlankCanvas(backgroundColor: Int = Color.WHITE) {
         undoList.clear()
         redoList.clear()
         layers.clear()
@@ -227,144 +228,153 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             return
         }
         pendingTemplateFolder = null
+
+        val templatePath = if (templateFolder.startsWith("designs/")) templateFolder else "designs/$templateFolder"
+        Thread {
+            try {
+                val jsonString = try {
+                    context.assets.open("assets_wallpaper/templates/$templatePath/config.json").use { input ->
+                        input.bufferedReader().use { it.readText() }
+                    }
+                } catch (e: Exception) {
+                    try {
+                        val url = java.net.URL("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$templatePath/config.json")
+                        val conn = url.openConnection() as java.net.HttpURLConnection
+                        conn.connectTimeout = 10000
+                        conn.readTimeout = 10000
+                        conn.setRequestProperty("User-Agent", "Mozilla/5.0")
+                        conn.inputStream.bufferedReader().use { it.readText() }
+                    } catch (e2: Exception) {
+                        null
+                    }
+                }
+                if (!jsonString.isNullOrEmpty()) {
+                    val root = JSONObject(jsonString)
+                    post {
+                        applyTemplateConfig(root)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
+    fun applyTemplateConfig(root: JSONObject) {
+        if (width == 0 || height == 0) {
+            pendingTemplateConfig = root
+            return
+        }
+        pendingTemplateConfig = null
         saveToHistory()
         layers.clear()
         activeLayer = null
 
         try {
-            val templatePath = if (templateFolder.startsWith("designs/")) templateFolder else "designs/$templateFolder"
-            val jsonString = try {
-                context.assets.open("assets_wallpaper/templates/$templatePath/config.json").use { input ->
-                    input.bufferedReader().use { it.readText() }
-                }
-            } catch (e: Exception) {
-                try {
-                    val url = java.net.URL("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$templatePath/config.json")
-                    val conn = url.openConnection() as java.net.HttpURLConnection
-                    conn.connectTimeout = 8000
-                    conn.readTimeout = 8000
-                    conn.inputStream.bufferedReader().use { it.readText() }
-                } catch (e2: Exception) {
-                    "{}"
+            val templatePages = root.optJSONArray("templatePages") ?: return
+            if (templatePages.length() == 0) return
+            val pageObj = templatePages.getJSONObject(0)
+            val pagesArr = pageObj.optJSONArray("pages") ?: return
+            if (pagesArr.length() == 0) return
+            val subPage = pagesArr.getJSONObject(0)
+
+            // Read base template coordinate size
+            var templateWidth = 1130f
+            var templateHeight = 2388f
+            if (subPage.has("size")) {
+                val sizeStr = subPage.getString("size")
+                val parts = sizeStr.split(",")
+                if (parts.size == 2) {
+                    templateWidth = parts[0].trim().toFloatOrNull() ?: 1130f
+                    templateHeight = parts[1].trim().toFloatOrNull() ?: 2388f
                 }
             }
 
-            val root = JSONObject(jsonString)
-            val templatePages = root.getJSONArray("templatePages")
-            if (templatePages.length() > 0) {
-                val pageObj = templatePages.getJSONObject(0)
-                val pagesArr = pageObj.getJSONArray("pages")
-                if (pagesArr.length() > 0) {
-                    val subPage = pagesArr.getJSONObject(0)
+            // Scaling factors to fit current screen/canvas size
+            val scaleFactorX = width.toFloat() / templateWidth
+            val scaleFactorY = height.toFloat() / templateHeight
 
-                    // Read base template coordinate size
-                    var templateWidth = 1130f
-                    var templateHeight = 2388f
-                    if (subPage.has("size")) {
-                        val sizeStr = subPage.getString("size")
-                        val parts = sizeStr.split(",")
-                        if (parts.size == 2) {
-                            templateWidth = parts[0].trim().toFloat()
-                            templateHeight = parts[1].trim().toFloat()
-                        }
-                    }
+            // Read background color or image
+            if (subPage.has("colorPage")) {
+                val colorStr = subPage.getString("colorPage")
+                val parsedColor = try { Color.parseColor(colorStr) } catch (e: Exception) { Color.WHITE }
+                setBackgroundSolid(parsedColor)
+            } else {
+                setBackgroundSolid(Color.WHITE)
+            }
 
-                    // Scaling factors to fit current screen/canvas size
-                    val scaleFactorX = width.toFloat() / templateWidth
-                    val scaleFactorY = height.toFloat() / templateHeight
+            if (subPage.has("bgImage")) {
+                val bgImgPath = subPage.getString("bgImage")
+                val cleanBgImg = if (bgImgPath.startsWith("designs/")) bgImgPath else "designs/$bgImgPath"
+                loadBackgroundImage(cleanBgImg)
+            }
 
-                    // Read background color or image
-                    if (subPage.has("colorPage")) {
-                        val colorStr = subPage.getString("colorPage")
-                        setBackgroundSolid(Color.parseColor(colorStr))
-                    }
+            val components = subPage.optJSONArray("components") ?: org.json.JSONArray()
+            for (i in 0 until components.length()) {
+                val comp = components.getJSONObject(i)
+                val type = comp.getString("type")
 
-                    if (subPage.has("bgImage")) {
-                        val bgImgPath = subPage.getString("bgImage")
-                        val bgUrl = "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$bgImgPath"
-                        loadBackgroundImageFromUrl(bgUrl)
-                    }
+                val pos = comp.optJSONObject("position")
+                val left = pos?.optDouble("left", 0.0)?.toFloat() ?: 0f
+                val top = pos?.optDouble("top", 0.0)?.toFloat() ?: 0f
 
-                    val components = subPage.getJSONArray("components")
-                    for (i in 0 until components.length()) {
-                        val comp = components.getJSONObject(i)
-                        val type = comp.getString("type")
-
-                        val pos = comp.getJSONObject("position")
-                        val left = pos.optDouble("left", 0.0).toFloat()
-                        val top = pos.optDouble("top", 0.0).toFloat()
-
-                        var w = 200f
-                        var h = 200f
-                        if (comp.has("size")) {
-                            val sizeStr = comp.getString("size")
-                            val parts = sizeStr.split(",")
-                            if (parts.size == 2) {
-                                w = parts[0].trim().toFloat()
-                                h = parts[1].trim().toFloat()
-                            }
-                        }
-
-                        val angle = comp.optDouble("angle", 0.0).toFloat()
-                        val rotation = comp.optDouble("rotation", 0.0).toFloat()
-                        val finalRotation = if (angle != 0f) angle else rotation
-
-                        val finalW = w * scaleFactorX
-                        val finalH = h * scaleFactorY
-                        val finalX = (left + w / 2f) * scaleFactorX
-                        val finalY = (top + h / 2f) * scaleFactorY
-
-                        val layer = CanvasLayer(type = type).apply {
-                            this.x = finalX
-                            this.y = finalY
-                            this.width = finalW
-                            this.height = finalH
-                            this.rotation = finalRotation
-                        }
-
-                        when (type) {
-                            "text" -> {
-                                layer.text = comp.optString("text", "Text")
-                                if (comp.has("fontStyle")) {
-                                    val fontStyle = comp.getJSONObject("fontStyle")
-                                    if (fontStyle.has("color")) {
-                                        layer.textColor = Color.parseColor(fontStyle.getString("color"))
-                                    }
-                                    if (fontStyle.has("size")) {
-                                        layer.textSize = fontStyle.optDouble("size", 40.0).toFloat() * scaleFactorY
-                                    }
-                                    layer.fontName = fontStyle.optString("font", "normal")
-                                    if (layer.fontName != "normal" && layer.fontName.isNotEmpty()) {
-                                        layer.typeface = try {
-                                            Typeface.createFromAsset(context.assets, "assets_keyboard/fonts/${layer.fontName}")
-                                        } catch (e: Exception) {
-                                            try {
-                                                Typeface.createFromAsset(context.assets, "assets_theme/fonts/${layer.fontName}")
-                                            } catch (e2: Exception) {
-                                                Typeface.DEFAULT
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            "sticker" -> {
-                                val imgUrl = comp.getString("imageUrl")
-                                val cleanUrl = if (imgUrl.contains("template")) "designs/$imgUrl" else imgUrl
-                                layer.stickerUrl = "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$cleanUrl"
-                                loadStickerBitmap(layer)
-                            }
-                            "image_template" -> {
-                                layer.bgMaskImageUrl = comp.getString("bgMaskImageUrl")
-                                val sampleImg = comp.getString("sampleImageUrl")
-                                val cleanSampleImg = if (sampleImg.startsWith("designs/")) sampleImg else "designs/$sampleImg"
-                                layer.sampleImageUrl = "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$cleanSampleImg"
-                                updateMaskedBitmap(layer)
-                                loadFrameSampleBitmap(layer)
-                            }
-                        }
-                        layers.add(layer)
+                var w = 200f
+                var h = 200f
+                if (comp.has("size")) {
+                    val sizeStr = comp.getString("size")
+                    val parts = sizeStr.split(",")
+                    if (parts.size == 2) {
+                        w = parts[0].trim().toFloatOrNull() ?: 200f
+                        h = parts[1].trim().toFloatOrNull() ?: 200f
                     }
                 }
+
+                val angle = comp.optDouble("angle", 0.0).toFloat()
+                val rotation = comp.optDouble("rotation", 0.0).toFloat()
+                val finalRotation = if (angle != 0f) angle else rotation
+
+                val finalW = w * scaleFactorX
+                val finalH = h * scaleFactorY
+                val finalX = (left + w / 2f) * scaleFactorX
+                val finalY = (top + h / 2f) * scaleFactorY
+
+                val layer = CanvasLayer(type = type).apply {
+                    this.x = finalX
+                    this.y = finalY
+                    this.width = finalW
+                    this.height = finalH
+                    this.rotation = finalRotation
+                }
+
+                when (type) {
+                    "text" -> {
+                        layer.text = comp.optString("text", "Text")
+                        if (comp.has("fontStyle")) {
+                            val fontStyle = comp.getJSONObject("fontStyle")
+                            if (fontStyle.has("color")) {
+                                layer.textColor = try { Color.parseColor(fontStyle.getString("color")) } catch (e: Exception) { Color.BLACK }
+                            }
+                            if (fontStyle.has("size")) {
+                                layer.textSize = fontStyle.optDouble("size", 40.0).toFloat() * scaleFactorY
+                            }
+                            layer.fontName = fontStyle.optString("font", "normal")
+                            layer.typeface = resolveTypeface(layer.fontName)
+                        }
+                    }
+                    "sticker" -> {
+                        val imgUrl = comp.getString("imageUrl")
+                        val cleanUrl = if (imgUrl.startsWith("designs/")) imgUrl else "designs/$imgUrl"
+                        loadStickerBitmap(layer, cleanUrl)
+                    }
+                    "image_template" -> {
+                        layer.bgMaskImageUrl = comp.optString("bgMaskImageUrl", "")
+                        val sampleImg = comp.optString("sampleImageUrl", "")
+                        val cleanSampleImg = if (sampleImg.startsWith("designs/")) sampleImg else "designs/$sampleImg"
+                        updateMaskedBitmap(layer)
+                        loadFrameSampleBitmap(layer, cleanSampleImg)
+                    }
+                }
+                layers.add(layer)
             }
             invalidate()
         } catch (e: Exception) {
@@ -372,29 +382,41 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
         }
     }
 
-    private fun loadBackgroundImageFromUrl(url: String) {
+    private fun resolveTypeface(fontName: String): Typeface {
+        if (fontName == "normal" || fontName.isEmpty()) return Typeface.DEFAULT
+        val possibleNames = listOf(
+            fontName,
+            if (fontName.endsWith(".ttf") || fontName.endsWith(".otf")) fontName else "$fontName.ttf",
+            fontName.replace(" ", "_"),
+            fontName.replace(" ", "_").lowercase() + ".ttf",
+            fontName.lowercase() + ".ttf"
+        )
+        for (name in possibleNames) {
+            try {
+                return Typeface.createFromAsset(context.assets, "assets_keyboard/fonts/$name")
+            } catch (_: Exception) {}
+            try {
+                return Typeface.createFromAsset(context.assets, "assets_theme/fonts/$name")
+            } catch (_: Exception) {}
+            try {
+                return Typeface.createFromAsset(context.assets, "fonts/$name")
+            } catch (_: Exception) {}
+        }
+        return Typeface.DEFAULT
+    }
+
+    private fun loadBackgroundImage(cleanBgImg: String) {
+        val assetPath = "assets_wallpaper/templates/$cleanBgImg"
+        val model: Any = try {
+            context.assets.open(assetPath).close()
+            Uri.parse("file:///android_asset/$assetPath")
+        } catch (e: Exception) {
+            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$assetPath"
+        }
+
         Glide.with(context)
             .asBitmap()
-            .load(url)
-            .listener(object : com.bumptech.glide.request.RequestListener<Bitmap> {
-                override fun onLoadFailed(
-                    e: com.bumptech.glide.load.engine.GlideException?,
-                    model: Any?,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return true
-                }
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    model: Any,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    dataSource: com.bumptech.glide.load.DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
+            .load(model)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     setBackgroundImage(resource)
@@ -403,30 +425,18 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             })
     }
 
-    private fun loadStickerBitmap(layer: CanvasLayer) {
-        val url = layer.stickerUrl ?: return
+    private fun loadStickerBitmap(layer: CanvasLayer, cleanUrl: String) {
+        val assetPath = "assets_wallpaper/templates/$cleanUrl"
+        val model: Any = try {
+            context.assets.open(assetPath).close()
+            Uri.parse("file:///android_asset/$assetPath")
+        } catch (e: Exception) {
+            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$assetPath"
+        }
+
         Glide.with(context)
             .asBitmap()
-            .load(url)
-            .listener(object : com.bumptech.glide.request.RequestListener<Bitmap> {
-                override fun onLoadFailed(
-                    e: com.bumptech.glide.load.engine.GlideException?,
-                    model: Any?,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return true
-                }
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    model: Any,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    dataSource: com.bumptech.glide.load.DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
+            .load(model)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     layer.stickerBitmap = resource
@@ -436,32 +446,20 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             })
     }
 
-    private fun loadFrameSampleBitmap(layer: CanvasLayer) {
-        val url = layer.sampleImageUrl ?: return
+    private fun loadFrameSampleBitmap(layer: CanvasLayer, cleanSampleImg: String) {
+        val assetPath = "assets_wallpaper/templates/$cleanSampleImg"
+        val model: Any = try {
+            context.assets.open(assetPath).close()
+            Uri.parse("file:///android_asset/$assetPath")
+        } catch (e: Exception) {
+            "${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$assetPath"
+        }
+
         Glide.with(context)
             .asBitmap()
-            .load(url)
+            .load(model)
             .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
-            .listener(object : com.bumptech.glide.request.RequestListener<Bitmap> {
-                override fun onLoadFailed(
-                    e: com.bumptech.glide.load.engine.GlideException?,
-                    model: Any?,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return true
-                }
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    model: Any,
-                    target: com.bumptech.glide.request.target.Target<Bitmap>,
-                    dataSource: com.bumptech.glide.load.DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     layer.sampleBitmap = resource
@@ -480,41 +478,31 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             val maskBmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
             val maskCanvas = Canvas(maskBmp)
 
-            layer.bgMaskImageUrl?.let { svgPath ->
-                try {
-                    val resolvedSvgPath = if (svgPath.startsWith("assets_wallpaper/")) {
-                        svgPath
-                    } else if (svgPath.startsWith("templates/")) {
-                        "assets_wallpaper/$svgPath"
-                    } else {
-                        "assets_wallpaper/templates/$svgPath"
-                    }
-                    val svg = try {
-                        com.caverock.androidsvg.SVG.getFromAsset(context.assets, resolvedSvgPath)
-                    } catch (e: Exception) {
-                        try {
-                            val url = java.net.URL("${com.themes.diy.widgets.keyboard.controlcenter.core.data.ResourceConfig.ASSET_BASE_URL}/$resolvedSvgPath")
-                            val conn = url.openConnection() as java.net.HttpURLConnection
-                            conn.connectTimeout = 8000
-                            conn.readTimeout = 8000
-                            conn.inputStream.use { stream ->
-                                com.caverock.androidsvg.SVG.getFromInputStream(stream)
-                            }
-                        } catch (e2: Exception) {
-                            null
-                        }
-                    }
-                    if (svg != null) {
-                        val rect = RectF(0f, 0f, w.toFloat(), h.toFloat())
-                        svg.renderToCanvas(maskCanvas, rect)
-                    } else {
-                        val paint = Paint().apply { color = Color.WHITE }
-                        maskCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), paint)
-                    }
-                } catch (e: Exception) {
+            val svgPath = layer.bgMaskImageUrl
+            if (!svgPath.isNullOrEmpty()) {
+                val maskFileName = java.io.File(svgPath).name
+                val possiblePaths = listOf(
+                    "assets_wallpaper/templates/mask/bg/$maskFileName",
+                    if (svgPath.startsWith("assets_wallpaper/")) svgPath else "assets_wallpaper/$svgPath",
+                    "assets_wallpaper/templates/$svgPath"
+                )
+                var svg: com.caverock.androidsvg.SVG? = null
+                for (p in possiblePaths) {
+                    try {
+                        svg = com.caverock.androidsvg.SVG.getFromAsset(context.assets, p)
+                        if (svg != null) break
+                    } catch (_: Exception) {}
+                }
+                if (svg != null) {
+                    val rect = RectF(0f, 0f, w.toFloat(), h.toFloat())
+                    svg.renderToCanvas(maskCanvas, rect)
+                } else {
                     val paint = Paint().apply { color = Color.WHITE }
                     maskCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), paint)
                 }
+            } else {
+                val paint = Paint().apply { color = Color.WHITE }
+                maskCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), paint)
             }
 
             val resultBmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
@@ -523,20 +511,21 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
             resultCanvas.drawBitmap(maskBmp, 0f, 0f, paint)
 
-            paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
             val bmp = layer.userImageBitmap ?: layer.sampleBitmap
             if (bmp != null) {
+                paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
                 val srcRect = Rect(0, 0, bmp.width, bmp.height)
                 val destRect = Rect(0, 0, w, h)
                 resultCanvas.drawBitmap(bmp, srcRect, destRect, paint)
+                paint.xfermode = null
             } else {
                 val colorPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                     color = Color.parseColor("#E5E7EB")
                     style = Paint.Style.FILL
+                    xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
                 }
                 resultCanvas.drawRect(0f, 0f, w.toFloat(), h.toFloat(), colorPaint)
             }
-            paint.xfermode = null
 
             layer.maskedBitmap?.recycle()
             layer.maskedBitmap = resultBmp
@@ -561,7 +550,9 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        pendingTemplateFolder?.let {
+        pendingTemplateConfig?.let {
+            applyTemplateConfig(it)
+        } ?: pendingTemplateFolder?.let {
             loadTemplate(it)
         }
     }
@@ -587,7 +578,7 @@ class DIYWallpaperCanvasView @JvmOverloads constructor(
                     val srcRect = Rect(0, 0, bmp.width, bmp.height)
                     val destRect = Rect(0, 0, width, height)
                     canvas.drawBitmap(bmp, srcRect, destRect, null)
-                } ?: canvas.drawColor(Color.BLACK)
+                } ?: canvas.drawColor(baseColor)
             }
         }
 

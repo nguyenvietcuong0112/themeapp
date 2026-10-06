@@ -44,6 +44,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
     private lateinit var rvTemplates: RecyclerView
 
     private lateinit var templateContainer: View
+    private lateinit var loadingOverlay: View
 
     companion object {
         private const val REQUEST_PICK_BASE_IMAGE = 5001
@@ -65,6 +66,7 @@ class DIYWallpaperActivity : AppCompatActivity() {
         }.start()
 
         templateContainer = findViewById(R.id.templateContainer)
+        loadingOverlay = findViewById(R.id.loadingOverlay)
         wallpaperCanvas = findViewById(R.id.wallpaperCanvas)
         btnApplyWallpaper = findViewById(R.id.tvSave)
         btnAddText = findViewById(R.id.tabText)
@@ -144,11 +146,10 @@ class DIYWallpaperActivity : AppCompatActivity() {
                     list = finalList,
                     onBlankClick = {
                         templateContainer.visibility = View.GONE
-                        wallpaperCanvas.initBlankCanvas()
+                        wallpaperCanvas.initBlankCanvas(Color.WHITE)
                     },
                     onClick = { selectedTemplate ->
-                        templateContainer.visibility = View.GONE
-                        wallpaperCanvas.loadTemplate(selectedTemplate.templateFolder)
+                        loadTemplateAsync(selectedTemplate.templateFolder)
                     }
                 )
             }
@@ -160,6 +161,46 @@ class DIYWallpaperActivity : AppCompatActivity() {
                 type = "image/*"
             }
             startActivityForResult(intent, REQUEST_PICK_USER_IMAGE)
+        }
+    }
+
+    private fun loadTemplateAsync(templateFolder: String) {
+        loadingOverlay.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.IO) {
+            val templatePath = if (templateFolder.startsWith("designs/")) templateFolder else "designs/$templateFolder"
+            val jsonString = try {
+                assets.open("assets_wallpaper/templates/$templatePath/config.json").use { input ->
+                    input.bufferedReader().use { it.readText() }
+                }
+            } catch (e: Exception) {
+                try {
+                    val url = java.net.URL("${ResourceConfig.ASSET_BASE_URL}/assets_wallpaper/templates/$templatePath/config.json")
+                    val conn = url.openConnection() as java.net.HttpURLConnection
+                    conn.connectTimeout = 10000
+                    conn.readTimeout = 10000
+                    conn.setRequestProperty("User-Agent", "Mozilla/5.0")
+                    conn.inputStream.bufferedReader().use { it.readText() }
+                } catch (e2: Exception) {
+                    e2.printStackTrace()
+                    null
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                loadingOverlay.visibility = View.GONE
+                if (!jsonString.isNullOrEmpty()) {
+                    try {
+                        val root = org.json.JSONObject(jsonString)
+                        templateContainer.visibility = View.GONE
+                        wallpaperCanvas.applyTemplateConfig(root)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        Toast.makeText(this@DIYWallpaperActivity, "Lỗi phân tích mẫu hình nền", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this@DIYWallpaperActivity, "Không thể tải mẫu hình nền. Vui lòng kiểm tra kết nối mạng!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -632,10 +673,16 @@ class DIYWallpaperActivity : AppCompatActivity() {
                 }
                 tvBadge?.text = badgeText
 
-                val previewUrl = ResourceConfig.getDiyPreviewUrl(item.templateFolder)
+                val localAssetPath = "assets_wallpaper/templates/designs/${item.templateFolder}/preview.png"
+                val model: Any = try {
+                    itemView.context.assets.open(localAssetPath).close()
+                    Uri.parse("file:///android_asset/$localAssetPath")
+                } catch (e: Exception) {
+                    ResourceConfig.getDiyPreviewUrl(item.templateFolder)
+                }
 
                 Glide.with(itemView.context)
-                    .load(previewUrl)
+                    .load(model)
                     .placeholder(R.drawable.bg_default_placeholder)
                     .centerCrop()
                     .into(ivPreview)
